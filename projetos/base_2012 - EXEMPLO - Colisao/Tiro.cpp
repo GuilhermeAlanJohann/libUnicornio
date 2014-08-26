@@ -1,0 +1,52 @@
+#include "Tiro.h"
+
+
+Tiro::Tiro()
+{
+	vel = 0.8;
+}
+
+Tiro::~Tiro()
+{
+}
+
+void Tiro::setSpriteSheet(SpriteSheet* sheet)
+{
+	spr.setSpriteSheet(sheet);
+}
+
+void Tiro::setPos(float x, float y)
+{
+	this->x = x;
+	this->y = y;
+}
+
+Sprite* Tiro::getSprite()
+{
+	return &spr;
+}
+
+float Tiro::getPosX()
+{
+	return x;
+}
+
+float Tiro::getPosY()
+{
+	return y;
+}
+
+float Tiro::getRot()
+{
+	return 0;
+}
+
+void Tiro::atualizar()
+{
+	y += vel;
+}
+
+void Tiro::desenhar()
+{
+	spr.desenhar(x, y);
+}
