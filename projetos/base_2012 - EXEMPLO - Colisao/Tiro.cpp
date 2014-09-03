@@ -43,6 +43,7 @@ float Tiro::getRot()
 
 void Tiro::atualizar()
 {
+	spr.avancarAnimacao();
 	y += vel;
 }
 

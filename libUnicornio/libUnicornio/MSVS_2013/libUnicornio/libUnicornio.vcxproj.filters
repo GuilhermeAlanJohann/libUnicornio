@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\libUnicornio.h" />
+    <ClInclude Include="..\..\..\include\versao_lib.h" />
+    <ClInclude Include="..\..\..\include\Eventos\Eventos.h">
+      <Filter>Eventos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Eventos\InputEnums.h">
+      <Filter>Eventos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GerenciadorDeRecursos.h" />
+    <ClInclude Include="..\..\..\include\TileMap\AStar.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\TileMap\NodoAStar.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\TileMap\ObjetoTile.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\TileMap\Tile.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\TileMap\TileLayer.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\TileMap\TileMap.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\TileMap\TileSet.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\TileMap\Vetor2D.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Midia\Fonte.h">
+      <Filter>Midia\Recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Midia\Som.h">
+      <Filter>Midia\Recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Midia\SpriteSheet.h">
+      <Filter>Midia\Recursos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Midia\Musica.h">
+      <Filter>Midia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Midia\Sprite.h">
+      <Filter>Midia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Midia\Texto.h">
+      <Filter>Midia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Interface\BotaoSprite.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{d7c9c8d7-380f-407e-8550-31a3ca1cec61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TileMap">
+      <UniqueIdentifier>{d2bb6b9b-292a-4c19-badf-07595534246a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Midia">
+      <UniqueIdentifier>{cf30468b-7ea4-4f4a-bc7c-24522df37f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Eventos">
+      <UniqueIdentifier>{9337ab7b-5f8f-4a5f-a726-7989e53a5668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Midia\Recursos">
+      <UniqueIdentifier>{8337f90c-66c2-454c-ac67-86419c479466}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="json">
+      <UniqueIdentifier>{46ca665d-87bf-4966-adae-6c6fde05a29c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\libUnicornio.cpp" />
+    <ClCompile Include="..\..\..\src\Eventos\Eventos.cpp">
+      <Filter>Eventos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Eventos\EventosAplicacao.cpp">
+      <Filter>Eventos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Eventos\EventosiOS.cpp">
+      <Filter>Eventos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Eventos\EventosJoysticks.cpp">
+      <Filter>Eventos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Eventos\EventosMouse.cpp">
+      <Filter>Eventos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Eventos\EventosTeclado.cpp">
+      <Filter>Eventos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Eventos\EventosToque.cpp">
+      <Filter>Eventos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GerenciadorDeRecursos.cpp" />
+    <ClCompile Include="..\..\..\src\TileMap\AStar.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TileMap\NodoAStar.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TileMap\ObjetoTile.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TileMap\Tile.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TileMap\TileLayer.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TileMap\TileMap.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TileMap\TileSet.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TileMap\Vetor2D.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Midia\Fonte.cpp">
+      <Filter>Midia\Recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Midia\Som.cpp">
+      <Filter>Midia\Recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Midia\SpriteSheet.cpp">
+      <Filter>Midia\Recursos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Midia\Musica.cpp">
+      <Filter>Midia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Midia\Sprite.cpp">
+      <Filter>Midia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Midia\Texto.cpp">
+      <Filter>Midia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\json\jsoncpp.cpp">
+      <Filter>json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Interface\BotaoSprite.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

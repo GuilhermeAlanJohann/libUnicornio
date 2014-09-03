@@ -1,4 +1,5 @@
 #include "AStar.h"
+#include <algorithm>
 #include "libUnicornio.h"
 
 AStar::AStar()

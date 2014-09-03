@@ -1,184 +1,201 @@
-﻿Build started 25/08/2014 21:23:20.
-     1>Project "C:\Users\Guilherme\Desktop\libUnicórnio\libUnicornio\libUnicornio\MSVS_2012\libUnicornio\libUnicornio.vcxproj" on node 2 (Build target(s)).
+﻿Build started 03/09/2014 14:32:51.
+     1>Project "C:\Users\Guilherme\Desktop\Guilherme\Projetos\libUnicornio\libUnicornio\libUnicornio\MSVS_2012\libUnicornio\libUnicornio.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SDL2\include /I..\..\SDL2\include /I..\..\..\SDL2\include /I..\..\..\include\Eventos /I..\..\..\include\Interface /I..\..\..\include\TileMap /I..\..\..\include\Midia /I..\..\..\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\..\src\Eventos\Eventos.cpp ..\..\..\src\Eventos\EventosMouse.cpp ..\..\..\src\Eventos\EventosToque.cpp ..\..\..\src\GerenciadorDeRecursos.cpp ..\..\..\src\Interface\BotaoSprite.cpp ..\..\..\src\Midia\Fonte.cpp ..\..\..\src\Midia\Musica.cpp ..\..\..\src\Midia\Som.cpp ..\..\..\src\Midia\Sprite.cpp ..\..\..\src\Midia\SpriteSheet.cpp ..\..\..\src\Midia\Texto.cpp ..\..\..\src\TileMap\AStar.cpp ..\..\..\src\TileMap\ObjetoTile.cpp ..\..\..\src\TileMap\TileMap.cpp ..\..\..\src\TileMap\TileSet.cpp ..\..\..\src\libUnicornio.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SDL2\include /I..\..\SDL2\include /I..\..\..\SDL2\include /I..\..\..\include\Eventos /I..\..\..\include\Interface /I..\..\..\include\TileMap /I..\..\..\include\Midia /I..\..\..\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\..\src\Eventos\Eventos.cpp ..\..\..\src\Eventos\EventosAplicacao.cpp ..\..\..\src\Eventos\EventosiOS.cpp ..\..\..\src\Eventos\EventosJoysticks.cpp ..\..\..\src\Eventos\EventosMouse.cpp ..\..\..\src\Eventos\EventosTeclado.cpp ..\..\..\src\Eventos\EventosToque.cpp ..\..\..\src\GerenciadorDeRecursos.cpp ..\..\..\src\Interface\BotaoSprite.cpp ..\..\..\src\json\jsoncpp.cpp ..\..\..\src\libUnicornio.cpp ..\..\..\src\Midia\Fonte.cpp ..\..\..\src\Midia\Musica.cpp ..\..\..\src\Midia\Som.cpp ..\..\..\src\Midia\Sprite.cpp ..\..\..\src\Midia\SpriteSheet.cpp ..\..\..\src\Midia\Texto.cpp ..\..\..\src\TileMap\AStar.cpp ..\..\..\src\TileMap\NodoAStar.cpp ..\..\..\src\TileMap\ObjetoTile.cpp ..\..\..\src\TileMap\Tile.cpp ..\..\..\src\TileMap\TileLayer.cpp ..\..\..\src\TileMap\TileMap.cpp ..\..\..\src\TileMap\TileSet.cpp ..\..\..\src\TileMap\Vetor2D.cpp
+         Vetor2D.cpp
+         TileSet.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+         TileMap.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(130): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(175): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(263): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(276): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(279): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(317): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(327): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(338): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(349): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(360): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(380): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(386): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(395): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(413): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(428): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(440): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(469): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(471): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(487): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(497): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(519): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(521): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(536): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(546): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(670): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(680): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(698): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(709): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(858): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(859): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(870): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(882): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\tilemap.cpp(884): warning C4018: '<' : signed/unsigned mismatch
+         TileLayer.cpp
+         Tile.cpp
+         ObjetoTile.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+         NodoAStar.cpp
+         AStar.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(54): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(59): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(91): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(95): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(111): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(142): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(145): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(149): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(150): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(156): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(157): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(158): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(170): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(176): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(182): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(189): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(199): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(243): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(247): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(352): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\tilemap\astar.cpp(353): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
+         Texto.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\texto.cpp(54): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\texto.cpp(59): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\texto.cpp(305): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\texto.cpp(306): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\texto.cpp(308): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         SpriteSheet.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\spritesheet.cpp(69): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\spritesheet.cpp(91): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\spritesheet.cpp(130): warning C4018: '<' : signed/unsigned mismatch
+         Sprite.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(119): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(124): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(159): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(201): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(202): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(394): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(409): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(438): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(455): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(456): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\midia\sprite.cpp(458): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         Som.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+         Musica.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+         Fonte.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
          libUnicornio.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(126): warning C4244: '=' : conversion from 'double' to 'Uint32', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(145): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(171): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(203): warning C4244: '=' : conversion from 'double' to 'Uint32', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(225): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(229): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(232): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(261): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(283): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(377): warning C4101: 'ob' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(377): warning C4101: 'or' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(377): warning C4101: 'oa' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(377): warning C4101: 'og' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(387): warning C4101: 'ob' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(387): warning C4101: 'or' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(387): warning C4101: 'oa' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(387): warning C4101: 'og' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(397): warning C4101: 'ob' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(397): warning C4101: 'or' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(397): warning C4101: 'oa' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(397): warning C4101: 'og' : unreferenced local variable
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(457): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(458): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(463): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(467): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(468): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(481): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(482): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(492): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(503): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(504): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(520): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(521): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(530): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(541): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(542): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\libunicornio.cpp(562): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(126): warning C4244: '=' : conversion from 'double' to 'Uint32', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(145): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(171): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(203): warning C4244: '=' : conversion from 'double' to 'Uint32', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(225): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(229): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(232): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(261): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(283): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(377): warning C4101: 'ob' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(377): warning C4101: 'or' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(377): warning C4101: 'oa' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(377): warning C4101: 'og' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(387): warning C4101: 'ob' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(387): warning C4101: 'or' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(387): warning C4101: 'oa' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(387): warning C4101: 'og' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(397): warning C4101: 'ob' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(397): warning C4101: 'or' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(397): warning C4101: 'oa' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(397): warning C4101: 'og' : unreferenced local variable
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(457): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(458): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(463): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(467): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(468): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(481): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(482): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(492): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(503): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(504): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(520): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(521): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(530): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(541): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(542): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\libunicornio.cpp(562): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         jsoncpp.cpp
+         BotaoSprite.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\interface\botaosprite.cpp(48): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         GerenciadorDeRecursos.cpp
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+         EventosToque.cpp
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(82): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(83): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(84): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(85): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(95): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(96): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(97): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(99): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(100): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventostoque.cpp(101): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+         EventosTeclado.cpp
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
          Generating Code...
          Compiling...
-         TileSet.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         TileMap.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(130): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(175): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(263): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(276): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(279): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(317): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(327): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(338): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(349): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(360): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(380): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(386): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(395): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(413): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(428): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(440): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(469): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(471): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(487): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(497): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(519): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(521): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(536): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(546): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(670): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(680): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(698): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(709): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(858): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(859): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(870): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(882): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\tilemap.cpp(884): warning C4018: '<' : signed/unsigned mismatch
-         ObjetoTile.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         AStar.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(53): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(58): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(90): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(94): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(110): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(141): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(144): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(148): warning C4244: 'initializing' : conversion from 'const float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(149): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(155): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(156): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(157): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(169): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(175): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(181): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(188): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(198): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(242): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(246): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(351): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\tilemap\astar.cpp(352): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-         Texto.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\texto.cpp(54): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\texto.cpp(59): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\texto.cpp(305): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\texto.cpp(306): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\texto.cpp(308): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-         SpriteSheet.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\spritesheet.cpp(69): warning C4018: '>' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\spritesheet.cpp(91): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\spritesheet.cpp(130): warning C4018: '<' : signed/unsigned mismatch
-         Sprite.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(119): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(124): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(159): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(201): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(202): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(394): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(409): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(438): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(455): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(456): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\midia\sprite.cpp(458): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-         Som.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         Musica.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         Fonte.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         BotaoSprite.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\interface\botaosprite.cpp(48): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         GerenciadorDeRecursos.cpp
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         EventosToque.cpp
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(82): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(83): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(84): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(85): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(95): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(96): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(97): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(99): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(100): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventostoque.cpp(101): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
          EventosMouse.cpp
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventosmouse.cpp(130): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventosmouse.cpp(131): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventosmouse.cpp(133): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\src\eventos\eventosmouse.cpp(134): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventosmouse.cpp(130): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventosmouse.cpp(131): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventosmouse.cpp(133): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventosmouse.cpp(134): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+         EventosJoysticks.cpp
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventosjoysticks.cpp(42): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventosjoysticks.cpp(47): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventosjoysticks.cpp(52): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\src\eventos\eventosjoysticks.cpp(57): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         EventosiOS.cpp
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+         EventosAplicacao.cpp
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
          Eventos.cpp
-     1>c:\users\guilherme\desktop\libunicórnio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
-         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib (VS2012+)
+     1>c:\users\guilherme\desktop\guilherme\projetos\libunicornio\libunicornio\include\eventos\eventos.h(58): warning C4305: 'initializing' : truncation from 'double' to 'float'
+         DEBUG UNICORNIO: added libs: sdl2.lib sdl2main.lib sdl2_image.lib sdl2_ttf.lib sdl2_mixer.lib
          Generating Code...
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1299,5): warning MSB8012: TargetPath(C:\Users\Guilherme\Desktop\libUnicórnio\libUnicornio\libUnicornio\MSVS_2012\Debug\libUnicornio.lib) does not match the Library's OutputFile property value (C:\Users\Guilherme\Desktop\libUnicórnio\libUnicornio\lib\MSVS_2012\libUnicornio_d.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1299,5): warning MSB8012: TargetPath(C:\Users\Guilherme\Desktop\Guilherme\Projetos\libUnicornio\libUnicornio\libUnicornio\MSVS_2012\Debug\libUnicornio.lib) does not match the Library's OutputFile property value (C:\Users\Guilherme\Desktop\Guilherme\Projetos\libUnicornio\libUnicornio\lib\MSVS_2012\libUnicornio_d.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1301,5): warning MSB8012: TargetName(libUnicornio) does not match the Library's OutputFile property value (libUnicornio_d). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"..\..\..\lib\MSVS_2012\libUnicornio_d.lib" SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib SDL2_mixer.lib /LIBPATH:..\..\..\SDL2\lib\x86 /NOLOGO Debug\Eventos.obj
@@ -212,9 +229,9 @@
      1>SDL2_ttf.lib(SDL2_ttf.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
      1>SDL2_mixer.lib(SDL2_mixer.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
      1>SDL2_mixer.lib(SDL2_mixer.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-         libUnicornio.vcxproj -> C:\Users\Guilherme\Desktop\libUnicórnio\libUnicornio\libUnicornio\MSVS_2012\Debug\libUnicornio.lib
-     1>Done Building Project "C:\Users\Guilherme\Desktop\libUnicórnio\libUnicornio\libUnicornio\MSVS_2012\libUnicornio\libUnicornio.vcxproj" (Build target(s)).
+         libUnicornio.vcxproj -> C:\Users\Guilherme\Desktop\Guilherme\Projetos\libUnicornio\libUnicornio\libUnicornio\MSVS_2012\Debug\libUnicornio.lib
+     1>Done Building Project "C:\Users\Guilherme\Desktop\Guilherme\Projetos\libUnicornio\libUnicornio\libUnicornio\MSVS_2012\libUnicornio\libUnicornio.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:15.92
+Time Elapsed 00:00:20.29
