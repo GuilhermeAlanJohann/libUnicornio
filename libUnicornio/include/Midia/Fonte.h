@@ -7,6 +7,15 @@
 
 using namespace std;
 
+enum EstiloFonte
+{
+	FONTE_ESTILO_NORMAL = TTF_STYLE_NORMAL,
+	FONTE_ESTILO_NEGRITO = TTF_STYLE_BOLD,
+	FONTE_ESTILO_ITALICO = TTF_STYLE_ITALIC,
+	FONTE_ESTILO_SUBLINHADO = TTF_STYLE_UNDERLINE,
+	FONTE_ESTILO_RISCADO_AO_MEIO = TTF_STYLE_STRIKETHROUGH
+};
+
 class Fonte
 {
 private:
@@ -14,19 +23,23 @@ private:
 	string caminhoArquivo;
 	int tamanho;
 
+	EstiloFonte estilo;
+
 public:
 	Fonte();
 	~Fonte();
 
-	bool carregar(string arquivo,int tamanho = 16);
-	bool carregarMem(unsigned char mem[], int tamanho_mem, int tamanho = 16);
+	bool carregar(string arquivo, int tamanho = 16, EstiloFonte estilo = FONTE_ESTILO_NORMAL);
+	bool carregarMem(unsigned char mem[], int tamanho_mem, int tamanho = 16, EstiloFonte estilo = FONTE_ESTILO_NORMAL);
 
 	int getTamanho();
-
-	string getCaminhoDoArquivo();
-	Fonte clonar();
-
+	EstiloFonte getEstilo();
 	TTF_Font* getTTF_Font();
+	string getCaminhoDoArquivo();
+
+	void setEstilo(EstiloFonte estilo);
+
+	Fonte clonar();
 };
 
 #endif

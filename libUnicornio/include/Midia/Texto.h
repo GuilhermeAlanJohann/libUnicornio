@@ -6,18 +6,24 @@
 class Texto
 {
 private:
-	SDL_Rect rect;
-	SDL_Texture* tex;
 	Fonte* fonte;
+	SDL_Texture* tex;
+	SDL_Texture* tex_borda;
+
+	SDL_Rect rect;
+	int rect_borda_larg;
+	int rect_borda_alt;
 	SDL_Color cor;
-	SDL_Texture* texCima;
-	Fonte* fonteCima;
-	SDL_Color corCima;
+	SDL_Color cor_borda;
+	int tamanho_borda;
 	float ancora_x;
 	float ancora_y;
 	float escala_x;
 	float escala_y;
 	string str;
+
+	void criarTextura();
+	void criarTexturaBorda();
 
 public:
 	Texto();
@@ -35,12 +41,12 @@ public:
 	int getCorVerde();
 	int getCorAzul();
 	int getCorAlpha();
-	int getCorCimaVermelho();
-	int getCorCimaVerde();
-	int getCorCimaAzul();
-	int getCorCimaAlpha();
+	int getCorBordaVermelho();
+	int getCorBordaVerde();
+	int getCorBordaAzul();
+	int getCorBordaAlpha();
+	int getTamanhoBorda();
 	Fonte* getFonte();
-	Fonte* getFonteCima();
 
 	string getTexto();
 
@@ -50,8 +56,8 @@ public:
 	void obterTamanhoOriginal(int &w, int &h);	//	não escalado
 	void obterCor(int &vermelho, int &verde, int &azul);
 	void obterCor(int &vermelho, int &verde, int &azul, int &alpha);
-	void obterCorCima(int &vermelho, int &verde, int &azul);
-	void obterCorCima(int &vermelho, int &verde, int &azul, int &alpha);
+	void obterCorBorda(int &vermelho, int &verde, int &azul);
+	void obterCorBorda(int &vermelho, int &verde, int &azul, int &alpha);
 
 	void setAncora(float x, float y);
 	void setEscala(float sx, float sy);
@@ -60,13 +66,13 @@ public:
 	void setCorVerde(int verde);
 	void setCorAzul(int azul);
 	void setCorAlpha(int alpha);
-	void setCorCima(int vermelho = 255, int verde = 255, int azul = 255, int alpha = 255);
-	void setCorCimaVermelho(int vermelho);
-	void setCorCimaVerde(int verde);
-	void setCorCimaAzul(int azul);
-	void setCorCimaAlpha(int alpha);
+	void setCorBorda(int vermelho = 255, int verde = 255, int azul = 255, int alpha = 255);
+	void setCorBordaVermelho(int vermelho);
+	void setCorBordaVerde(int verde);
+	void setCorBordaAzul(int azul);
+	void setCorBordaAlpha(int alpha);
 	void setFonte(Fonte* fnt);
-	void setFonteCima(Fonte* fnt);
+	void setTamanhoBorda(int tamanho);
 
 	void setTexto(string txt);
 

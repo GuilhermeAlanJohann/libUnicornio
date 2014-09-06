@@ -4,9 +4,8 @@
 Texto::Texto()
 {
 	tex = NULL;
+	tex_borda = NULL;
 	fonte = NULL;
-	texCima = NULL;
-	fonteCima = NULL;
 	ancora_x = 0.5;
 	ancora_y = 0.5;
 	escala_x = 1.0;
@@ -15,10 +14,11 @@ Texto::Texto()
 	cor.g = 255;
 	cor.b = 255;
 	cor.a = 255;
-	corCima.r = 255;
-	corCima.g = 255;
-	corCima.b = 255;
-	corCima.a = 255;
+	cor_borda.r = 0;
+	cor_borda.g = 0;
+	cor_borda.b = 0;
+	cor_borda.a = 255;
+	tamanho_borda = 0;
 }
 
 Texto::~Texto()
@@ -26,6 +26,11 @@ Texto::~Texto()
 	if(tex)
 	{
 		SDL_DestroyTexture(tex);
+	}
+
+	if(tex_borda)
+	{
+		SDL_DestroyTexture(tex_borda);
 	}
 }
 
@@ -89,34 +94,34 @@ int Texto::getCorAlpha()
 	return cor.a;
 }
 
-int Texto::getCorCimaVermelho()
+int Texto::getCorBordaVermelho()
 {
-	return corCima.r;
+	return cor_borda.r;
 }
 
-int Texto::getCorCimaVerde()
+int Texto::getCorBordaVerde()
 {
-	return corCima.g;
+	return cor_borda.g;
 }
 
-int Texto::getCorCimaAzul()
+int Texto::getCorBordaAzul()
 {
-	return corCima.b;
+	return cor_borda.b;
 }
 
-int Texto::getCorCimaAlpha()
+int Texto::getCorBordaAlpha()
 {
-	return corCima.a;
+	return cor_borda.a;
+}
+
+int Texto::getTamanhoBorda()
+{
+	return tamanho_borda;
 }
 
 Fonte* Texto::getFonte()
 {
 	return fonte;
-}
-
-Fonte* Texto::getFonteCima()
-{
-	return fonteCima;
 }
 
 string Texto::getTexto()
@@ -163,19 +168,19 @@ void Texto::obterCor(int &vermelho, int &verde, int &azul, int &alpha)
 	alpha = cor.a;
 }
 
-void Texto::obterCorCima(int &vermelho, int &verde, int &azul)
+void Texto::obterCorBorda(int &vermelho, int &verde, int &azul)
 {
-	vermelho = corCima.r;
-	verde = corCima.g;
-	azul = corCima.b;
+	vermelho = cor_borda.r;
+	verde = cor_borda.g;
+	azul = cor_borda.b;
 }
 
-void Texto::obterCorCima(int &vermelho, int &verde, int &azul, int &alpha)
+void Texto::obterCorBorda(int &vermelho, int &verde, int &azul, int &alpha)
 {
-	vermelho = corCima.r;
-	verde = corCima.g;
-	azul = corCima.b;
-	alpha = corCima.a;
+	vermelho = cor_borda.r;
+	verde = cor_borda.g;
+	azul = cor_borda.b;
+	alpha = cor_borda.a;
 }
 
 void Texto::setAncora(float x, float y)
@@ -218,42 +223,45 @@ void Texto::setCorAlpha(int alpha)
 	cor.a = alpha;
 }
 
-void Texto::setCorCima(int vermelho, int verde, int azul, int alpha)
+void Texto::setCorBorda(int vermelho, int verde, int azul, int alpha)
 {
-	corCima.r = vermelho;
-	corCima.g = verde;
-	corCima.b = azul;
-	corCima.a = alpha;
+	cor_borda.r = vermelho;
+	cor_borda.g = verde;
+	cor_borda.b = azul;
+	cor_borda.a = alpha;
 }
 
-void Texto::setCorCimaVermelho(int vermelho)
+void Texto::setCorBordaVermelho(int vermelho)
 {
-	corCima.r = vermelho;
+	cor_borda.r = vermelho;
 }
 
-void Texto::setCorCimaVerde(int verde)
+void Texto::setCorBordaVerde(int verde)
 {
-	corCima.g = verde;
+	cor_borda.g = verde;
 }
 
-void Texto::setCorCimaAzul(int azul)
+void Texto::setCorBordaAzul(int azul)
 {
-	corCima.b = azul;
+	cor_borda.b = azul;
 }
 
-void Texto::setCorCimaAlpha(int alpha)
+void Texto::setCorBordaAlpha(int alpha)
 {
-	corCima.a = alpha;
+	cor_borda.a = alpha;
+}
+
+void Texto::setTamanhoBorda(int tamanho)
+{
+	tamanho_borda = tamanho;
+
+	if(fonte)
+		criarTexturaBorda();
 }
 
 void Texto::setFonte(Fonte* fnt)
 {
 	fonte = fnt;
-}
-
-void Texto::setFonteCima(Fonte* fnt)
-{
-	fonteCima = fnt;
 }
 
 void Texto::setTexto(string txt)
@@ -265,28 +273,13 @@ void Texto::setTexto(string txt)
 
 	//	Texto de baixo (padrão)
 	if(!fonte) 
+	{
+		uniErro("Nao pode setar Texto antes de setar Fonte.");
 		return;
+	}
 
-	if(tex)
-		SDL_DestroyTexture(tex);
-
-	SDL_Color color = {255, 255, 255};
-	SDL_Surface *surface = TTF_RenderText_Blended(fonte->getTTF_Font(), str.c_str(), color); 
-	tex = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_QueryTexture(tex, NULL, NULL, &rect.w, &rect.h);
-    SDL_FreeSurface(surface);
-
-	//	Texto de cima
-	if(!fonteCima) 
-		return;
-
-	if(texCima)
-		SDL_DestroyTexture(texCima);
-
-	SDL_Surface *surfaceCima = TTF_RenderText_Blended(fonteCima->getTTF_Font(), str.c_str(), color); 
-	texCima = SDL_CreateTextureFromSurface(renderer, surfaceCima);
-	SDL_QueryTexture(texCima, NULL, NULL, &rect.w, &rect.h);
-    SDL_FreeSurface(surfaceCima);
+	criarTextura();
+	criarTexturaBorda();
 }
 
 void Texto::desenhar(int x, int y, float rot)
@@ -294,7 +287,6 @@ void Texto::desenhar(int x, int y, float rot)
 	if(!uni_init) 
 		return;
 
-	//	Fonte de baixo (padrão)
 	if(!fonte) 
 	{
 		uniDesenharTexto("Nao pode desenhar Texto antes de setar Fonte.",x,y,255,0,0);
@@ -316,13 +308,50 @@ void Texto::desenhar(int x, int y, float rot)
 
     SDL_RenderCopyEx(renderer, tex, NULL, &retangulo, rot, &pivot, SDL_FLIP_NONE);
 
-	//	Fonte de cima
-	if(!fonteCima) 
+	//	desenhar borda
+	if(tamanho_borda > 0)
+	{
+		retangulo.w = rect_borda_larg*escala_x;
+		retangulo.h = rect_borda_alt*escala_y;
+
+		retangulo.x = x - (rect_borda_larg*ancora_x);
+		retangulo.y = y - (rect_borda_alt*ancora_y);
+
+		SDL_SetTextureColorMod(tex_borda, cor_borda.r, cor_borda.g, cor_borda.b);
+		SDL_SetTextureAlphaMod(tex_borda, cor_borda.a);
+
+		SDL_RenderCopyEx(renderer, tex_borda, NULL, &retangulo, rot, &pivot, SDL_FLIP_NONE);
+	}
+}
+
+void Texto::criarTextura()
+{
+	if(tex)
+		SDL_DestroyTexture(tex);
+
+	SDL_Color color = {255, 255, 255};
+	SDL_Surface *surface = TTF_RenderText_Blended(fonte->getTTF_Font(), str.c_str(), color); 
+	tex = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_QueryTexture(tex, NULL, NULL, &rect.w, &rect.h);
+    SDL_FreeSurface(surface);
+}
+
+void Texto::criarTexturaBorda()
+{
+	if(tamanho_borda <= 0)
 		return;
 
-	// seta cor
-	SDL_SetTextureColorMod(texCima, corCima.r, corCima.g, corCima.b);
-	SDL_SetTextureAlphaMod(texCima, corCima.a);
+	if(tex_borda)
+		SDL_DestroyTexture(tex_borda);
 
-    SDL_RenderCopyEx(renderer, texCima, NULL, &retangulo, rot, &pivot, SDL_FLIP_NONE);
+	TTF_Font* font = fonte->getTTF_Font();
+	TTF_SetFontOutline(font, tamanho_borda);
+
+	SDL_Color color = {255, 255, 255};
+	SDL_Surface *surface = TTF_RenderText_Blended(font, str.c_str(), color); 
+	tex_borda = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_QueryTexture(tex_borda, NULL, NULL, &rect_borda_larg, &rect_borda_alt);
+    SDL_FreeSurface(surface);
+
+	TTF_SetFontOutline(font, 0);
 }

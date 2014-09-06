@@ -15,7 +15,7 @@ Fonte::~Fonte()
 	}
 }
 
-bool Fonte::carregar(string arquivo, int tamanho)
+bool Fonte::carregar(string arquivo, int tamanho, EstiloFonte estilo)
 {
 	if(!uni_init) return false;
 	
@@ -25,11 +25,13 @@ bool Fonte::carregar(string arquivo, int tamanho)
 	this->tamanho = tamanho;
 	caminhoArquivo = arquivo;
 
+	setEstilo(estilo);
+
 	return true;
 	
 }
 
-bool Fonte::carregarMem(unsigned char mem[], int tamanho_mem, int tamanho)
+bool Fonte::carregarMem(unsigned char mem[], int tamanho_mem, int tamanho, EstiloFonte estilo)
 {
 	if(!uni_init) return false;
 
@@ -42,12 +44,19 @@ bool Fonte::carregarMem(unsigned char mem[], int tamanho_mem, int tamanho)
 
 	this->tamanho = tamanho;
 
+	setEstilo(estilo);
+
 	return true;
 }
 
 int Fonte::getTamanho()
 {
 	return tamanho;
+}
+
+EstiloFonte Fonte::getEstilo()
+{
+	return estilo;
 }
 
 TTF_Font* Fonte::getTTF_Font()
@@ -60,9 +69,15 @@ string Fonte::getCaminhoDoArquivo()
 	return caminhoArquivo;
 }
 
+void Fonte::setEstilo(EstiloFonte estilo)
+{
+	this->estilo = estilo;
+	TTF_SetFontStyle(font, estilo);
+}
+
 Fonte Fonte::clonar()
 {
 	Fonte r(*this);
-	r.carregar(caminhoArquivo, tamanho);
+	r.carregar(caminhoArquivo, tamanho, estilo);
 	return r;
 }

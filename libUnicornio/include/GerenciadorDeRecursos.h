@@ -2,9 +2,9 @@
 #define UNI_GERENCIADORDERECURSOS_H
 
 #include <map>
+#include "Fonte.h"
 
 class SpriteSheet;
-class Fonte;
 class Som;
 
 class GerenciadorDeRecursos
@@ -14,7 +14,7 @@ public:
 	~GerenciadorDeRecursos();
 
 	SpriteSheet*	carregarSpriteSheet(const std::string& nome, const std::string& caminho, int num_celulas_x = 1, int num_celulas_y = 1);
-	Fonte*			carregarFonte(const std::string& nome, const std::string& caminho, int tamanho = 16);
+	Fonte*			carregarFonte(const std::string& nome, const std::string& caminho, int tamanho = 16, EstiloFonte estilo = FONTE_ESTILO_NORMAL);
 	Som*			carregarSom(const std::string& nome, const std::string& caminho, int volume = 128, int distancia = 0, int angulo = 0);
 
 	void			descarregarTudo();

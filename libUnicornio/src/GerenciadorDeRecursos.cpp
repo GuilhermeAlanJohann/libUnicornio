@@ -26,10 +26,10 @@ SpriteSheet* GerenciadorDeRecursos::carregarSpriteSheet(const string& nome, cons
 	return sheet;
 }
 
-Fonte* GerenciadorDeRecursos::carregarFonte(const string& nome, const string& caminho, int tamanho)
+Fonte* GerenciadorDeRecursos::carregarFonte(const string& nome, const string& caminho, int tamanho, EstiloFonte estilo)
 {
 	Fonte* fonte = new Fonte;
-	if(fonte->carregar(caminho, tamanho))
+	if(fonte->carregar(caminho, tamanho, estilo))
 	{
 		mFontes.insert(pair<string, Fonte*>(nome, fonte));
 	}
