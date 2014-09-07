@@ -1,5 +1,5 @@
 #pragma once
-#include "Player.h"
+#include "Personagem.h"
 
 class Jogo
 {
@@ -13,6 +13,7 @@ public:
 	void executar();
 
 private:
-	Player player;
+	Personagem per;				//	personagem que representa o player no jogo
+	SpriteSheet spritesheet;	//	spritesheet do personagem
 };
 

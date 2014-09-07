@@ -13,9 +13,9 @@ Menu::~Menu()
 void Menu::inicializar()
 {
 	//	carrega os spritesheets para os botoes
-	ssVermelho.carregar("dados/spritesheets/botao_vermelho.png", 1, 3);
-	ssVerde.carregar("dados/spritesheets/botao_verde.png", 1, 3);
-	ssAzul.carregar("dados/spritesheets/botao_azul.png", 1, 3);
+	ssVermelho.carregar("dados/spritesheets/botao_vermelho.png", 3, 1);
+	ssVerde.carregar("dados/spritesheets/botao_verde.png", 3, 1);
+	ssAzul.carregar("dados/spritesheets/botao_azul.png", 3, 1);
 
 	//	inicializa os botoes
 	botaoVermelho.inicializar(&ssVermelho);

@@ -29,7 +29,7 @@ public:
 	bool operator==(const SpriteSheet &r);
 	bool operator!=(const SpriteSheet &r);
 
-	bool carregar(string arquivo, int num_celulas_x, int num_celulas_y);
+	bool carregar(string arquivo, int num_animacoes, int num_max_frames);
 	SDL_Texture* getTextura();
 	int getNumAnimacoes();
 	int getNumFramesAnimacao(int anim);

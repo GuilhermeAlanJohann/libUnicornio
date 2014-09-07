@@ -10,10 +10,10 @@ GerenciadorDeRecursos::~GerenciadorDeRecursos()
 	descarregarTudo();
 }
 
-SpriteSheet* GerenciadorDeRecursos::carregarSpriteSheet(const string& nome, const string& caminho, int num_celulas_x, int num_celulas_y)
+SpriteSheet* GerenciadorDeRecursos::carregarSpriteSheet(const string& nome, const string& caminho, int num_animacoes, int num_max_frames)
 {
 	SpriteSheet* sheet = new SpriteSheet;
-	if(sheet->carregar(caminho, num_celulas_x, num_celulas_y))
+	if(sheet->carregar(caminho, num_animacoes, num_max_frames))
 	{
 		mSpriteSheets.insert(pair<string, SpriteSheet*>(nome, sheet));
 	}

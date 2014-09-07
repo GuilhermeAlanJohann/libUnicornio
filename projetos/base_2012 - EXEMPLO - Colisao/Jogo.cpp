@@ -40,7 +40,7 @@ void Jogo::executar()
 void Jogo::carregarSpriteSheets()
 {
 	ssNave.carregar("dados/imagens/nave.png", 1, 1);
-	ssTiro.carregar("dados/imagens/tiro.png", 2, 1);
+	ssTiro.carregar("dados/imagens/tiro.png", 1, 2);
 }
 
 void Jogo::inicializarNave()

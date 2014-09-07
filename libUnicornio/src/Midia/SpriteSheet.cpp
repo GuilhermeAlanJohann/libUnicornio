@@ -97,7 +97,7 @@ void SpriteSheet::setNumFramesAnimacao(int anim, int max_frames)
 	maxframes[anim] = max_frames;
 }
 
-bool SpriteSheet::carregar(string arquivo, int num_celulas_x, int num_celulas_y)
+bool SpriteSheet::carregar(string arquivo, int num_animacoes, int num_max_frames)
 {
 	if(!uni_init)
 	{
@@ -123,13 +123,13 @@ bool SpriteSheet::carregar(string arquivo, int num_celulas_x, int num_celulas_y)
 
 	SDL_QueryTexture(tex, NULL, NULL, &largura_total, &altura_total);
 
-	largura_celula = largura_total/num_celulas_x;
-	altura_celula = altura_total/num_celulas_y;
+	largura_celula = largura_total/num_max_frames;
+	altura_celula = altura_total/num_animacoes;
 
-	maxframes.resize(altura_total/altura_celula);
+	maxframes.resize(num_animacoes);
 	for(int i = 0; i < maxframes.size(); ++i)
 	{
-		maxframes[i] = largura_total/largura_celula;
+		maxframes[i] = num_max_frames;
 	}
 
 	caminhoArquivo = arquivo;

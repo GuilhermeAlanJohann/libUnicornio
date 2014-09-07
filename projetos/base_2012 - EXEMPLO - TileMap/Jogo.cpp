@@ -20,7 +20,7 @@ void Jogo::inicializar()
 	astar.setMoverNaDiagonal(true);
 	
 	ss = new SpriteSheet();
-	ss->carregar("dados/spritesheets/personagem.png", 3, 4);
+	ss->carregar("dados/spritesheets/personagem.png", 4, 3);
 
 	spr = new Sprite();
 	spr->setSpriteSheet(ss);
