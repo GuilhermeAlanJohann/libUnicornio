@@ -92,7 +92,7 @@ bool uniInicializar(int w, int h, bool tela_cheia)
 
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");  // make the scaled rendering look smoother.
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");  // nao usa nenhum tipo de interpolacao para fazer a escala
 	SDL_RenderSetLogicalSize(renderer, w, h);
 
 	SDL_RenderClear(renderer);
