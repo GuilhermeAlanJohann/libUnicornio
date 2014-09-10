@@ -13,6 +13,8 @@ public:
 	~TileSet();
 
 	bool carregar(string arquivo, int largura_tiles, int altura_tiles);
+	void descarregar();
+	bool estaCarregado();
 	
 	string getNome();
 

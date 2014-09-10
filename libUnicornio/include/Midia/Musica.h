@@ -17,6 +17,8 @@ public:
 	bool operator!=(const Musica &r);
 	~Musica();
 	bool carregar(std::string arquivo);
+	void descarregar();
+	bool estaCarregado();
 	void tocar(bool repetir = true);
 	void parar();
 	void pausar();

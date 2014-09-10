@@ -2,7 +2,6 @@
 #define UNI_SPRITESHEET_H
 
 #include "SDL.h"
-//#include "SDL_image.h"
 #include <vector>
 
 using namespace std;
@@ -18,8 +17,6 @@ private:
 	int altura_total;
 	string caminhoArquivo;
 
-	void apagarTextura();
-
 public:
 	SpriteSheet(const SpriteSheet& cp);
 	SpriteSheet();
@@ -30,6 +27,9 @@ public:
 	bool operator!=(const SpriteSheet &r);
 
 	bool carregar(string arquivo, int num_animacoes, int num_max_frames);
+	void descarregar();
+	bool estaCarregado();
+
 	SDL_Texture* getTextura();
 	int getNumAnimacoes();
 	int getNumFramesAnimacao(int anim);

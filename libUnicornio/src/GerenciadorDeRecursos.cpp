@@ -70,6 +70,7 @@ void GerenciadorDeRecursos::descarregarTodosSpriteSheets()
 {
 	for(std::map<std::string, SpriteSheet*>::iterator it = mSpriteSheets.begin(); it != mSpriteSheets.end(); ++it)
 	{
+		it->second->descarregar();
 		delete it->second;
 	}
 
@@ -80,6 +81,7 @@ void GerenciadorDeRecursos::descarregarTodasFotes()
 {
 	for(std::map<std::string, Fonte*>::iterator it = mFontes.begin(); it != mFontes.end(); ++it)
 	{
+		it->second->descarregar();
 		delete it->second;
 	}
 
@@ -90,6 +92,7 @@ void GerenciadorDeRecursos::descarregarTodosSons()
 {
 	for(std::map<std::string, Som*>::iterator it = mSons.begin(); it != mSons.end(); ++it)
 	{
+		it->second->descarregar();
 		delete it->second;
 	}
 
@@ -124,6 +127,7 @@ bool GerenciadorDeRecursos::descarregarSpriteSheet(const string& nome)
 
 	if(it != mSpriteSheets.end())
 	{
+		it->second->descarregar();
 		delete it->second;
 		mSpriteSheets.erase(it);
 	}
@@ -137,6 +141,7 @@ bool GerenciadorDeRecursos::descarregarFonte(const string& nome)
 
 	if(it != mFontes.end())
 	{
+		it->second->descarregar();
 		delete it->second;
 		mFontes.erase(it);
 	}
@@ -150,6 +155,7 @@ bool GerenciadorDeRecursos::descarregarSom(const string& nome)
 
 	if(it != mSons.end())
 	{
+		it->second->descarregar();
 		delete it->second;
 		mSons.erase(it);
 	}

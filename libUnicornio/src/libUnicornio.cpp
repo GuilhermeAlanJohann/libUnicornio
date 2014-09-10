@@ -133,6 +133,7 @@ void uniFinalizar()
 {
 	if(fonte_padrao)
 	{
+		fonte_padrao->descarregar();
 		delete fonte_padrao;
 		fonte_padrao = NULL;
 	}
@@ -154,6 +155,8 @@ void uniFinalizar()
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+
+	uni_init = false;
 }
 
 void uniControlarFramerate(bool sleep_loop)

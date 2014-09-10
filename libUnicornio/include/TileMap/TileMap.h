@@ -15,6 +15,8 @@ public:
 	bool carregar(string arquivo);
 	bool carregarConfigTileSet(TileSet* tileset, string arquivo);
 	bool carregarConfigTileSet(string nome_tileset, string arquivo);
+	void descarregar();
+	bool estaCarregado();
 	void desenhar();
 
 	ObjetoTile* criarObjeto();
@@ -81,6 +83,8 @@ public:
 private:
 	void desenharTileNoPixel(int id, float px, float py);
 	void ordenarObjetosPorYCentral();
+
+	bool carregou;
 
 	vector<TileLayer> layers;
 	vector<TileSet> tilesets;

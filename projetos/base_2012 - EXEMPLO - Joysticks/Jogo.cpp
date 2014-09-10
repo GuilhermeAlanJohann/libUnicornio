@@ -34,6 +34,9 @@ void Jogo::inicializar()
 
 void Jogo::finalizar()
 {
+	for(int i = 0; i < MAXIMO_DE_PLAYERS; ++i)
+		sheets[i].descarregar();
+
 	uniFinalizar();
 }
 

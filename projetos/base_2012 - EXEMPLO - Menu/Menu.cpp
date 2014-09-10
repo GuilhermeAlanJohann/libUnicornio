@@ -35,6 +35,11 @@ void Menu::finalizar()
 	botaoVermelho.finalizar();
 	botaoVerde.finalizar();
 	botaoAzul.finalizar();
+
+	//	descarregar spritesheets
+	ssVermelho.descarregar();
+	ssVerde.descarregar();
+	ssAzul.descarregar();
 }
 
 void Menu::atualizar()

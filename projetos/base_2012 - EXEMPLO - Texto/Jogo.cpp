@@ -29,6 +29,14 @@ void Jogo::inicializar()
 
 void Jogo::finalizar()
 {
+	//	5)	(IMPORTANTE) Limpar o texto. Isto destroi a "imagem" associada ao texto e libera memoria, evitando possiveis crashs na finalizacao.
+	texto.apagar();
+	textoMaior.apagar();
+
+	//	6) Descarregar fontes
+	fonte.descarregar();
+	fonteMaior.descarregar();
+
 	uniFinalizar();
 }
 

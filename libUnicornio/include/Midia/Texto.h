@@ -77,6 +77,7 @@ public:
 	void setTexto(string txt);
 
 	void desenhar(int x, int y, float rot = 0);
+	void apagar();
 };
 
 #endif

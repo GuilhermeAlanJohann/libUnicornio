@@ -23,15 +23,7 @@ Texto::Texto()
 
 Texto::~Texto()
 {
-	if(tex)
-	{
-		SDL_DestroyTexture(tex);
-	}
-
-	if(tex_borda)
-	{
-		SDL_DestroyTexture(tex_borda);
-	}
+	apagar();
 }
 
 float Texto::getAncoraX()
@@ -271,15 +263,21 @@ void Texto::setTexto(string txt)
 
 	str = txt;
 
-	//	Texto de baixo (padrão)
 	if(!fonte) 
 	{
 		uniErro("Nao pode setar Texto antes de setar Fonte.");
 		return;
 	}
 
-	criarTextura();
-	criarTexturaBorda();
+	if(str == "")
+	{
+		apagar();
+	}
+	else
+	{
+		criarTextura();
+		criarTexturaBorda();
+	}
 }
 
 void Texto::desenhar(int x, int y, float rot)
@@ -297,7 +295,7 @@ void Texto::desenhar(int x, int y, float rot)
 	retangulo.w = rect.w*escala_x;
 	retangulo.h = rect.h*escala_y;
 
-	SDL_Point pivot = {rect.w * ancora_x, rect.h * ancora_y};
+	SDL_Point pivot = {retangulo.w * ancora_x, retangulo.h * ancora_y};
 
 	retangulo.x = x - pivot.x;
 	retangulo.y = y - pivot.y;
@@ -314,14 +312,33 @@ void Texto::desenhar(int x, int y, float rot)
 		retangulo.w = rect_borda_larg*escala_x;
 		retangulo.h = rect_borda_alt*escala_y;
 
-		retangulo.x = x - (rect_borda_larg*ancora_x);
-		retangulo.y = y - (rect_borda_alt*ancora_y);
+		retangulo.x = x - (int)(retangulo.w*ancora_x) - (tamanho_borda*2)*escala_x*(0.5f - ancora_x);
+		retangulo.y -= (tamanho_borda*2)*escala_y*ancora_y;
 
 		SDL_SetTextureColorMod(tex_borda, cor_borda.r, cor_borda.g, cor_borda.b);
 		SDL_SetTextureAlphaMod(tex_borda, cor_borda.a);
 
 		SDL_RenderCopyEx(renderer, tex_borda, NULL, &retangulo, rot, &pivot, SDL_FLIP_NONE);
 	}
+}
+
+void Texto::apagar()
+{
+	if(tex)
+	{
+		SDL_DestroyTexture(tex);
+		tex = NULL;
+	}
+
+	if(tex_borda)
+	{
+		SDL_DestroyTexture(tex_borda);
+		tex_borda = NULL;
+		tamanho_borda = 0;
+	}
+
+	str = "";
+
 }
 
 void Texto::criarTextura()

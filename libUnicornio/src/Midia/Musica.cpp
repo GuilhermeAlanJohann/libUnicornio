@@ -43,26 +43,31 @@ bool Musica::operator!=(const Musica &r)
 
 Musica::~Musica()
 {
-	Mix_HaltMusic();
-
-	if(smp) Mix_FreeMusic(smp);
+	if(estaCarregado())
+	{
+		descarregar();
+	}
 }
 
 bool Musica::carregar(string arquivo)
 {
 	if(!uni_init) 
-		return false;
-	
-	if(smp)
 	{
-		Mix_FreeMusic(smp);
+		uniErro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
+		return false;
 	}
+
+	if(estaCarregado())
+	{
+		uniErro("Arquivo '" + arquivo + "' nao pode ser carregado, pois Musica ja carregou o arquivo " + caminhoArquivo + ".");
+		return false;
+	}
+
 	smp = Mix_LoadMUS(arquivo.c_str());
 	
 	if(!smp) 
 	{
-		uniErro("Erro carregando arquivo: " + arquivo + " - " + SDL_GetError());
-		uni_debug = true;
+		uniErro("Erro ao carregar arquivo: '" + arquivo + "' - " + SDL_GetError() + ".");
 		return false;
 	}
 
@@ -71,9 +76,27 @@ bool Musica::carregar(string arquivo)
 	return true;
 }
 
+void Musica::descarregar()
+{
+	parar();
+	Mix_FreeMusic(smp);
+	smp = NULL;
+	caminhoArquivo = "";
+	volume = 128;
+	distancia = 0;
+	angulo = 0;
+	//	ja eh setado no parar();
+	//canal = -1;
+}
+
+bool Musica::estaCarregado()
+{
+	return (smp);
+}
+
 void Musica::tocar(bool repetir)
 {
-	if(!smp) return;
+	if(!estaCarregado()) return;
 
 	canal = Mix_PlayMusic(smp,repetir == 0 ? 0 : -1);
 
@@ -83,14 +106,15 @@ void Musica::tocar(bool repetir)
 
 void Musica::parar()
 {
-	if(!smp) return;
+	if(!estaCarregado()) return;
 
 	Mix_HaltMusic();
+	canal = -1;
 }
 
 void Musica::pausar()
 {
-	if(!smp) return;
+	if(!estaCarregado()) return;
 	
 	if(canal != -1)
 	{
@@ -100,7 +124,7 @@ void Musica::pausar()
 
 void Musica::continuar()
 {
-	if(!smp) return;
+	if(!estaCarregado()) return;
 	
 	if(canal != -1)
 	{
@@ -110,7 +134,7 @@ void Musica::continuar()
 
 void Musica::ajustar(int vol, int dist, int ang)
 {		
-	if(!smp) return;
+	if(!estaCarregado()) return;
 
 	volume = vol;
 	angulo = ang;

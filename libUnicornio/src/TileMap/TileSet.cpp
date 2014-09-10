@@ -10,13 +10,15 @@ TileSet::TileSet()
 
 	largura_tile = 0;
 	altura_tile = 0;
+
+	primeiro_ID_Global = -1;
 }
 
 TileSet::~TileSet()
 {
-	if(tex)
+	if(estaCarregado())
 	{
-		SDL_DestroyTexture(tex);
+		descarregar();
 	}
 }
 
@@ -24,22 +26,21 @@ bool TileSet::carregar(string arquivo, int largura_tiles, int altura_tiles)
 {
 	if(!uni_init)
 	{
-		uniDesenharTexto("sem uni_inicializar() antes de tentar carregar:" + arquivo, 10, 10);
+		uniErro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
 		return false;
 	}
 
-	if(tex)
+	if(estaCarregado())
 	{
-		SDL_DestroyTexture(tex);
+		uniErro("Arquivo '" + arquivo + "' nao pode ser carregado, pois TileSet '" + nome + "' ja carregou algum arquivo.");
+		return false;
 	}
 
 	tex = IMG_LoadTexture(renderer, arquivo.c_str());
 	
 	if(!tex) 
 	{
-		string s_err = "Erro carreg. arq: " + arquivo;
-		uniErro(s_err);
-		uni_debug = true;
+		uniErro("Erro ao carregar arquivo: '" + arquivo + "'.");
 		tex = NULL;
 		return false;
 	}
@@ -55,6 +56,23 @@ bool TileSet::carregar(string arquivo, int largura_tiles, int altura_tiles)
 	num_tiles_y = altura_total/altura_tiles;
 
 	return true;
+}
+
+void TileSet::descarregar()
+{
+	SDL_DestroyTexture(tex);
+	tex = NULL;
+	nome = "";
+	num_tiles_x = 0;
+	num_tiles_y = 0;
+	largura_tile = 0;
+	altura_tile = 0;
+	primeiro_ID_Global = -1;
+}
+
+bool TileSet::estaCarregado()
+{
+	return (tex);
 }
 	
 string TileSet::getNome()

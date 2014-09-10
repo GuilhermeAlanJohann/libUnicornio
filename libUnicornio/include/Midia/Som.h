@@ -20,6 +20,8 @@ public:
 	bool operator!=(const Som &r);
 	~Som();
 	bool carregar(std::string arquivo);
+	void descarregar();
+	bool estaCarregado();
 	void tocar(bool repetir = false);
 	void parar();
 	void pausar();

@@ -45,31 +45,30 @@ bool Som::operator!=(const Som &r)
 
 Som::~Som()
 {
-	if(canal != -1)
+	if(estaCarregado())
 	{
-		Mix_HaltChannel(canal);
-		canal = -1;
+		descarregar();
 	}
-
-	if(smp) Mix_FreeChunk(smp);
 }
 
 bool Som::carregar(string arquivo)
 {
 	if(!uni_init) 
-		return false;
-	
-	if(smp)
 	{
-		Mix_FreeChunk(smp);
-		canal = -1;
+		uniErro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
+		return false;
+	}
+	
+	if(estaCarregado())
+	{
+		uniErro("Arquivo '" + arquivo + "' nao pode ser carregado, pois Som ja carregou o arquivo " + caminhoArquivo + ".");
+		return false;
 	}
 	smp = Mix_LoadWAV(arquivo.c_str());
 	
 	if(!smp) 
 	{
-		uniErro("Erro carregando arquivo: " + arquivo + " - " + SDL_GetError());
-		uni_debug = true;
+		uniErro("Erro ao carregar arquivo: '" + arquivo + "' - " + SDL_GetError() + ".");
 		return false;
 	}
 
@@ -77,9 +76,29 @@ bool Som::carregar(string arquivo)
 
 	return true;
 }
+
+void Som::descarregar()
+{
+	parar();
+	Mix_FreeChunk(smp);
+	smp = NULL;
+	caminhoArquivo = "";
+	volume = 128;
+	distancia = 0;
+	angulo = 0;
+	//	ja eh setado no parar();
+	//canal = -1;
+	//loop = false;
+}
+
+bool Som::estaCarregado()
+{
+	return (smp);
+}
+
 void Som::tocar(bool repetir)
 {
-	if(!smp) return;
+	if(!estaCarregado()) return;
 
 	/*if (canal != -1)	//	se estiver tocando som em um canal, libera o canal
 	{
@@ -110,7 +129,7 @@ void Som::parar()
 
 void Som::pausar()
 {
-	if(!smp) return;
+	if(!estaCarregado()) return;
 	
 	if(canal != -1)
 	{
@@ -120,7 +139,7 @@ void Som::pausar()
 
 void Som::continuar()
 {
-	if(!smp) return;
+	if(!estaCarregado()) return;
 	
 	if(canal != -1)
 	{
@@ -130,7 +149,7 @@ void Som::continuar()
 
 void Som::ajustar(int vol, int dist, int ang)
 {		
-	if(!smp) return;
+	if(!estaCarregado()) return;
 
 	volume = vol;
 	angulo = ang;
@@ -146,7 +165,7 @@ void Som::ajustar(int vol, int dist, int ang)
 // retornar se o Som terminou de tocar
 bool Som::estaTocando()
 {
-	if(!smp) return false;
+	if(!estaCarregado()) return false;
 	if(canal == -1) return false;
 
 	int status = Mix_Playing(canal);

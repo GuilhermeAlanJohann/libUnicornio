@@ -18,7 +18,9 @@ void TocadorDeSom::inicializar()
 }
 
 void TocadorDeSom::finalizar()
-{}
+{
+	som.descarregar();
+}
 
 void TocadorDeSom::atualizar()
 {

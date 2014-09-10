@@ -36,9 +36,17 @@ void Jogo::finalizar()
 	//	O resto da finalização vem aqui (provavelmente, em ordem inversa a inicialização)!
 	//	...
 
+	//	finalizar A*
 	astar.finalizar();
 
+	//	descarregar tilemap
+	mapa.descarregar();
+
+	//	deletar sprite
 	delete spr;
+
+	//	descarregar e deletar spritesheet
+	ss->descarregar();
 	delete ss;
 
 	uniFinalizar();

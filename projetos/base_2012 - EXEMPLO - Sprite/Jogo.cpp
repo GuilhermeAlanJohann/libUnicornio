@@ -31,6 +31,9 @@ void Jogo::inicializar()
 
 void Jogo::finalizar()
 {
+	//	6)	descarregar SpriteSheet
+	spritesheet.descarregar();
+
 	uniFinalizar();
 }
 

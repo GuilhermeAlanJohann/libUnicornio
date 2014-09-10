@@ -31,6 +31,8 @@ public:
 
 	bool carregar(string arquivo, int tamanho = 16, EstiloFonte estilo = FONTE_ESTILO_NORMAL);
 	bool carregarMem(unsigned char mem[], int tamanho_mem, int tamanho = 16, EstiloFonte estilo = FONTE_ESTILO_NORMAL);
+	void descarregar();
+	bool estaCarregado();
 
 	int getTamanho();
 	EstiloFonte getEstilo();

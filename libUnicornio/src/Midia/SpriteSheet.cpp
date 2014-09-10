@@ -20,7 +20,10 @@ SpriteSheet::SpriteSheet(const SpriteSheet& cp)
 
 SpriteSheet::~SpriteSheet()
 {
-	apagarTextura();
+	if(estaCarregado())
+	{
+		descarregar();
+	}
 }
 
 SpriteSheet& SpriteSheet::operator=(const SpriteSheet &r)
@@ -101,23 +104,21 @@ bool SpriteSheet::carregar(string arquivo, int num_animacoes, int num_max_frames
 {
 	if(!uni_init)
 	{
-		uniDesenharTexto("sem uniInicializar() antes de tentar carregar:" + arquivo, 10, 10);
+		uniErro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
 		return false;
 	}
 
-	if(tex)
+	if(estaCarregado())
 	{
-		SDL_DestroyTexture(tex);
+		uniErro("Arquivo '" + arquivo + "' nao pode ser carregado, pois SpriteSheet ja carregou o arquivo " + caminhoArquivo + ".");
+		return false;
 	}
 
 	tex = IMG_LoadTexture(renderer, arquivo.c_str());
 	
 	if(!tex) 
 	{
-		string s_err = "Erro carreg. arq: " + arquivo;
-		uniErro(s_err);
-		uni_debug = true;
-		tex = NULL;
+		uniErro("Erro ao carregar arquivo: '" + arquivo + "' - " + SDL_GetError() + ".");
 		return false;
 	}
 
@@ -137,6 +138,23 @@ bool SpriteSheet::carregar(string arquivo, int num_animacoes, int num_max_frames
 	return true;
 }
 
+void SpriteSheet::descarregar()
+{
+	SDL_DestroyTexture(tex);
+	tex = NULL;
+	caminhoArquivo = "";
+	maxframes.clear();
+	largura_celula = 0;
+	altura_celula = 0;
+	largura_total = 0;
+	altura_total = 0;
+}
+
+bool SpriteSheet::estaCarregado()
+{
+	return (tex);
+}
+
 string SpriteSheet::getCaminhoDoArquivo()
 {
 	return caminhoArquivo;
@@ -147,13 +165,4 @@ SpriteSheet SpriteSheet::clonar()
 	SpriteSheet r(*this);
 	r.carregar(caminhoArquivo, largura_total/largura_celula, altura_total/altura_celula);
 	return r;
-}
-
-void SpriteSheet::apagarTextura()
-{
-	if(tex)
-	{
-		SDL_DestroyTexture(tex);
-		caminhoArquivo = "";
-	}
 }

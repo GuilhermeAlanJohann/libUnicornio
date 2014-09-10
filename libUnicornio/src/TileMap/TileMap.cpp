@@ -20,26 +20,39 @@ TileMap::TileMap()
 
 	largura_tile = 0;
 	altura_tile = 0;
+
+	carregou = false;
 }
 
 TileMap::~TileMap()
 {
-	tiles.clear();
-	tilesets.clear();
-	layers.clear();
-	objetos.clear();
+	if(estaCarregado())
+	{
+		descarregar();
+	}
 }
 
 bool TileMap::carregar(string arquivo)
 {
+	if(!uni_init)
+	{
+		uniErro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
+		return false;
+	}
+
+	if(estaCarregado())
+	{
+		uniErro("Arquivo '" + arquivo + "' nao pode ser carregado, pois TileMap ja carregou algum arquivo.");
+		return false;
+	}
+
 	//	abrir o arquivo (e fazer o parse)
 	Json::Value root;
 	Json::Reader reader;
 	ifstream ifs(arquivo);
 	if(!reader.parse(ifs, root))
 	{
-		string err = "TileMap: Erro carregando arquivo " + arquivo;
-		uniErro(err);
+		uniErro("Erro ao carregar arquivo '" + arquivo + "'.");
 		ifs.close();
 		return false;
 	}
@@ -196,6 +209,7 @@ bool TileMap::carregar(string arquivo)
 		}
 	}
 
+	carregou = true;
 	return true;
 }
 
@@ -265,6 +279,24 @@ bool TileMap::carregarConfigTileSet(string nome_tileset, string arquivo)
 			return carregarConfigTileSet(&tilesets[i], arquivo);
 	
 	return false;
+}
+
+void TileMap::descarregar()
+{
+	for(int i = 0; i < tilesets.size(); ++i)
+		tilesets[i].descarregar();
+
+	tiles.clear();
+	tilesets.clear();
+	layers.clear();
+	objetos.clear();
+
+	carregou = false;
+}
+
+bool TileMap::estaCarregado()
+{
+	return carregou;
 }
 
 void TileMap::desenhar()

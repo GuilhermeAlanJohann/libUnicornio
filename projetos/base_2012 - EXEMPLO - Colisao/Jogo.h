@@ -17,6 +17,7 @@ public:
 private:
 	//	métodos para inicialização
 	void carregarSpriteSheets();
+	void descarregarSpriteSheets();
 	void inicializarNave();
 	void inicializarTiro();
 
