@@ -30,7 +30,7 @@ public:
 	int calcularHeuristica(Vetor2D origem, Vetor2D destino);
 	int calcularHeuristica(float origem_x, float origem_y, float destino_x, float destino_y);
 
-	vector<NodoAStar*> getCaminho();
+	vector<NodoAStar> getCaminho();
 
 	void desenharCaminho(int r = 0, int g = 255, int b = 0, int a = 64, bool desenharPonterioAnterior = true);
 	void desenharListaAberta(int r = 255, int g = 0, int b = 0, int a = 64, bool desenharPonterioAnterior = true);
@@ -67,7 +67,7 @@ private:
 	HeuristicaAStar heuristica;
 	vector<NodoAStar*> listaAberta;
 	vector<NodoAStar*> listaFechada;
-	vector<NodoAStar*> caminho;
+	vector<NodoAStar> caminho;
 	int custoLateral;
 	int custoDiagonal;
 

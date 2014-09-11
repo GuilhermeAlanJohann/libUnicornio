@@ -22,6 +22,7 @@ public:
 	ObjetoTile* criarObjeto();
 	bool destruirObjeto(string nome);
 	bool destruirObjeto(ObjetoTile* obj);
+	bool existeObjetoNaPos(float tx, float ty);
 
 	void pixelParaTile(int px, int py, float& tx, float& ty);
 	void tileParaPixel(float tx, float ty, int& px, int& py);
@@ -65,6 +66,7 @@ public:
 	bool getPropriedadeBool(string nome);
 
 	void obterPos(float& x, float& y);
+	void obterPosCentro(float& x, float& y);
 	void obterTamanhoEmTiles(int& larg, int& alt);
 	void obterTamanhoTile(int& larg, int& alt);
 
@@ -89,7 +91,7 @@ private:
 	vector<TileLayer> layers;
 	vector<TileSet> tilesets;
 	vector<Tile> tiles;
-	vector<ObjetoTile> objetos;
+	vector<ObjetoTile*> objetos;
 
 	float x;	//	pos x (em tiles) do primeiro tile 
 	float y;	//	pos y (em tiles) do primeiro tile 

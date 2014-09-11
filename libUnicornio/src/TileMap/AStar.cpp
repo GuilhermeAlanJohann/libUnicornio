@@ -109,12 +109,12 @@ bool AStar::calcularCaminho(Vetor2D origem, Vetor2D destino)
 	if(achouCaminho)
 	{
 		for(NodoAStar* nodo = &grade[destino.x][destino.y]; nodo; nodo = nodo->anterior)
-			caminho.push_back(nodo);
+			caminho.push_back(*nodo);
 
 		int size = caminho.size();
 		for(int i = 0; i < size/2; ++i)
 		{
-			NodoAStar* temp = caminho[i];
+			NodoAStar temp = caminho[i];
 			caminho[i] = caminho[size-i-1];
 			caminho[size-i-1] = temp;
 		}
@@ -160,7 +160,7 @@ int AStar::calcularHeuristica(float origem_x, float origem_y, float destino_x, f
 	}
 }
 
-vector<NodoAStar*> AStar::getCaminho()
+vector<NodoAStar> AStar::getCaminho()
 {
 	return caminho;
 }
@@ -168,7 +168,7 @@ vector<NodoAStar*> AStar::getCaminho()
 void AStar::desenharCaminho(int r, int g, int b, int a, bool desenharPonterioAnterior)
 {
 	for(int i = 0; i < caminho.size(); ++i)
-		desenharNodo(caminho[i], r, g, b, a, desenharPonterioAnterior);
+		desenharNodo(&caminho[i], r, g, b, a, desenharPonterioAnterior);
 }
 
 void AStar::desenharListaAberta(int r, int g, int b, int a, bool desenharPonterioAnterior)
