@@ -1,0 +1,26 @@
+1) Para configurar um tileset vc deve criar um arquivo de texto com o seguinte formato:
+
+___________________________
+<caminho para o tileset>
+<largura dos tiles> <altura dos tiles>
+
+*
+<matriz de 0 e 1 que diz se o tile é caminhavel ou não>
+
+*
+<matriz de 0 à 2 que diz o nível de um tile, em relação aos objetos.
+0 == abaixo dos objetos
+1 == no nivel dos objetos
+2 == acima dos objetos>
+
+*
+<matriz de inteiros que informa o custo adicional de tile na hora de calcular o caminho com o algoritmo A*
+esta informação é usada apenas pelo algorimo de pathfinding A*>
+___________________________
+
+2) Após criar este arquivo, vc deve informar ao tilemap que ele existe, para que os tiles sejam configurados.
+Isso pode ser feito de 2 modos:
+MODO 1 - Durante a criação do tilemap, no editor de tilemaps, crie uma propriedade para o tileset que vc quer configurar chamada "config", e no campo 'valor' digite o caminho para o arquivo de texto que vc criou.
+MODO 2 - Em código, após o carregamento do tilemap, use o método TileMap::carregarConfigTileSet(string nome_tileset, string arquivo), passando como paramentro o nome do tileset (definido no editor) e o caminho para o arquivo de texto que vc criou.
+
+3) Pronto! Agora o seu mapa possui tilesets configurados.
