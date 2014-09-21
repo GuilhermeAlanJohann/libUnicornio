@@ -225,11 +225,6 @@ void Sprite::obterCor(int &vermelho, int &verde, int &azul, int &alpha)
 
 bool Sprite::terminouAnimacao()
 {
-	if(!sheet)
-	{
-		return false;
-	}
-
 	return terminou_anim;
 }
 

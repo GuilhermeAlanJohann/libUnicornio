@@ -186,7 +186,7 @@ void AStar::desenharListaFechada(int r, int g, int b, int a, bool desenharPonter
 void AStar::desenharNodo(NodoAStar* nodo, int r, int g, int b, int a, bool desenharPonterioAnterior)
 {
 	SDL_Rect rect;
-	mapa->tileParaPixel((int)nodo->pos.x, (int)nodo->pos.y, rect.x, rect.y);
+	mapa->tileParaTela((int)nodo->pos.x, (int)nodo->pos.y, rect.x, rect.y);
 	rect.w = mapa->getLarguraTile();
 	rect.h = mapa->getAlturaTile();
 

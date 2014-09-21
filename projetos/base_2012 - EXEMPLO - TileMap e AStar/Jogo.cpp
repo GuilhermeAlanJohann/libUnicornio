@@ -71,7 +71,7 @@ void Jogo::executar()
 			float mouse_x_em_tiles;
 			float mouse_y_em_tiles;
 
-			mapa.pixelParaTile(mouse.x, mouse.y, mouse_x_em_tiles, mouse_y_em_tiles);
+			mapa.telaParaTile(mouse.x, mouse.y, mouse_x_em_tiles, mouse_y_em_tiles);
 
 			bool achou = astar.calcularCaminho(player.getX(), player.getY(), mouse_x_em_tiles, mouse_y_em_tiles);
 			caminho.clear();

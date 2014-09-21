@@ -24,8 +24,8 @@ public:
 	bool destruirObjeto(ObjetoTile* obj);
 	bool existeObjetoNaPos(float tx, float ty);
 
-	void pixelParaTile(int px, int py, float& tx, float& ty);
-	void tileParaPixel(float tx, float ty, int& px, int& py);
+	void telaParaTile(int px, int py, float& tx, float& ty);
+	void tileParaTela(float tx, float ty, int& px, int& py);
 
 	bool tileECaminhavel(float tx, float ty);			//	verifica em todas as layers se o tile é caminhavel (leva em consideracao tiles de tamanho diferente)
 	int getCustoAdicionalNoTile(float tx, float ty);	//	verifica em todas as layers e soma o custo adicional (leva em consideracao tiles de tamanho diferente)

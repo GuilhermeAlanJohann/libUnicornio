@@ -501,13 +501,13 @@ bool TileMap::existeObjetoNaPos(float tx, float ty)
 	return false;
 }
 
-void TileMap::pixelParaTile(int px, int py, float& tx, float& ty)
+void TileMap::telaParaTile(int px, int py, float& tx, float& ty)
 {
 	tx = x - desloc_x + (float)(px)/(float)(largura_tile);
 	ty = y - desloc_y + (float)(py)/(float)(altura_tile);
 }
 
-void TileMap::tileParaPixel(float tx, float ty, int& px, int& py)
+void TileMap::tileParaTela(float tx, float ty, int& px, int& py)
 {
 	px = (int)((tx - x + desloc_x)*largura_tile);
 	py = (int)((ty - y + desloc_y)*altura_tile);
@@ -621,12 +621,22 @@ float TileMap::getY()
 
 float TileMap::getXCentro()
 {
-	return x + ((float)(res_x))/((float)(largura_tile))/2.0f;
+	float tiles_na_tela_em_x = (float)(res_x)/(float)(largura_tile);
+
+	if(tiles_na_tela_em_x > largura_em_tiles)
+		tiles_na_tela_em_x = largura_em_tiles;
+
+	return x + (tiles_na_tela_em_x)/2.0f;
 }
 
 float TileMap::getYCentro()
 {
-	return y + ((float)(res_y))/((float)(altura_tile))/2.0f;
+	float tiles_na_tela_em_y = (float)(res_y)/(float)(altura_tile);
+
+	if(tiles_na_tela_em_y > altura_em_tiles)
+		tiles_na_tela_em_y = altura_em_tiles;
+
+	return y + (tiles_na_tela_em_y)/2.0f;
 }
 
 int TileMap::getLarguraEmTiles()
@@ -854,18 +864,28 @@ void TileMap::setPos(float x, float y)
 
 void TileMap::setXCentro(float x)
 {
-	this->x = x - ((float)(res_x))/((float)(largura_tile))/2.0f;
+	float tiles_na_tela_em_x = (float)(res_x)/(float)(largura_tile);
+
+	if(tiles_na_tela_em_x > largura_em_tiles)
+		tiles_na_tela_em_x = largura_em_tiles;
+
+	this->x = x - (tiles_na_tela_em_x)/2.0f;
 }
 
 void TileMap::setYCentro(float y)
 {
-	this->y = y - ((float)(res_y))/((float)(altura_tile))/2.0f;
+	float tiles_na_tela_em_y = (float)(res_y)/(float)(altura_tile);
+
+	if(tiles_na_tela_em_y > altura_em_tiles)
+		tiles_na_tela_em_y = altura_em_tiles;
+
+	this->y = y - (tiles_na_tela_em_y)/2.0f;
 }
 
 void TileMap::setPosCentro(float x, float y)
 {
-	this->x = x - ((float)(res_x))/((float)(largura_tile))/2.0f;
-	this->y = y - ((float)(res_y))/((float)(altura_tile))/2.0f;
+	setXCentro(x);
+	setYCentro(y);
 }
 
 void TileMap::setPropriedade(string nome, string valor)
