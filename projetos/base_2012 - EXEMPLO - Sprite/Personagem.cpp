@@ -52,7 +52,7 @@ void Personagem::ficarParado()
 	sprite.setAnimacao(PARADO);
 }
 
-void Personagem::setSpriteSheet(SpriteSheet* spritesheet)
+void Personagem::setSpriteSheet(string spritesheet)
 {
 	sprite.setSpriteSheet(spritesheet);
 }

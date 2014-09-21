@@ -14,25 +14,26 @@ void Jogo::inicializar()
 
 	//	1)	carregar spritesheet
 	//		este método recebe como parametro:
-	//			1 - o caminho para a imagem
-	//			2 - o número de animacoes
-	//			3 - o número de frames da maior animacao
-	spritesheet.carregar("dados/imagens/sprite_sheet.png", 5, 4);
+	//			1 - um nome qualquer para o spritesheet
+	//			2 - o caminho para a imagem
+	//			3 - o número de animacoes
+	//			4 - o número de frames da maior animacao
+	recursos.carregarSpriteSheet("player", "dados/imagens/sprite_sheet.png", 5, 4);
 
 	//	setar numero de frames na primeira animacao (porque é um número diferente) 
-	spritesheet.setNumFramesAnimacao(0, 1);	//	anim 0, frames = 1
+	recursos.getSpriteSheet("player")->setNumFramesAnimacao(0, 1);	//	anim 0, frames = 1
 
 
 	//	2)	inicializar personagem (setar spritesheet, posicao e velocidade)
-	per.setSpriteSheet(&spritesheet);	//	passando um ponteiro!
+	per.setSpriteSheet("player");		//	passando o nome dado ao spritesheet!
 	per.setPos(res_x/2, res_y/2);		//	bem no meio da tela
 	per.setVel(0.4);
 }
 
 void Jogo::finalizar()
 {
-	//	6)	descarregar SpriteSheet
-	spritesheet.descarregar();
+	//	6)	descarregar tudo (SpriteSheets, Fontes e Sons)
+	recursos.descarregarTudo();
 
 	uniFinalizar();
 }

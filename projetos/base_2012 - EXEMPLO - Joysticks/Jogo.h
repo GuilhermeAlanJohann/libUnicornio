@@ -13,7 +13,6 @@ public:
 	void executar();
 
 private:
-	SpriteSheet sheets[MAXIMO_DE_PLAYERS];
 	Player players[MAXIMO_DE_PLAYERS];
 };
 

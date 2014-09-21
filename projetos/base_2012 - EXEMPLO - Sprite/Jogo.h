@@ -14,6 +14,5 @@ public:
 
 private:
 	Personagem per;				//	personagem que representa o player no jogo
-	SpriteSheet spritesheet;	//	spritesheet do personagem
 };
 

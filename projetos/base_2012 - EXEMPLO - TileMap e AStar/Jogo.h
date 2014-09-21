@@ -17,7 +17,6 @@ private:
 	TileMap mapa;
 	AStar astar;
 
-	SpriteSheet sheetPlayer;
 	Personagem player;
 
 	vector<NodoAStar> caminho;

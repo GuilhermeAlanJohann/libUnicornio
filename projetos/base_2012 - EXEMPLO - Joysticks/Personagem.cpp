@@ -24,7 +24,7 @@ void Personagem::mover(float horizontal, float vertical)
 	y += vel*vertical;
 }
 
-void Personagem::setSpriteSheet(SpriteSheet* spritesheet)
+void Personagem::setSpriteSheet(string spritesheet)
 {
 	sprite.setSpriteSheet(spritesheet);
 }

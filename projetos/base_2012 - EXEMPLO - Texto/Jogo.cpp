@@ -13,29 +13,34 @@ void Jogo::inicializar()
 	uniInicializar(800, 600, false);
 
 	//	1)	Carregar as fontes (passando o tamanho da fonte como parametro)
-	fonte.carregar("dados/fontes/morohashi.ttf", 32);
-	fonteMaior.carregar("dados/fontes/morohashi.ttf", 128);
+	recursos.carregarFonte("fonte menor", "dados/fontes/morohashi.ttf", 32);
+	recursos.carregarFonte("fonte maior", "dados/fontes/morohashi.ttf", 128);
 
 	//	2)	Setar as fontes e os textos
-	texto.setFonte(&fonte);
+	texto.setFonte("fonte menor");
 	texto.setTexto("Exemplo");
-	textoMaior.setFonte(&fonteMaior);
+	textoMaior.setFonte("fonte maior");
 	textoMaior.setTexto("Exemplo");
 
-	//	3)	(Opcional) Setar cor para os textos. O padrão é branco.
+	//	(Opcional) Setar cor para os textos. O padrão é branco.
 	texto.setCor(0, 255, 0);
 	textoMaior.setCor(255, 0, 0);
+
+	//	(Opcional) Setar borda e cor da borda. O padrão é preto
+	texto.setTamanhoBorda(1);
+	texto.setCorBorda(255, 255, 255);
+	textoMaior.setTamanhoBorda(2);
+	textoMaior.setCorBorda(255, 255, 255);
 }
 
 void Jogo::finalizar()
 {
-	//	5)	(IMPORTANTE) Limpar o texto. Isto destroi a "imagem" associada ao texto e libera memoria, evitando possiveis crashs na finalizacao.
+	//	4)	(IMPORTANTE) Limpar o texto. Isto destroi a "imagem" associada ao texto e libera memoria, evitando possiveis crashs na finalizacao.
 	texto.apagar();
 	textoMaior.apagar();
 
-	//	6) Descarregar fontes
-	fonte.descarregar();
-	fonteMaior.descarregar();
+	//	5) Descarregar tudo
+	recursos.descarregarTudo();
 
 	uniFinalizar();
 }
@@ -46,7 +51,7 @@ void Jogo::executar()
 	{
 		uniIniciarFrame();
 
-		//	4)	Desenhar os textos (x, y, rot)
+		//	3)	Desenhar os textos (x, y, rot)
 		textoMaior.desenhar(res_x/2, res_y/2);		//	bem no meio da tela
 		texto.desenhar(res_x/2, res_y/2 + 64, 180);	//	um pouco mais para baixo e com rot 180 graus
 

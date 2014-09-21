@@ -14,7 +14,7 @@ void Player::setPos(float x, float y)
 	personagem.setPos(x, y);
 }
 
-void Player::setSpriteSheet(SpriteSheet* sheet)
+void Player::setSpriteSheet(string sheet)
 {
 	personagem.setSpriteSheet(sheet);
 }

@@ -71,6 +71,7 @@ public:
 	void setCorBordaVerde(int verde);
 	void setCorBordaAzul(int azul);
 	void setCorBordaAlpha(int alpha);
+	void setFonte(string nome);
 	void setFonte(Fonte* fnt);
 	void setTamanhoBorda(int tamanho);
 

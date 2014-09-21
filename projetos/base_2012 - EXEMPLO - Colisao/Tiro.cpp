@@ -10,7 +10,7 @@ Tiro::~Tiro()
 {
 }
 
-void Tiro::setSpriteSheet(SpriteSheet* sheet)
+void Tiro::setSpriteSheet(string sheet)
 {
 	spr.setSpriteSheet(sheet);
 }

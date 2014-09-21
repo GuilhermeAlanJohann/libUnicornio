@@ -8,7 +8,7 @@ public:
 	~Personagem();
 
 	void setPos(int x, int y);
-	void setSpriteSheet(SpriteSheet* spritesheet);
+	void setSpriteSheet(string spritesheet);
 
 	//	os parametros variam de -1.0 à +1.0
 	void mover(float horizontal, float vertical);

@@ -17,7 +17,7 @@ public:
 	~Player();
 
 	void setPos(float x, float y);
-	void setSpriteSheet(SpriteSheet* sheet);
+	void setSpriteSheet(string sheet);
 	void setJoystick(Joystick* joy);
 
 	void atualizar();

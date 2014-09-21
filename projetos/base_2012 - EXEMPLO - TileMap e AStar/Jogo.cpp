@@ -26,11 +26,11 @@ void Jogo::inicializar()
 	calcular_novo_caminho = false;
 
 	//	4)	carregar spritesheet para o player
-	sheetPlayer.carregar("dados/spritesheets/player.png", 4, 4);
+	recursos.carregarSpriteSheet("player", "dados/spritesheets/player.png", 4, 4);
 
 	//	5)	inicializar o personagem do player,
-			//	passando o spritesheet e o objeto que representa ele no mapa
-	player.inicializar(&sheetPlayer, mapa.getObjeto("Player"));
+			//	passando o nome do spritesheet e o objeto que representa ele no mapa
+	player.inicializar("player", mapa.getObjeto("Player"));
 }
 
 void Jogo::finalizar()
@@ -42,7 +42,7 @@ void Jogo::finalizar()
 	caminho.clear();
 
 	//	12)	descarregar spritesheet
-	sheetPlayer.descarregar();
+	recursos.descarregarTudo();
 
 	//	13)	descarregar o tilemap
 	mapa.descarregar();

@@ -15,7 +15,6 @@ public:
 
 private:
 	TileMap mapa;
-	SpriteSheet sheetPlayer;
 	Personagem player;
 };
 

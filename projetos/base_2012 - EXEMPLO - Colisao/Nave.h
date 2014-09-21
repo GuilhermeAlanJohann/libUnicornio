@@ -7,7 +7,7 @@ public:
 	Nave();
 	~Nave();
 
-	void setSpriteSheet(SpriteSheet* sheet);
+	void setSpriteSheet(string sheet);
 	void setPos(float x, float y);
 
 	Sprite* getSprite();

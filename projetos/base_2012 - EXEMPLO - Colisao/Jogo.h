@@ -28,9 +28,6 @@ private:
 
 
 	//	atributos
-	SpriteSheet ssTiro;
-	SpriteSheet ssNave;
-
 	Tiro tiro;
 	Nave nave;
 };

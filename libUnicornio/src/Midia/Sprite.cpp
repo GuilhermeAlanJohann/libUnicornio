@@ -343,6 +343,11 @@ void Sprite::setAnimacaoAoContrario(bool b)
 	animacao_ao_contrario = b;
 }
 
+void Sprite::setSpriteSheet(string nome)
+{
+	setSpriteSheet(recursos.getSpriteSheet(nome));
+}
+
 void Sprite::setSpriteSheet(SpriteSheet* sheet)
 {
 	if(!sheet)

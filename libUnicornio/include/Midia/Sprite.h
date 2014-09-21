@@ -75,6 +75,7 @@ public:
 	void setCorAzul(int azul);
 	void setCorAlpha(int alpha);
 	void setAnimacaoAoContrario(bool b);
+	void setSpriteSheet(string nome);
 	void setSpriteSheet(SpriteSheet* sheet);
 
 	void recomecarAnimacao();

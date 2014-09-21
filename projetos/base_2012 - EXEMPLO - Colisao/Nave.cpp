@@ -9,7 +9,7 @@ Nave::~Nave()
 {
 }
 
-void Nave::setSpriteSheet(SpriteSheet* sheet)
+void Nave::setSpriteSheet(string sheet)
 {
 	spr.setSpriteSheet(sheet);
 }

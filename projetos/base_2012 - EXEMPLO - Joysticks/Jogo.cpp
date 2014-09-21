@@ -13,17 +13,22 @@ void Jogo::inicializar()
 	uniInicializar(800, 600, false);
 
 	//	1)	carrega todos SpriteSheets (um para cada player)
-	sheets[0].carregar("dados/imagens/player1.png", 1, 1);
-	sheets[1].carregar("dados/imagens/player2.png", 1, 1);
-	sheets[2].carregar("dados/imagens/player3.png", 1, 1);
-	sheets[3].carregar("dados/imagens/player4.png", 1, 1);
+	recursos.carregarSpriteSheet("player1", "dados/imagens/player1.png", 1, 1);
+	recursos.carregarSpriteSheet("player2", "dados/imagens/player2.png", 1, 1);
+	recursos.carregarSpriteSheet("player3", "dados/imagens/player3.png", 1, 1);
+	recursos.carregarSpriteSheet("player4", "dados/imagens/player4.png", 1, 1);
 
 	//	2)	"inicializa" players (seta SpriteSheets e posicao)
 	for(int i = 0; i < MAXIMO_DE_PLAYERS; ++i)
 	{
+		//	posicao
 		players[i].setPos(res_x/5 * (i+1), res_y/2);
-		players[i].setSpriteSheet(&sheets[i]);
 	}
+	//	spritesheets
+	players[0].setSpriteSheet("player1");
+	players[1].setSpriteSheet("player2");
+	players[2].setSpriteSheet("player3");
+	players[3].setSpriteSheet("player4");
 
 	//	3)	seta Joysticks para os players (passando o endereço dos joysticks da egl)
 	players[0].setJoystick(&joysticks.player1);
@@ -34,8 +39,8 @@ void Jogo::inicializar()
 
 void Jogo::finalizar()
 {
-	for(int i = 0; i < MAXIMO_DE_PLAYERS; ++i)
-		sheets[i].descarregar();
+	//	6)	descarregar tudo
+	recursos.descarregarTudo();
 
 	uniFinalizar();
 }

@@ -251,8 +251,23 @@ void Texto::setTamanhoBorda(int tamanho)
 		criarTexturaBorda();
 }
 
+void Texto::setFonte(string nome)
+{
+	setFonte(recursos.getFonte(nome));
+}
+
 void Texto::setFonte(Fonte* fnt)
 {
+	if(!fnt)
+	{
+		return;
+	}
+
+	if(fonte == fnt)
+	{
+		return;
+	}
+
 	fonte = fnt;
 }
 
@@ -311,6 +326,9 @@ void Texto::desenhar(int x, int y, float rot)
 	{
 		retangulo.w = rect_borda_larg*escala_x;
 		retangulo.h = rect_borda_alt*escala_y;
+
+		pivot.x = retangulo.w * ancora_x;
+		pivot.y = retangulo.h * ancora_y;
 
 		retangulo.x = x - (int)(retangulo.w*ancora_x) - (tamanho_borda*2)*escala_x*(0.5f - ancora_x);
 		retangulo.y -= (tamanho_borda*2)*escala_y*ancora_y;

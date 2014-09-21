@@ -13,8 +13,6 @@ public:
 	void executar();
 
 private:
-	Fonte fonte;
-	Fonte fonteMaior;
 	Texto texto;
 	Texto textoMaior;
 };

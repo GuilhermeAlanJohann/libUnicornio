@@ -16,11 +16,11 @@ void Jogo::inicializar()
 	mapa.carregar("dados/tilemaps/mapa_campo.json");
 
 	//	2)	carregar spritesheet para o player
-	sheetPlayer.carregar("dados/spritesheets/player.png", 4, 4);
+	recursos.carregarSpriteSheet("player", "dados/spritesheets/player.png", 4, 4);
 
 	//	3)	inicializar o personagem do player,
-			//	passando o spritesheet e o objeto que representa ele no mapa
-	player.inicializar(&sheetPlayer, mapa.getObjeto("Player"));
+			//	passando o nome do spritesheet e o objeto que representa ele no mapa
+	player.inicializar("player", mapa.getObjeto("Player"));
 }
 
 void Jogo::finalizar()
@@ -29,7 +29,7 @@ void Jogo::finalizar()
 	//	...
 
 	//	8)	descarregar spritesheet
-	sheetPlayer.descarregar();
+	recursos.descarregarTudo();
 
 	//	9)	descarregar o tilemap
 	mapa.descarregar();

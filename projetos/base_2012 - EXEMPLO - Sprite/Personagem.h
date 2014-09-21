@@ -18,7 +18,7 @@ public:
 
 	void setPos(int x, int y);
 	void setVel(float vel);
-	void setSpriteSheet(SpriteSheet* spritesheet);
+	void setSpriteSheet(string spritesheet);
 
 	void moverDir();
 	void moverEsq();

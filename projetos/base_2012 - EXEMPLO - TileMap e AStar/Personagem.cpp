@@ -10,7 +10,7 @@ Personagem::~Personagem()
 {
 }
 
-void Personagem::inicializar(SpriteSheet* sheet, ObjetoTile* objeto)
+void Personagem::inicializar(string sheet, ObjetoTile* objeto)
 {
 	//	setar spritesheet
 	spr.setSpriteSheet(sheet);

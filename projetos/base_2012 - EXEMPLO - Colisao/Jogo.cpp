@@ -41,14 +41,13 @@ void Jogo::executar()
 
 void Jogo::carregarSpriteSheets()
 {
-	ssNave.carregar("dados/imagens/nave.png", 1, 1);
-	ssTiro.carregar("dados/imagens/tiro.png", 1, 2);
+	recursos.carregarSpriteSheet("nave", "dados/imagens/nave.png", 1, 1);
+	recursos.carregarSpriteSheet("tiro", "dados/imagens/tiro.png", 1, 2);
 }
 
 void Jogo::descarregarSpriteSheets()
 {
-	ssNave.descarregar();
-	ssTiro.descarregar();
+	recursos.descarregarTodosSpriteSheets();
 }
 
 void Jogo::inicializarNave()
@@ -57,7 +56,7 @@ void Jogo::inicializarNave()
 	x = res_x/2;
 	y = res_y - 30;
 
-	nave.setSpriteSheet(&ssNave);
+	nave.setSpriteSheet("nave");
 	nave.setPos(x, y);
 }
 
@@ -67,7 +66,7 @@ void Jogo::inicializarTiro()
 	x = res_x/2;
 	y = -20;
 
-	tiro.setSpriteSheet(&ssTiro);
+	tiro.setSpriteSheet("tiro");
 	tiro.setPos(x, y);
 }
 

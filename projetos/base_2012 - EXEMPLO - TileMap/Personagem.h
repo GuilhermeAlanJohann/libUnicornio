@@ -15,7 +15,7 @@ public:
 	Personagem();
 	~Personagem();
 
-	void inicializar(SpriteSheet* sheet, ObjetoTile* objeto);
+	void inicializar(string sheet, ObjetoTile* objeto);
 
 	void atualizar();
 
