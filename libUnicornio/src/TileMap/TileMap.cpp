@@ -501,6 +501,26 @@ bool TileMap::existeObjetoNaPos(float tx, float ty)
 	return false;
 }
 
+bool TileMap::existeObjetoDoTipoNaPos(string tipo, float tx, float ty)
+{
+	float ox0, oy0, ox, oy;
+	for(int i = 0; i < objetos.size(); ++i)
+	{
+		if(objetos[i]->getTipo() == tipo)
+		{
+			objetos[i]->obterPos(ox0, oy0);
+			objetos[i]->obterTamanho(ox, oy);
+			ox += ox0;
+			oy += oy0;
+
+			if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
+				return true;
+		}
+	}
+
+	return false;
+}
+
 void TileMap::telaParaTile(int px, int py, float& tx, float& ty)
 {
 	tx = x - desloc_x + (float)(px)/(float)(largura_tile);
@@ -621,22 +641,12 @@ float TileMap::getY()
 
 float TileMap::getXCentro()
 {
-	float tiles_na_tela_em_x = (float)(res_x)/(float)(largura_tile);
-
-	if(tiles_na_tela_em_x > largura_em_tiles)
-		tiles_na_tela_em_x = largura_em_tiles;
-
-	return x + (tiles_na_tela_em_x)/2.0f;
+	return x + (getNumTilesNaTelaEmX()/2.0f);
 }
 
 float TileMap::getYCentro()
 {
-	float tiles_na_tela_em_y = (float)(res_y)/(float)(altura_tile);
-
-	if(tiles_na_tela_em_y > altura_em_tiles)
-		tiles_na_tela_em_y = altura_em_tiles;
-
-	return y + (tiles_na_tela_em_y)/2.0f;
+	return y + (getNumTilesNaTelaEmY()/2.0f);
 }
 
 int TileMap::getLarguraEmTiles()
@@ -657,6 +667,26 @@ int TileMap::getLarguraTile()
 int TileMap::getAlturaTile()
 {
 	return altura_tile;
+}
+
+int TileMap::getNumTilesNaTelaEmX()
+{
+	float tiles_na_tela_em_x = (float)(res_x)/(float)(largura_tile);
+
+	if(tiles_na_tela_em_x > largura_em_tiles)
+		tiles_na_tela_em_x = largura_em_tiles;
+
+	return tiles_na_tela_em_x;
+}
+
+int TileMap::getNumTilesNaTelaEmY()
+{
+	float tiles_na_tela_em_y = (float)(res_y)/(float)(altura_tile);
+
+	if(tiles_na_tela_em_y > altura_em_tiles)
+		tiles_na_tela_em_y = altura_em_tiles;
+
+	return tiles_na_tela_em_y;
 }
 
 int TileMap::getNumLayers()
@@ -755,6 +785,26 @@ ObjetoTile* TileMap::getObjetoNaPos(float tx, float ty)
 	return NULL;
 }
 
+ObjetoTile* TileMap::getObjetoDoTipoNaPos(string tipo, float tx, float ty)
+{
+	float ox0, oy0, ox, oy;
+	for(int i = 0; i < objetos.size(); ++i)
+	{
+		if(objetos[i]->getTipo() == tipo)
+		{
+			objetos[i]->obterPos(ox0, oy0);
+			objetos[i]->obterTamanho(ox, oy);
+			ox += ox0;
+			oy += oy0;
+
+			if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
+				return objetos[i];
+		}
+	}
+
+	return NULL;
+}
+
 vector<ObjetoTile*> TileMap::getObjetosDoTipo(string tipo)
 {
 	vector<ObjetoTile*> r;
@@ -779,6 +829,27 @@ vector<ObjetoTile*> TileMap::getObjetosNaPos(float tx, float ty)
 
 		if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
 			r.push_back(objetos[i]);
+	}
+
+	return r;
+}
+
+vector<ObjetoTile*> TileMap::getObjetosDoTipoNaPos(string tipo, float tx, float ty)
+{
+	vector<ObjetoTile*> r;
+	float ox0, oy0, ox, oy;
+	for(int i = 0; i < objetos.size(); ++i)
+	{
+		if(objetos[i]->getTipo() == tipo)
+		{
+			objetos[i]->obterPos(ox0, oy0);
+			objetos[i]->obterTamanho(ox, oy);
+			ox += ox0;
+			oy += oy0;
+
+			if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
+				r.push_back(objetos[i]);
+		}
 	}
 
 	return r;
@@ -864,22 +935,12 @@ void TileMap::setPos(float x, float y)
 
 void TileMap::setXCentro(float x)
 {
-	float tiles_na_tela_em_x = (float)(res_x)/(float)(largura_tile);
-
-	if(tiles_na_tela_em_x > largura_em_tiles)
-		tiles_na_tela_em_x = largura_em_tiles;
-
-	this->x = x - (tiles_na_tela_em_x)/2.0f;
+	this->x = x - (getNumTilesNaTelaEmX()/2.0f);
 }
 
 void TileMap::setYCentro(float y)
 {
-	float tiles_na_tela_em_y = (float)(res_y)/(float)(altura_tile);
-
-	if(tiles_na_tela_em_y > altura_em_tiles)
-		tiles_na_tela_em_y = altura_em_tiles;
-
-	this->y = y - (tiles_na_tela_em_y)/2.0f;
+	this->y = y - (getNumTilesNaTelaEmY()/2.0f);
 }
 
 void TileMap::setPosCentro(float x, float y)

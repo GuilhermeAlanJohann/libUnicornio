@@ -322,7 +322,7 @@ void Texto::desenhar(int x, int y, float rot)
     SDL_RenderCopyEx(renderer, tex, NULL, &retangulo, rot, &pivot, SDL_FLIP_NONE);
 
 	//	desenhar borda
-	if(tamanho_borda > 0)
+	if(tex_borda)
 	{
 		retangulo.w = rect_borda_larg*escala_x;
 		retangulo.h = rect_borda_alt*escala_y;
@@ -352,7 +352,6 @@ void Texto::apagar()
 	{
 		SDL_DestroyTexture(tex_borda);
 		tex_borda = NULL;
-		tamanho_borda = 0;
 	}
 
 	str = "";

@@ -23,6 +23,7 @@ public:
 	bool destruirObjeto(string nome);
 	bool destruirObjeto(ObjetoTile* obj);
 	bool existeObjetoNaPos(float tx, float ty);
+	bool existeObjetoDoTipoNaPos(string tipo, float tx, float ty);
 
 	void telaParaTile(int px, int py, float& tx, float& ty);
 	void tileParaTela(float tx, float ty, int& px, int& py);
@@ -42,6 +43,9 @@ public:
 	int getLarguraTile();
 	int getAlturaTile();
 
+	int getNumTilesNaTelaEmX();
+	int getNumTilesNaTelaEmY();
+
 	int getNumLayers();
 	int getNumTileSets();
 	int getNumTiles();
@@ -57,8 +61,10 @@ public:
 	ObjetoTile* getObjeto(int indice);
 	ObjetoTile* getObjeto(string nome);
 	ObjetoTile* getObjetoNaPos(float tx, float ty);
+	ObjetoTile* getObjetoDoTipoNaPos(string tipo, float tx, float ty);
 	vector<ObjetoTile*> getObjetosDoTipo(string tipo);
 	vector<ObjetoTile*> getObjetosNaPos(float tx, float ty);
+	vector<ObjetoTile*> getObjetosDoTipoNaPos(string tipo, float tx, float ty);
 
 	string getPropriedade(string nome);
 	int getPropriedadeInt(string nome);
