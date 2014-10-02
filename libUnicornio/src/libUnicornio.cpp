@@ -278,6 +278,21 @@ void processarDebug()
 
 }
 
+void uniDormir(int milisec)
+{
+	SDL_Delay(milisec);
+}
+
+void uniErro(string mensagem)
+{
+	uni_debug = true;
+	debugItem* deb;
+	deb = new debugItem;
+	deb->chave = "ERRO";
+	deb->valor = mensagem;
+	debugMessages.push_back(deb);
+}
+
 void uniDepurar(string chave, string valor)
 {
 	uni_debug = true;
@@ -337,19 +352,136 @@ void uniDepurar(string chave, char valor)
 	uniDepurar(chave,temp);
 }
 
-void uniErro(string mensagem)
-{
-	uni_debug = true;
-	debugItem* deb;
-	deb = new debugItem;
-	deb->chave = "ERRO";
-	deb->valor = mensagem;
-	debugMessages.push_back(deb);
-}
-
 void uniSetCorDeFundo(int vermelho, int verde, int azul)
 {
 	clear_color = ((255 & 0x0ff) << 24) | ((vermelho & 0x0ff) << 16) | ((verde & 0x0ff) << 8 ) | (azul & 0x0ff);
+}
+
+void uniDesenharPixel(int x,int y, int vermelho, int verde, int azul, int opaciade)
+{
+	if(!uni_init) return;
+
+	Uint8 or, og, ob, oa;
+
+	SDL_SetRenderDrawColor(renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, (Uint8)opaciade); 
+	SDL_RenderDrawPoint(renderer, x, y);
+}
+
+void uniDesenharLinha(int x1,int y1, int x2,int y2, int vermelho, int verde, int azul, int opaciade)
+{
+	if(!uni_init) return;
+
+	Uint8 or, og, ob, oa;
+
+	SDL_SetRenderDrawColor(renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, (Uint8)opaciade); 
+	SDL_RenderDrawLine(renderer, x1, y1, x2, y2); 
+}
+
+void uniDesenharCirculo(int x, int y, float raio, int num_segmentos, int vermelho, int verde, int azul)
+{
+	float c, s;
+
+	int anterior_x = x + raio;
+	int anterior_y = y;
+
+	//	desenha borda
+	float numLinhas = 120;	// numero de linhas para desenhar a borda do circulo
+	for(float i = 0; i <= 360; i += 360.0f/(float)num_segmentos)
+	{
+		c = cos(i*PI/180);
+		s = sin(i*PI/180);
+
+		int atual_x = x + c*raio;
+		int atual_y = y + s*raio;
+
+		uniDesenharLinha(anterior_x, anterior_y, atual_x, atual_y, vermelho, verde, azul);
+
+		anterior_x = atual_x;
+		anterior_y = atual_y;
+	}
+}
+
+void uniDesenharRetangulo(int x, int y, float rot, int largura, int altura, float ancora_x, float ancora_y, int vermelho, int verde, int azul)
+{
+	float cs = cos(rot*PI/180.0);
+	float sn = sin(rot*PI/180.0);
+
+	float meiaLargura = (float)largura*ancora_x;
+	float meiaAltura = (float)altura*ancora_y;
+
+	SDL_Point pontos[4];
+
+	pontos[0].x = -largura*ancora_x;		pontos[0].y = -altura*ancora_y;
+	pontos[1].x = pontos[0].x + largura;	pontos[1].y = pontos[0].y;
+	pontos[2].x = pontos[1].x;				pontos[2].y = pontos[0].y + altura;
+	pontos[3].x = pontos[0].x;				pontos[3].y = pontos[2].y;
+
+	for(int i = 0; i < 4; ++i)
+	{
+		//	rotaciona os pontos (em relação a origem)
+		float xx = pontos[i].x * cs - pontos[i].y * sn;
+		float yy = pontos[i].x * sn + pontos[i].y * cs;
+
+		//	translada os pontos para posição
+		pontos[i].x = xx + x;
+		pontos[i].y = yy + y;
+	}
+
+	uniDesenharLinha(pontos[0].x, pontos[0].y, pontos[1].x, pontos[1].y, vermelho, verde, azul);
+	uniDesenharLinha(pontos[1].x, pontos[1].y, pontos[2].x, pontos[2].y, vermelho, verde, azul);
+	uniDesenharLinha(pontos[2].x, pontos[2].y, pontos[3].x, pontos[3].y, vermelho, verde, azul);
+	uniDesenharLinha(pontos[3].x, pontos[3].y, pontos[0].x, pontos[0].y, vermelho, verde, azul);
+}
+
+void uniDesenharPoligono(int x, int y, float rot, Vetor2D* pontos, int num_pontos, int vermelho, int verde, int azul)
+{
+	if(num_pontos < 3)
+		return;
+
+	float cs = cos(rot*PI/180.0);
+	float sn = sin(rot*PI/180.0);
+
+	float xx = pontos[0].x * cs - pontos[0].y * sn;
+	float yy = pontos[0].x * sn + pontos[0].y * cs;
+
+	int x_anterior = xx + x;
+	int y_anterior = yy + y;
+
+	int primeiro_x = x_anterior;
+	int primeiro_y = y_anterior;
+
+	for(int i = 1; i < num_pontos; ++i)
+	{
+		//	rotaciona os pontos (em relação a origem)
+		xx = pontos[i].x * cs - pontos[i].y * sn;
+		yy = pontos[i].x * sn + pontos[i].y * cs;
+
+		//	translada os pontos para posição
+		int x_atual = xx + x;
+		int y_atual = yy + y;
+
+		uniDesenharLinha(x_anterior, y_anterior, x_atual, y_atual, vermelho, verde, azul);
+
+		x_anterior = x_atual;
+		y_anterior = y_atual;
+	}
+
+	uniDesenharLinha(x_anterior, y_anterior, primeiro_x, primeiro_y, vermelho, verde, azul);
+}
+
+void uniDesenharTexto(string txt, int x, int y, int cR, int cG, int cB, bool centralizar)
+{
+	if(!uni_init) return;
+
+	Texto t;
+	t.setFonte(uniGetFontePadrao());
+	t.setTexto(txt);
+	t.setCor(cR, cG, cB);
+
+	if(!centralizar)
+		t.setAncora(0.0, 0.5);
+
+	t.desenhar(x, y);
 }
 
 void uniDesenharFrame(bool limpa)
@@ -373,81 +505,28 @@ void uniDesenharFrame(bool limpa)
 
 }
 
-void uniDesenharPixel(int x,int y, int vermelho, int verde, int azul, int opaciade)
+//	func de colisao entre ponto e Sprite - VAI SER REMOVIDA NO FUTURO
+bool uniColisao(int px, int py, Sprite* spr, int spr_x, int spr_y, float spr_rot)
 {
-	if(!uni_init) return;
-
-	Uint8 or, og, ob, oa;
-
-	SDL_SetRenderDrawColor(renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, (Uint8)opaciade); 
-	SDL_RenderDrawPoint(renderer, x, y);
+	return uniColisaoPontoComSprite(px, py, spr, spr_x, spr_y, spr_rot);
 }
 
-void uniDesenharLinha(int x1,int y1, int x2,int y2, int vermelho, int verde, int azul, int opaciade)
+//	func de colisao entre sprites - VAI SER REMOVIDA NO FUTURO
+bool uniColisao(Sprite* spr1, int x1, int y1, float rot1, Sprite* spr2, int x2, int y2, float rot2)
 {
-	if(!uni_init) return;
-
-	Uint8 or, og, ob, oa;
-
-	SDL_SetRenderDrawColor(renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, (Uint8)opaciade); 
-	SDL_RenderDrawLine(renderer, x1, y1, x2, y2); 
+	return uniColisaoSpriteComSprite(spr1, x1, y1, rot1, spr2, x2, y2, rot2, true);
 }
 
-void uniDesenharRetangulo(int x, int y, int largura, int altura, int vermelho, int verde, int azul, int opaciade)
+//	colisaor entre ponto e circulo
+bool uniColisaoPontoComCirculo(float ponto_x, float ponto_y, float circulo_x, float circulo_y, float raio)
 {
-	if(!uni_init) return;
+	float dist_ao_quadrado = (ponto_x - circulo_x)*(ponto_x - circulo_x) + (ponto_y - circulo_y)*(ponto_y - circulo_y);
 
-	Uint8 or, og, ob, oa;
-
-	SDL_SetRenderDrawColor(renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, (Uint8)opaciade); 
-	//	Desenha 
-	SDL_Rect rect;
-	rect.x = x;
-	rect.y = y;
-	rect.w = largura;
-	rect.h = altura;
-	SDL_RenderDrawRect(renderer, &rect);
-}
-
-void uniDormir(int milisec)
-{
-	SDL_Delay(milisec);
-}
-
-void uniDesenharTexto(string txt, int x, int y, int cR, int cG, int cB, bool centralizar)
-{
-	if(!uni_init) return;
-
-	Texto t;
-	t.setFonte(uniGetFontePadrao());
-	t.setTexto(txt);
-	t.setCor(cR, cG, cB);
-
-	if(!centralizar)
-		t.setAncora(0.0, 0.5);
-
-	t.desenhar(x, y);
-}
-
-//	Colisao de linhas
-bool uniColisaoLinhas(float ax0, float ay0, float ax1, float ay1, float bx0, float by0, float bx1, float by1)
-{
-	float denominador = ((by1 - by0) * (ax1 - ax0)) - ((bx1 - bx0) * (ay1 - ay0));
-
-	if (denominador == 0)
-		return false;
-
-	float ua = (((bx1 - bx0) * (ay0 - by0)) - ((by1 - by0) * (ax0 - bx0))) / denominador;
-	float ub = (((ax1 - ax0) * (ay0 - by0)) - ((ay1 - ay0) * (ax0 - bx0))) / denominador;
-
-	if ((ua < 0.0) || (ua > 1.0) || (ub < 0.0) || (ub > 1.0))
-		return false;
-
-	return true;
+	return (dist_ao_quadrado < raio*raio);
 }
 
 //	colisao entre ponto e retangulo
-bool uniColisaoPontoRetangulo(int ponto_x, int ponto_y, int x, int y, float rot, int largura, int altura, float ancora_x, float ancora_y)
+bool uniColisaoPontoComRetangulo(int ponto_x, int ponto_y, int x, int y, float rot, int largura, int altura, float ancora_x, float ancora_y)
 {
 	//	invez de rotacionar o retangulo, transladar, e calcular se o ponto está dentro dele
 	//	vamos transladar o retangulo, rotacionar o ponto e calcular se o ponto está dentro do retangulo
@@ -474,8 +553,344 @@ bool uniColisaoPontoRetangulo(int ponto_x, int ponto_y, int x, int y, float rot,
 	return ( (ponto_x <= rect.x + rect.w) && (ponto_x >= rect.x) && (ponto_y <= rect.y + rect.h) && (ponto_y >= rect.y) );
 }
 
-//	Colisao de retangulos
-bool uniColisaoRetangulos(int x1, int y1, float rot1, int largura1, int altura1, float ancora_x1, float ancora_y1, int x2, int y2, float rot2, int largura2, int altura2, float ancora_x2, float ancora_y2)
+//	colisao entre ponto e poligono
+bool uniColisaoPontoComPoligono(float ponto_x, float ponto_y, Vetor2D* pontos, int num_pontos, float x, float y, float rot)
+{
+	//	se nao tiver pontos suficientes, nao testa
+	if(num_pontos < 3)
+		return false;
+
+	Vetor2D* poli = new Vetor2D[num_pontos];
+
+	//	calcula rot(em radianos), seno e cosseno
+	float rad = rot*PI/180;
+	float cs = cos(rad);
+	float sn = sin(rad);
+
+	//	rotaciona os pontos (em relação a origem)
+	float xx = pontos[0].x * cs - pontos[0].y * sn;
+	float yy = pontos[0].x * sn + pontos[0].y * cs;
+
+	//	translada os pontos de volta
+	poli[0].x = xx + x;
+	poli[0].y = yy + y;
+
+	Vetor2D menor, maior;
+	maior = menor = poli[0];
+
+	//	calcula os pontos
+	for(int i = 1; i < num_pontos; ++i)
+	{
+		//	rotaciona os pontos (em relação a origem)
+		float xx = pontos[i].x * cs - pontos[i].y * sn;
+		float yy = pontos[i].x * sn + pontos[i].y * cs;
+
+		//	translada os pontos de volta
+		poli[i].x = xx + x;
+		poli[i].y = yy + y;
+
+		//	calcula AABB (para um primeiro teste)
+		menor.x = std::min(menor.x, poli[i].x);
+		menor.y = std::min(menor.y, poli[i].y);
+		maior.x = std::max(maior.x, poli[i].x);
+		maior.y = std::max(maior.y, poli[i].y);
+	}
+
+	//	testa AABB 
+	if(ponto_x < menor.x || ponto_x > maior.x || ponto_y < menor.y || ponto_y > maior.y)
+        return false;
+
+	//	Usa algoritmo 'pnpoly' http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+    bool dentro = false;
+	for(int i = 0, j = num_pontos-1 ; i < num_pontos; j = i++)
+    {
+        if((poli[i].y > ponto_y ) != (poli[j].y > ponto_y ) &&
+			ponto_x < (poli[j].x - poli[i].x)*(ponto_y - poli[i].y)/(poli[j].y - poli[i].y) + poli[i].x)
+			{
+				dentro = !dentro;
+			}
+    }
+
+	delete[] poli;
+    return dentro;
+}
+
+bool uniColisaoPontoComSprite(float ponto_x, float ponto_y, Sprite* spr, float x, float y, float rot)
+{
+	float ax, ay;
+	int larg, alt;
+
+	spr->obterAncora(ax, ay);
+	spr->obterTamanho(larg, alt);
+
+	return uniColisaoPontoComRetangulo(ponto_x, ponto_y, x, y, rot, larg, alt, ax, ay);
+}
+
+bool uniColisaoLinhaComLinha(float linhaA_x0, float linhaA_y0, float linhaA_x1, float linhaA_y1, float linhaB_x0, float linhaB_y0, float linhaB_x1, float linhaB_y1)
+{
+	float denominador = ((linhaB_y1 - linhaB_y0) * (linhaA_x1 - linhaA_x0)) - ((linhaB_x1 - linhaB_x0) * (linhaA_y1 - linhaA_y0));
+
+	if (denominador == 0)
+		return false;
+
+	float ua = (((linhaB_x1 - linhaB_x0) * (linhaA_y0 - linhaB_y0)) - ((linhaB_y1 - linhaB_y0) * (linhaA_x0 - linhaB_x0))) / denominador;
+	float ub = (((linhaA_x1 - linhaA_x0) * (linhaA_y0 - linhaB_y0)) - ((linhaA_y1 - linhaA_y0) * (linhaA_x0 - linhaB_x0))) / denominador;
+
+	if ((ua < 0.0) || (ua > 1.0) || (ub < 0.0) || (ub > 1.0))
+		return false;
+
+	return true;
+}
+
+bool uniColisaoLinhaComCirculo(float linha_x1, float linha_y1, float linha_x2, float linha_y2, float circulo_x, float circulo_y, float raio)
+{
+	//	translada pontos da linha para ficarem em relacao ao centro do circulo
+	float p1_x = linha_x1 - circulo_x;
+	float p1_y = linha_y1 - circulo_y;
+
+	float p2_x = linha_x2 - circulo_x;
+	float p2_y = linha_y2 - circulo_y;
+
+	//	calcula a distancia entre esses pontos
+	float dx = p2_x - p1_x;
+	float dy = p2_y - p1_y;
+
+	//	calcula 'a', 'b' e 'c' da equacao de baskara
+	float a = (dx*dx) + (dy*dy);
+	float b = 2 * ((p1_x*dx) + (p1_y*dy));
+	float c = (p1_x*p1_x) + (p1_y*p1_y) - (raio*raio);
+
+	//	calcula 'delta' da equacao de baskara
+	float delta = (b*b) - (4*a*c);
+
+	//	se delta < 0. Nao tem interseccao
+	if(delta < 0)
+		return false;
+
+	//	se delta == 0. Tem uma interseccao
+	if(delta == 0)
+	{
+		float u = -b/(2*a);
+
+		return !(u < 0.0f || u > 1.0f);
+	}
+
+	//	se delta > 0. Tem duas interseccoes
+	float raiz_quadrada_delta = sqrt(delta);
+
+	float u1 = (-b + raiz_quadrada_delta)/(2*a);
+	float u2 = (-b - raiz_quadrada_delta)/(2*a);
+
+	return ((u1 >= 0.0f && u1 <= 1.0f) || (u2 >= 0.0f && u2 <= 1.0f));
+}
+
+//	colisao entre linha e retangulo
+bool uniColisaoLinhaComRetangulo(float linha_x1, float linha_y1, float linha_x2, float linha_y2, int retan_x, int retan_y, float retan_rot, int retan_largura, int retan_altura, float retan_ancora_x, float retan_ancora_y)
+{
+	SDL_Rect retan;
+	retan.x = -retan_ancora_x*retan_largura;
+	retan.y = -retan_ancora_y*retan_altura;
+	retan.w = retan_largura;
+	retan.h = retan_altura;
+
+	SDL_Point pontos[4];
+	pontos[0].x = retan.x;			 pontos[0].y = retan.y;
+	pontos[1].x = retan.x + retan.w; pontos[1].y = retan.y;
+	pontos[2].x = retan.x + retan.w; pontos[2].y = retan.y + retan.h;
+	pontos[3].x = retan.x;			 pontos[3].y = retan.y + retan.h;
+
+	float rad = retan_rot*PI/180;
+	float cs = cos(rad);
+	float sn = sin(rad);
+
+	for(int i = 0; i < 4; ++i)
+	{
+		//	rotaciona os pontos (em relação a origem)
+		float xx = pontos[i].x * cs - pontos[i].y * sn;
+		float yy = pontos[i].x * sn + pontos[i].y * cs;
+
+		//	translada os pontos de volta
+		pontos[i].x = xx + retan_x;
+		pontos[i].y = yy + retan_y;
+	}
+
+	for(int i = 0; i < 4; ++i)
+	{
+		int j = (i+1)%4;
+		if(uniColisaoLinhaComLinha(linha_x1, linha_y1, linha_x2, linha_y2,
+								   pontos[i].x, pontos[i].y, pontos[j].x, pontos[j].y))
+			return true;
+	}
+
+	return false;
+}
+
+//	colisao entre linha e poligono
+bool uniColisaoLinhaComPoligono(float linha_x1, float linha_y1, float linha_x2, float linha_y2, Vetor2D* pontos, int num_pontos, float poli_x, float poli_y, float poli_rot)
+{
+	//	se nao tiver pontos suficientes, nao testa
+	if(num_pontos < 3)
+		return false;
+
+	Vetor2D* poli = new Vetor2D[num_pontos];
+
+	//	calcula rot(em radianos), seno e cosseno
+	float rad = poli_rot*PI/180;
+	float cs = cos(rad);
+	float sn = sin(rad);
+
+	//	calcula os pontos
+	for(int i = 0; i < num_pontos; ++i)
+	{
+		//	rotaciona os pontos (em relação a origem)
+		float xx = pontos[i].x * cs - pontos[i].y * sn;
+		float yy = pontos[i].x * sn + pontos[i].y * cs;
+
+		//	translada os pontos de volta
+		poli[i].x = xx + poli_x;
+		poli[i].y = yy + poli_y;
+	}
+
+	bool colidiu = false;
+	for(int i = 0; i < num_pontos; ++i)
+	{
+		int j = (i+1)%num_pontos;
+		if(uniColisaoLinhaComLinha(linha_x1, linha_y1, linha_x2, linha_y2,
+								   poli[i].x, poli[i].y, poli[j].x, poli[j].y))
+		{
+			colidiu = true;
+			break;
+		}
+	}
+
+	delete[] poli;
+	return colidiu;
+}
+
+//	colisao entre linha e sprite
+bool uniColisaoLinhaComSprite(float linha_x1, float linha_y1, float linha_x2, float linha_y2, Sprite* spr, float x, float y, float rot)
+{
+	float ax, ay;
+	int larg, alt;
+
+	spr->obterAncora(ax, ay);
+	spr->obterTamanho(larg, alt);
+
+	return uniColisaoLinhaComRetangulo(linha_x1, linha_y1, linha_x2, linha_y2, x, y, rot, larg, alt, ax, ay);
+}
+
+//	colisao entre circulos
+bool uniColisaoCirculoComCirculo(float cx1, float cy1, float raio1, float cx2, float cy2, float raio2)
+{
+	float dist_ao_quadrado = (cx1 - cx2)*(cx1 - cx2) + (cy1 - cy2)*(cy1 - cy2);
+	float soma_dos_raios = raio1+raio2;
+
+	return (dist_ao_quadrado < soma_dos_raios*soma_dos_raios);
+}
+
+//	colisao entre circulo e retangulo
+bool uniColisaoCirculoComRetangulo(float circulo_x, float circulo_y, float raio, int retan_x, int retan_y, float retan_rot, int retan_largura, int retan_altura, float retan_ancora_x, float retan_ancora_y, bool testar_dentro)
+{
+	SDL_Rect retan;
+	retan.x = -retan_ancora_x*retan_largura;
+	retan.y = -retan_ancora_y*retan_altura;
+	retan.w = retan_largura;
+	retan.h = retan_altura;
+
+	SDL_Point pontos[4];
+	pontos[0].x = retan.x;			 pontos[0].y = retan.y;
+	pontos[1].x = retan.x + retan.w; pontos[1].y = retan.y;
+	pontos[2].x = retan.x + retan.w; pontos[2].y = retan.y + retan.h;
+	pontos[3].x = retan.x;			 pontos[3].y = retan.y + retan.h;
+
+	float rad = retan_rot*PI/180;
+	float cs = cos(rad);
+	float sn = sin(rad);
+
+	for(int i = 0; i < 4; ++i)
+	{
+		//	rotaciona os pontos (em relação a origem)
+		float xx = pontos[i].x * cs - pontos[i].y * sn;
+		float yy = pontos[i].x * sn + pontos[i].y * cs;
+
+		//	translada os pontos de volta
+		pontos[i].x = xx + retan_x;
+		pontos[i].y = yy + retan_y;
+	}
+
+	bool colidiu = false;
+	for(int i = 0; i < 4 && !colidiu; ++i)
+	{
+		int j = (i+1)%4;
+		colidiu = uniColisaoLinhaComCirculo(pontos[i].x, pontos[i].y, pontos[j].x, pontos[j].y, circulo_x, circulo_y, raio);
+	}
+
+	if(!colidiu && testar_dentro)
+	{
+		colidiu = uniColisaoPontoComCirculo(retan_x, retan_y, circulo_x, circulo_y, raio) 
+			|| uniColisaoPontoComRetangulo(circulo_x, circulo_y, retan_x, retan_y, retan_rot, retan_largura, retan_altura, retan_ancora_x, retan_ancora_y);
+	}
+
+	return colidiu;
+}
+
+//	colisao entre circulo e poligono
+bool uniColisaoCirculoComPoligono(float circulo_x, float circulo_y, float raio, Vetor2D* pontos, int num_pontos, float poli_x, float poli_y, float poli_rot, bool testar_dentro)
+{
+	//	se nao tiver pontos suficientes, nao testa
+	if(num_pontos < 3)
+		return false;
+
+	Vetor2D* poli = new Vetor2D[num_pontos];
+
+	//	calcula rot(em radianos), seno e cosseno
+	float rad = poli_rot*PI/180;
+	float cs = cos(rad);
+	float sn = sin(rad);
+
+	//	calcula os pontos
+	for(int i = 0; i < num_pontos; ++i)
+	{
+		//	rotaciona os pontos (em relação a origem)
+		float xx = pontos[i].x * cs - pontos[i].y * sn;
+		float yy = pontos[i].x * sn + pontos[i].y * cs;
+
+		//	translada os pontos de volta
+		poli[i].x = xx + poli_x;
+		poli[i].y = yy + poli_y;
+	}
+
+	bool colidiu = false;
+	for(int i = 0; i < num_pontos && !colidiu; ++i)
+	{
+		int j = (i+1)%num_pontos;
+		colidiu = uniColisaoLinhaComCirculo(poli[i].x, poli[i].y, poli[j].x, poli[j].y, circulo_x, circulo_y, raio);
+	}
+
+	if(!colidiu && testar_dentro)
+	{
+		colidiu = uniColisaoPontoComCirculo(poli_x, poli_y, circulo_x, circulo_y, raio) 
+			|| uniColisaoPontoComPoligono(circulo_x, circulo_y, pontos, num_pontos, poli_x, poli_y, poli_rot);
+	}
+
+	delete[] poli;
+	return colidiu;
+}
+
+//	colisao entre circulo e sprite
+bool uniColisaoCirculoComSprite(float circulo_x, float circulo_y, float raio, Sprite* spr, float x, float y, float rot, bool testar_dentro)
+{
+	float ax, ay;
+	int larg, alt;
+
+	spr->obterAncora(ax, ay);
+	spr->obterTamanho(larg, alt);
+
+	return uniColisaoCirculoComRetangulo(circulo_x, circulo_y, raio, x, y, rot, larg, alt, ax, ay, testar_dentro);
+}
+
+//	colisao entre retangulos
+bool uniColisaoRetanguloComRetangulo(int x1, int y1, float rot1, int largura1, int altura1, float ancora_x1, float ancora_y1, int x2, int y2, float rot2, int largura2, int altura2, float ancora_x2, float ancora_y2, bool testar_dentro)
 {
 
 	//	1) calcula linhas do retangulo 1
@@ -557,13 +972,13 @@ bool uniColisaoRetangulos(int x1, int y1, float rot1, int largura1, int altura1,
 	linhasB[3][1] = pontos[0];
 
 	//	testa intersecção entre as linhas de um retangulo contra as linhas do outro
-	for(int i = 0; i < 4; ++i)
+	bool colidiu = false;
+	for(int i = 0; i < 4 && !colidiu; ++i)
 	{
-		for(int j = 0; j < 4; ++j)
+		for(int j = 0; j < 4 && !colidiu; ++j)
 		{
-			if(uniColisaoLinhas(linhasA[i][0].x, linhasA[i][0].y, linhasA[i][1].x, linhasA[i][1].y, 
-								linhasB[j][0].x, linhasB[j][0].y, linhasB[j][1].x, linhasB[j][1].y))
-				return true;
+			colidiu = uniColisaoLinhaComLinha(linhasA[i][0].x, linhasA[i][0].y, linhasA[i][1].x, linhasA[i][1].y, 
+											  linhasB[j][0].x, linhasB[j][0].y, linhasB[j][1].x, linhasB[j][1].y);
 		}
 	}
 
@@ -571,28 +986,155 @@ bool uniColisaoRetangulos(int x1, int y1, float rot1, int largura1, int altura1,
 	//	pode ser que um retangulo esteja totalmente dentro do outro,
 	//	então testa este caso
 
-	return (uniColisaoPontoRetangulo(x1, y1, x2, y2, rot2, largura2, altura2, ancora_x2, ancora_y2) 
-		|| 	uniColisaoPontoRetangulo(x2, y2, x1, y1, rot1, largura1, altura1, ancora_x1, ancora_y1));
+	if(!colidiu && testar_dentro)
+	{
+		colidiu = uniColisaoPontoComRetangulo(x1, y1, x2, y2, rot2, largura2, altura2, ancora_x2, ancora_y2) 
+			   || uniColisaoPontoComRetangulo(x2, y2, x1, y1, rot1, largura1, altura1, ancora_x1, ancora_y1);
+	}
+
+	return colidiu;
 }
 
-bool uniColisao(int px, int py, Sprite* spr, int spr_x, int spr_y, float spr_rot)
+//	colisao entre retangulo e poligono
+bool uniColisaoRetanguloComPoligono(int retan_x, int retan_y, float retan_rot, int retan_largura, int retan_altura, float retan_ancora_x, float retan_ancora_y, Vetor2D* pontos, int num_pontos, float poli_x, float poli_y, float poli_rot, bool testar_dentro)
 {
-	int larg, alt;
+	Vetor2D retan[4];
+	retan[0].x = -retan_ancora_x*retan_largura;
+	retan[0].y = -retan_ancora_y*retan_altura;
+	retan[1].x = retan[0].x + retan_largura;
+	retan[1].y = retan[0].y;
+	retan[2].x = retan[1].x;
+	retan[2].y = retan[0].y + retan_altura;
+	retan[3].x = retan[0].x;
+	retan[3].y = retan[2].y;
+
+	return uniColisaoPoligonoComPoligono(pontos, num_pontos, poli_x, poli_y, poli_rot, retan, 4, retan_x, retan_y, retan_rot, testar_dentro);
+}
+
+//	colisao entre retangulo e sprite
+bool uniColisaoRetanguloComSprite(int retan_x, int retan_y, float retan_rot, int retan_largura, int retan_altura, float retan_ancora_x, float retan_ancora_y, Sprite* spr, float x, float y, float rot, bool testar_dentro)
+{
 	float ax, ay;
-	spr->obterTamanho(larg, alt);
-	spr->obterAncora(ax, ay);
+	int larg, alt;
 
-	return uniColisaoPontoRetangulo(px, py, spr_x, spr_y, spr_rot, larg, alt, ax, ay);
+	spr->obterAncora(ax, ay);
+	spr->obterTamanho(larg, alt);
+
+	return uniColisaoRetanguloComRetangulo(retan_x, retan_y, retan_rot, retan_largura, retan_altura, retan_ancora_x, retan_ancora_y, x, y, rot, larg, alt, ax, ay, testar_dentro);
 }
 
-bool uniColisao(Sprite* spr1, int x1, int y1, float rot1, Sprite* spr2, int x2, int y2, float rot2)
+//	colisao entre poligonos
+bool uniColisaoPoligonoComPoligono(Vetor2D* pontos1, int num_pontos1, float x1, float y1, float rot1, Vetor2D* pontos2, int num_pontos2, float x2, float y2, float rot2, bool testar_dentro)
 {
-	int larg1, alt1, larg2, alt2;
-	float ax1, ay1, ax2, ay2;
-	spr1->obterTamanho(larg1, alt1);
-	spr1->obterAncora(ax1, ay1);
-	spr2->obterTamanho(larg2, alt2);
-	spr2->obterAncora(ax2, ay2);
+	//	se nao tiver pontos suficientes, nao testa
+	if(num_pontos1 < 3 || num_pontos2 < 3)
+		return false;
 
-	return uniColisaoRetangulos(x1, y1, rot1, larg1, alt1, ax1, ay1, x2, y2, rot2, larg2, alt2, ax2, ay2);
+	Vetor2D* poli1 = new Vetor2D[num_pontos1];
+	Vetor2D* poli2 = new Vetor2D[num_pontos2];
+
+	//	calcula rot(em radianos), seno e cosseno
+	float rad = rot1*PI/180;
+	float cs = cos(rad);
+	float sn = sin(rad);
+
+	//	calcula os pontos
+	for(int i = 0; i < num_pontos1; ++i)
+	{
+		//	rotaciona os pontos (em relação a origem)
+		float xx = pontos1[i].x * cs - pontos1[i].y * sn;
+		float yy = pontos1[i].x * sn + pontos1[i].y * cs;
+
+		//	translada os pontos de volta
+		poli1[i].x = xx + x1;
+		poli1[i].y = yy + y1;
+	}
+
+	//	calcula rot(em radianos), seno e cosseno
+	rad = rot2*PI/180;
+	cs = cos(rad);
+	sn = sin(rad);
+
+	//	calcula os pontos
+	for(int i = 0; i < num_pontos2; ++i)
+	{
+		//	rotaciona os pontos (em relação a origem)
+		float xx = pontos2[i].x * cs - pontos2[i].y * sn;
+		float yy = pontos2[i].x * sn + pontos2[i].y * cs;
+
+		//	translada os pontos de volta
+		poli2[i].x = xx + x2;
+		poli2[i].y = yy + y2;
+	}
+
+	//	testa cada uma das linhas
+	bool colidiu = false;
+	for(int i = 0; i < num_pontos1 && !colidiu; ++i)
+	{
+		for(int j = 0; j < num_pontos2; ++j)
+		{
+			int ii = (i+1)%num_pontos1;
+			int jj = (j+1)%num_pontos2;
+
+			if(uniColisaoLinhaComLinha(poli1[i].x, poli1[i].y, poli1[ii].x, poli1[ii].y, 
+									   poli2[j].x, poli2[j].y, poli2[jj].x, poli2[jj].y))
+			{
+				colidiu = true;
+				break;
+			}
+		}
+	}
+
+	//	se não ouve nenhuma intersecção
+	//	pode ser que um poligono esteja totalmente dentro do outro,
+	//	então testa este caso
+
+	if(!colidiu && testar_dentro)
+	{
+		colidiu = uniColisaoPontoComPoligono(x1, y1, pontos2, num_pontos2, x2, y2, rot2)
+				|| uniColisaoPontoComPoligono(x2, y2, pontos1, num_pontos1, x1, y1, rot1);
+	}
+
+	delete[] poli1;
+	delete[] poli2;
+	return colidiu;
+}
+
+//	colisao entre poligono e sprite
+bool uniColisaoPoligonoComSprite(Vetor2D* pontos, int num_pontos, float poli_x, float poli_y, float poli_rot, Sprite* spr, float x, float y, float rot, bool testar_dentro)
+{
+	//	se nao tiver pontos suficientes, nao testa
+	if(num_pontos < 3)
+		return false;
+
+	float ax, ay;
+	int larg, alt;
+
+	spr->obterAncora(ax, ay);
+	spr->obterTamanho(larg, alt);
+
+	Vetor2D retan[4];
+	retan[0].x = -ax*larg;
+	retan[0].y = -ay*alt;
+	retan[1].x = retan[0].x + larg;
+	retan[1].y = retan[0].y;
+	retan[2].x = retan[1].x;
+	retan[2].y = retan[0].y + alt;
+	retan[3].x = retan[0].x;
+	retan[3].y = retan[2].y;
+
+	return uniColisaoPoligonoComPoligono(pontos, num_pontos, poli_x, poli_y, poli_rot, retan, 4, x, y, rot, testar_dentro);
+}
+
+bool uniColisaoSpriteComSprite(Sprite* spr1, float x1, float y1, float rot1, Sprite* spr2, float x2, float y2, float rot2, bool testar_dentro)
+{
+	float ax1, ay1, ax2, ay2;
+	int larg1, alt1, larg2, alt2;
+
+	spr1->obterAncora(ax1, ay1);
+	spr1->obterTamanho(larg1, alt1);
+	spr2->obterAncora(ax2, ay2);
+	spr2->obterTamanho(larg2, alt2);
+
+	return uniColisaoRetanguloComRetangulo(x1, y1, rot1, larg1, alt1, ax1, ay1, x2, y2, rot2, larg2, alt2, ax2, ay2, testar_dentro);
 }
