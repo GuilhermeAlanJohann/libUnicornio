@@ -23,14 +23,9 @@ public:
 	void parar();
 	void pausar();
 	void continuar();
-	void ajustar(int vol, int dist = 0, int ang = 0);
 	bool estaTocando();
 	void setVolume(int vol);
-	void setDistancia(int dist);
-	void setAngulo(int ang);
 	int	 getVolume();
-	int  getDistancia();
-	int  getAngulo();
 	string getCaminhoDoArquivo();
 	Musica clonar();
 
@@ -39,8 +34,6 @@ private:
 
 	_Mix_Music *smp;
 
-	Sint16 angulo;
-	Uint8 distancia;
 	int volume;
 
 	int canal;

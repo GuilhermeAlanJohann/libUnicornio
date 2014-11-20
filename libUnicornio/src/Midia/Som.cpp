@@ -3,7 +3,7 @@
 #include <algorithm>
 
 Som::Som()
-:smp(0), volume(128), angulo(0), distancia(0), canal(-1), loop(false)
+:smp(NULL), volume(128), angulo(0), distancia(0), canal(-1), loop(false)
 {
 }
 
@@ -13,7 +13,7 @@ Som::Som(const Som &r)
 	angulo = r.angulo;
 	distancia = r.distancia;
 	caminhoArquivo =  r.caminhoArquivo;
-	smp->volume = r.smp->volume;
+	smp = r.smp;
 	canal = r.canal;
 	loop = r.loop;
 }
@@ -26,7 +26,7 @@ Som& Som::operator=(const Som &r)
 		angulo = r.angulo;
 		distancia = r.distancia;
 		caminhoArquivo =  r.caminhoArquivo;
-		smp->volume = r.smp->volume;
+		smp = r.smp;
 		canal = r.canal;
 		loop = r.loop;
 	}
@@ -45,10 +45,6 @@ bool Som::operator!=(const Som &r)
 
 Som::~Som()
 {
-	if(estaCarregado())
-	{
-		descarregar();
-	}
 }
 
 bool Som::carregar(string arquivo)

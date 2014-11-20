@@ -151,4 +151,6 @@ void EventosMouse::posicionarEm(int x, int y)
 	this->x = x;
 	this->y = y;
 	SDL_WarpMouseInWindow(window, x, y);
+	nx = (float)x/(float)res_x;
+	ny = (float)y/(float)res_y;
 }

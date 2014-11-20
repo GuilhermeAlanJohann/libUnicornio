@@ -19,7 +19,7 @@ public:
 
 	void			descarregarTudo();
 	void			descarregarTodosSpriteSheets();
-	void			descarregarTodasFotes();
+	void			descarregarTodasFontes();
 	void			descarregarTodosSons();
 	bool			descarregar(const std::string& nome);
 	bool			descarregarSpriteSheet(const std::string& nome);
@@ -29,6 +29,10 @@ public:
 	SpriteSheet*	getSpriteSheet(const std::string& nome);
 	Fonte*			getFonte(const std::string& nome);
 	Som*			getSom(const std::string& nome);
+
+	bool			carregouSpriteSheet(const std::string& nome);
+	bool			carregouFonte(const std::string& nome);
+	bool			carregouSom(const std::string& nome);
 
 private:
 	std::map<std::string, SpriteSheet*> mSpriteSheets;

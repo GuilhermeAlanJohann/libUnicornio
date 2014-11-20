@@ -29,8 +29,8 @@
     <ClInclude Include="..\..\..\include\TileMap\TileLayer.h" />
     <ClInclude Include="..\..\..\include\TileMap\TileMap.h" />
     <ClInclude Include="..\..\..\include\TileMap\TileSet.h" />
-    <ClInclude Include="..\..\..\include\TileMap\Vetor2D.h" />
     <ClInclude Include="..\..\..\include\versao_lib.h" />
+    <ClInclude Include="..\..\..\include\Vetor2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Eventos\Eventos.cpp" />
@@ -57,7 +57,7 @@
     <ClCompile Include="..\..\..\src\TileMap\TileLayer.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\TileMap.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\TileSet.cpp" />
-    <ClCompile Include="..\..\..\src\TileMap\Vetor2D.cpp" />
+    <ClCompile Include="..\..\..\src\Vetor2D.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A521C8FF-C599-4535-9139-5B8E741349BD}</ProjectGuid>

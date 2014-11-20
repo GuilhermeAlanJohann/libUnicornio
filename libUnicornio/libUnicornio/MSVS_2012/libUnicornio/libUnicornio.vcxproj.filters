@@ -31,9 +31,6 @@
     <ClInclude Include="..\..\..\include\TileMap\TileSet.h">
       <Filter>TileMap</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\TileMap\Vetor2D.h">
-      <Filter>TileMap</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\Midia\Fonte.h">
       <Filter>Midia\Recursos</Filter>
     </ClInclude>
@@ -55,6 +52,7 @@
     <ClInclude Include="..\..\..\include\Interface\BotaoSprite.h">
       <Filter>Interface</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\Vetor2D.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Interface">
@@ -121,9 +119,6 @@
     <ClCompile Include="..\..\..\src\TileMap\TileSet.cpp">
       <Filter>TileMap</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\TileMap\Vetor2D.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Midia\Fonte.cpp">
       <Filter>Midia\Recursos</Filter>
     </ClCompile>
@@ -148,5 +143,6 @@
     <ClCompile Include="..\..\..\src\Interface\BotaoSprite.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Vetor2D.cpp" />
   </ItemGroup>
 </Project>

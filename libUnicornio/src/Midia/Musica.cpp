@@ -2,7 +2,7 @@
 #include "libUnicornio.h"
 #include <algorithm>
 
-Musica::Musica() : smp(0), volume(128), angulo(0), distancia(0), canal(-1)
+Musica::Musica() : smp(0), volume(128), canal(-1)
 {
 }
 
@@ -10,8 +10,6 @@ Musica::Musica(const Musica &r)
 {
 	volume = r.volume;
 	canal = r.canal;
-	distancia = r.distancia;
-	angulo = r.angulo;
 	caminhoArquivo =  r.caminhoArquivo;
 }
 
@@ -21,8 +19,6 @@ Musica& Musica::operator=(const Musica &r)
 	{
 		volume = r.volume;
 		canal = r.canal;
-		distancia = r.distancia;
-		angulo = r.angulo;
 		caminhoArquivo =  r.caminhoArquivo;
 	}
 	return *this;
@@ -30,7 +26,7 @@ Musica& Musica::operator=(const Musica &r)
 
 bool Musica::operator==(const Musica &r)
 {
-	if(volume == r.volume && canal == r.canal && distancia == r.distancia && angulo == r.angulo && caminhoArquivo ==  r.caminhoArquivo)
+	if(volume == r.volume && canal == r.canal && caminhoArquivo ==  r.caminhoArquivo)
 		return true;
 	else
 		return false;
@@ -83,8 +79,7 @@ void Musica::descarregar()
 	smp = NULL;
 	caminhoArquivo = "";
 	volume = 128;
-	distancia = 0;
-	angulo = 0;
+
 	//	ja eh setado no parar();
 	//canal = -1;
 }
@@ -100,7 +95,6 @@ void Musica::tocar(bool repetir)
 
 	canal = Mix_PlayMusic(smp,repetir == 0 ? 0 : -1);
 
-	Mix_SetPosition(canal, angulo, distancia);
 	Mix_VolumeMusic(volume);
 }
 
@@ -132,23 +126,6 @@ void Musica::continuar()
 	}
 }
 
-void Musica::ajustar(int vol, int dist, int ang)
-{		
-	if(!estaCarregado()) return;
-
-	volume = vol;
-	angulo = ang;
-	distancia = dist;
-
-	if(canal != -1 && Mix_PlayingMusic())
-	{
-		Mix_SetPosition(canal, angulo, distancia);
-	}
-
-	Mix_VolumeMusic(volume);
-}
-
-// retornar se o Som terminou de tocar
 bool Musica::estaTocando()
 {
 	if(!smp) return false;
@@ -166,39 +143,9 @@ void Musica::setVolume(int vol)
 	Mix_VolumeMusic(volume);
 }
 
-void Musica::setDistancia(int dist)
-{
-	distancia = dist;
-
-	if(canal != -1 && Mix_PlayingMusic())
-	{
-		Mix_SetPosition(canal, angulo, distancia);
-	}
-}
-
-void Musica::setAngulo(int ang)
-{
-	angulo = ang;
-
-	if(canal != -1 && Mix_PlayingMusic())
-	{
-		Mix_SetPosition(canal, angulo, distancia);
-	}
-}
-
 int	Musica::getVolume()
 {
 	return volume;
-}
-
-int Musica::getDistancia()
-{
-	return distancia;
-}
-
-int Musica::getAngulo()
-{
-	return angulo;
 }
 
 string Musica::getCaminhoDoArquivo()

@@ -12,6 +12,12 @@ GerenciadorDeRecursos::~GerenciadorDeRecursos()
 
 SpriteSheet* GerenciadorDeRecursos::carregarSpriteSheet(const string& nome, const string& caminho, int num_animacoes, int num_max_frames)
 {
+	if(carregouSpriteSheet(nome))
+	{
+		uniErro("Recurso '" + nome + "' nao pode ser carregado, pois um SpriteSheet com esse nome ja existe.");
+		return NULL;
+	}
+
 	SpriteSheet* sheet = new SpriteSheet;
 	if(sheet->carregar(caminho, num_animacoes, num_max_frames))
 	{
@@ -28,6 +34,12 @@ SpriteSheet* GerenciadorDeRecursos::carregarSpriteSheet(const string& nome, cons
 
 Fonte* GerenciadorDeRecursos::carregarFonte(const string& nome, const string& caminho, int tamanho, EstiloFonte estilo)
 {
+	if(carregouFonte(nome))
+	{
+		uniErro("Recurso '" + nome + "' nao pode ser carregado, pois uma Fonte com esse nome ja existe.");
+		return NULL;
+	}
+
 	Fonte* fonte = new Fonte;
 	if(fonte->carregar(caminho, tamanho, estilo))
 	{
@@ -44,6 +56,12 @@ Fonte* GerenciadorDeRecursos::carregarFonte(const string& nome, const string& ca
 
 Som* GerenciadorDeRecursos::carregarSom(const string& nome, const string& caminho, int volume, int distancia, int angulo)
 {
+	if(carregouSom(nome))
+	{
+		uniErro("Recurso '" + nome + "' nao pode ser carregado, pois um Som com esse nome ja existe.");
+		return NULL;
+	}
+
 	Som* som = new Som;
 	if(som->carregar(caminho))
 	{
@@ -62,7 +80,7 @@ Som* GerenciadorDeRecursos::carregarSom(const string& nome, const string& caminh
 void GerenciadorDeRecursos::descarregarTudo()
 {
 	descarregarTodosSpriteSheets();
-	descarregarTodasFotes();
+	descarregarTodasFontes();
 	descarregarTodosSons();
 }
 
@@ -77,7 +95,7 @@ void GerenciadorDeRecursos::descarregarTodosSpriteSheets()
 	mSpriteSheets.clear();
 }
 
-void GerenciadorDeRecursos::descarregarTodasFotes()
+void GerenciadorDeRecursos::descarregarTodasFontes()
 {
 	for(std::map<std::string, Fonte*>::iterator it = mFontes.begin(); it != mFontes.end(); ++it)
 	{
@@ -197,4 +215,19 @@ Som* GerenciadorDeRecursos::getSom(const string& nome)
 	}
 
 	return NULL;
+}
+
+bool GerenciadorDeRecursos::carregouSpriteSheet(const std::string& nome)
+{
+	return (mSpriteSheets.find(nome) != mSpriteSheets.end());
+}
+
+bool GerenciadorDeRecursos::carregouFonte(const std::string& nome)
+{
+	return (mFontes.find(nome) != mFontes.end());
+}
+
+bool GerenciadorDeRecursos::carregouSom(const std::string& nome)
+{
+	return (mSons.find(nome) != mSons.end());
 }

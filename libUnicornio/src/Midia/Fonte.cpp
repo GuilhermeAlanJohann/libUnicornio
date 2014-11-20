@@ -9,10 +9,6 @@ Fonte::Fonte()
 
 Fonte::~Fonte()
 {
-	if(estaCarregado())
-	{
-		descarregar();
-	}
 }
 
 bool Fonte::carregar(string arquivo, int tamanho, EstiloFonte estilo)

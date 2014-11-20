@@ -20,10 +20,6 @@ SpriteSheet::SpriteSheet(const SpriteSheet& cp)
 
 SpriteSheet::~SpriteSheet()
 {
-	if(estaCarregado())
-	{
-		descarregar();
-	}
 }
 
 SpriteSheet& SpriteSheet::operator=(const SpriteSheet &r)
@@ -128,7 +124,7 @@ bool SpriteSheet::carregar(string arquivo, int num_animacoes, int num_max_frames
 	altura_celula = altura_total/num_animacoes;
 
 	maxframes.resize(num_animacoes);
-	for(int i = 0; i < maxframes.size(); ++i)
+	for(unsigned int i = 0; i < maxframes.size(); ++i)
 	{
 		maxframes[i] = num_max_frames;
 	}
