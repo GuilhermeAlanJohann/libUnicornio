@@ -54,7 +54,7 @@ Aos meus professores do curso de Jogos Digitais da Unisinos, que foram os primei
 **Rossana Baptista Queiroz**  
 **Vinícius Cassol**  
 
-À **Farlei Heinen** por ter criado a biblioteca [EGL] (https://github.com/farlei/libEGL), que serviu de inspiração para a Unicórnio.
+A **Farlei Heinen** por ter criado a biblioteca [EGL] (https://github.com/farlei/libEGL), que serviu de inspiração para a Unicórnio.
 
 Também a **todos os usuários** da Unicórnio que tem contribuído com feedback, criticas, sugestões e elogios.
 
