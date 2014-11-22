@@ -28,7 +28,8 @@ Foi criada por **Guilherme Alan Johann** e ainda está em desenvolvimento.  É esc
 ## Jogos usando a Unicórnio
 
   - I hate Flappy Bird: [vídeo](www.youtube.com/watch?v=IgDd3IXTekg) 
-  - PokeTretaMon: [vídeo](http://youtu.be/0x9sIIj6oBU) 
+  - PokeTretaMon: [vídeo](http://youtu.be/0x9sIIj6oBU)   
+  - Outro jogo estilo pokemon: [vídeo] (http://youtu.be/FAv_1ucMwac)  
   
 Está usando a Unicórnio em algum projeto? Me deixe saber.  
 Mande um email pra 'pcista@hotmail.com' contendo um vídeo ou um link com imagens do projeto.
