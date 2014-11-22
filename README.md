@@ -1,50 +1,50 @@
-# UnicÛrnio (vers„o BETA)
+# Unic√≥rnio (vers√£o BETA)
 
-**UnicÛrnio**, ou **lib UnicÛrnio**, È uma biblioteca de programaÁ„o de jogos 2D, voltada para programadores iniciantes.  Por isso, visa ser **f·cil de aprender** e **simples de usar**.  
-Ela d· suporte as principais funcionalidades necess·rias para a criaÁ„o de um jogo. E deixa o usu·rio livre para estruturar seu cÛdigo como bem entender.  
-Foi criada por **Guilherme Alan Johann** e ainda est· em desenvolvimento.  … escrita em C++, e tem como base a bibliteca [SDL 2.0](https://www.libsdl.org/).
+**Unic√≥rnio**, ou **lib Unic√≥rnio**, √© uma biblioteca de programa√ß√£o de jogos 2D, voltada para programadores iniciantes.  Por isso, visa ser **f√°cil de aprender** e **simples de usar**.  
+Ela d√° suporte as principais funcionalidades necess√°rias para a cria√ß√£o de um jogo. E deixa o usu√°rio livre para estruturar seu c√≥digo como bem entender.  
+Foi criada por **Guilherme Alan Johann** e ainda est√° em desenvolvimento.  √â escrita em C++, e tem como base a bibliteca [SDL 2.0](https://www.libsdl.org/).
 
-## CaracterÌsticas
+## Caracter√≠sticas
 
-  - F·cil de aprender
+  - F√°cil de aprender
   - Simples de usar
   - Orientada a objetos
   - Nomenclatura padronizada (pt-br)
-  - Deixa o usu·rio livre para estruturar o cÛdigo
+  - Deixa o usu√°rio livre para estruturar o c√≥digo
   - Permite acesso as estruturas da SDL
 
 ## Funcionalidades
 
   - Rendering de sprites (com sprite sheets)
   - Rendering de textos (com fontes .ttf)
-  - ReproduÁ„o de ·udio (.wav, .mp3, .ogg, outros)
+  - Reprodu√ß√£o de √°udio (.wav, .mp3, .ogg, outros)
   - Gerenciamento de recursos
   - Controle de tempo
   - Captura de inputs (teclado, mouse, joystick e toque)
-  - FunÁıes para testes de colis„o
+  - Fun√ß√µes para testes de colis√£o
   - Tilemap com suporte a multiplas camadas e objetos
   - Entre outras...
 
-## Jogos usando a UnicÛrnio
+## Jogos usando a Unic√≥rnio
 
-  - I hate Flappy Bird: [vÌdeo](www.youtube.com/watch?v=IgDd3IXTekg) 
-  - PokeTretaMon: [vÌdeo](http://youtu.be/0x9sIIj6oBU)   
-  - Outro jogo estilo pokemon: [vÌdeo] (http://youtu.be/FAv_1ucMwac)  
+  - I hate Flappy Bird: [v√≠deo](http://www.youtube.com/watch?v=IgDd3IXTekg) 
+  - PokeTretaMon: [v√≠deo](http://youtu.be/0x9sIIj6oBU)   
+  - Outro jogo estilo pokemon: [v√≠deo] (http://youtu.be/FAv_1ucMwac)  
   
-Est· usando a UnicÛrnio em algum projeto? Me deixe saber.  
-Mande um email pra 'pcista@hotmail.com' contendo um vÌdeo ou um link com imagens do projeto.
+Est√° usando a Unic√≥rnio em algum projeto? Me deixe saber.  
+Mande um email pra 'pcista@hotmail.com' contendo um v√≠deo ou um link com imagens do projeto.
 
-## InstituiÁıes usando a UnicÛrnio
+## Institui√ß√µes usando a Unic√≥rnio
 
-  - [Universidade do Vale do Rio dos Sinos](www.unisinos.br) (Unisinos), no Rio Grande do Sul, nos cursos superiores de Jogos Digitais. 
+  - [Universidade do Vale do Rio dos Sinos](http://www.unisinos.br) (Unisinos), no Rio Grande do Sul, nos cursos superiores de Jogos Digitais. 
 
-## Como comeÁar
+## Como come√ßar
 
-  - Consulte o arquivo "**Como comeÁar.txt**" na pasta "**libUnicornio/docs**".
+  - Consulte o arquivo "**Como come√ßar.txt**" na pasta "**libUnicornio/docs**".
 
-## LicenÁa
+## Licen√ßa
 
-  - Esta biblioteca È licenciada sobre o termos da [LicenÁa MIT](http://pt.wikipedia.org/wiki/LicenÁa_MIT).
+  - Esta biblioteca √© licenciada sobre o termos da [Licen√ßa MIT](http://pt.wikipedia.org/wiki/Licen√ßa_MIT).
 
 ## Agradecimentos
 
@@ -53,9 +53,9 @@ Aos meus professores do curso de Jogos Digitais da Unisinos, que foram os primei
 **Fernando Pinho Marson**  
 **Marcio Garcia Martins**  
 **Rossana Baptista Queiroz**  
-**VinÌcius Cassol**  
+**Vin√≠cius Cassol**  
 
-A **Farlei Heinen** por ter criado a biblioteca [EGL] (https://github.com/farlei/libEGL), que serviu de inspiraÁ„o para a UnicÛrnio.
+A **Farlei Heinen** por ter criado a biblioteca [EGL] (https://github.com/farlei/libEGL), que serviu de inspira√ß√£o para a Unic√≥rnio.
 
-TambÈm a **todos os usu·rios** da UnicÛrnio que tem contribuÌdo com feedback, criticas, sugestıes e elogios.
+Tamb√©m a **todos os usu√°rios** da Unic√≥rnio que tem contribu√≠do com feedback, criticas, sugest√µes e elogios.
 
