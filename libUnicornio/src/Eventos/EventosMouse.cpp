@@ -123,15 +123,30 @@ void EventosMouse::corrigirPosicaoFullscreen()
 	SDL_GetDisplayBounds(0, &display);
 
 	float ratio = (float)res_x/(float)res_y;
-
-	float larguraEscalada = display.h*ratio;
-	float alturaEscalada = display.w*ratio;
+	float larguraEscalada;
+	float alturaEscalada;
+		
+	if(res_x/(float)display.w < res_y/(float)display.h)			//	tarjas nas laterais
+	{
+		larguraEscalada = display.h*ratio;
+		alturaEscalada = larguraEscalada/ratio;	
+	}
+	else if(res_y/(float)display.h < res_x/(float)display.w)	//	tarjas em cima e em baixo
+	{
+		alturaEscalada = display.w/ratio;
+		larguraEscalada = alturaEscalada*ratio;
+	}
+	else	//	sem tarjas
+	{
+		larguraEscalada = display.h*ratio;
+		alturaEscalada = display.w/ratio;
+	}
 
 	x = x - (display.w - larguraEscalada)/2;
-	x = x*((float)res_x/((float)larguraEscalada));
+	x = x*(res_x/(float)larguraEscalada);
 	
 	y = y - (display.h - alturaEscalada)/2;
-	y = y*((float)res_y/(float)display.h);
+	y = y*(res_y/(float)alturaEscalada);
 }
 
 void EventosMouse::mostrarCursor(bool mostrar)
