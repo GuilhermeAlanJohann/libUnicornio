@@ -116,7 +116,7 @@ void EventosMouse::processarEvento(const SDL_Event& evento)
 
 void EventosMouse::corrigirPosicaoFullscreen()
 {
-	if(!telaCheia)
+	if(!uniEstaEmModoTelaCheia())
 		return;
 
 	SDL_Rect display;

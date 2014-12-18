@@ -46,18 +46,14 @@ using namespace std;
 
 #define UNI_CALL_CONV _cdecl
 
-extern SDL_Window *window;
 extern SDL_Renderer *renderer;
-
-extern bool telaCheia;
-
-extern bool uni_init;
-extern bool uni_debug;
-
-extern double deltaTempo;
-
+extern SDL_Window *window;
 extern int res_x; 
 extern int res_y;
+
+extern bool uni_init;
+extern double deltaTempo;
+
 
 #include "GerenciadorDeRecursos.h"
 extern GerenciadorDeRecursos recursos;
@@ -74,7 +70,7 @@ class Sprite;
 class Fonte;
 class Vetor2D;
 
-bool UNI_CALL_CONV uniInicializar(int w, int h, bool tela_cheia = false, string titulo_janela = "libUNICORNIO");
+bool UNI_CALL_CONV uniInicializar(int resolucao_x, int resolucao_y, bool tela_cheia = false, string titulo_janela = "libUNICORNIO");
 void UNI_CALL_CONV uniFinalizar();
 
 void UNI_CALL_CONV uniIniciarFrame(bool sleep_loop = true);
@@ -85,6 +81,10 @@ void UNI_CALL_CONV uniSetFPS(unsigned int fps);
 
 string UNI_CALL_CONV uniGetTituloJanela();
 void UNI_CALL_CONV uniSetTituloJanela(string titulo_janela);
+
+void UNI_CALL_CONV uniSetIconeJanela(string arquivo);
+
+bool UNI_CALL_CONV uniEstaEmModoTelaCheia();
 
 Fonte* UNI_CALL_CONV uniGetFontePadrao();
 

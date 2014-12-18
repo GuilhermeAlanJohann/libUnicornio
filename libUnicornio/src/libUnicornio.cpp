@@ -7,31 +7,30 @@
 
 SDL_Window *window;
 SDL_Renderer *renderer;
+int res_x; 
+int res_y;
+bool telaCheia = false;
+Uint32 clear_color;
 
 bool uni_init = false;
+bool uni_debug = false;
 
+double deltaTempo;
 Uint64 tempoAntes;		// tempo em ticks
 Uint32 maxFPS;
 double framerate;
 Uint32 framerateMs;		// framerate em microsegundos
-double deltaTempo;
-
-bool telaCheia = false;
-int res_x; 
-int res_y;
-Uint32 clear_color;
 
 GerenciadorDeRecursos recursos;
 
 // depuracao
-bool uni_debug = false;
-struct debIt
+struct ItemDebug
 {
 	string chave;
 	string valor;
 };
-typedef struct debIt debugItem;
-vector<debugItem*> debugMessages;
+
+vector<ItemDebug*> mensagensDebug;
 
 Fonte* fonte_padrao = NULL;
 
@@ -42,46 +41,28 @@ EventosTeclado teclado;
 EventosJoysticks joysticks;
 EventosToque toques;
 
-bool uniInicializar(int w, int h, bool tela_cheia, string titulo_janela)
+bool uniInicializar(int resolucao_x, int resolucao_y, bool tela_cheia, string titulo_janela)
 {
+	//	inicializa SDL
 	SDL_Init( SDL_INIT_EVERYTHING );
 
-	// Audio: SDL_Mixer
-	Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC);
-	int audio_rate = 22050;
-	Uint16 audio_format = AUDIO_S16SYS;
-	int audio_channels = 2;
-	int audio_buffers = 1024; //4096
-	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0) 
-	{
-		// ERRO
-		return false;
-	}
-	///////
-
-	// Video
+	//	inicializa video
 	if(tela_cheia)
-	{
 		window = SDL_CreateWindow(titulo_janela.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
-	}
 	else
-	{
-		window = SDL_CreateWindow(titulo_janela.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_SHOWN);
-	}
+		window = SDL_CreateWindow(titulo_janela.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resolucao_x, resolucao_y, SDL_WINDOW_SHOWN);
 
-	telaCheia = tela_cheia;
-
-	if(window == nullptr)
+	if(window == NULL)
 	{
-        std::cout << SDL_GetError() << std::endl;
+        //	ERRO
         return false;
     }
-	
+
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE /*| SDL_RENDERER_PRESENTVSYNC*/);
 
-	if(renderer == nullptr)
+	if(renderer == NULL)
 	{
-        std::cout << SDL_GetError() << std::endl;
+        //	ERRO
         return false;
     }
 
@@ -94,15 +75,31 @@ bool uniInicializar(int w, int h, bool tela_cheia, string titulo_janela)
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");  // nao usa nenhum tipo de interpolacao para fazer a escala
-	SDL_RenderSetLogicalSize(renderer, w, h);
+	SDL_RenderSetLogicalSize(renderer, resolucao_x, resolucao_y);
 
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 
-	res_x = w; res_y = h;
+	telaCheia = tela_cheia;
+	res_x = resolucao_x; 
+	res_y = resolucao_y;
 
+	//	inicializa audio
+	Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC);
+	int audio_rate = 22050;
+	Uint16 audio_format = AUDIO_S16SYS;
+	int audio_channels = 2;
+	int audio_buffers = 1024; //4096
+	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0) 
+	{
+		// ERRO
+		return false;
+	}
+
+	//	inicializa biblioteca de fontes
 	TTF_Init();
-
+	
+	//	seta uni_init para true. Precisa ser feito aqui para poder carregar a fonte padrao
 	uni_init = true;
 
 	//	carrega fonte padrao
@@ -112,7 +109,7 @@ bool uniInicializar(int w, int h, bool tela_cheia, string titulo_janela)
 		fonte_padrao = NULL;
 	}
 
-	// inicializa handlers de eventos
+	//	inicializa handlers de eventos
 	eventos.aplicacao = &aplicacao;
 	eventos.mouse = &mouse;
 	eventos.teclado = &teclado;
@@ -120,7 +117,7 @@ bool uniInicializar(int w, int h, bool tela_cheia, string titulo_janela)
 	eventos.toques = &toques;
 	uniProcessarEventos();
 
-	//	timer
+	//	inicializa variaveis de tempo
 	deltaTempo = 0;
 	maxFPS = 60;	//	60 frames por segundo
 	framerate = 1.0/maxFPS;
@@ -132,6 +129,17 @@ bool uniInicializar(int w, int h, bool tela_cheia, string titulo_janela)
 
 void uniFinalizar()
 {
+	//	finaliza mensagens de debug
+	for(unsigned int i = 0; i < mensagensDebug.size(); i++)
+	{
+		delete mensagensDebug[i];
+	}
+	mensagensDebug.clear();
+
+	//	finaliza gerenciador de recursos
+	recursos.descarregarTudo();
+
+	//	finaliza fonte padrao
 	if(fonte_padrao)
 	{
 		fonte_padrao->descarregar();
@@ -139,24 +147,21 @@ void uniFinalizar()
 		fonte_padrao = NULL;
 	}
 
+	// finaliza biblioteca de fontes
 	TTF_Quit();
+
+	// finaliza audio
 	Mix_CloseAudio();
 	while(Mix_Init(0)) Mix_Quit();
 
-	debugItem* temp = NULL;
-	for(unsigned int i = 0; i < debugMessages.size(); i++)
-	{
-		temp = debugMessages[i];
-		delete temp;
-	}
-
-	//	finalializa gerenciador de recursos
-	recursos.descarregarTudo();
-
+	//	finaliza video
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+
+	//	finaliza SDL
 	SDL_Quit();
 
+	//	seta uni_init para false
 	uni_init = false;
 }
 
@@ -212,14 +217,29 @@ void uniSetFPS(unsigned int fps)
 	framerateMs = 1000.0/maxFPS;
 }
 
-string UNI_CALL_CONV uniGetTituloJanela()
+string uniGetTituloJanela()
 {
 	return SDL_GetWindowTitle(window);
 }
 
-void UNI_CALL_CONV uniSetTituloJanela(string titulo_janela)
+void uniSetTituloJanela(string titulo_janela)
 {
 	SDL_SetWindowTitle(window, titulo_janela.c_str());
+}
+
+void uniSetIconeJanela(string arquivo)
+{
+	SDL_Surface *surface = IMG_Load(arquivo.c_str());
+	if(surface)
+	{
+		SDL_SetWindowIcon(window, surface);
+		SDL_FreeSurface(surface);
+	}
+}
+
+bool uniEstaEmModoTelaCheia()
+{
+	return telaCheia;
 }
 
 Fonte* uniGetFontePadrao()
@@ -235,15 +255,15 @@ Fonte* uniGetFontePadrao()
 void processarDebug()
 {
 	if(!uni_debug) return;
-	if(debugMessages.size() == 0) return;
+	if(mensagensDebug.size() == 0) return;
 
 	unsigned int size_maior_chave = 0;
 	unsigned int size_maior_valor = 0;
 
-	debugItem* temp = NULL;
-	for(unsigned int i = 0; i < debugMessages.size(); i++)
+	ItemDebug* temp = NULL;
+	for(unsigned int i = 0; i < mensagensDebug.size(); i++)
 	{
-		temp = debugMessages[i];
+		temp = mensagensDebug[i];
 
 		if(size_maior_chave < temp->chave.size())
 			size_maior_chave = temp->chave.size();
@@ -256,7 +276,7 @@ void processarDebug()
 	rect.x = 0;
 	rect.y = 0;
 	rect.w = (size_maior_chave*10) + 15 + (size_maior_valor*10);
-	rect.h = 30 + debugMessages.size()*10;
+	rect.h = 30 + mensagensDebug.size()*10;
 
 	if(rect.w < 200)
 		rect.w = 200;
@@ -277,9 +297,9 @@ void processarDebug()
 
 	t.setCor(196, 196, 196);
 	int debY = 20;
-	for(unsigned int i = 0; i < debugMessages.size(); i++)
+	for(unsigned int i = 0; i < mensagensDebug.size(); i++)
 	{
-		temp = debugMessages[i];
+		temp = mensagensDebug[i];
 
 		t.setAncora(0.0, 0.0);
 		t.setTexto(temp->chave);
@@ -302,29 +322,29 @@ void uniDormir(int milisec)
 void uniErro(string mensagem)
 {
 	uni_debug = true;
-	debugItem* deb;
-	deb = new debugItem;
+	ItemDebug* deb;
+	deb = new ItemDebug;
 	deb->chave = "ERRO";
 	deb->valor = mensagem;
-	debugMessages.push_back(deb);
+	mensagensDebug.push_back(deb);
 }
 
 void uniDepurar(string chave, string valor)
 {
 	uni_debug = true;
-	debugItem* deb = NULL;
-	debugItem* temp = NULL;
-	for(unsigned int i = 0; i < debugMessages.size(); i++)
+	ItemDebug* deb = NULL;
+	ItemDebug* temp = NULL;
+	for(unsigned int i = 0; i < mensagensDebug.size(); i++)
 	{
-		temp = debugMessages[i];
+		temp = mensagensDebug[i];
 		if(temp->chave == chave) deb = temp;
 	}
 	if(deb == NULL)
 	{
-		deb = new debugItem;
+		deb = new ItemDebug;
 		deb->chave = chave;
 		deb->valor = valor;
-		debugMessages.push_back(deb);
+		mensagensDebug.push_back(deb);
 	}
 	else
 	{
