@@ -23,23 +23,23 @@ private:
 	string caminhoArquivo;
 	int tamanho;
 
-	EstiloFonte estilo;
+	int estilo;
 
 public:
 	Fonte();
 	~Fonte();
 
-	bool carregar(string arquivo, int tamanho = 16, EstiloFonte estilo = FONTE_ESTILO_NORMAL);
-	bool carregarMem(unsigned char mem[], int tamanho_mem, int tamanho = 16, EstiloFonte estilo = FONTE_ESTILO_NORMAL);
+	bool carregar(string arquivo, int tamanho = 16, int estilo = FONTE_ESTILO_NORMAL);
+	bool carregarMem(unsigned char mem[], int tamanho_mem, int tamanho = 16, int estilo = FONTE_ESTILO_NORMAL);
 	void descarregar();
 	bool estaCarregado();
 
 	int getTamanho();
-	EstiloFonte getEstilo();
+	int getEstilo();
 	TTF_Font* getTTF_Font();
 	string getCaminhoDoArquivo();
 
-	void setEstilo(EstiloFonte estilo);
+	void setEstilo(int estilo);
 
 	Fonte clonar();
 };

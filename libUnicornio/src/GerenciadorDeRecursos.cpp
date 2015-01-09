@@ -32,7 +32,7 @@ SpriteSheet* GerenciadorDeRecursos::carregarSpriteSheet(const string& nome, cons
 	return sheet;
 }
 
-Fonte* GerenciadorDeRecursos::carregarFonte(const string& nome, const string& caminho, int tamanho, EstiloFonte estilo)
+Fonte* GerenciadorDeRecursos::carregarFonte(const string& nome, const string& caminho, int tamanho, int estilo)
 {
 	if(carregouFonte(nome))
 	{

@@ -11,7 +11,7 @@ Fonte::~Fonte()
 {
 }
 
-bool Fonte::carregar(string arquivo, int tamanho, EstiloFonte estilo)
+bool Fonte::carregar(string arquivo, int tamanho, int estilo)
 {
 	if(!uni_init) 
 	{
@@ -41,7 +41,7 @@ bool Fonte::carregar(string arquivo, int tamanho, EstiloFonte estilo)
 	
 }
 
-bool Fonte::carregarMem(unsigned char mem[], int tamanho_mem, int tamanho, EstiloFonte estilo)
+bool Fonte::carregarMem(unsigned char mem[], int tamanho_mem, int tamanho, int estilo)
 {
 	if(!uni_init) return false;
 
@@ -86,7 +86,7 @@ int Fonte::getTamanho()
 	return tamanho;
 }
 
-EstiloFonte Fonte::getEstilo()
+int Fonte::getEstilo()
 {
 	return estilo;
 }
@@ -101,7 +101,7 @@ string Fonte::getCaminhoDoArquivo()
 	return caminhoArquivo;
 }
 
-void Fonte::setEstilo(EstiloFonte estilo)
+void Fonte::setEstilo(int estilo)
 {
 	this->estilo = estilo;
 	TTF_SetFontStyle(font, estilo);
