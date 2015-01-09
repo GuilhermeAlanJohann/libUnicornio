@@ -34,9 +34,6 @@
     <ClInclude Include="..\..\..\include\Midia\Fonte.h">
       <Filter>Midia\Recursos</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\Midia\Som.h">
-      <Filter>Midia\Recursos</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\Midia\SpriteSheet.h">
       <Filter>Midia\Recursos</Filter>
     </ClInclude>
@@ -58,6 +55,13 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\Colisao\uniColisoesSprite.h">
       <Filter>Colisao</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MixadorDeAudios.h" />
+    <ClInclude Include="..\..\..\include\Midia\Som.h">
+      <Filter>Midia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Midia\Audio.h">
+      <Filter>Midia\Recursos</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +135,6 @@
     <ClCompile Include="..\..\..\src\Midia\Fonte.cpp">
       <Filter>Midia\Recursos</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Midia\Som.cpp">
-      <Filter>Midia\Recursos</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Midia\SpriteSheet.cpp">
       <Filter>Midia\Recursos</Filter>
     </ClCompile>
@@ -158,6 +159,13 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Colisao\uniColisoesSprite.cpp">
       <Filter>Colisao</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\MixadorDeAudios.cpp" />
+    <ClCompile Include="..\..\..\src\Midia\Som.cpp">
+      <Filter>Midia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Midia\Audio.cpp">
+      <Filter>Midia\Recursos</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

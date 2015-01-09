@@ -93,13 +93,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Arma.cpp" />
     <ClCompile Include="Jogo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TocadorDeSom.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arma.h" />
     <ClInclude Include="Jogo.h" />
-    <ClInclude Include="TocadorDeSom.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

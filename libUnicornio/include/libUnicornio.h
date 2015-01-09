@@ -55,6 +55,9 @@ extern bool uni_init;
 extern double deltaTempo;
 
 
+#include "MixadorDeAudios.h"
+extern MixadorDeAudios mixador_de_audios;
+
 #include "GerenciadorDeRecursos.h"
 extern GerenciadorDeRecursos recursos;
 
@@ -66,8 +69,6 @@ extern EventosTeclado teclado;
 extern EventosJoysticks joysticks;
 extern EventosToque toques;
 
-class Sprite;
-class Fonte;
 class Vetor2D;
 
 bool UNI_CALL_CONV uniInicializar(int resolucao_x, int resolucao_y, bool tela_cheia = false, string titulo_janela = "libUNICORNIO");
@@ -119,10 +120,11 @@ void UNI_CALL_CONV uniDesenharFrame(bool limpa = true);
 //	midia
 #include "SpriteSheet.h"
 #include "Fonte.h"
-#include "Som.h"
+#include "Audio.h"
 
 #include "Sprite.h"
 #include "Texto.h"
+#include "Som.h"
 #include "Musica.h"
 
 //	tilemap

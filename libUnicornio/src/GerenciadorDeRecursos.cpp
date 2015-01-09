@@ -54,34 +54,33 @@ Fonte* GerenciadorDeRecursos::carregarFonte(const string& nome, const string& ca
 	return fonte;
 }
 
-Som* GerenciadorDeRecursos::carregarSom(const string& nome, const string& caminho, int volume, int distancia, int angulo)
+Audio* GerenciadorDeRecursos::carregarAudio(const string& nome, const string& caminho)
 {
-	if(carregouSom(nome))
+	if(carregouAudio(nome))
 	{
 		uniErro("Recurso '" + nome + "' nao pode ser carregado, pois um Som com esse nome ja existe.");
 		return NULL;
 	}
 
-	Som* som = new Som;
-	if(som->carregar(caminho))
+	Audio* audio = new Audio;
+	if(audio->carregar(caminho))
 	{
-		mSons.insert(pair<string, Som*>(nome, som));
-		som->ajustar(volume, distancia, angulo);
+		mAudios.insert(pair<string, Audio*>(nome, audio));
 	}
 	else
 	{
-		delete som;
-		som = NULL;
+		delete audio;
+		audio = NULL;
 	}
 
-	return som;
+	return audio;
 }
 
 void GerenciadorDeRecursos::descarregarTudo()
 {
 	descarregarTodosSpriteSheets();
 	descarregarTodasFontes();
-	descarregarTodosSons();
+	descarregarTodosAudios();
 }
 
 void GerenciadorDeRecursos::descarregarTodosSpriteSheets()
@@ -106,15 +105,15 @@ void GerenciadorDeRecursos::descarregarTodasFontes()
 	mFontes.clear();
 }
 
-void GerenciadorDeRecursos::descarregarTodosSons()
+void GerenciadorDeRecursos::descarregarTodosAudios()
 {
-	for(std::map<std::string, Som*>::iterator it = mSons.begin(); it != mSons.end(); ++it)
+	for(std::map<std::string, Audio*>::iterator it = mAudios.begin(); it != mAudios.end(); ++it)
 	{
 		it->second->descarregar();
 		delete it->second;
 	}
 
-	mSons.clear();
+	mAudios.clear();
 }
 
 bool GerenciadorDeRecursos::descarregar(const string& nome)
@@ -131,7 +130,7 @@ bool GerenciadorDeRecursos::descarregar(const string& nome)
 		descarregou = true;
 	}
 
-	if(descarregarSom(nome))
+	if(descarregarAudio(nome))
 	{
 		descarregou = true;
 	}
@@ -167,15 +166,15 @@ bool GerenciadorDeRecursos::descarregarFonte(const string& nome)
 	return false;
 }
 
-bool GerenciadorDeRecursos::descarregarSom(const string& nome)
+bool GerenciadorDeRecursos::descarregarAudio(const string& nome)
 {
-	std::map<std::string, Som*>::iterator it = mSons.find(nome);
+	std::map<std::string, Audio*>::iterator it = mAudios.find(nome);
 
-	if(it != mSons.end())
+	if(it != mAudios.end())
 	{
 		it->second->descarregar();
 		delete it->second;
-		mSons.erase(it);
+		mAudios.erase(it);
 	}
 
 	return false;
@@ -205,11 +204,11 @@ Fonte* GerenciadorDeRecursos::getFonte(const string& nome)
 	return NULL;
 }
 
-Som* GerenciadorDeRecursos::getSom(const string& nome)
+Audio* GerenciadorDeRecursos::getAudio(const string& nome)
 {
-	std::map<std::string, Som*>::iterator it = mSons.find(nome);
+	std::map<std::string, Audio*>::iterator it = mAudios.find(nome);
 
-	if(it != mSons.end())
+	if(it != mAudios.end())
 	{
 		return it->second;
 	}
@@ -227,7 +226,7 @@ bool GerenciadorDeRecursos::carregouFonte(const std::string& nome)
 	return (mFontes.find(nome) != mFontes.end());
 }
 
-bool GerenciadorDeRecursos::carregouSom(const std::string& nome)
+bool GerenciadorDeRecursos::carregouAudio(const std::string& nome)
 {
-	return (mSons.find(nome) != mSons.end());
+	return (mAudios.find(nome) != mAudios.end());
 }

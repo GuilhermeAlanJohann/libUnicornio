@@ -21,6 +21,8 @@ Uint32 maxFPS;
 double framerate;
 Uint32 framerateMs;		// framerate em microsegundos
 
+MixadorDeAudios mixador_de_audios;
+
 GerenciadorDeRecursos recursos;
 
 // depuracao
@@ -85,14 +87,9 @@ bool uniInicializar(int resolucao_x, int resolucao_y, bool tela_cheia, string ti
 	res_y = resolucao_y;
 
 	//	inicializa audio
-	Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC);
-	int audio_rate = 22050;
-	Uint16 audio_format = AUDIO_S16SYS;
-	int audio_channels = 2;
-	int audio_buffers = 1024; //4096
-	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0) 
+	bool mixador_init_ok = mixador_de_audios.inicializar();
+	if(!mixador_init_ok)
 	{
-		// ERRO
 		return false;
 	}
 
@@ -151,8 +148,7 @@ void uniFinalizar()
 	TTF_Quit();
 
 	// finaliza audio
-	Mix_CloseAudio();
-	while(Mix_Init(0)) Mix_Quit();
+	mixador_de_audios.finalizar();
 
 	//	finaliza video
 	SDL_DestroyRenderer(renderer);

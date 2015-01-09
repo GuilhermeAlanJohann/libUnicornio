@@ -1,54 +1,56 @@
 #ifndef UNI_SOM_H
 #define UNI_SOM_H
 
-#include "SDL.h"
-#include "SDL_mixer.h"
-#include <string>
-
-// SDL_Mixer
-#define SAMPLE Mix_Chunk
-
-using namespace std;
+#include "Audio.h"
+#include "MixadorDeAudios.h"
 
 class Som
 {
 public:
 	Som();
-	Som(const Som &r);
+	Som(const Som& r);
+	~Som();
+
 	Som& operator=(const Som &r);
 	bool operator==(const Som &r);
 	bool operator!=(const Som &r);
-	~Som();
-	bool carregar(std::string arquivo);
-	void descarregar();
-	bool estaCarregado();
+
 	void tocar(bool repetir = false);
 	void parar();
 	void pausar();
 	void continuar();
-	void ajustar(int vol, int dist = 0, int ang = 0);
 	bool estaTocando();
-	void setVolume(int vol);
-	void setDistancia(int dist);
-	void setAngulo(int ang);
+	bool estaRepetindo();
+	bool terminouDeTocar();
+
+	Audio* getAudio();
+
 	int	 getVolume();
 	int  getDistancia();
 	int  getAngulo();
-	string getCaminhoDoArquivo();
-	Som clonar();
+
+	void setAudio(Audio* audio);
+	void setAudio(string nome);
+
+	void setVolume(float vol);
+	void setDistancia(Uint8 dist);
+	void setAngulo(Sint16 ang);
+
+	//	Nao usar! Metodo de uso interno. Chamado pela biblioteca.
+	void setTerminouDeTocar(bool b);
+	//	Nao usar! Metodo de uso interno. Chamado pela biblioteca.
+	void indefinirCanal();
 
 private:
-	string caminhoArquivo;
-
-	SAMPLE *smp;
+	Audio* audio;
 
 	Sint16 angulo;
 	Uint8 distancia;
-	int volume;
+	float volume;
+	bool repetindo;
+	bool terminou_de_tocar;
 
-	int canal;
-
-	bool loop;
+	int indice_canal_atual;
 };
 
 #endif

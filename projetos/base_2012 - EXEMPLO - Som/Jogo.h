@@ -1,5 +1,5 @@
 #pragma once
-#include "TocadorDeSom.h"
+#include "Arma.h"
 
 class Jogo
 {
@@ -13,6 +13,6 @@ public:
 	void executar();
 
 private:
-	TocadorDeSom tocador;
+	Arma arma;
 };
 

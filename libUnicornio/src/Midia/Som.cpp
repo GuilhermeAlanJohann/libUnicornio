@@ -1,41 +1,54 @@
 #include "Som.h"
 #include "libUnicornio.h"
-#include <algorithm>
 
 Som::Som()
-:smp(NULL), volume(128), angulo(0), distancia(0), canal(-1), loop(false)
 {
+	audio = NULL;
+
+	volume = 100.0f;
+	angulo = 0;
+	distancia = 0;
+	repetindo = false;
+	terminou_de_tocar = false;
+
+	indice_canal_atual = -1;
 }
 
-Som::Som(const Som &r)
+Som::Som(const Som& r)
 {
+	audio = r.audio;
 	volume = r.volume;
 	angulo = r.angulo;
 	distancia = r.distancia;
-	caminhoArquivo =  r.caminhoArquivo;
-	smp = r.smp;
-	canal = r.canal;
-	loop = r.loop;
+	repetindo = r.repetindo;
+	terminou_de_tocar = r.terminou_de_tocar;
+
+	indice_canal_atual = r.indice_canal_atual;
+}
+
+Som::~Som()
+{
 }
 
 Som& Som::operator=(const Som &r)
 {
-	if(*this != r)
+	if(this != &r)
 	{
+		audio = r.audio;
 		volume = r.volume;
 		angulo = r.angulo;
 		distancia = r.distancia;
-		caminhoArquivo =  r.caminhoArquivo;
-		smp = r.smp;
-		canal = r.canal;
-		loop = r.loop;
+		repetindo = r.repetindo;
+		terminou_de_tocar = r.terminou_de_tocar;
+
+		indice_canal_atual = r.indice_canal_atual;
 	}
 	return *this;
 }
 
 bool Som::operator==(const Som &r)
 {
-	return (volume == r.volume && angulo == r.angulo && distancia == r.distancia && caminhoArquivo ==  r.caminhoArquivo && loop == r.loop);
+	return (audio == r.audio && volume == r.volume && angulo == r.angulo && distancia == r.distancia && indice_canal_atual == r.indice_canal_atual && repetindo == r.repetindo && terminou_de_tocar == r.terminou_de_tocar);
 }
 
 bool Som::operator!=(const Som &r)
@@ -43,161 +56,68 @@ bool Som::operator!=(const Som &r)
 	return !(*this == r);
 }
 
-Som::~Som()
-{
-}
-
-bool Som::carregar(string arquivo)
-{
-	if(!uni_init) 
-	{
-		uniErro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
-		return false;
-	}
-	
-	if(estaCarregado())
-	{
-		uniErro("Arquivo '" + arquivo + "' nao pode ser carregado, pois Som ja carregou o arquivo " + caminhoArquivo + ".");
-		return false;
-	}
-	smp = Mix_LoadWAV(arquivo.c_str());
-	
-	if(!smp) 
-	{
-		uniErro("Erro ao carregar arquivo: '" + arquivo + "' - " + SDL_GetError() + ".");
-		return false;
-	}
-
-	caminhoArquivo = arquivo;
-
-	return true;
-}
-
-void Som::descarregar()
-{
-	parar();
-	Mix_FreeChunk(smp);
-	smp = NULL;
-	caminhoArquivo = "";
-	volume = 128;
-	distancia = 0;
-	angulo = 0;
-	//	ja eh setado no parar();
-	//canal = -1;
-	//loop = false;
-}
-
-bool Som::estaCarregado()
-{
-	return (smp);
-}
-
 void Som::tocar(bool repetir)
 {
-	if(!estaCarregado()) return;
+	if(!uni_init) return;
 
-	/*if (canal != -1)	//	se estiver tocando som em um canal, libera o canal
+	if(!audio)
 	{
-		Mix_HaltChannel(canal);
-		canal = -1;
-	}*/
+		uniDesenharTexto("Nao pode tocar Som antes de setar Audio.", 10, 10, 255, 0, 0);
+		return;
+	}
 
-	if(!loop)
+	if(!repetindo)
 	{
-		canal = Mix_PlayChannel(-1, smp, repetir == 0 ? 0 : -1);
-		loop = repetir;
-
-		Mix_SetPosition(canal, angulo, distancia);
-		Mix_Volume(canal, volume);
+		indice_canal_atual = Mix_PlayChannel(-1, audio->getMixChunk(), repetir == 0 ? 0 : -1);
+		Mix_Volume(indice_canal_atual, (volume/100.0)*128);
+		Mix_SetPosition(indice_canal_atual, angulo, distancia);
+		mixador_de_audios.reservarCanalDeAudio(indice_canal_atual, this);
+		repetindo = repetir;
+		terminou_de_tocar = false;
 	}
 }
+
 void Som::parar()
 {
-	if(!smp) return;
-	
-	if(canal != -1)
-	{
-		Mix_HaltChannel(canal);
-		canal = -1;
-		loop = false;
-	}
+	if(indice_canal_atual != -1)
+		Mix_HaltChannel(indice_canal_atual);
+
+	repetindo = false;
 }
 
 void Som::pausar()
 {
-	if(!estaCarregado()) return;
-	
-	if(canal != -1)
-	{
-		Mix_Pause(canal);
-	}
+	if(indice_canal_atual != -1)
+		Mix_Pause(indice_canal_atual);
 }
 
 void Som::continuar()
 {
-	if(!estaCarregado()) return;
-	
-	if(canal != -1)
-	{
-		Mix_Resume(canal);
-	}
+	if(indice_canal_atual != -1)
+		Mix_Resume(indice_canal_atual);
 }
 
-void Som::ajustar(int vol, int dist, int ang)
-{		
-	if(!estaCarregado()) return;
-
-	volume = vol;
-	angulo = ang;
-	distancia = dist;
-
-	if(canal != -1 && Mix_Playing(canal))
-	{
-		Mix_SetPosition(canal, angulo, distancia);
-		Mix_Volume(canal, volume);
-	}
-}
-
-// retornar se o Som terminou de tocar
 bool Som::estaTocando()
 {
-	if(!estaCarregado()) return false;
-	if(canal == -1) return false;
+	if(indice_canal_atual != -1)
+		return Mix_Playing(indice_canal_atual);
 
-	int status = Mix_Playing(canal);
-	if(status != 0) return true;
-	
 	return false;
 }
 
-void Som::setVolume(int vol)
+bool Som::estaRepetindo()
 {
-	volume = vol;
-
-	if(canal != -1 && Mix_Playing(canal))
-	{
-		Mix_Volume(canal, volume);
-	}
+	return repetindo;
 }
 
-void Som::setDistancia(int dist)
+bool Som::terminouDeTocar()
 {
-	distancia = dist;
-
-	if(canal != -1 && Mix_Playing(canal))
-	{
-		Mix_SetPosition(canal, angulo, distancia);
-	}
+	return terminou_de_tocar;
 }
 
-void Som::setAngulo(int ang)
+Audio* Som::getAudio()
 {
-	angulo = ang;
-
-	if(canal != -1 && Mix_Playing(canal))
-	{
-		Mix_SetPosition(canal, angulo, distancia);
-	}
+	return audio;
 }
 
 int	Som::getVolume()
@@ -215,14 +135,47 @@ int Som::getAngulo()
 	return angulo;
 }
 
-string Som::getCaminhoDoArquivo()
+void Som::setAudio(Audio* audio)
 {
-	return caminhoArquivo;
+	this->audio = audio;
 }
 
-Som Som::clonar()
+void Som::setAudio(string nome)
 {
-	Som r(*this);
-	r.carregar(caminhoArquivo);
-	return r;
+	setAudio(recursos.getAudio(nome));
+}
+
+void Som::setVolume(float vol)
+{
+	volume = vol;
+
+	if(indice_canal_atual != -1)
+		Mix_Volume(indice_canal_atual, (volume/100.0)*128);
+}
+
+void Som::setDistancia(Uint8 dist)
+{
+	distancia = dist;
+
+	if(indice_canal_atual != -1)
+		Mix_SetDistance(indice_canal_atual, distancia);
+}
+
+void Som::setAngulo(Sint16 ang)
+{
+	angulo = ang;
+
+	if(indice_canal_atual != -1)
+		Mix_SetPosition(indice_canal_atual, angulo, distancia);
+}
+
+void Som::setTerminouDeTocar(bool b)
+{
+	terminou_de_tocar = b;
+}
+
+void Som::indefinirCanal()
+{
+	indice_canal_atual = -1;
+	repetindo = false;
 }
