@@ -53,6 +53,12 @@
       <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\Vetor2D.h" />
+    <ClInclude Include="..\..\..\include\Colisao\uniColisoes.h">
+      <Filter>Colisao</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Colisao\uniColisoesSprite.h">
+      <Filter>Colisao</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Interface">
@@ -72,6 +78,9 @@
     </Filter>
     <Filter Include="json">
       <UniqueIdentifier>{46ca665d-87bf-4966-adae-6c6fde05a29c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Colisao">
+      <UniqueIdentifier>{2737c8b5-0be6-4142-94d8-30a2c2d4830c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,5 +153,11 @@
       <Filter>Interface</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Vetor2D.cpp" />
+    <ClCompile Include="..\..\..\src\Colisao\uniColisoes.cpp">
+      <Filter>Colisao</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Colisao\uniColisoesSprite.cpp">
+      <Filter>Colisao</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

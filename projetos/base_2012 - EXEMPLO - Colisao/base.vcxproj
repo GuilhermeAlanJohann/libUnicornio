@@ -52,7 +52,7 @@
     <ClCompile>
       <AdditionalOptions>/I../../libEGL/ %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../libUnicornio/SDL2/include;../../libUnicornio/include;../../libUnicornio/include/Eventos;../../libUnicornio/include/Interface;../../libUnicornio/include/Midia;../../libUnicornio/include/TileMap;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../libUnicornio/SDL2/include;../../libUnicornio/include;../../libUnicornio/include/Colisao;../../libUnicornio/include/Eventos;../../libUnicornio/include/Interface;../../libUnicornio/include/Midia;../../libUnicornio/include/TileMap;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -74,7 +74,7 @@
       <AdditionalOptions>/I../../libEGL/ %(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>../../libUnicornio/SDL2/include;../../libUnicornio/include;../../libUnicornio/include/Eventos;../../libUnicornio/include/Interface;../../libUnicornio/include/Midia;../../libUnicornio/include/TileMap;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../libUnicornio/SDL2/include;../../libUnicornio/include;../../libUnicornio/include/Colisao;../../libUnicornio/include/Eventos;../../libUnicornio/include/Interface;../../libUnicornio/include/Midia;../../libUnicornio/include/TileMap;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\Colisao\uniColisoes.h" />
+    <ClInclude Include="..\..\..\include\Colisao\uniColisoesSprite.h" />
     <ClInclude Include="..\..\..\include\Eventos\Eventos.h" />
     <ClInclude Include="..\..\..\include\Eventos\InputEnums.h" />
     <ClInclude Include="..\..\..\include\GerenciadorDeRecursos.h" />
@@ -33,6 +35,8 @@
     <ClInclude Include="..\..\..\include\Vetor2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\Colisao\uniColisoes.cpp" />
+    <ClCompile Include="..\..\..\src\Colisao\uniColisoesSprite.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\Eventos.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosAplicacao.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosiOS.cpp" />
@@ -97,7 +101,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\SDL2\include;..\..\SDL2\include;..\..\..\SDL2\include;..\..\..\include\Eventos;..\..\..\include\Interface;..\..\..\include\TileMap;..\..\..\include\Midia;..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\SDL2\include;..\..\SDL2\include;..\..\..\SDL2\include;..\..\..\include\Colisao;..\..\..\include\Eventos;..\..\..\include\Interface;..\..\..\include\TileMap;..\..\..\include\Midia;..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -119,7 +123,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\SDL2\include;..\..\SDL2\include;..\..\..\SDL2\include;..\..\..\include\Eventos;..\..\..\include\Interface;..\..\..\include\TileMap;..\..\..\include\Midia;..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\SDL2\include;..\..\SDL2\include;..\..\..\SDL2\include;..\..\..\include\Colisao;..\..\..\include\Eventos;..\..\..\include\Interface;..\..\..\include\TileMap;..\..\..\include\Midia;..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
