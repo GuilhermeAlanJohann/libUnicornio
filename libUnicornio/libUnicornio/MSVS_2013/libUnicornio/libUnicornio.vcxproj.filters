@@ -167,5 +167,8 @@
     <ClCompile Include="..\..\..\src\Midia\Audio.cpp">
       <Filter>Midia\Recursos</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Eventos\EventosInputTexto.cpp">
+      <Filter>Eventos</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

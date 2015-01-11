@@ -91,6 +91,10 @@ Fonte* UNI_CALL_CONV uniGetFontePadrao();
 
 void UNI_CALL_CONV uniProcessarEventos();
 
+string UNI_CALL_CONV uniGetStringDaAreaDeTransferencia();
+void UNI_CALL_CONV uniSetStringDaAreaDeTransferencia(string s);
+bool UNI_CALL_CONV uniTemStringNaAreaDeTransferencia();
+
 void UNI_CALL_CONV uniDormir(int milisec);
 
 void UNI_CALL_CONV uniErro(string mensagem);

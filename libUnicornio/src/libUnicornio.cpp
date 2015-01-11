@@ -196,11 +196,6 @@ void uniTerminarFrame()
 	uniDesenharFrame();
 }
 
-void uniProcessarEventos()
-{
-	eventos.atualizar();
-}
-
 unsigned int uniGetFPS()
 {
 	return maxFPS;
@@ -246,6 +241,11 @@ Fonte* uniGetFontePadrao()
 	}
 
 	return NULL;
+}
+
+void uniProcessarEventos()
+{
+	eventos.atualizar();
 }
 
 void processarDebug()
@@ -308,6 +308,24 @@ void processarDebug()
 		debY += 10;
 	}
 
+}
+
+string uniGetStringDaAreaDeTransferencia()
+{
+	char* str = SDL_GetClipboardText();
+	string s = str;
+	SDL_free(str);
+	return s;
+}
+
+void uniSetStringDaAreaDeTransferencia(string s)
+{
+	SDL_SetClipboardText(s.c_str());
+}
+
+bool uniTemStringNaAreaDeTransferencia()
+{
+	return SDL_HasClipboardText();
 }
 
 void uniDormir(int milisec)

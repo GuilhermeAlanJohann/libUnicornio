@@ -41,6 +41,7 @@
     <ClCompile Include="..\..\..\src\Colisao\uniColisoesSprite.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\Eventos.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosAplicacao.cpp" />
+    <ClCompile Include="..\..\..\src\Eventos\EventosInputTexto.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosiOS.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosJoysticks.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosMouse.cpp" />

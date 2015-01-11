@@ -29,6 +29,8 @@ void EventosTeclado::atualizar()
 		pressionou[i] = false;
 		soltou[i] = false;
 	}
+
+	inputTexto.atualizar();
 }
 
 void EventosTeclado::processarEvento(const SDL_Event& evento)
@@ -58,6 +60,9 @@ void EventosTeclado::processarEvento(const SDL_Event& evento)
 				soltou[scancode] = true;
 			}
 		}
-		break;
+		break;	
 	}
+
+	if(inputTexto.estaHabilitado())
+		inputTexto.processarEvento(evento);
 }

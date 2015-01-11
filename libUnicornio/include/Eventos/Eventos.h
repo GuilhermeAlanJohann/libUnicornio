@@ -37,6 +37,53 @@ private:
 	void corrigirPosicaoFullscreen();
 };
 
+class EventosInputTexto
+{
+public:
+	EventosInputTexto();
+	~EventosInputTexto();
+
+	void habilitar();
+	void desabilitar();
+	bool estaHabilitado();
+
+	std::string getString();
+	void setString(std::string s);
+	void inserir(std::string s);
+	void inserir(char c);
+	void apagar();
+	void apagarTudo();
+
+	std::string getStringSelecao();
+	void apagarStringSelecao();
+
+	int getPosCursor();
+	void setPosCursor(int pos);
+
+	int getTamanhoSelecao();
+	void setTamanhoSelecao(int tam);
+
+	bool estaSelecionando();
+	void setSelecionando(bool b);
+	void selecionar(int pos_inicio, int pos_fim);
+	void selecionarTudo();
+
+	void moverPosCursorParaDir();
+	void moverPosCursorParaEsq();
+	void moverSelecaoParaDir();
+	void moverSelecaoParaEsq();
+
+	void atualizar();
+	void processarEvento(const SDL_Event& evento);
+
+private:
+	std::string str;
+	int pos_cursor;
+	int tamanho_selecao;
+	bool selecionando;
+	bool habilitado;
+};
+
 class EventosTeclado
 {
 public:
@@ -49,12 +96,14 @@ public:
 	Uint8* pressionou;
 	Uint8* segurando;
 	Uint8* soltou;
+
+	EventosInputTexto inputTexto;
 };
 
 struct Joystick
 {
 public:
-	Joystick(): id(-1), deadZone(0.2), x(0), y(0), xDir(0), yDir(0), js(NULL)
+	Joystick(): id(-1), deadZone(0.2f), x(0), y(0), xDir(0), yDir(0), js(NULL)
 	{
 		for(int i = 0; i < NUMERO_DE_BOTOES_JOYSTICK; ++i)
 		{
