@@ -63,15 +63,17 @@ public:
 	int getTamanhoSelecao();
 	void setTamanhoSelecao(int tam);
 
-	bool estaSelecionando();
-	void setSelecionando(bool b);
 	void selecionar(int pos_inicio, int pos_fim);
 	void selecionarTudo();
 
 	void moverPosCursorParaDir();
 	void moverPosCursorParaEsq();
+	void moverPosCursorParaInicio();
+	void moverPosCursorParaFim();
 	void moverSelecaoParaDir();
 	void moverSelecaoParaEsq();
+	void moverSelecaoParaInicio();
+	void moverSelecaoParaFim();
 
 	void atualizar();
 	void processarEvento(const SDL_Event& evento);
@@ -80,7 +82,6 @@ private:
 	std::string str;
 	int pos_cursor;
 	int tamanho_selecao;
-	bool selecionando;
 	bool habilitado;
 };
 

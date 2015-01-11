@@ -8,7 +8,6 @@ EventosInputTexto::EventosInputTexto()
 	pos_cursor = 0;
 	tamanho_selecao = 0;
 	habilitado = false;
-	selecionando = false;
 }
 
 EventosInputTexto::~EventosInputTexto()
@@ -22,7 +21,6 @@ void EventosInputTexto::habilitar()
 	pos_cursor = 0;
 	tamanho_selecao = 0;
 	str.clear();
-	selecionando = false;
 }
 
 void EventosInputTexto::desabilitar()
@@ -33,7 +31,6 @@ void EventosInputTexto::desabilitar()
 	pos_cursor = 0;
 	tamanho_selecao = 0;
 	str.clear();
-	selecionando = false;
 }
 
 bool EventosInputTexto::estaHabilitado()
@@ -161,16 +158,6 @@ void EventosInputTexto::setTamanhoSelecao(int tam)
 	tamanho_selecao = tam;
 }
 
-bool EventosInputTexto::estaSelecionando()
-{
-	return selecionando;
-}
-
-void EventosInputTexto::setSelecionando(bool b)
-{
-	selecionando = b;
-}
-
 void EventosInputTexto::selecionar(int pos_inicio, int pos_fim)
 {
 	if(pos_inicio < 0)
@@ -211,6 +198,18 @@ void EventosInputTexto::moverPosCursorParaEsq()
 	tamanho_selecao = 0;
 }
 
+void EventosInputTexto::moverPosCursorParaInicio()
+{
+	pos_cursor = 0;
+	tamanho_selecao = 0;
+}
+
+void EventosInputTexto::moverPosCursorParaFim()
+{
+	pos_cursor = (int)str.size();
+	tamanho_selecao = 0;
+}
+
 void EventosInputTexto::moverSelecaoParaDir()
 {
 	pos_cursor += 1;
@@ -239,6 +238,34 @@ void EventosInputTexto::moverSelecaoParaEsq()
 		if(tamanho_selecao + pos_cursor > (int)str.size())
 			tamanho_selecao -= 1;
 	}
+}
+
+void EventosInputTexto::moverSelecaoParaInicio()
+{
+	if(tamanho_selecao > 0)
+	{
+		tamanho_selecao = pos_cursor + tamanho_selecao;
+	}
+	else
+	{
+		tamanho_selecao = pos_cursor;
+	}
+	
+	pos_cursor = 0;
+}
+
+void EventosInputTexto::moverSelecaoParaFim()
+{
+	if(tamanho_selecao < 0)
+	{
+		tamanho_selecao = (int)str.size() - pos_cursor + tamanho_selecao;
+	}
+	else
+	{
+		tamanho_selecao = (int)str.size() - pos_cursor;
+	}
+
+	pos_cursor = (int)str.size();
 }
 
 void EventosInputTexto::atualizar()
