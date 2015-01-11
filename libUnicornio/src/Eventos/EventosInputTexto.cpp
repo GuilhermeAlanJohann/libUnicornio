@@ -256,15 +256,7 @@ void EventosInputTexto::moverSelecaoParaInicio()
 
 void EventosInputTexto::moverSelecaoParaFim()
 {
-	if(tamanho_selecao < 0)
-	{
-		tamanho_selecao = (int)str.size() - pos_cursor + tamanho_selecao;
-	}
-	else
-	{
-		tamanho_selecao = (int)str.size() - pos_cursor;
-	}
-
+	tamanho_selecao = (pos_cursor + tamanho_selecao) - (int)str.size();
 	pos_cursor = (int)str.size();
 }
 
