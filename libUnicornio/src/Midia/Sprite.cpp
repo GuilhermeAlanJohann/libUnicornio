@@ -242,17 +242,22 @@ void Sprite::setEscala(float sx, float sy)
 
 void Sprite::setAnimacao(int anim, bool recomecar)
 {
-	anim_atual = anim;
-
 	if(recomecar)
 	{
+		anim_atual = anim;
 		recomecarAnimacao();
 	}
 	else if(sheet->getNumFramesAnimacao(anim) < sheet->getNumFramesAnimacao(anim_atual))
 	{
 		frame_atual = frame_atual%(sheet->getNumFramesAnimacao(anim));
 		clip.x = frame_atual*clip.w;
-		clip.y = anim_atual*clip.h;
+		clip.y = anim*clip.h;
+		anim_atual = anim;
+	}
+	else
+	{
+		clip.y = anim*clip.h;
+		anim_atual = anim;
 	}
 }
 
