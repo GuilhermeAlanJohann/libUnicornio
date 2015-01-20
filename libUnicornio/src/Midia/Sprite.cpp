@@ -56,6 +56,7 @@ Sprite& Sprite::operator=(const Sprite &r)
 		animacao_ao_contrario = r.animacao_ao_contrario;
 		escala_x = r.escala_x;
 		escala_y = r.escala_y;
+		clip = r.clip;
 		pause = r.pause;
 		cor = r.cor;
 		terminou_anim = r.terminou_anim;
@@ -356,11 +357,6 @@ void Sprite::setSpriteSheet(string nome)
 void Sprite::setSpriteSheet(SpriteSheet* sheet)
 {
 	if(!sheet)
-	{
-		return;
-	}
-
-	if(sheet == this->sheet)
 	{
 		return;
 	}
