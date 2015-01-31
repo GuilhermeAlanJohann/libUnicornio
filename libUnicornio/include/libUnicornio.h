@@ -112,7 +112,7 @@ void UNI_CALL_CONV uniDesenharLinha(int x1, int y1, int x2, int y2, int vermelho
 void UNI_CALL_CONV uniDesenharCirculo(int x, int y, float raio, int num_segmentos, int vermelho = 255, int verde = 255, int azul = 255);
 void UNI_CALL_CONV uniDesenharRetangulo(int x, int y, float rot, int largura, int altura, float ancora_x, float ancora_y, int vermelho = 255, int verde = 255, int azul = 255);
 void UNI_CALL_CONV uniDesenharPoligono(int x, int y, float rot, Vetor2D* pontos, int num_pontos, int vermelho = 255, int verde = 255, int azul = 255);
-void UNI_CALL_CONV uniDesenharTexto(string txt, int x, int y, int cR=255, int cG=255, int cB=255, bool centralizar = false);
+void UNI_CALL_CONV uniDesenharTexto(string txt, int x, int y, int cR=255, int cG=255, int cB=255, float ancora_x = 0.5f, float ancora_y = 0.5f);
 void UNI_CALL_CONV uniDesenharFrame(bool limpa = true);
 
 ///////////////////////////////////////////////////////////////////////////////////////

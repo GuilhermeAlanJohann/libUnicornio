@@ -448,7 +448,7 @@ bool Sprite::desenhar(int x, int y, float rot)
 
 	if(!sheet)
 	{
-		uniDesenharTexto("Nao pode desenhar Sprite antes de setar sprite_sheet.",x,y,255,0,0);
+		uniDesenharTexto("Nao pode desenhar Sprite antes de setar SpriteSheet.", x, y, 255, 0, 0, 0.0f);
 		return false;
 	}
 

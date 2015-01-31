@@ -1,24 +1,25 @@
 #include "Texto.h"
 #include "libUnicornio.h"
+#include <string>         // std::string, std::u32string
+#include <locale>         // std::wstring_convert
+#include <codecvt>        // std::codecvt_utf8
+#include <cstdint>        // std::uint_least32_t
 
 Texto::Texto()
 {
-	tex = NULL;
-	tex_borda = NULL;
 	fonte = NULL;
-	ancora_x = 0.5;
-	ancora_y = 0.5;
-	escala_x = 1.0;
-	escala_y = 1.0;
+	largura = 0;
+	altura = 0;
+	ancora.set(0.5f, 0.5f);
+	escala.set(1.0f, 1.0f);
 	cor.r = 255;
 	cor.g = 255;
 	cor.b = 255;
 	cor.a = 255;
-	cor_borda.r = 0;
-	cor_borda.g = 0;
-	cor_borda.b = 0;
-	cor_borda.a = 255;
-	tamanho_borda = 0;
+
+	num_linhas = 0;
+	espacamento_linhas = 1.0f;
+	alinhamento = TEXTO_ALINHADO_A_ESQUERDA;
 }
 
 Texto::~Texto()
@@ -26,44 +27,90 @@ Texto::~Texto()
 	apagar();
 }
 
+Vetor2D Texto::getAncora()
+{
+	return ancora;
+}
+
 float Texto::getAncoraX()
 {
-	return ancora_x;
+	return ancora.x;
 }
 
 float Texto::getAncoraY()
 {
-	return ancora_y;
+	return ancora.y;
+}
+
+Vetor2D Texto::getEscala()
+{
+	return escala;
 }
 
 float Texto::getEscalaX()
 {
-	return escala_x;
+	return escala.x;
 }
 
 float Texto::getEscalaY()
 {
-	return escala_y;
+	return escala.y;
 }
 
 int	Texto::getLargura()
 {
-	return rect.w*escala_x;
+	return largura*escala.x;
 }
 
 int Texto::getAltura()
 {
-	return rect.h*escala_y;
+	return altura*escala.y;
 }
 
 int	Texto::getLarguraOriginal()
 {
-	return rect.w;
+	return largura;
 }
 
 int Texto::getAlturaOriginal()
 {
-	return rect.h;
+	return altura;
+}
+
+int Texto::getLarguraLinha(int linha)
+{
+	int larg = 0;
+	return getLarguraOriginalLinha(linha)*escala.x;
+}
+
+int Texto::getAlturaLinha(int linha)
+{
+	int alt;
+	return getAlturaOriginalLinha(linha)*escala.y;
+}
+
+int Texto::getLarguraOriginalLinha(int linha)
+{
+	if(!fonte)
+		return 0;
+
+	int larg = 0;
+	wstring s = getWstringLinha(linha);
+	for(unsigned int i = 0; i < s.size(); ++i)
+		larg += fonte->getGlifo(s[i])->avanco;
+
+	return larg;
+}
+
+int Texto::getAlturaOriginalLinha(int linha)
+{	
+	if(!fonte)
+		return 0;
+
+	int alt = 0;
+	fonte->getAlturaMaxDosGlifos();
+
+	return alt;
 }
 
 int Texto::getCorVermelho()
@@ -86,29 +133,19 @@ int Texto::getCorAlpha()
 	return cor.a;
 }
 
-int Texto::getCorBordaVermelho()
+int Texto::getNumLinhas()
 {
-	return cor_borda.r;
+	return num_linhas;
 }
 
-int Texto::getCorBordaVerde()
+float Texto::getEspacamentoLinhas()
 {
-	return cor_borda.g;
+	return espacamento_linhas;
 }
 
-int Texto::getCorBordaAzul()
+TipoAlinhamentoTexto Texto::getAlinhamento()
 {
-	return cor_borda.b;
-}
-
-int Texto::getCorBordaAlpha()
-{
-	return cor_borda.a;
-}
-
-int Texto::getTamanhoBorda()
-{
-	return tamanho_borda;
+	return alinhamento;
 }
 
 Fonte* Texto::getFonte()
@@ -116,33 +153,101 @@ Fonte* Texto::getFonte()
 	return fonte;
 }
 
-string Texto::getTexto()
+string Texto::getString()
 {
-	return str;
+	return converterParaString(wstr);
+}
+
+string Texto::getStringLinha(int linha)
+{
+	return converterParaString(getWstringLinha(linha));
+}
+
+wstring Texto::getWstring()
+{
+	return wstr;
+}
+
+wstring Texto::getWstringLinha(int linha)
+{
+	if(linha < num_linhas)
+	{
+		int l = 0;
+		unsigned int inicio = 0, tam = 0;
+
+		if(l == linha)
+			inicio = 0;
+
+		for(unsigned int i = 0; i < wstr.size(); ++i)
+		{
+			if(wstr[i] == '\n')
+			{
+				l++;
+
+				if(l == linha)
+					inicio = i;
+				else if(l == linha+1)
+					tam = i - inicio -1;
+
+			}
+		}
+
+		l++;
+		if(l == linha+1)
+			tam = wstr.size() - inicio -1;
+
+		return wstring(wstr.begin() + inicio, wstr.begin() + inicio + tam);
+	}
+
+	return wstring();
 }
 
 void Texto::obterAncora(float &x, float &y)
 {
-	x = ancora_x;
-	y = ancora_y;
+	x = ancora.x;
+	y = ancora.y;
 }
 
 void Texto::obterEscala(float &sx, float& sy)
 {
-	sx = escala_x;
-	sy = escala_y;
+	sx = escala.x;
+	sy = escala.y;
 }
 
-void Texto::obterTamanho(int &w, int &h)
+void Texto::obterTamanho(int &larg, int &alt)
 {
-	w = getLargura();
-	h = getAltura();
+	larg = getLargura();
+	alt = getAltura();
 }
 
-void Texto::obterTamanhoOriginal(int &w, int &h)
+void Texto::obterTamanhoOriginal(int &larg, int &alt)
 {
-	w = getLarguraOriginal();
-	h = getAlturaOriginal();
+	larg = getLarguraOriginal();
+	alt = getAlturaOriginal();
+}
+
+void Texto::obterTamanhoLinha(int linha, int &larg, int &alt)
+{
+	obterTamanhoOriginalLinha(linha, larg, alt);
+
+	larg *= escala.x;
+	alt *= escala.y;
+}
+
+void Texto::obterTamanhoOriginalLinha(int linha, int &larg, int &alt)
+{
+	larg = 0;
+	alt = 0;
+
+	if(!fonte)
+		return;
+
+	wstring s = getWstringLinha(linha);
+	for(unsigned int i = 0; i < s.size(); ++i)
+	{
+		larg += fonte->getGlifo(s[i])->avanco;
+	}
+	alt = fonte->getAlturaMaxDosGlifos();
 }
 
 void Texto::obterCor(int &vermelho, int &verde, int &azul)
@@ -160,31 +265,26 @@ void Texto::obterCor(int &vermelho, int &verde, int &azul, int &alpha)
 	alpha = cor.a;
 }
 
-void Texto::obterCorBorda(int &vermelho, int &verde, int &azul)
+void Texto::setAncora(Vetor2D anc)
 {
-	vermelho = cor_borda.r;
-	verde = cor_borda.g;
-	azul = cor_borda.b;
-}
-
-void Texto::obterCorBorda(int &vermelho, int &verde, int &azul, int &alpha)
-{
-	vermelho = cor_borda.r;
-	verde = cor_borda.g;
-	azul = cor_borda.b;
-	alpha = cor_borda.a;
+	ancora = anc;
 }
 
 void Texto::setAncora(float x, float y)
 {
-	ancora_x = x;
-	ancora_y = y;
+	ancora.x = x;
+	ancora.y = y;
+}
+
+void Texto::setEscala(Vetor2D esc)
+{
+	escala = esc;
 }
 
 void Texto::setEscala(float sx, float sy)
 {
-	escala_x = sx;
-	escala_y = sy;
+	escala.x = sx;
+	escala.y = sy;
 }
 
 void Texto::setCor(int vermelho, int verde, int azul, int alpha)
@@ -215,40 +315,19 @@ void Texto::setCorAlpha(int alpha)
 	cor.a = alpha;
 }
 
-void Texto::setCorBorda(int vermelho, int verde, int azul, int alpha)
+void Texto::setEspacamentoLinhas(float espacamento)
 {
-	cor_borda.r = vermelho;
-	cor_borda.g = verde;
-	cor_borda.b = azul;
-	cor_borda.a = alpha;
-}
-
-void Texto::setCorBordaVermelho(int vermelho)
-{
-	cor_borda.r = vermelho;
-}
-
-void Texto::setCorBordaVerde(int verde)
-{
-	cor_borda.g = verde;
-}
-
-void Texto::setCorBordaAzul(int azul)
-{
-	cor_borda.b = azul;
-}
-
-void Texto::setCorBordaAlpha(int alpha)
-{
-	cor_borda.a = alpha;
-}
-
-void Texto::setTamanhoBorda(int tamanho)
-{
-	tamanho_borda = tamanho;
+	espacamento_linhas = espacamento;
 
 	if(fonte)
-		criarTexturaBorda();
+	{
+		altura = fonte->getAlturaMaxDosGlifos()*num_linhas*espacamento_linhas;
+	}
+}
+
+void Texto::setAlinhamento(TipoAlinhamentoTexto alinhamento)
+{
+	this->alinhamento = alinhamento;
 }
 
 void Texto::setFonte(string nome)
@@ -263,35 +342,291 @@ void Texto::setFonte(Fonte* fnt)
 		return;
 	}
 
-	if(fonte == fnt)
-	{
-		return;
-	}
-
 	fonte = fnt;
+
+	calcularTamanho();
 }
 
-void Texto::setTexto(string txt)
+void Texto::setString(string str)
 {
-	if(!uni_init)
-		return;
+	wstr = converterParaWstring(str);
+	calcularTamanho();
+}
 
-	str = txt;
+void Texto::setStringLinha(string str, int linha)
+{
+	setWstringLinha(converterParaWstring(str), linha);
+}
 
-	if(!fonte) 
+void Texto::setWstring(wstring wstr_)
+{
+	wstr = wstr_;
+	calcularTamanho();
+}
+
+void Texto::setWstringLinha(wstring wstr_, int linha)
+{
+	if(num_linhas-1 < linha)
 	{
-		uniErro("Nao pode setar Texto antes de setar Fonte.");
-		return;
-	}
-
-	if(str == "")
-	{
-		apagar();
+		int dif = linha - (num_linhas-1);
+		for(int i = 0; i < dif; ++i)
+		{
+			wstr.append(L"\n");
+		}
+		wstr.append(wstr_);
 	}
 	else
 	{
-		criarTextura();
-		criarTexturaBorda();
+		unsigned int inicio = 0, tam = 0;
+		unsigned int l = 0;
+		for(unsigned int i = 0; i < wstr.size(); ++i)
+		{
+			if(wstr[i] == '\n')
+			{
+				++l;
+
+				if(l == linha)
+					inicio = i+1;
+				else if(l == linha +1)
+					tam = i - inicio;
+			}
+		}
+		++l;
+		if(l == linha +1)
+			tam = wstr.size() - inicio;
+
+		wstr.replace(inicio, tam, wstr_);
+	}
+
+	calcularTamanho();
+}
+
+void Texto::adicionarString(string str)
+{
+	wstr.append(converterParaWstring(str));
+	calcularTamanho();
+}
+
+void Texto::adicionarStringNaLinha(string str, int linha)
+{
+	adicionarWstringNaLinha(converterParaWstring(str), linha);
+}
+
+void Texto::adicionarWstring(wstring wstr_)
+{
+	wstr = wstr_;
+	calcularTamanho();
+}
+
+void Texto::adicionarWstringNaLinha(wstring wstr_, int linha)
+{
+	if(num_linhas-1 < linha)
+	{
+		int dif = linha - (num_linhas-1);
+		for(int i = 0; i < dif; ++i)
+		{
+			wstr.append(L"\n");
+		}
+		wstr.append(wstr_);
+	}
+	else if(linha == num_linhas-1)
+	{
+		wstr.append(wstr_);
+	}
+	else
+	{
+		unsigned int pos = 0;
+		unsigned int l = 0;
+		for(unsigned int i = 0; i < wstr.size(); ++i)
+		{
+			if(this->wstr[i] == '\n')
+			{
+				if(l == linha)
+				{
+					pos = i;
+					break;
+				}
+
+				++l;
+			}
+		}
+		if(l == linha)
+			wstr.replace(pos, 0, wstr_);
+		else
+			wstr.append(wstr_);
+	}
+
+	calcularTamanho();
+}
+
+void Texto::removerString(string str)
+{
+	removerWstring(converterParaWstring(str));
+}
+
+void Texto::removerStringNaLinha(string str, int linha)
+{
+	removerWstringNaLinha(converterParaWstring(str), linha);
+}
+
+void Texto::removerWstring(wstring wstr_)
+{
+	unsigned int pos = wstr.find(wstr_);
+	wstr.erase(wstr.begin() + pos, wstr.begin() + pos + wstr_.size());
+
+	calcularTamanho();
+}
+
+void Texto::removerWstringNaLinha(wstring wstr_, int linha)
+{
+	if(num_linhas < linha)
+		return;
+
+	unsigned int l = 0;
+	unsigned int inicio = 0, tam = 0;
+	wstring sub;
+
+	for(unsigned int i = 0; i < wstr.size(); ++i)
+	{
+		if(wstr[i] == '\n')
+		{
+			++l;
+
+			if(l == linha)
+			{
+				inicio = i+1;
+			}
+			else if(l == linha +1)
+			{
+				tam = i - inicio +1;
+				break;
+			}
+		}
+	}
+	++l;
+	if(l == linha +1)
+		tam = wstr.size() - inicio;
+
+	sub = wstr.substr(inicio, inicio + tam);
+	unsigned int pos = sub.find(wstr_);
+	wstr.erase(wstr.begin() + inicio + pos, wstr.begin() + inicio + pos + wstr_.size());
+
+	calcularTamanho();
+}
+
+void Texto::removerLinha(int linha)
+{
+	if(num_linhas < linha)
+		return;
+
+	unsigned int l = 0;
+	unsigned int inicio = 0, tam = 0;
+
+	for(unsigned int i = 0; i < wstr.size(); ++i)
+	{
+		if(wstr[i] == '\n')
+		{
+			++l;
+
+			if(l == linha)
+			{
+				inicio = i+1;
+			}
+			else if(l == linha +1)
+			{
+				tam = i - inicio + 1;
+				break;
+			}
+		}
+	}
+	++l;
+	if(l == linha +1)
+		tam = wstr.size() - inicio;
+
+	wstr.erase(wstr.begin() + inicio, wstr.begin() + inicio + tam);
+
+	calcularTamanho();
+}
+
+void Texto::apagar()
+{
+	wstr.clear();
+
+	num_linhas = 0;
+
+	largura = 0;
+	altura = 0;
+}
+
+void Texto::desenhar(int x, int y)
+{
+	if(!uni_init) 
+		return;
+
+	if(!fonte) 
+	{
+		uniDesenharTexto("Nao pode desenhar Texto antes de setar Fonte.", x, y, 255, 0, 0, 0.0f);
+		return;
+	}
+
+	int x_canto, y_canto;
+	int x_canto_linha, y_canto_linha;
+	float x_glifo, y_glifo;
+	float avanco = 1.0f;
+	int alt_linha = fonte->getAlturaMaxDosGlifos()*espacamento_linhas*escala.y;
+
+	x_canto = x - (largura*escala.x*ancora.x);
+	y_canto = y - (altura*escala.y*ancora.y);
+
+	unsigned int inicio = 0, fim = 0;	//	inicio e fim da linha
+	unsigned int linha = 0;
+	for(unsigned int i = 0; i < wstr.size(); ++i)
+	{
+		bool fim_da_linha = false;
+		if(wstr[i] == '\n')
+		{
+			fim = i-1;
+			fim_da_linha = true;
+		}
+		else if(i == wstr.size()-1)
+		{
+			fim = i;
+			fim_da_linha = true;
+		}
+
+		if(fim_da_linha)
+		{
+			unsigned int dx = 0;
+			for(unsigned int j = inicio; j <= fim; ++j)
+			{
+				switch(alinhamento)
+				{
+				case TEXTO_ALINHADO_A_ESQUERDA:
+				default:
+					x_canto_linha = x_canto;
+					break;
+
+				case TEXTO_ALINHADO_A_DIREITA:
+					x_canto_linha = x_canto + (largura - getSomaDosAvancos(inicio, fim))*escala.x;
+					break;
+
+				case TEXTO_CENTRALIZADO:
+					x_canto_linha = x_canto + (largura - getSomaDosAvancos(inicio, fim))*escala.x/2.0f;
+					break;
+				}
+
+				y_canto_linha = y_canto + (linha*alt_linha);
+				x_glifo = x_canto_linha + (dx*escala.x);
+				y_glifo = y_canto_linha;
+
+				desenharCaractere(wstr[j], x_glifo, y_glifo, x, y);
+				dx += fonte->getGlifo(wstr[j])->avanco;
+			}
+
+			inicio = i+1;
+			fim = i+1;
+			++linha;
+		}
 	}
 }
 
@@ -302,90 +637,179 @@ void Texto::desenhar(int x, int y, float rot)
 
 	if(!fonte) 
 	{
-		uniDesenharTexto("Nao pode desenhar Texto antes de setar Fonte.",x,y,255,0,0);
+		uniDesenharTexto("Nao pode desenhar Texto antes de setar Fonte.", x, y, 255, 0, 0, 0.0f);
 		return;
 	}
 
-	SDL_Rect retangulo;
-	retangulo.w = rect.w*escala_x;
-	retangulo.h = rect.h*escala_y;
+	int x_canto, y_canto;
+	int x_canto_linha, y_canto_linha;
+	float x_glifo, y_glifo;
+	float avanco = 1.0f;
+	int alt_linha = fonte->getAlturaMaxDosGlifos()*espacamento_linhas*escala.y;
 
-	SDL_Point pivot = {retangulo.w * ancora_x, retangulo.h * ancora_y};
+	x_canto = x - (largura*escala.x*ancora.x);
+	y_canto = y - (altura*escala.y*ancora.y);
 
-	retangulo.x = x - pivot.x;
-	retangulo.y = y - pivot.y;
-    
-	// seta cor
+	unsigned int inicio = 0, fim = 0;	//	inicio e fim da linha
+	unsigned int linha = 0;
+	for(unsigned int i = 0; i < wstr.size(); ++i)
+	{
+		bool fim_da_linha = false;
+		if(wstr[i] == '\n')
+		{
+			fim = i-1;
+			fim_da_linha = true;
+		}
+		else if(i == wstr.size()-1)
+		{
+			fim = i;
+			fim_da_linha = true;
+		}
+
+		if(fim_da_linha)
+		{
+			unsigned int dx = 0;
+			for(unsigned int j = inicio; j <= fim; ++j)
+			{
+				switch(alinhamento)
+				{
+				case TEXTO_ALINHADO_A_ESQUERDA:
+				default:
+					x_canto_linha = x_canto;
+					break;
+
+				case TEXTO_ALINHADO_A_DIREITA:
+					x_canto_linha = x_canto + (largura - getSomaDosAvancos(inicio, fim))*escala.x;
+					break;
+
+				case TEXTO_CENTRALIZADO:
+					x_canto_linha = x_canto + (largura - getSomaDosAvancos(inicio, fim))*escala.x/2.0f;
+					break;
+				}
+
+				y_canto_linha = y_canto + (linha*alt_linha);
+				x_glifo = x_canto_linha + (dx*escala.x);
+				y_glifo = y_canto_linha;
+
+				desenharCaractere(wstr[j], x_glifo, y_glifo, x, y, rot);
+				dx += fonte->getGlifo(wstr[j])->avanco;
+			}
+
+			inicio = i+1;
+			fim = i+1;
+			++linha;
+		}
+	}
+}
+
+string Texto::converterParaString(wstring& s)
+{
+	string r(s.begin(), s.end());
+	return r;
+	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	//return converter.to_bytes(s);
+}
+
+wstring Texto::converterParaWstring(string& s)
+{
+	wstring r;
+	r.resize(s.size());
+	for(unsigned int i = 0; i < s.size(); ++i)
+		r[i] = (unsigned char)s[i];
+
+	return r;
+
+	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	//return converter.from_bytes(s.data());
+}
+
+unsigned int Texto::getSomaDosAvancos(unsigned int inicio, unsigned int fim)
+{
+	unsigned int soma = 0;
+	for(unsigned int i = inicio; i <= fim; ++i)
+	{
+		soma += fonte->getGlifo(wstr[i])->avanco;
+	}
+
+	return soma;
+}
+
+void Texto::desenharCaractere(wchar_t caractere, int x_canto_glifo, int y_canto_glifo, int x_texto, int y_texto)
+{
+	SDL_Rect retan;
+
+	Glifo *glifo = fonte->getGlifo(caractere);
+	SDL_Texture* tex = glifo->sdl_tex;
+
+	SDL_QueryTexture(tex, NULL, NULL, &retan.w, &retan.h);
+
+	retan.x = x_canto_glifo;
+	retan.y = y_canto_glifo;
+	retan.w *= escala.x;
+	retan.h *= escala.y;
+
 	SDL_SetTextureColorMod(tex, cor.r, cor.g, cor.b);
 	SDL_SetTextureAlphaMod(tex, cor.a);
 
-    SDL_RenderCopyEx(renderer, tex, NULL, &retangulo, rot, &pivot, SDL_FLIP_NONE);
-
-	//	desenhar borda
-	if(tex_borda)
-	{
-		retangulo.w = rect_borda_larg*escala_x;
-		retangulo.h = rect_borda_alt*escala_y;
-
-		pivot.x = retangulo.w * ancora_x;
-		pivot.y = retangulo.h * ancora_y;
-
-		retangulo.x = x - (int)(retangulo.w*ancora_x) - (tamanho_borda*2)*escala_x*(0.5f - ancora_x);
-		retangulo.y -= (tamanho_borda*2)*escala_y*ancora_y;
-
-		SDL_SetTextureColorMod(tex_borda, cor_borda.r, cor_borda.g, cor_borda.b);
-		SDL_SetTextureAlphaMod(tex_borda, cor_borda.a);
-
-		SDL_RenderCopyEx(renderer, tex_borda, NULL, &retangulo, rot, &pivot, SDL_FLIP_NONE);
-	}
+	SDL_RenderCopy(renderer, tex, NULL, &retan);
 }
 
-void Texto::apagar()
+void Texto::desenharCaractere(wchar_t caractere, int x_canto_glifo, int y_canto_glifo, int x_texto, int y_texto, float rot_texto)
 {
-	if(tex)
-	{
-		SDL_DestroyTexture(tex);
-		tex = NULL;
-	}
+	SDL_Rect retan;
+	SDL_Point pivot;
 
-	if(tex_borda)
-	{
-		SDL_DestroyTexture(tex_borda);
-		tex_borda = NULL;
-	}
+	Glifo *glifo = fonte->getGlifo(caractere);
+	SDL_Texture* tex = glifo->sdl_tex;
 
-	str = "";
+	SDL_QueryTexture(tex, NULL, NULL, &retan.w, &retan.h);
 
+	retan.x = x_canto_glifo;
+	retan.y = y_canto_glifo;
+	retan.w *= escala.x;
+	retan.h *= escala.y;
+
+	pivot.x = x_texto - retan.x;
+	pivot.y = y_texto - retan.y;
+
+	SDL_SetTextureColorMod(tex, cor.r, cor.g, cor.b);
+	SDL_SetTextureAlphaMod(tex, cor.a);
+
+	SDL_RenderCopyEx(renderer, tex, NULL, &retan, rot_texto, &pivot, SDL_FLIP_NONE);
 }
 
-void Texto::criarTextura()
+void Texto::calcularTamanho()
 {
-	if(tex)
-		SDL_DestroyTexture(tex);
-
-	SDL_Color color = {255, 255, 255};
-	SDL_Surface *surface = TTF_RenderText_Blended(fonte->getTTF_Font(), str.c_str(), color); 
-	tex = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_QueryTexture(tex, NULL, NULL, &rect.w, &rect.h);
-    SDL_FreeSurface(surface);
-}
-
-void Texto::criarTexturaBorda()
-{
-	if(tamanho_borda <= 0)
+	if(!fonte)
+	{
+		largura = 0;
+		altura = 0;
 		return;
+	}
 
-	if(tex_borda)
-		SDL_DestroyTexture(tex_borda);
+	unsigned int linha = 0;
+	unsigned int inicio = 0, fim = 0;
 
-	TTF_Font* font = fonte->getTTF_Font();
-	TTF_SetFontOutline(font, tamanho_borda);
+	int larg = 0;
+	largura = 0;
 
-	SDL_Color color = {255, 255, 255};
-	SDL_Surface *surface = TTF_RenderText_Blended(font, str.c_str(), color); 
-	tex_borda = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_QueryTexture(tex_borda, NULL, NULL, &rect_borda_larg, &rect_borda_alt);
-    SDL_FreeSurface(surface);
+	for(unsigned int i = 0; i < wstr.size(); ++i)
+	{
+		if(wstr[i] != '\n')
+		{
+			larg += fonte->getGlifo(wstr[i])->avanco;
+		}
+		if(wstr[i] == '\n' || i == wstr.size()-1)
+		{
+			if(largura < larg)
+				largura = larg;
 
-	TTF_SetFontOutline(font, 0);
+			++linha;
+			larg = 0;
+		}
+		
+	}
+
+	altura = linha * fonte->getAlturaMaxDosGlifos() * espacamento_linhas;
+	num_linhas = linha;
 }

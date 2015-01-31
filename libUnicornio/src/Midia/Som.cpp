@@ -62,7 +62,7 @@ void Som::tocar(bool repetir)
 
 	if(!audio)
 	{
-		uniDesenharTexto("Nao pode tocar Som antes de setar Audio.", 10, 10, 255, 0, 0);
+		uniDesenharTexto("Nao pode tocar Som antes de setar Audio.", 10, 10, 255, 0, 0, 0.0f);
 		return;
 	}
 

@@ -14,6 +14,5 @@ public:
 
 private:
 	Texto texto;
-	Texto textoMaior;
 };
 

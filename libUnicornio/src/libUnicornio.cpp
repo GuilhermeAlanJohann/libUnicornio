@@ -286,7 +286,7 @@ void processarDebug()
 	Texto t;
 	t.setFonte(uniGetFontePadrao());
 
-	t.setTexto("UNICORNIO - Painel de DEBUG");
+	t.setString("UNICORNIO - Painel de DEBUG");
 	t.setAncora(0.5, 0.0);
 	t.setCor(255, 255, 255);
 	t.desenhar(rect.w/2, 0);
@@ -298,11 +298,11 @@ void processarDebug()
 		temp = mensagensDebug[i];
 
 		t.setAncora(0.0, 0.0);
-		t.setTexto(temp->chave);
+		t.setString(temp->chave);
 		t.desenhar(5, debY);
 
 		t.setAncora(1.0, 0.0);
-		t.setTexto(temp->valor);
+		t.setString(temp->valor);
 		t.desenhar(rect.w - 5, debY);
 
 		debY += 10;
@@ -336,7 +336,7 @@ void uniDormir(int milisec)
 void uniErro(string mensagem)
 {
 	uni_debug = true;
-	ItemDebug* deb;
+	ItemDebug *deb;
 	deb = new ItemDebug;
 	deb->chave = "ERRO";
 	deb->valor = mensagem;
@@ -346,8 +346,8 @@ void uniErro(string mensagem)
 void uniDepurar(string chave, string valor)
 {
 	uni_debug = true;
-	ItemDebug* deb = NULL;
-	ItemDebug* temp = NULL;
+	ItemDebug *deb = NULL;
+	ItemDebug *temp = NULL;
 	for(unsigned int i = 0; i < mensagensDebug.size(); i++)
 	{
 		temp = mensagensDebug[i];
@@ -515,17 +515,16 @@ void uniDesenharPoligono(int x, int y, float rot, Vetor2D* pontos, int num_ponto
 	uniDesenharLinha(x_anterior, y_anterior, primeiro_x, primeiro_y, vermelho, verde, azul);
 }
 
-void uniDesenharTexto(string txt, int x, int y, int cR, int cG, int cB, bool centralizar)
+void uniDesenharTexto(string txt, int x, int y, int cR, int cG, int cB, float ancora_x, float ancora_y)
 {
 	if(!uni_init) return;
 
 	Texto t;
 	t.setFonte(uniGetFontePadrao());
-	t.setTexto(txt);
+	t.setString(txt);
 	t.setCor(cR, cG, cB);
 
-	if(!centralizar)
-		t.setAncora(0.0, 0.5);
+	t.setAncora(ancora_x, ancora_y);
 
 	t.desenhar(x, y);
 }
