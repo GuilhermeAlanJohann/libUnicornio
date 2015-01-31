@@ -2,14 +2,10 @@
 #include "libUnicornio.h"
 
 Sprite::Sprite()
-	:sheet(NULL), frame_atual(0), anim_atual(0), tempo_anim(0), vel_anim(2.0), ancora_x(0.5), ancora_y(0.5), flip_mode(SDL_FLIP_NONE), animacao_ao_contrario(false), pause(false)
+	:sheet(NULL), frame_atual(0), anim_atual(0), tempo_anim(0.0), vel_anim(2.0f), flip_mode(SDL_FLIP_NONE), animacao_ao_contrario(false), pause(false)
 {
-	clip.x = 0;
-	clip.y = 0;
-	clip.w = 0;
-	clip.h = 0;
-	escala_x = 1.0;
-	escala_y = 1.0;
+	ancora.set(0.5f, 0.5f);
+	escala.set(1.0f, 1.0f);
 	cor.r = 255;
 	cor.g = 255;
 	cor.b = 255;
@@ -17,20 +13,17 @@ Sprite::Sprite()
 	terminou_anim = false;
 }
 
-Sprite::Sprite(const Sprite& cp)
+Sprite::Sprite(const Sprite &cp)
 {
 	sheet = cp.sheet;
 	frame_atual = 0;
 	anim_atual = 0;
 	tempo_anim = cp.tempo_anim;
 	vel_anim = cp.vel_anim;
-	ancora_x = cp.ancora_x;
-	ancora_y = cp.ancora_y;
+	ancora = cp.ancora;
+	escala = cp.escala;
 	flip_mode = cp.flip_mode;
 	animacao_ao_contrario = cp.animacao_ao_contrario;
-	escala_x = cp.escala_x;
-	escala_y = cp.escala_y;
-	clip = cp.clip;
 	pause = cp.pause;
 	cor = cp.cor;
 	terminou_anim = cp.terminou_anim;
@@ -50,13 +43,10 @@ Sprite& Sprite::operator=(const Sprite &r)
 		anim_atual = r.anim_atual;
 		tempo_anim = r.tempo_anim;
 		vel_anim = r.vel_anim;
-		ancora_x = r.ancora_x;
-		ancora_y = r.ancora_y;
+		ancora = r.ancora;
+		escala = r.escala;
 		flip_mode = r.flip_mode;
 		animacao_ao_contrario = r.animacao_ao_contrario;
-		escala_x = r.escala_x;
-		escala_y = r.escala_y;
-		clip = r.clip;
 		pause = r.pause;
 		cor = r.cor;
 		terminou_anim = r.terminou_anim;
@@ -72,15 +62,9 @@ bool Sprite::operator==(const Sprite &r)
 		&& anim_atual == r.anim_atual 
 		&& vel_anim == r.vel_anim 
 		&& tempo_anim == r.tempo_anim 
-		&& ancora_x == r.ancora_x 
-		&& ancora_y == r.ancora_y 
+		&& ancora == r.ancora 
+		&& escala == r.escala
 		&& flip_mode == r.flip_mode 
-		&& escala_x == r.escala_x 
-		&& escala_y == r.escala_y 
-		&& clip.x == r.clip.x 
-		&& clip.y == r.clip.y 
-		&& clip.w == r.clip.w 
-		&& clip.h == r.clip.h 
 		&& animacao_ao_contrario == r.animacao_ao_contrario 
 		&& pause == r.pause 
 		&& cor.r == r.cor.r 
@@ -95,44 +79,54 @@ bool Sprite::operator!=(const Sprite &r)
 	return !(*this == r);
 }
 
+Vetor2D Sprite::getAncora()
+{
+	return ancora;
+}
+
 float Sprite::getAncoraX()
 {
-	return ancora_x;
+	return ancora.x;
 }
 
 float Sprite::getAncoraY()
 {
-	return ancora_y;
+	return ancora.y;
+}
+
+Vetor2D Sprite::getEscala()
+{
+	return escala;
 }
 
 float Sprite::getEscalaX()
 {
-	return escala_x;
+	return escala.x;
 }
 
 float Sprite::getEscalaY()
 {
-	return escala_y;
+	return escala.y;
 }
 
 int	Sprite::getLargura()
 {
-	return clip.w*escala_x;
+	return (int)(sheet->getFrame(anim_atual, frame_atual)->larg*escala.x);
 }
 
 int Sprite::getAltura()
 {
-	return clip.h*escala_y;
+	return (int)(sheet->getFrame(anim_atual, frame_atual)->alt*escala.y);
 }
 
 int	Sprite::getLarguraOriginal()
 {
-	return clip.w;
+	return sheet->getFrame(anim_atual, frame_atual)->larg;
 }
 
 int Sprite::getAlturaOriginal()
 {
-	return clip.h;
+	return sheet->getFrame(anim_atual, frame_atual)->alt;
 }
 
 int Sprite::getAnimacaoAtual()
@@ -180,33 +174,35 @@ int Sprite::getCorAlpha()
 	return cor.a;
 }
 
-SpriteSheet* Sprite::getSpriteSheet()
+SpriteSheet *Sprite::getSpriteSheet()
 {
 	return sheet;
 }
 
-void Sprite::obterAncora(float &x, float &y)
+void Sprite::obterAncora(float &ax, float &ay)
 {
-	x = ancora_x;
-	y = ancora_y;
+	ax = ancora.x;
+	ay = ancora.y;
 }
 
-void Sprite::obterEscala(float &sx, float& sy)
+void Sprite::obterEscala(float &ex, float& ey)
 {
-	sx = escala_x;
-	sy = escala_y;
+	ex = escala.x;
+	ey = escala.y;
 }
 
-void Sprite::obterTamanho(int &w, int &h)
+void Sprite::obterTamanho(int &larg, int &alt)
 {
-	w = clip.w*escala_x;
-	h = clip.h*escala_y;
+	Frame *f = sheet->getFrame(anim_atual, frame_atual);
+	larg = (int)(f->larg*escala.x);
+	alt = (int)(f->alt*escala.y);
 }
 
-void Sprite::obterTamanhoOriginal(int &w, int &h)
+void Sprite::obterTamanhoOriginal(int &larg, int &alt)
 {
-	w = clip.w;
-	h = clip.h;
+	Frame *f = sheet->getFrame(anim_atual, frame_atual);
+	larg = f->larg;
+	alt = f->alt;
 }
 
 void Sprite::obterCor(int &vermelho, int &verde, int &azul)
@@ -229,43 +225,46 @@ bool Sprite::terminouAnimacao()
 	return terminou_anim;
 }
 
-void Sprite::setAncora(float x, float y)
+void Sprite::setAncora(Vetor2D anc)
 {
-	ancora_x = x;
-	ancora_y = y;
+	ancora = anc;
 }
 
-void Sprite::setEscala(float sx, float sy)
+void Sprite::setAncora(float x, float y)
 {
-	escala_x = sx;
-	escala_y = sy;
+	ancora.x = x;
+	ancora.y = y;
+}
+
+void Sprite::setEscala(Vetor2D esc)
+{
+	escala = esc;
+}
+
+void Sprite::setEscala(float ex, float ey)
+{
+	escala.x = ex;
+	escala.y = ey;
 }
 
 void Sprite::setAnimacao(int anim, bool recomecar)
 {
 	if(recomecar)
 	{
-		anim_atual = anim;
+		anim_atual = anim;	//	set anim_atual antes de recomecar
 		recomecarAnimacao();
 	}
-	else if(sheet->getNumFramesAnimacao(anim) < sheet->getNumFramesAnimacao(anim_atual))
+	else if(sheet->getNumFramesDaAnimacao(anim) < sheet->getNumFramesDaAnimacao(anim_atual))
 	{
-		frame_atual = frame_atual%(sheet->getNumFramesAnimacao(anim));
-		clip.x = frame_atual*clip.w;
-		clip.y = anim*clip.h;
-		anim_atual = anim;
+		frame_atual = frame_atual%(sheet->getNumFramesDaAnimacao(anim));
 	}
-	else
-	{
-		clip.y = anim*clip.h;
-		anim_atual = anim;
-	}
+
+	anim_atual = anim;
 }
 
 void Sprite::setFrame(int frame)
 {
 	frame_atual = frame;
-	clip.x = frame_atual*clip.w;
 }
 
 void Sprite::setPause(bool p)
@@ -354,7 +353,7 @@ void Sprite::setSpriteSheet(string nome)
 	setSpriteSheet(recursos.getSpriteSheet(nome));
 }
 
-void Sprite::setSpriteSheet(SpriteSheet* sheet)
+void Sprite::setSpriteSheet(SpriteSheet *sheet)
 {
 	if(!sheet)
 	{
@@ -362,10 +361,6 @@ void Sprite::setSpriteSheet(SpriteSheet* sheet)
 	}
 
 	this->sheet = sheet;
-
-	clip.x = 0;
-	clip.y = 0;
-	sheet->obterTamanhoCelula(clip.w, clip.h);
 
 	anim_atual = 0;
 	frame_atual = 0;
@@ -375,8 +370,8 @@ void Sprite::recomecarAnimacao()
 {
 	if(animacao_ao_contrario)
 	{
-		frame_atual = sheet->getNumFramesAnimacao(anim_atual)-1;
-		tempo_anim = sheet->getNumFramesAnimacao(anim_atual)/vel_anim;
+		frame_atual = sheet->getNumFramesDaAnimacao(anim_atual)-1;
+		tempo_anim = sheet->getNumFramesDaAnimacao(anim_atual)/vel_anim;
 	}
 	else
 	{
@@ -385,9 +380,6 @@ void Sprite::recomecarAnimacao()
 	}
 
 	terminou_anim = false;
-
-	clip.x = frame_atual*clip.w;
-	clip.y = anim_atual*clip.h;
 }
 
 void Sprite::avancarAnimacao()
@@ -395,7 +387,7 @@ void Sprite::avancarAnimacao()
 	avancarAnimacao(deltaTempo);
 }
 
-void Sprite::avancarAnimacao(float dt)
+void Sprite::avancarAnimacao(double dt)
 {
 	if(pause)
 	{
@@ -407,7 +399,7 @@ void Sprite::avancarAnimacao(float dt)
 		return;
 	}
 
-	float max_frames = sheet->getNumFramesAnimacao(anim_atual);
+	float max_frames = (float)sheet->getNumFramesDaAnimacao(anim_atual);
 
 	if(animacao_ao_contrario)
 	{
@@ -436,10 +428,7 @@ void Sprite::avancarAnimacao(float dt)
 		}
 	}
 
-	frame_atual = tempo_anim*vel_anim;
-
-	clip.x = frame_atual*clip.w;
-	clip.y = anim_atual*clip.h;
+	frame_atual = (int)(tempo_anim*vel_anim);
 }
 
 bool Sprite::desenhar(int x, int y, float rot)
@@ -448,25 +437,33 @@ bool Sprite::desenhar(int x, int y, float rot)
 
 	if(!sheet)
 	{
-		uniDesenharTexto("Nao pode desenhar Sprite antes de setar SpriteSheet.", x, y, 255, 0, 0, 0.0f);
+		uniDesenharTexto("Nao pode desenhar Sprite antes de setar SpriteSheet.", x, y, 255, 0, 0);
 		return false;
 	}
 
-	SDL_Rect rect;
-	rect.w = clip.w*escala_x;
-	rect.h = clip.h*escala_y;
+	Frame *f = sheet->getFrame(anim_atual, frame_atual);
 
-    SDL_Point pivot = {rect.w * ancora_x, rect.h * ancora_y};
+	SDL_Rect clip;
+	clip.x = f->x0;
+	clip.y = f->y0;
+	clip.w = f->larg;
+	clip.h = f->alt;
+
+	SDL_Rect rect;
+	rect.w = (int)(clip.w*escala.x);
+	rect.h = (int)(clip.h*escala.y);
+
+    SDL_Point pivot = {(int)(rect.w * ancora.x), (int)(rect.h * ancora.y)};
 
 	rect.x = x - pivot.x;
 	rect.y = y - pivot.y;
 
 	// seta cor
-	SDL_SetTextureColorMod(sheet->getTextura(), cor.r, cor.g, cor.b);
-	SDL_SetTextureAlphaMod(sheet->getTextura(), cor.a);
+	SDL_SetTextureColorMod(sheet->getSDL_Texture(), cor.r, cor.g, cor.b);
+	SDL_SetTextureAlphaMod(sheet->getSDL_Texture(), cor.a);
 
     //	Draw the texture
-	SDL_RenderCopyEx(renderer, sheet->getTextura(), &clip, &rect, rot, &pivot, flip_mode);
+	SDL_RenderCopyEx(renderer, sheet->getSDL_Texture(), &clip, &rect, rot, &pivot, flip_mode);
 
 	return true;
 }

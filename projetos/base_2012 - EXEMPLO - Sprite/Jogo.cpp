@@ -20,8 +20,14 @@ void Jogo::inicializar()
 	//			4 - o número de frames da maior animacao
 	recursos.carregarSpriteSheet("player", "dados/imagens/sprite_sheet.png", 5, 4);
 
-	//	setar numero de frames na primeira animacao (porque é um número diferente) 
-	recursos.getSpriteSheet("player")->setNumFramesAnimacao(0, 1);	//	anim 0, frames = 1
+	//	(Opcional) setar numero de frames na primeira animacao (porque é um número diferente) 
+	recursos.getSpriteSheet("player")->setNumFramesDaAnimacao(0, 1);	//	anim 0, frames = 1
+
+	//	(Opcional) criar mais uma animacao. GIRANDO.
+	int anim = recursos.getSpriteSheet("player")->adicionarAnimacao(0, 124, 70, 124);		//	passa as coordenadas do primeiro frame como parametro
+	recursos.getSpriteSheet("player")->adicionarFrameNaAnimacao(anim, 0, 124*2, 70, 124);	//	passa as coordenadas do proximo frame como parametro
+	recursos.getSpriteSheet("player")->adicionarFrameNaAnimacao(anim, 0, 124*4, 70, 124);	//	passa as coordenadas do proximo frame como parametro
+	recursos.getSpriteSheet("player")->adicionarFrameNaAnimacao(anim, 0, 124*3, 70, 124);	//	passa as coordenadas do proximo frame como parametro
 
 
 	//	2)	inicializar personagem (setar spritesheet, posicao e velocidade)
@@ -56,7 +62,9 @@ void Jogo::executar()
 			per.moverCima();
 		else if(teclado.segurando[TECLA_BAIXO])
 			per.moverBaixo();
-		else 
+		else if(teclado.segurando[TECLA_G])
+			per.girar();
+		else
 			per.ficarParado();
 
 		//	5)	desenhar o personagem

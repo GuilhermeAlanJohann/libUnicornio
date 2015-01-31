@@ -10,7 +10,7 @@ GerenciadorDeRecursos::~GerenciadorDeRecursos()
 	descarregarTudo();
 }
 
-SpriteSheet* GerenciadorDeRecursos::carregarSpriteSheet(const string& nome, const string& caminho, int num_animacoes, int num_max_frames)
+SpriteSheet* GerenciadorDeRecursos::carregarSpriteSheet(const string& nome, const string& caminho, int num_animacoes, int num_max_frames, TipoQualidadeEscala qualidade_escala)
 {
 	if(carregouSpriteSheet(nome))
 	{
@@ -19,7 +19,7 @@ SpriteSheet* GerenciadorDeRecursos::carregarSpriteSheet(const string& nome, cons
 	}
 
 	SpriteSheet* sheet = new SpriteSheet;
-	if(sheet->carregar(caminho, num_animacoes, num_max_frames))
+	if(sheet->carregar(caminho, num_animacoes, num_max_frames, qualidade_escala))
 	{
 		mSpriteSheets.insert(pair<string, SpriteSheet*>(nome, sheet));
 	}

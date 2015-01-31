@@ -47,6 +47,11 @@ void Personagem::moverBaixo()
 	sprite.setAnimacao(CAMINHANDO_BAIXO);
 }
 
+void Personagem::girar()
+{
+	sprite.setAnimacao(GIRANDO);
+}
+
 void Personagem::ficarParado()
 {
 	sprite.setAnimacao(PARADO);

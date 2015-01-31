@@ -7,7 +7,8 @@ enum PersonagemAnim
 	CAMINHANDO_BAIXO,
 	CAMINHANDO_ESQ,
 	CAMINHANDO_DIR,
-	CAMINHANDO_CIMA
+	CAMINHANDO_CIMA,
+	GIRANDO
 };
 
 class Personagem
@@ -24,6 +25,7 @@ public:
 	void moverEsq();
 	void moverCima();
 	void moverBaixo();
+	void girar();
 
 	void ficarParado();
 

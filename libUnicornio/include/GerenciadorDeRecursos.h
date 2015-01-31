@@ -3,8 +3,8 @@
 
 #include <map>
 
-class SpriteSheet;
-class Fonte;
+#include "SpriteSheet.h"
+#include "Fonte.h"
 class Audio;
 
 class GerenciadorDeRecursos
@@ -13,8 +13,8 @@ public:
 	GerenciadorDeRecursos();
 	~GerenciadorDeRecursos();
 
-	SpriteSheet*	carregarSpriteSheet(const std::string& nome, const std::string& caminho, int num_animacoes = 1, int num_max_frames = 1);
-	Fonte*			carregarFonte(const std::string& nome, const std::string& caminho, int tamanho = 16, int estilo = 0);
+	SpriteSheet*	carregarSpriteSheet(const std::string& nome, const std::string& caminho, int num_animacoes = 1, int num_max_frames = 1, TipoQualidadeEscala qualidade_escala = QUALIDADE_ESCALA_BAIXA);
+	Fonte*			carregarFonte(const std::string& nome, const std::string& caminho, int tamanho = 16, int estilo = FONTE_ESTILO_NORMAL);
 	Audio*			carregarAudio(const std::string& nome, const std::string& caminho);
 
 	void			descarregarTudo();
