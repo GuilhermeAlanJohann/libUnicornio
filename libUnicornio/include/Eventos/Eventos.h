@@ -5,6 +5,7 @@
 #include "SDL_joystick.h"
 #include "InputEnums.h"
 #include <vector>
+#include <queue>
 
 class EventosMouse
 {
@@ -234,11 +235,24 @@ public:
 
 	void atualizar();
 
+	void setUsarFila(bool b);
+	bool estaUsandoFila();
+	void limparFila();
+	bool temEventoNaFila();
+	SDL_Event tirarEventoDaFila();
+
+	int registrarEventoDeUsuario();
+	void adicionarEventoDeUsuario(int tipo, int codigo = 0, void *dado1 = NULL, void *dado2 = NULL);
+
 	EventosAplicacao* aplicacao;
 	EventosMouse* mouse;
 	EventosTeclado* teclado;
 	EventosJoysticks* joysticks;
 	EventosToque* toques;
+
+private:
+	std::queue<SDL_Event> fila_eventos;
+	bool usandoFila;
 };
 
 #endif

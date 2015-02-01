@@ -272,7 +272,6 @@ void EventosInputTexto::processarEvento(const SDL_Event& evento)
 		{
 			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 			std::wstring ws = converter.from_bytes(evento.text.text);
-			converter.to_bytes(ws);
 
 			std::string s;
 			for(unsigned int i = 0; i < ws.size(); ++i)
