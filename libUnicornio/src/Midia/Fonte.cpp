@@ -70,7 +70,7 @@ bool Fonte::carregarMem(unsigned char mem[], int tamanho_mem, int tamanho, int e
 	}
 
 	font = TTF_OpenFontIndexRW(rwops,1,tamanho,0);
-	if(!estaCarregada()) 
+	if(!font) 
 	{
 		uniErro("Erro ao carregar fonte da memoria.");
 		return false;
