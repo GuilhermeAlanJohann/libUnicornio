@@ -190,13 +190,13 @@ void AStar::desenharNodo(NodoAStar* nodo, int r, int g, int b, int a, bool desen
 	rect.w = mapa->getLarguraTile();
 	rect.h = mapa->getAlturaTile();
 
-	SDL_SetRenderDrawColor(renderer, r, g, b, 64);
-	SDL_RenderFillRect(renderer, &rect);
+	SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 64);
+	SDL_RenderFillRect(sdl_renderer, &rect);
 
 	if(desenharPonterioAnterior)
 	{
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-		SDL_RenderDrawLine(renderer, rect.x + rect.w/2, rect.y + rect.h/2, rect.x + rect.w/2 + nodo->posRelativa.x*(-rect.w/2), rect.y + rect.h/2 + nodo->posRelativa.y*(-rect.h/2));
+		SDL_SetRenderDrawColor(sdl_renderer, 255, 255, 255, 255);
+		SDL_RenderDrawLine(sdl_renderer, rect.x + rect.w/2, rect.y + rect.h/2, rect.x + rect.w/2 + nodo->posRelativa.x*(-rect.w/2), rect.y + rect.h/2 + nodo->posRelativa.y*(-rect.h/2));
 	}
 }
 

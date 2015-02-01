@@ -88,7 +88,7 @@ void EventosToque::calcularPosicaoEmPixels(Toque& toque)
 void EventosToque::corrigirPosicaoFullscreen(Toque& toque)
 {
 	int w, h;
-	SDL_GetWindowSize(window, &w, &h);
+	SDL_GetWindowSize(sdl_window, &w, &h);
 
 	float ratio = (float)res_x/(float)res_y;
 	float width = h*ratio;

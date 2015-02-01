@@ -36,7 +36,7 @@ bool TileSet::carregar(string arquivo, int largura_tiles, int altura_tiles)
 		return false;
 	}
 
-	tex = IMG_LoadTexture(renderer, arquivo.c_str());
+	tex = IMG_LoadTexture(sdl_renderer, arquivo.c_str());
 	
 	if(!tex) 
 	{

@@ -1002,7 +1002,7 @@ void TileMap::desenharTileNoPixel(int id, float px, float py)
 	SDL_Texture* tex = tileset->getTextura();
 
     //	Draw the texture
-	SDL_RenderCopyEx(renderer, tex, &clip, &rect, 0, &pivot, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(sdl_renderer, tex, &clip, &rect, 0, &pivot, SDL_FLIP_NONE);
 }
 
 void TileMap::ordenarObjetosPorYCentral()

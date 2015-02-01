@@ -297,7 +297,7 @@ bool Fonte::criarGlifoNulo()
 {
 	Glifo *nulo = new Glifo;
 
-	nulo->sdl_tex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, largura_max_glifo, altura_max_glifo);
+	nulo->sdl_tex = SDL_CreateTexture(sdl_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, largura_max_glifo, altura_max_glifo);
 	SDL_SetTextureBlendMode(nulo->sdl_tex, SDL_BLENDMODE_BLEND);
 	
 	if(!nulo->sdl_tex)
@@ -344,7 +344,7 @@ bool Fonte::criarTexturaParaGlifo(int ch, SDL_Texture *&tex)
 
 	SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "best");
-	tex = SDL_CreateTextureFromSurface(renderer, surface);
+	tex = SDL_CreateTextureFromSurface(sdl_renderer, surface);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 	SDL_FreeSurface(surface);
 

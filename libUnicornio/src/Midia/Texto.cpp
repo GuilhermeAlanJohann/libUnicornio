@@ -751,7 +751,7 @@ void Texto::desenharCaractere(wchar_t caractere, int x_canto_glifo, int y_canto_
 	SDL_SetTextureColorMod(tex, cor.r, cor.g, cor.b);
 	SDL_SetTextureAlphaMod(tex, cor.a);
 
-	SDL_RenderCopy(renderer, tex, NULL, &retan);
+	SDL_RenderCopy(sdl_renderer, tex, NULL, &retan);
 }
 
 void Texto::desenharCaractere(wchar_t caractere, int x_canto_glifo, int y_canto_glifo, int x_texto, int y_texto, float rot_texto)
@@ -775,7 +775,7 @@ void Texto::desenharCaractere(wchar_t caractere, int x_canto_glifo, int y_canto_
 	SDL_SetTextureColorMod(tex, cor.r, cor.g, cor.b);
 	SDL_SetTextureAlphaMod(tex, cor.a);
 
-	SDL_RenderCopyEx(renderer, tex, NULL, &retan, rot_texto, &pivot, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(sdl_renderer, tex, NULL, &retan, rot_texto, &pivot, SDL_FLIP_NONE);
 }
 
 void Texto::calcularTamanho()

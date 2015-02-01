@@ -46,8 +46,8 @@ using namespace std;
 	#define UNI_CALL_CONV _cdecl
 #endif
 
-extern SDL_Renderer *renderer;
-extern SDL_Window *window;
+extern SDL_Renderer *sdl_renderer;
+extern SDL_Window *sdl_window;
 extern int res_x; 
 extern int res_y;
 

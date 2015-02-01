@@ -463,7 +463,7 @@ bool Sprite::desenhar(int x, int y, float rot)
 	SDL_SetTextureAlphaMod(sheet->getSDL_Texture(), cor.a);
 
     //	Draw the texture
-	SDL_RenderCopyEx(renderer, sheet->getSDL_Texture(), &clip, &rect, rot, &pivot, flip_mode);
+	SDL_RenderCopyEx(sdl_renderer, sheet->getSDL_Texture(), &clip, &rect, rot, &pivot, flip_mode);
 
 	return true;
 }

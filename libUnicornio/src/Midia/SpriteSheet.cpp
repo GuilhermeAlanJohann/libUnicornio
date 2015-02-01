@@ -82,7 +82,7 @@ bool SpriteSheet::carregar(string arquivo, int num_animacoes, int num_max_frames
 		break;
 	}
 
-	sdl_tex = IMG_LoadTexture(renderer, arquivo.c_str());
+	sdl_tex = IMG_LoadTexture(sdl_renderer, arquivo.c_str());
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 	
 	if(!sdl_tex) 
