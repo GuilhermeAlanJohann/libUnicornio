@@ -3,121 +3,281 @@
 
 BotaoSprite::BotaoSprite()
 {
-	x = 0;
-	y = 0;
-	clique = false;
-
-	spr = NULL;
-	estado = BOTAO_INTERFACE_NORMAL;
+	pos.set(0, 0);
+	estado = BOTAOSPRITE_NORMAL;
+	clicado = false;
+	mudou = false;
+	mouse_entrou = false;
+	mouse_saiu = false;
+	botao_mouse = BOTAO_ESQ;
+	for(unsigned int i = 0; i < NUMERO_DE_ESTADOS_BOTAOSPRITE; ++i)
+		anims[i] = 0;
 }
 
 BotaoSprite::~BotaoSprite()
 {
 }
 
-void BotaoSprite::inicializar(SpriteSheet* spritesheet)
+bool BotaoSprite::setSpriteSheet(SpriteSheet *spritesheet)
 {
-	if(spritesheet)
+	if(!spritesheet)
+		return false;
+
+	spr.setSpriteSheet(spritesheet);
+
+	for(unsigned int i = 0; i < NUMERO_DE_ESTADOS_BOTAOSPRITE; ++i)
 	{
-		spr = new Sprite();
-		spr->setSpriteSheet(spritesheet);
+		if(i < spritesheet->getNumAnimacoes())
+			anims[i] = i;
 	}
 
-	estado = BOTAO_INTERFACE_NORMAL;
+	return true;
 }
 
-void BotaoSprite::finalizar()
+bool BotaoSprite::setSpriteSheet(string spritesheet)
 {
-	if(spr)
-	{
-		delete spr;
-		spr = NULL;
-	}
+	return setSpriteSheet(recursos.getSpriteSheet(spritesheet));
 }
 
 void BotaoSprite::atualizar()
 {
-	if(spr)
-		spr->avancarAnimacao();
+	atualizar(deltaTempo);
+}
 
-	atualizarEstado();
+void BotaoSprite::atualizar(double dt)
+{
+	spr.avancarAnimacao(dt);
+
+	if(estaDentroDoRetangulo(mouse.x, mouse.y))
+		atualizarEstadoMouse();
+	else 
+		atualizarEstadoToque();
 }
 
 void BotaoSprite::desenhar()
 {
-	spr->desenhar(x, y);
+	spr.desenhar(pos.x, pos.y);
 }
 
-bool BotaoSprite::clicou()
+bool BotaoSprite::estaClicado()
 {
-	return clique;
+	return clicado;
 }
 
-void BotaoSprite::setX(float x)
+bool BotaoSprite::estaComMouseEmCima()
 {
-	this->x = x;
+	return (estado == BOTAOSPRITE_COM_MOUSE_EM_CIMA);
 }
 
-void BotaoSprite::setY(float y)
+bool BotaoSprite::estaAbaixado()
 {
-	this->y = y;
+	return (estado == BOTAOSPRITE_ABAIXADO);
+}
+bool BotaoSprite::mudouEstado()
+{
+	return mudou;
 }
 
-void BotaoSprite::setPos(float x, float y)
+bool BotaoSprite::mouseEntrouEmCima()
 {
-	this->x = x;
-	this->y = y;
+	return mouse_entrou;
+}
+
+bool BotaoSprite::mouseSaiuDeCima()
+{
+	return mouse_saiu;
+}
+
+Vetor2D BotaoSprite::getPos()
+{
+	return pos;
 }
 
 float BotaoSprite::getX()
 {
-	return x;
+	return pos.x;
 }
 
 float BotaoSprite::getY()
 {
-	return y;
+	return pos.y;
 }
 
-EstadoBotaoInterface BotaoSprite::getEstado()
+EstadoBotaoSprite BotaoSprite::getEstado()
 {
 	return estado;
 }
 
-Sprite* BotaoSprite::getSprite()
+Sprite *BotaoSprite::getSprite()
 {
-	return spr;
+	return &spr;
 }
 
-void BotaoSprite::atualizarEstado()
+int BotaoSprite::getAnimacaoDoEstado(EstadoBotaoSprite estado)
 {
-	clique = false;
+	return anims[estado];
+}
+
+int BotaoSprite::getAnimacaoDoEstadoNormal()
+{
+	return anims[BOTAOSPRITE_NORMAL];
+}
+
+int BotaoSprite::getAnimacaoDoEstadoComMouseEmCima()
+{
+	return anims[BOTAOSPRITE_COM_MOUSE_EM_CIMA];
+}
+
+int BotaoSprite::getAnimacaoDoEstadoAbaixado()
+{
+	return anims[BOTAOSPRITE_ABAIXADO];
+}
+
+int BotaoSprite::getBotaoMouse()
+{
+	return botao_mouse;
+}
+
+void BotaoSprite::obterPos(float &x, float &y)
+{
+	x = pos.x;
+	y = pos.y;
+}
+
+void BotaoSprite::setPos(Vetor2D pos)
+{
+	this->pos = pos;
+}
+
+void BotaoSprite::setPos(float x, float y)
+{
+	pos.x = x;
+	pos.y = y;
+}
+
+void BotaoSprite::setX(float x)
+{
+	pos.x = x;
+}
+
+void BotaoSprite::setY(float y)
+{
+	pos.y = y;
+}
+
+void BotaoSprite::setEstado(EstadoBotaoSprite estado)
+{
+	if(this->estado != estado)
+		mudou = true;
+
+	this->estado = estado;
+
+	if(anims[estado] < spr.getSpriteSheet()->getNumAnimacoes())
+		spr.setAnimacao(anims[estado]);
+}
+
+void BotaoSprite::setAnimacaoDoEstado(EstadoBotaoSprite estado, int anim)
+{
+	anims[estado] = anim;
+}
+
+void BotaoSprite::setAnimacaoDoEstadoNormal(int anim)
+{
+	setAnimacaoDoEstado(BOTAOSPRITE_NORMAL, anim);
+}
+
+void BotaoSprite::setAnimacaoDoEstadoComMouseEmCima(int anim)
+{
+	setAnimacaoDoEstado(BOTAOSPRITE_COM_MOUSE_EM_CIMA, anim);
+}
+
+void BotaoSprite::setAnimacaoDoEstadoAbaixado(int anim)
+{
+	setAnimacaoDoEstado(BOTAOSPRITE_ABAIXADO, anim);
+}
+
+void BotaoSprite::setBotaoMouse(int botao)
+{
+	botao_mouse = botao;
+}
+
+void BotaoSprite::atualizarEstadoMouse()
+{
+	clicado = false;
+	mudou = false;
 
 	if(estaDentroDoRetangulo(mouse.x, mouse.y))
 	{
-		if(mouse.pressionou[BOTAO_ESQ])
+		if(!mouse_entrou)
+			mouse_entrou = true;
+		mouse_saiu = false;
+
+		if(mouse.pressionou[botao_mouse])
 		{
-			estado = BOTAO_INTERFACE_ABAIXADO;		//	abaixado
+			setEstado(BOTAOSPRITE_ABAIXADO);
 		}
-		else if(mouse.soltou[BOTAO_ESQ] && estado == BOTAO_INTERFACE_ABAIXADO)
+		else if(mouse.soltou[botao_mouse] && estado == BOTAOSPRITE_ABAIXADO)
 		{
-			estado = BOTAO_INTERFACE_NORMAL;		//	normal
-			clique = true;
+			setEstado(BOTAOSPRITE_COM_MOUSE_EM_CIMA);
+			clicado = true;
 		}
-		else if(!(mouse.segurando[BOTAO_ESQ] && estado == BOTAO_INTERFACE_ABAIXADO))
+		else if(!(mouse.segurando[botao_mouse] && estado == BOTAOSPRITE_ABAIXADO))
 		{
-			estado = BOTAO_INTERFACE_MOUSE_EM_CIMA;		// hover
+			setEstado(BOTAOSPRITE_COM_MOUSE_EM_CIMA);
 		}
 	}
 	else
 	{
-		estado = BOTAO_INTERFACE_NORMAL;
+		if(!mouse_saiu)
+			mouse_saiu = true;
+		mouse_entrou = false;
+
+		setEstado(BOTAOSPRITE_NORMAL);
+	}
+}
+
+void BotaoSprite::atualizarEstadoToque()
+{
+	clicado = false;
+	mudou = false;
+
+	bool dentro = false;
+
+	Toque t;
+	vector<Toque> vetToques = telaDeToque.getTodosToques();
+	for(unsigned int i = 0; i < vetToques.size() && !dentro; ++i)
+	{
+		t = vetToques[i];
+		dentro = estaDentroDoRetangulo(t.x, t.y);
 	}
 
-	if(spr)
+	if(dentro)
 	{
-		if(estado < spr->getSpriteSheet()->getNumAnimacoes())
-			spr->setAnimacao(estado);
+		if(!mouse_entrou)
+			mouse_entrou = true;
+		mouse_saiu = false;
+
+		if(t.tipo == TOQUE_PRESSIONOU)
+		{
+			setEstado(BOTAOSPRITE_ABAIXADO);
+		}
+		else if(t.tipo == TOQUE_SOLTOU && estado == BOTAOSPRITE_ABAIXADO)
+		{
+			setEstado(BOTAOSPRITE_NORMAL);
+			clicado = true;
+		}
+		else if(!(t.tipo == TOQUE_SEGURANDO && estado == BOTAOSPRITE_ABAIXADO))
+		{
+			setEstado(BOTAOSPRITE_NORMAL);
+		}
+	}
+	else
+	{
+		if(!mouse_saiu)
+			mouse_saiu = true;
+		mouse_entrou = false;
+
+		setEstado(BOTAOSPRITE_NORMAL);
 	}
 }
 
@@ -125,11 +285,13 @@ bool BotaoSprite::estaDentroDoRetangulo(int x, int y)
 {
 	float x0, x1, y0, y1;
 	float ax, ay;
-	spr->obterAncora(ax, ay);
-	x0 = this->x - spr->getLargura()*ax;
-	x1 = x0 + spr->getLargura();
-	y0 = this->y - spr->getAltura()*ay;
-	y1 = y0 + spr->getAltura();
+	int larg, alt;
+	spr.obterAncora(ax, ay);
+	spr.obterTamanho(larg, alt);
+	x0 = pos.x - larg*ax;
+	x1 = x0 + larg;
+	y0 = pos.y - alt*ay;
+	y1 = y0 + alt;
 
 	return (x >= x0 && x <= x1 && y >= y0 && y <= y1);
 }

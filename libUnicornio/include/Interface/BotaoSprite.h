@@ -3,12 +3,12 @@
 
 #include "Sprite.h"
 
-enum EstadoBotaoInterface
+enum EstadoBotaoSprite
 {
-	BOTAO_INTERFACE_NORMAL,
-	BOTAO_INTERFACE_MOUSE_EM_CIMA,
-	BOTAO_INTERFACE_ABAIXADO,
-	NUMERO_DE_ESTADOS_BOTAO_INTERFACE
+	BOTAOSPRITE_NORMAL,
+	BOTAOSPRITE_COM_MOUSE_EM_CIMA,
+	BOTAOSPRITE_ABAIXADO,
+	NUMERO_DE_ESTADOS_BOTAOSPRITE
 };
 
 class BotaoSprite
@@ -17,35 +17,66 @@ public:
 	BotaoSprite();
 	~BotaoSprite();
 
-	void inicializar(SpriteSheet* spritesheet);
-	void finalizar();
+	bool setSpriteSheet(SpriteSheet *spritesheet);
+	bool setSpriteSheet(string spritesheet);
 
 	void atualizar();
+	void atualizar(double dt);
 	void desenhar();
 
-	bool clicou();
+	bool estaClicado();
+	bool estaComMouseEmCima();
+	bool estaAbaixado();
+	bool mudouEstado();
+	bool mouseEntrouEmCima();
+	bool mouseSaiuDeCima();
 
-	void setX(float x);
-	void setY(float y);
-	void setPos(float x, float y);
-
+	Vetor2D getPos();
 	float getX();
 	float getY();
-	void obterPos(float& x, float& y);
 
-	EstadoBotaoInterface getEstado();
+	EstadoBotaoSprite getEstado();
+	Sprite *getSprite();
 
-	Sprite* getSprite();
+	int getAnimacaoDoEstado(EstadoBotaoSprite estado);
+	int getAnimacaoDoEstadoNormal();
+	int getAnimacaoDoEstadoComMouseEmCima();
+	int getAnimacaoDoEstadoAbaixado();
+
+	int getBotaoMouse();
+
+	void obterPos(float &x, float &y);
+
+	void setPos(Vetor2D pos);
+	void setPos(float x, float y);
+	void setX(float x);
+	void setY(float y);
+
+	void setEstado(EstadoBotaoSprite estado);
+
+	void setAnimacaoDoEstado(EstadoBotaoSprite estado, int anim);
+	void setAnimacaoDoEstadoNormal(int anim);
+	void setAnimacaoDoEstadoComMouseEmCima(int anim);
+	void setAnimacaoDoEstadoAbaixado(int anim);
+	
+	void setBotaoMouse(int botao);
 
 private:
-	void atualizarEstado();
+	void atualizarEstadoMouse();
+	void atualizarEstadoToque();
 	bool estaDentroDoRetangulo(int x, int y);
 
-	float x, y;
-	bool clique;
+	Vetor2D pos;
+	bool clicado;
+	bool mudou;
+	bool mouse_entrou;
+	bool mouse_saiu;
 
-	Sprite* spr;
-	EstadoBotaoInterface estado;
+	Sprite spr;
+	EstadoBotaoSprite estado;
+	int anims[NUMERO_DE_ESTADOS_BOTAOSPRITE];
+
+	int botao_mouse;
 };
 
 #endif

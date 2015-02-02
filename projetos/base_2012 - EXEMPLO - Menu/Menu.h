@@ -14,10 +14,6 @@ public:
 	void desenhar();
 
 private:
-	SpriteSheet ssVermelho;
-	SpriteSheet ssVerde;
-	SpriteSheet ssAzul;
-
 	BotaoSprite botaoVermelho;
 	BotaoSprite botaoVerde;
 	BotaoSprite botaoAzul;

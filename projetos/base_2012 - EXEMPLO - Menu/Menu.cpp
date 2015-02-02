@@ -13,14 +13,14 @@ Menu::~Menu()
 void Menu::inicializar()
 {
 	//	carrega os spritesheets para os botoes
-	ssVermelho.carregar("dados/spritesheets/botao_vermelho.png", 3, 1);
-	ssVerde.carregar("dados/spritesheets/botao_verde.png", 3, 1);
-	ssAzul.carregar("dados/spritesheets/botao_azul.png", 3, 1);
+	recursos.carregarSpriteSheet("botao_vermelho", "dados/spritesheets/botao_vermelho.png", 3, 1);
+	recursos.carregarSpriteSheet("botao_verde", "dados/spritesheets/botao_verde.png", 3, 1);
+	recursos.carregarSpriteSheet("botao_azul", "dados/spritesheets/botao_azul.png", 3, 1);
 
-	//	inicializa os botoes
-	botaoVermelho.inicializar(&ssVermelho);
-	botaoVerde.inicializar(&ssVerde);
-	botaoAzul.inicializar(&ssAzul);
+	//	setar spritesheet nos botoes
+	botaoVermelho.setSpriteSheet("botao_vermelho");
+	botaoVerde.setSpriteSheet("botao_verde");
+	botaoAzul.setSpriteSheet("botao_azul");
 
 	//	posiciona os botoes
 	botaoVermelho.setPos(res_x/2, res_y/2 - 100);
@@ -31,15 +31,10 @@ void Menu::inicializar()
 
 void Menu::finalizar()
 {
-	//	finaliza os botoes
-	botaoVermelho.finalizar();
-	botaoVerde.finalizar();
-	botaoAzul.finalizar();
-
 	//	descarregar spritesheets
-	ssVermelho.descarregar();
-	ssVerde.descarregar();
-	ssAzul.descarregar();
+	recursos.descarregarSpriteSheet("botao_vermelho");
+	recursos.descarregarSpriteSheet("botao_verde");
+	recursos.descarregarSpriteSheet("botao_azul");
 }
 
 void Menu::atualizar()
@@ -50,11 +45,11 @@ void Menu::atualizar()
 	botaoAzul.atualizar();
 
 	//	processa os cliques nos botoes
-	if(botaoVermelho.clicou())
+	if(botaoVermelho.estaClicado())
 		uniSetCorDeFundo(255, 0, 0);	//	muda cor de fundo para vermelho
-	if(botaoVerde.clicou())
+	if(botaoVerde.estaClicado())
 		uniSetCorDeFundo(0, 255, 0);	//	muda cor de fundo para verde
-	if(botaoAzul.clicou())
+	if(botaoAzul.estaClicado())
 		uniSetCorDeFundo(0, 0, 255);	//	muda cor de fundo para azul
 }
 
