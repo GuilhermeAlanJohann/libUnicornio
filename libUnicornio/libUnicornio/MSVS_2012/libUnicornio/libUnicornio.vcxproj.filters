@@ -107,9 +107,6 @@
     <ClCompile Include="..\..\..\src\Eventos\EventosTeclado.cpp">
       <Filter>Eventos</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Eventos\EventosToque.cpp">
-      <Filter>Eventos</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\GerenciadorDeRecursos.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\AStar.cpp">
       <Filter>TileMap</Filter>
@@ -168,6 +165,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\MixadorDeAudios.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosInputTexto.cpp">
+      <Filter>Eventos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Eventos\EventosTelaDeToque.cpp">
       <Filter>Eventos</Filter>
     </ClCompile>
   </ItemGroup>

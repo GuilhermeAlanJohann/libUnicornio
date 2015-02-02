@@ -149,16 +149,14 @@ void EventosMouse::corrigirPosicaoFullscreen()
 	y = y*(res_y/(float)alturaEscalada);
 }
 
-void EventosMouse::mostrarCursor(bool mostrar)
+void EventosMouse::esconderCursor()
 {
-	if(mostrar)
-	{
-		SDL_ShowCursor(1);
-	}
-	else
-	{
-		SDL_ShowCursor(0);
-	}
+	SDL_ShowCursor(0);
+}
+
+void EventosMouse::mostrarCursor()
+{
+	SDL_ShowCursor(1);
 }
 
 void EventosMouse::posicionarEm(int x, int y)

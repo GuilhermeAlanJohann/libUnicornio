@@ -46,7 +46,7 @@
     <ClCompile Include="..\..\..\src\Eventos\EventosJoysticks.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosMouse.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosTeclado.cpp" />
-    <ClCompile Include="..\..\..\src\Eventos\EventosToque.cpp" />
+    <ClCompile Include="..\..\..\src\Eventos\EventosTelaDeToque.cpp" />
     <ClCompile Include="..\..\..\src\GerenciadorDeRecursos.cpp" />
     <ClCompile Include="..\..\..\src\Interface\BotaoSprite.cpp" />
     <ClCompile Include="..\..\..\src\json\jsoncpp.cpp" />

@@ -41,7 +41,7 @@ EventosAplicacao aplicacao;
 EventosMouse mouse;
 EventosTeclado teclado;
 EventosJoysticks joysticks;
-EventosToque toques;
+EventosTelaDeToque telaDeToque;
 
 bool uniInicializar(int resolucao_x, int resolucao_y, bool tela_cheia, string titulo_janela)
 {
@@ -111,7 +111,7 @@ bool uniInicializar(int resolucao_x, int resolucao_y, bool tela_cheia, string ti
 	eventos.mouse = &mouse;
 	eventos.teclado = &teclado;
 	eventos.joysticks = &joysticks;
-	eventos.toques = &toques;
+	eventos.telaDeToque = &telaDeToque;
 	uniProcessarEventos();
 
 	//	inicializa variaveis de tempo
@@ -367,6 +367,15 @@ void uniDepurar(string chave, string valor)
 }
 
 void uniDepurar(string chave, int valor)
+{
+	string temp;
+	stringstream conv;
+	conv << valor;
+	conv >> temp;
+	uniDepurar(chave,temp);
+}
+
+void uniDepurar(string chave, unsigned int valor)
 {
 	string temp;
 	stringstream conv;

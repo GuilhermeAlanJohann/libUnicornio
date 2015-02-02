@@ -67,7 +67,7 @@ extern EventosAplicacao aplicacao;
 extern EventosMouse mouse;
 extern EventosTeclado teclado;
 extern EventosJoysticks joysticks;
-extern EventosToque toques;
+extern EventosTelaDeToque telaDeToque;
 
 class Vetor2D;
 
@@ -101,6 +101,7 @@ void UNI_CALL_CONV uniErro(string mensagem);
 
 void UNI_CALL_CONV uniDepurar(string chave, string valor);
 void UNI_CALL_CONV uniDepurar(string chave, int valor);
+void UNI_CALL_CONV uniDepurar(string chave, unsigned int valor);
 void UNI_CALL_CONV uniDepurar(string chave, double valor);
 void UNI_CALL_CONV uniDepurar(string chave, float valor);
 void UNI_CALL_CONV uniDepurar(string chave, char valor);

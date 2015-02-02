@@ -7,7 +7,7 @@ Eventos::Eventos()
 	mouse = NULL;
 	teclado = NULL;
 	joysticks = NULL;
-	toques = NULL;
+	telaDeToque = NULL;
 
 	usandoFila = false;
 }
@@ -22,7 +22,7 @@ void Eventos::atualizar()
 	mouse->atualizar();
 	teclado->atualizar();
 	joysticks->atualizar();
-	toques->atualizar();
+	telaDeToque->atualizar();
 	
 	SDL_PumpEvents();
 	limparFila();
@@ -34,7 +34,7 @@ void Eventos::atualizar()
 		mouse->processarEvento(evento);
 		teclado->processarEvento(evento);
 		joysticks->processarEvento(evento);
-		toques->processarEvento(evento);
+		telaDeToque->processarEvento(evento);
 
 		if(usandoFila)
 			fila_eventos.push(evento);

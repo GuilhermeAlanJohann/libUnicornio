@@ -30,7 +30,8 @@ public:
 	bool segurando[NUMERO_DE_BOTOES_MOUSE];
 	bool soltou[NUMERO_DE_BOTOES_MOUSE];
 
-	void mostrarCursor(bool mostrar);
+	void esconderCursor();
+	void mostrarCursor();
 
 	void posicionarEm(int x, int y);
 
@@ -95,9 +96,9 @@ public:
 	void atualizar();
 	void processarEvento(const SDL_Event& evento);
 
-	Uint8* pressionou;
-	Uint8* segurando;
-	Uint8* soltou;
+	Uint8 *pressionou;
+	Uint8 *segurando;
+	Uint8 *soltou;
 
 	EventosInputTexto inputTexto;
 };
@@ -131,7 +132,7 @@ public:
 	bool segurando[NUMERO_DE_BOTOES_JOYSTICK];
 	bool soltou[NUMERO_DE_BOTOES_JOYSTICK];
 
-	SDL_Joystick* js;
+	SDL_Joystick *js;
 };
 
 class EventosJoysticks
@@ -149,8 +150,8 @@ public:
 	Joystick player4;
 
 private:
-	Joystick* identificarJoystick(const int id);
-	Joystick* getPrimeiroJoystickLivre();
+	Joystick *identificarJoystick(const int id);
+	Joystick *getPrimeiroJoystickLivre();
 	void filtrarInput(float& f, Joystick* joy);
 
 	static int nextId;
@@ -176,16 +177,17 @@ public:
 	int64_t idDedo;
 };
 
-class EventosToque
+class EventosTelaDeToque
 {
 public:
-	EventosToque();
-	~EventosToque();
+	EventosTelaDeToque();
+	~EventosTelaDeToque();
 
 	void atualizar();
 	void processarEvento(const SDL_Event& evento);
 
 	std::vector<Toque> pressionou;
+	std::vector<Toque> segurando;
 	std::vector<Toque> soltou;
 	std::vector<Toque> moveu;
 
@@ -244,11 +246,11 @@ public:
 	int registrarEventoDeUsuario();
 	void adicionarEventoDeUsuario(int tipo, int codigo = 0, void *dado1 = NULL, void *dado2 = NULL);
 
-	EventosAplicacao* aplicacao;
-	EventosMouse* mouse;
-	EventosTeclado* teclado;
-	EventosJoysticks* joysticks;
-	EventosToque* toques;
+	EventosAplicacao *aplicacao;
+	EventosMouse *mouse;
+	EventosTeclado *teclado;
+	EventosJoysticks *joysticks;
+	EventosTelaDeToque *telaDeToque;
 
 private:
 	std::queue<SDL_Event> fila_eventos;
