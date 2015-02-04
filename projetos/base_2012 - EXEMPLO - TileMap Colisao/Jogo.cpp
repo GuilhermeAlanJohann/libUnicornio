@@ -121,7 +121,7 @@ bool Jogo::colisaoGramaAlta()
 	if(mapa.existeObjetoDoTipoNaPos("Grama Alta", player.getX(), player.getY()))
 	{
 		//	setar texto
-		texto.setTexto("Andando sobre grama alta!");
+		texto.setString("Andando sobre grama alta!");
 
 		//	esta colidindo
 		return true;
@@ -140,7 +140,7 @@ bool Jogo::colisaoArvoreSeca()
 		string txt = mapa.getObjetoDoTipoNaPos("Arvore Seca", player.getX(), player.getY())->getPropriedade("texto");
 
 		//	setar texto
-		texto.setTexto(txt);
+		texto.setString(txt);
 
 		//	esta colidindo
 		return true;
@@ -167,7 +167,7 @@ bool Jogo::colisaoFlorRara()
 		txt.append(txt_flor);
 
 		//	setar texto
-		texto.setTexto(txt);
+		texto.setString(txt);
 
 		//	esta colidindo
 		return true;

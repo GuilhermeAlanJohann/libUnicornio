@@ -50,9 +50,9 @@ void Jogo::executar()
 
 
 		//	Desenha as intruções na tela
-		uniDesenharTexto("Pressione [ENTER] para atirar", 10, 10, 255, 255, 255, false);
-		uniDesenharTexto("Pressione [ESPACO] para recarregar", 10, 30, 255, 255, 255, false);
-		uniDesenharTexto("Num Tiros Restantes: " + to_string(arma.getNumBalas()), 10, 50, 255, 255, 255, false);
+		uniDesenharTexto("Pressione [ENTER] para atirar", 10, 10, 255, 255, 255, 0.0f);
+		uniDesenharTexto("Pressione [ESPACO] para recarregar", 10, 30, 255, 255, 255, 0.0f);
+		uniDesenharTexto("Num Tiros Restantes: " + to_string(arma.getNumBalas()), 10, 50, 255, 255, 255, 0.0f);
 
 		uniTerminarFrame();
 	}
