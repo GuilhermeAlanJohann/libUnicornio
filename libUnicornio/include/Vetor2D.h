@@ -26,6 +26,16 @@ public:
 	void operator*=(float a);
 	void operator/=(float a);
 
+	void operator+=(double a);
+	void operator-=(double a);
+	void operator*=(double a);
+	void operator/=(double a);
+
+	void operator+=(int a);
+	void operator-=(int a);
+	void operator*=(int a);
+	void operator/=(int a);
+
 	Vetor2D operator+(const Vetor2D& v);
 	Vetor2D operator-(const Vetor2D& v);
 	Vetor2D operator*(const Vetor2D& v);
@@ -35,6 +45,16 @@ public:
 	Vetor2D operator-(float a);
 	Vetor2D operator*(float a);
 	Vetor2D operator/(float a);
+
+	Vetor2D operator+(double a);
+	Vetor2D operator-(double a);
+	Vetor2D operator*(double a);
+	Vetor2D operator/(double a);
+
+	Vetor2D operator+(int a);
+	Vetor2D operator-(int a);
+	Vetor2D operator*(int a);
+	Vetor2D operator/(int a);
 
 	void set(float x_, float y_);
 	void zerar();

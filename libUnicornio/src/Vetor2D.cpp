@@ -82,6 +82,46 @@ void Vetor2D::operator/=(float a)
 	x /= a; y /= a;
 }
 
+void Vetor2D::operator+=(double a)
+{
+	*this += (float)a;
+}
+
+void Vetor2D::operator-=(double a)
+{
+	*this -= (float)a;
+}
+
+void Vetor2D::operator*=(double a)
+{
+	*this *= (float)a;
+}
+
+void Vetor2D::operator/=(double a)
+{
+	*this /= (float)a;
+}
+
+void Vetor2D::operator+=(int a)
+{
+	*this += (float)a;
+}
+
+void Vetor2D::operator-=(int a)
+{
+	*this -= (float)a;
+}
+
+void Vetor2D::operator*=(int a)
+{
+	*this *= (float)a;
+}
+
+void Vetor2D::operator/=(int a)
+{
+	*this /= (float)a;
+}
+
 Vetor2D Vetor2D::operator+(const Vetor2D& v)
 {
 	return Vetor2D(x + v.x, y + v.y);
@@ -120,6 +160,46 @@ Vetor2D Vetor2D::operator*(float a)
 Vetor2D Vetor2D::operator/(float a)
 {
 	return Vetor2D(x / a, y / a);
+}
+
+Vetor2D Vetor2D::operator+(double a)
+{
+	return (*this + (float)a);
+}
+
+Vetor2D Vetor2D::operator-(double a)
+{
+	return (*this - (float)a);
+}
+
+Vetor2D Vetor2D::operator*(double a)
+{
+	return (*this * (float)a);
+}
+
+Vetor2D Vetor2D::operator/(double a)
+{
+	return (*this / (float)a);
+}
+
+Vetor2D Vetor2D::operator+(int a)
+{
+	return (*this + (float)a);
+}
+
+Vetor2D Vetor2D::operator-(int a)
+{
+	return (*this - (float)a);
+}
+
+Vetor2D Vetor2D::operator*(int a)
+{
+	return (*this * (float)a);
+}
+
+Vetor2D Vetor2D::operator/(int a)
+{
+	return (*this / (float)a);
 }
 
 void Vetor2D::set(float x_, float y_) 
