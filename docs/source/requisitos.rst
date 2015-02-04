@@ -1,4 +1,0 @@
-.. _requisitos:
-
-Requisitos
-==========
