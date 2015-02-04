@@ -22,9 +22,6 @@
     <ClInclude Include="..\..\..\include\TileMap\Tile.h">
       <Filter>TileMap</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\TileMap\TileLayer.h">
-      <Filter>TileMap</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\TileMap\TileMap.h">
       <Filter>TileMap</Filter>
     </ClInclude>
@@ -63,6 +60,12 @@
       <Filter>Midia\Recursos</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\MixadorDeAudios.h" />
+    <ClInclude Include="..\..\..\include\TileMap\CamadaDeObjetos.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\TileMap\CamadaDeTiles.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Interface">
@@ -120,9 +123,6 @@
     <ClCompile Include="..\..\..\src\TileMap\Tile.cpp">
       <Filter>TileMap</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\TileMap\TileLayer.cpp">
-      <Filter>TileMap</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\TileMap\TileMap.cpp">
       <Filter>TileMap</Filter>
     </ClCompile>
@@ -169,6 +169,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Eventos\EventosTelaDeToque.cpp">
       <Filter>Eventos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TileMap\CamadaDeObjetos.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\TileMap\CamadaDeTiles.cpp">
+      <Filter>TileMap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

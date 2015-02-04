@@ -46,7 +46,7 @@ void AStar::inicializar(TileMap* mapa)
 	for(int i = 0; i < largura_em_tiles; ++i)
 		grade[i].resize(altura_em_tiles);
 
-	int num_camadas = mapa->getNumLayers();
+	int num_camadas = mapa->getNumCamadasDeTiles();
 
 	for(int i = 0; i < largura_em_tiles; ++i)
 		for(int j = 0; j < altura_em_tiles; ++j)

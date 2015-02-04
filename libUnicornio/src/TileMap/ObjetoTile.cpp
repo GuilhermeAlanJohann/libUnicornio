@@ -19,17 +19,17 @@ ObjetoTile::~ObjetoTile()
 {
 }
 
-bool ObjetoTile::operator==(const ObjetoTile& other)
+bool ObjetoTile::operator==(const ObjetoTile &other)
 {
-	return (x == other.x && y == other.y && rot == other.rot && larg == other.larg && alt == other.alt && visivel == other.visivel && spr == other.spr && nome == other.nome && tipo == other.tipo);
+	return (x == other.x && y == other.y && rot == other.rot && larg == other.larg && alt == other.alt && visivel == other.visivel && spr == other.spr && nome == other.nome && tipo == other.tipo && camada == other.camada);
 }
 
-bool ObjetoTile::operator!=(const ObjetoTile& other)
+bool ObjetoTile::operator!=(const ObjetoTile &other)
 {
 	return !(*this == other);
 }
 
-Sprite* ObjetoTile::getSprite()
+Sprite *ObjetoTile::getSprite()
 {
 	return spr;
 }
@@ -64,6 +64,11 @@ float ObjetoTile::getRot()
 	return rot;
 }
 
+Vetor2D ObjetoTile::getPos()
+{
+	return Vetor2D(x, y);
+}
+
 float ObjetoTile::getXCentro()
 {
 	return (x + larg/2.0f);
@@ -72,6 +77,11 @@ float ObjetoTile::getXCentro()
 float ObjetoTile::getYCentro()
 {
 	return (y + alt/2.0f);
+}
+
+Vetor2D ObjetoTile::getPosCentro()
+{
+	return Vetor2D(getXCentro(), getYCentro());
 }
 
 float ObjetoTile::getLargura()
@@ -84,6 +94,11 @@ float ObjetoTile::getAltura()
 	return alt;
 }
 
+CamadaDeObjetos *ObjetoTile::getCamada()
+{
+	return camada;
+}
+
 string ObjetoTile::getPropriedade(string nome)
 {
 	map<string, string>::iterator it = propriedades.find(nome);
@@ -94,25 +109,25 @@ string ObjetoTile::getPropriedade(string nome)
 	return "";
 }
 
-void ObjetoTile::obterPos(float& x, float& y)
+void ObjetoTile::obterPos(float &x, float &y)
 {
 	x = this->x;
 	y = this->y;
 }
 
-void ObjetoTile::obterPosCentro(float& x, float& y)
+void ObjetoTile::obterPosCentro(float &x, float &y)
 {
 	x = getXCentro();
 	y = getYCentro();
 }
 
-void ObjetoTile::obterTamanho(float& larg, float& alt)
+void ObjetoTile::obterTamanho(float &larg, float &alt)
 {
 	larg = this->larg;
 	alt = this->alt;
 }
 
-void ObjetoTile::setSprite(Sprite* spr)
+void ObjetoTile::setSprite(Sprite *spr)
 {
 	this->spr = spr;
 }
@@ -142,6 +157,12 @@ void ObjetoTile::setY(float y)
 	this->y = y;
 }
 
+void ObjetoTile::setPos(Vetor2D pos)
+{
+	x = pos.x;
+	y = pos.y;
+}
+
 void ObjetoTile::setPos(float x, float y)
 {
 	this->x = x;
@@ -161,6 +182,12 @@ void ObjetoTile::setXCentro(float x)
 void ObjetoTile::setYCentro(float y)
 {
 	this->y = y - alt/2.0f;
+}
+
+void ObjetoTile::setPosCentro(Vetor2D pos)
+{
+	x = pos.x - larg/2.0f;
+	y = pos.y - alt/2.0f;
 }
 
 void ObjetoTile::setPosCentro(float x, float y)
@@ -185,6 +212,11 @@ void ObjetoTile::setTamanho(float larg, float alt)
 	this->alt = alt;
 }
 
+void ObjetoTile::setCamada(CamadaDeObjetos *camada)
+{
+	this->camada = camada;
+}
+
 void ObjetoTile::setPropriedade(string nome, string valor)
 {
 	map<string, string>::iterator it = propriedades.find(nome);
@@ -197,6 +229,5 @@ void ObjetoTile::setPropriedade(string nome, string valor)
 
 void ObjetoTile::desenhar(int px, int py)
 {
-	if(spr && visivel)
-		spr->desenhar(px, py, rot);
+	spr->desenhar(px, py, rot);
 }

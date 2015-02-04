@@ -3,7 +3,7 @@
 
 #include "TileSet.h"
 
-enum ProfundidadeTile
+enum NivelTile
 {
 	ABAIXO_DOS_OBJETOS,
 	NO_NIVEL_DOS_OBJETOS,
@@ -18,19 +18,19 @@ public:
 
 	bool eCaminhavel();
 	int getCustoAdicional();
-	ProfundidadeTile getProfundidade();
+	NivelTile getNivel();
 	TileSet* getTileSet();
 
 	void setCaminhavel(bool caminhavel);
 	void setCustoAdicional(int c);
-	void setProfundidade(ProfundidadeTile profundidade);
+	void setNivel(NivelTile nivel);
 	void setTileset(TileSet* tileset);
 
 private:
 	TileSet* tileset;
 
 	bool caminhavel;
-	ProfundidadeTile profundidade;
+	NivelTile nivel;
 
 	int custoAdicional;	//	informacao para AStar
 };

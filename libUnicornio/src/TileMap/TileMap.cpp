@@ -140,36 +140,41 @@ bool TileMap::carregar(string arquivo)
 	}
 
 	//	configurar tiles/tilesets
-	for(int i = 0; i < tilesets_config.size(); ++i)
+	for(unsigned int i = 0; i < tilesets_config.size(); ++i)
 		carregarConfigTileSet(&tilesets[i], tilesets_config[i]);
 
-	//	criar layers
+	//	calcular num camadas de tiles e num camadas de objetos
 	Json::Value jLayers = root["layers"];
 	int num_tilelayers = 0;
+	int num_objectlayers = 0;
 	for(unsigned int i = 0; i < jLayers.size(); ++i)
 	{
 		if(jLayers[i].get("type", "").asString() == "tilelayer")
 			++num_tilelayers;
+		else if(jLayers[i].get("type", "").asString() == "objectgroup")
+			++num_objectlayers;
 	}
-	layers.resize(num_tilelayers);
+	camadas_tiles.resize(num_tilelayers);
+	camadas_objetos.resize(num_objectlayers);
 
+	//	criar camadas de tiles
 	int l = 0;
 	for(unsigned int i = 0; i < jLayers.size(); ++i)
 	{
 		if(jLayers[i].get("type", "").asString() != "tilelayer")
 			continue;
 
-		layers[l].setNome(jLayers[i].get("name", "").asString());
-		layers[l].setVisivel(jLayers[i].get("visible", true).asBool());
+		camadas_tiles[l].setNome(jLayers[i].get("name", "").asString());
+		camadas_tiles[l].setVisivel(jLayers[i].get("visible", true).asBool());
 
-		layers[l].redimensionar(largura_em_tiles, altura_em_tiles);
+		camadas_tiles[l].redimensionar(largura_em_tiles, altura_em_tiles);
 
 		Json::Value tileArray = jLayers[i]["data"];
 		int t = 0;
-		for(int k = 0; k < altura_em_tiles; ++k)
-			for(int j = 0; j < largura_em_tiles; ++j)
+		for(unsigned int k = 0; k < altura_em_tiles; ++k)
+			for(unsigned int j = 0; j < largura_em_tiles; ++j)
 			{
-				layers[l].setIDdoTile(tileArray[t].asInt(), j, k);
+				camadas_tiles[l].setIDdoTile(tileArray[t].asInt(), j, k);
 				++t;
 			}
 
@@ -177,17 +182,38 @@ bool TileMap::carregar(string arquivo)
 		l++;
 	}
 
-	//	criar objetos
+	//	criar camadas de objetos
 	Json::Value objs;
+	l = 0;
 	for(unsigned int i = 0; i < jLayers.size(); ++i)
 	{
 		if(jLayers[i].get("type", "").asString() != "objectgroup")
 			continue;
 
-		objs = jLayers[i]["objects"];
-		for(int j = 0; j < objs.size(); ++j)
+		camadas_objetos[l] = new CamadaDeObjetos;
+
+		camadas_objetos[l]->setNome(jLayers[i].get("name", "").asString());
+		camadas_objetos[l]->setVisivel(jLayers[i].get("visible", true).asBool());
+
+		Json::Value props = jLayers[i].get("properties", -1);
+		if(!props.isInt())
+		for(unsigned int p = 0; p < props.getMemberNames().size(); ++p)
 		{
-			ObjetoTile* o = new ObjetoTile();
+			string nome = props.getMemberNames()[p];
+			if(nome == "nivel")
+			{
+				string valor = props.get(nome, NO_NIVEL_DOS_OBJETOS).asString();
+				int nivel = atoi(valor.c_str());
+				if(nivel < ABAIXO_DOS_OBJETOS || nivel > ACIMA_DOS_OBJETOS)
+					nivel = NO_NIVEL_DOS_OBJETOS;
+				camadas_objetos[l]->setNivel((NivelTile)nivel);
+			}
+		}
+
+		objs = jLayers[i]["objects"];
+		for(unsigned int j = 0; j < objs.size(); ++j)
+		{
+			ObjetoTile* o = camadas_objetos[l]->criarObjeto();
 			o->setNome(objs[j].get("name", "").asString());
 			o->setTipo(objs[j].get("type", "").asString());
 
@@ -196,7 +222,7 @@ bool TileMap::carregar(string arquivo)
 
 			o->setVisivel(objs[j].get("visible", true).asBool());
 
-			Json::Value props = objs[j].get("properties", -1);
+			props = objs[j].get("properties", -1);
 			for(unsigned int i = 0; i < props.getMemberNames().size(); ++i)
 			{
 				string nome = props.getMemberNames()[i];
@@ -204,9 +230,9 @@ bool TileMap::carregar(string arquivo)
 				o->setPropriedade(nome, valor);
 			}
 
-			objetos.push_back(o);
-
 		}
+
+		++l;
 	}
 
 	carregou = true;
@@ -254,7 +280,7 @@ bool TileMap::carregarConfigTileSet(TileSet* tileset, string arquivo)
 		for(int i = 0; i < tiles_x; ++i)
 		{
 			ifs >> num;
-			tiles[tileset->getPrimeiroIDGlobal()-1 + i + j*tiles_x].setProfundidade((ProfundidadeTile)num);
+			tiles[tileset->getPrimeiroIDGlobal()-1 + i + j*tiles_x].setNivel((NivelTile)num);
 		}
 
 	//	custo adicional
@@ -274,7 +300,7 @@ bool TileMap::carregarConfigTileSet(TileSet* tileset, string arquivo)
 
 bool TileMap::carregarConfigTileSet(string nome_tileset, string arquivo)
 {
-	for(int i = 0; i < tilesets.size(); ++i)
+	for(unsigned int i = 0; i < tilesets.size(); ++i)
 		if(tilesets[i].getNome() == nome_tileset)
 			return carregarConfigTileSet(&tilesets[i], arquivo);
 	
@@ -283,16 +309,16 @@ bool TileMap::carregarConfigTileSet(string nome_tileset, string arquivo)
 
 void TileMap::descarregar()
 {
-	for(int i = 0; i < tilesets.size(); ++i)
+	for(unsigned int i = 0; i < tilesets.size(); ++i)
 		tilesets[i].descarregar();
 
-	for(int i = 0; i < objetos.size(); ++i)
-		delete objetos[i];
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+		delete camadas_objetos[i];
 
 	tiles.clear();
 	tilesets.clear();
-	layers.clear();
-	objetos.clear();
+	camadas_tiles.clear();
+	camadas_objetos.clear();
 
 	carregou = false;
 }
@@ -335,9 +361,9 @@ void TileMap::desenhar()
 	int py0 = (int)(((float)ity - y + desloc_y)*altura_tile);
 
 	//	desenhar tiles abaixo dos objetos
-	for(unsigned int camada = 0; camada < layers.size(); ++camada)
+	for(unsigned int camada = 0; camada < camadas_tiles.size(); ++camada)
 	{
-		if(!layers[camada].estaVisivel())
+		if(!camadas_tiles[camada].estaVisivel())
 			continue;
 
 		int py = py0;
@@ -346,53 +372,43 @@ void TileMap::desenhar()
 			int px = px0;
 			for(int i = itx; i <= ftx; ++i, px += largura_tile)
 			{
-				int id = layers[camada].getIDdoTile(i, j);
+				int id = camadas_tiles[camada].getIDdoTile(i, j);
 				if(id > 0)
-					if(tiles[id-1].getProfundidade() == ABAIXO_DOS_OBJETOS)
+					if(tiles[id-1].getNivel() == ABAIXO_DOS_OBJETOS)
 							desenharTileNoPixel(id, px, py);
 			}
 		}
 	}
 
 	//	desenhar objetos e tiles no nivel dos objetos
-	ordenarObjetosPorYCentral();
-	int prox_obj = 0;
+	prepararRenderQueues();
 
-		//	objetos que estao acima da tela;
-	for(int o = prox_obj; o < objetos.size(); ++o)
+		//	objetos que estao abaixo dos outros
+	for(unsigned int i = 0; i < render_queue_abaixo.size(); ++i)
 	{
-		float pxo, pyo;
-		objetos[o]->obterPosCentro(pxo, pyo);
-		pxo += -x + desloc_x;
-		pyo += -y + desloc_y;
-		pxo *= largura_tile;
-		pyo *= altura_tile;
-
-		if(pyo < px0)
-		{
-			objetos[o]->desenhar(pxo, pyo);
-			prox_obj++;
-		}
-		else
-			break;
+		float xo, yo;
+		int pxo, pyo;
+		render_queue_abaixo[i]->obterPosCentro(xo, yo);
+		tileParaTela(xo, yo, pxo, pyo);
+		render_queue_abaixo[i]->desenhar(pxo, pyo);
 	}
 
+		//	objetos que estao no meio e tiles que estao no nivel dos objetos
+	int prox_obj = 0;
 	int py = py0;
 	for(int j = ity; j <= fty; ++j, py += altura_tile)
 	{
-		//	objetos nesta linha
-		for(int o = prox_obj; o < objetos.size(); ++o)
+		//	objetos nesta linha (ou antes dela)
+		for(unsigned int o = prox_obj; o < render_queue_aomeio.size(); ++o)
 		{
-			float pxo, pyo;
-			objetos[o]->obterPosCentro(pxo, pyo);
-			pxo += -x + desloc_x;
-			pyo += -y + desloc_y;
-			pxo *= largura_tile;
-			pyo *= altura_tile;
+			float xo, yo;
+			int pxo, pyo;
+			render_queue_aomeio[o]->obterPosCentro(xo, yo);
+			tileParaTela(xo, yo, pxo, pyo);
 
-			if(pyo >= py && pyo <= py+altura_tile)
+			if(pyo <= py+altura_tile)
 			{
-				objetos[o]->desenhar(pxo, pyo);
+				render_queue_aomeio[o]->desenhar(pxo, pyo);
 				prox_obj++;
 			}
 			else
@@ -404,36 +420,45 @@ void TileMap::desenhar()
 		int px = px0;
 		for(int i = itx; i <= ftx; ++i, px += largura_tile)
 		{
-			for(unsigned int camada = 0; camada < layers.size(); ++camada)
+			for(unsigned int camada = 0; camada < camadas_tiles.size(); ++camada)
 			{
-				if(!layers[camada].estaVisivel())
+				if(!camadas_tiles[camada].estaVisivel())
 					continue;
 
-				int id = layers[camada].getIDdoTile(i, j);
+				int id = camadas_tiles[camada].getIDdoTile(i, j);
 				if(id > 0)
-					if(tiles[id-1].getProfundidade() == NO_NIVEL_DOS_OBJETOS)
+					if(tiles[id-1].getNivel() == NO_NIVEL_DOS_OBJETOS)
 							desenharTileNoPixel(id, px, py);
 			}
 		}
 	}
 
 		//	objetos restantes (abaixo da tela) 
-	for(int o = prox_obj; o < objetos.size(); ++o)
+	for(unsigned int o = prox_obj; o < render_queue_aomeio.size(); ++o)
 	{
-		float px, py;
-		objetos[o]->obterPosCentro(px, py);
-		px += -x + desloc_x;
-		py += -y + desloc_y;
-		px *= largura_tile;
-		py *= altura_tile;
-
-		objetos[o]->desenhar(px, py);
+		float xo, yo;
+		int pxo, pyo;
+		render_queue_aomeio[o]->obterPosCentro(xo, yo);
+		tileParaTela(xo, yo, pxo, pyo);
+		render_queue_aomeio[o]->desenhar(pxo, pyo);
 	}
 
-	//	desenhar tiles acima dos objetos
-	for(unsigned int camada = 0; camada < layers.size(); ++camada)
+		//	objetos que estao acima dos outros
+	for(unsigned int i = 0; i < render_queue_acima.size(); ++i)
 	{
-		if(!layers[camada].estaVisivel())
+		float xo, yo;
+		int pxo, pyo;
+		render_queue_acima[i]->obterPosCentro(xo, yo);
+		tileParaTela(xo, yo, pxo, pyo);
+		render_queue_acima[i]->desenhar(pxo, pyo);
+	}
+
+	limparRenderQueues();
+
+	//	desenhar tiles acima dos objetos
+	for(unsigned int camada = 0; camada < camadas_tiles.size(); ++camada)
+	{
+		if(!camadas_tiles[camada].estaVisivel())
 			continue;
 
 		int py = py0;
@@ -442,92 +467,22 @@ void TileMap::desenhar()
 			int px = px0;
 			for(int i = itx; i <= ftx; ++i, px += largura_tile)
 			{
-				int id = layers[camada].getIDdoTile(i, j);
+				int id = camadas_tiles[camada].getIDdoTile(i, j);
 				if(id > 0)
-					if(tiles[id-1].getProfundidade() == ACIMA_DOS_OBJETOS)
+					if(tiles[id-1].getNivel() == ACIMA_DOS_OBJETOS)
 							desenharTileNoPixel(id, px, py);
 			}
 		}
 	}
 }
 
-
-ObjetoTile* TileMap::criarObjeto()
-{
-	objetos.push_back(new ObjetoTile());
-	return objetos[objetos.size()-1];
-}
-
-bool TileMap::destruirObjeto(string nome)
-{
-	for(int i = 0; i < objetos.size(); ++i)
-		if(objetos[i]->getNome() == nome)
-		{
-			delete objetos[i];
-			objetos.erase(objetos.begin() + i);
-			return true;
-		}
-
-	return false;
-}
-
-bool TileMap::destruirObjeto(ObjetoTile* obj)
-{
-	for(int i = 0; i < objetos.size(); ++i)
-		if(*objetos[i] == *obj)
-		{
-			delete objetos[i];
-			objetos.erase(objetos.begin() + i);
-			return true;
-		}
-
-	return false;
-}
-
-bool TileMap::existeObjetoNaPos(float tx, float ty)
-{
-	float ox0, oy0, ox, oy;
-	for(int i = 0; i < objetos.size(); ++i)
-	{
-		objetos[i]->obterPos(ox0, oy0);
-		objetos[i]->obterTamanho(ox, oy);
-		ox += ox0;
-		oy += oy0;
-
-		if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
-			return true;
-	}
-
-	return false;
-}
-
-bool TileMap::existeObjetoDoTipoNaPos(string tipo, float tx, float ty)
-{
-	float ox0, oy0, ox, oy;
-	for(int i = 0; i < objetos.size(); ++i)
-	{
-		if(objetos[i]->getTipo() == tipo)
-		{
-			objetos[i]->obterPos(ox0, oy0);
-			objetos[i]->obterTamanho(ox, oy);
-			ox += ox0;
-			oy += oy0;
-
-			if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
-				return true;
-		}
-	}
-
-	return false;
-}
-
-void TileMap::telaParaTile(int px, int py, float& tx, float& ty)
+void TileMap::telaParaTile(int px, int py, float &tx, float &ty)
 {
 	tx = x - desloc_x + (float)(px)/(float)(largura_tile);
 	ty = y - desloc_y + (float)(py)/(float)(altura_tile);
 }
 
-void TileMap::tileParaTela(float tx, float ty, int& px, int& py)
+void TileMap::tileParaTela(float tx, float ty, int &px, int &py)
 {
 	px = (int)((tx - x + desloc_x)*largura_tile);
 	py = (int)((ty - y + desloc_y)*altura_tile);
@@ -539,10 +494,10 @@ bool TileMap::tileECaminhavel(float tx, float ty)
 	if(tx < 0 || tx >= largura_em_tiles || ty < 0 || ty >= altura_em_tiles)
 		return false;
 
-	// testa em cada uma das layers
-	for(int l = 0; l < layers.size(); ++l)
+	// testa em cada uma das camadas de tiles
+	for(unsigned int l = 0; l < camadas_tiles.size(); ++l)
 	{
-		int id = layers[l].getIDdoTile(tx, ty);
+		int id = camadas_tiles[l].getIDdoTile(tx, ty);
 			if(id < 1)
 				continue;
 
@@ -558,7 +513,7 @@ bool TileMap::tileECaminhavel(float tx, float ty)
 		return true;
 
 	//	se nao, testa em tiles com tamanhos diferentes
-	for(int l = 0; l < layers.size(); ++l)
+	for(unsigned int l = 0; l < camadas_tiles.size(); ++l)
 		for(int i = 0; i < dx; ++i)
 			for(int j = 0; j < dy; ++j)
 			{
@@ -568,7 +523,7 @@ bool TileMap::tileECaminhavel(float tx, float ty)
 				if((tx - i < 0) || (ty + j >= altura_em_tiles))
 					continue;
 
-				int id = layers[l].getIDdoTile(tx - i, ty + j);
+				int id = camadas_tiles[l].getIDdoTile(tx - i, ty + j);
 				if(id < 1)
 					continue;
 
@@ -589,10 +544,10 @@ int TileMap::getCustoAdicionalNoTile(float tx, float ty)
 
 	int custo = 0;
 
-	// testa em cada uma das layers
-	for(int l = 0; l < layers.size(); ++l)
+	// testa em cada uma das camadas de tiles
+	for(unsigned int l = 0; l < camadas_tiles.size(); ++l)
 	{
-		int id = layers[l].getIDdoTile(tx, ty);
+		int id = camadas_tiles[l].getIDdoTile(tx, ty);
 			if(id < 1)
 				continue;
 
@@ -607,7 +562,7 @@ int TileMap::getCustoAdicionalNoTile(float tx, float ty)
 		return custo;
 
 	//	se nao, testa em tiles com tamanhos diferentes
-	for(int l = 0; l < layers.size(); ++l)
+	for(unsigned int l = 0; l < camadas_tiles.size(); ++l)
 		for(int i = 0; i < dx; ++i)
 			for(int j = 0; j < dy; ++j)
 			{
@@ -617,7 +572,7 @@ int TileMap::getCustoAdicionalNoTile(float tx, float ty)
 				if((tx - i < 0) || (ty + j >= altura_em_tiles))
 					continue;
 
-				int id = layers[l].getIDdoTile(tx - i, ty + j);
+				int id = camadas_tiles[l].getIDdoTile(tx - i, ty + j);
 				if(id < 1)
 					continue;
 
@@ -689,9 +644,14 @@ int TileMap::getNumTilesNaTelaEmY()
 	return tiles_na_tela_em_y;
 }
 
-int TileMap::getNumLayers()
+int TileMap::getNumCamadasDeObjetos()
 {
-	return layers.size();
+	return camadas_objetos.size();
+}
+
+int TileMap::getNumCamadasDeTiles()
+{
+	return camadas_tiles.size();
 }
 
 int TileMap::getNumTileSets()
@@ -704,32 +664,42 @@ int TileMap::getNumTiles()
 	return tiles.size();
 }
 
-int TileMap::getNumObjetos()
+CamadaDeObjetos *TileMap::getCamadaDeObjetos(int indice)
 {
-	return objetos.size();
+	return camadas_objetos[indice];
 }
 
-TileLayer* TileMap::getTileLayer(int indice)
+CamadaDeObjetos *TileMap::getCamadaDeObjetos(string nome)
 {
-	return &layers[indice];
-}
-
-TileLayer* TileMap::getTileLayer(string nome)
-{
-	for(unsigned int i = 0; i < layers.size(); ++i)
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		if(nome == layers[i].getNome())
-			return &layers[i];
+		if(nome == camadas_objetos[i]->getNome())
+			return camadas_objetos[i];
 	}
 	return NULL;
 }
 
-TileSet* TileMap::getTileSet(int indice)
+CamadaDeTiles *TileMap::getCamadaDeTiles(int indice)
+{
+	return &camadas_tiles[indice];
+}
+
+CamadaDeTiles *TileMap::getCamadaDeTiles(string nome)
+{
+	for(unsigned int i = 0; i < camadas_tiles.size(); ++i)
+	{
+		if(nome == camadas_tiles[i].getNome())
+			return &camadas_tiles[i];
+	}
+	return NULL;
+}
+
+TileSet *TileMap::getTileSet(int indice)
 {
 	return &tilesets[indice];
 }
 
-TileSet* TileMap::getTileSet(string nome)
+TileSet *TileMap::getTileSet(string nome)
 {
 	for(unsigned int i = 0; i < tilesets.size(); ++i)
 	{
@@ -739,67 +709,116 @@ TileSet* TileMap::getTileSet(string nome)
 	return NULL;
 }
 
-Tile* TileMap::getTile(int idGlobal)
+Tile *TileMap::getTile(int idGlobal)
 {
 	return &tiles[idGlobal-1];
 }
 
-Tile* TileMap::getTile(int tx, int ty, int indiceLayer)
+Tile *TileMap::getTile(Vetor2D pos, int indice_camada)
 {
-	return &tiles[layers[indiceLayer].getIDdoTile(tx, ty)];
+	return getTile(pos.x, pos.y, indice_camada);
 }
 
-Tile* TileMap::getTile(int tx, int ty, string nomeLayer)
+Tile *TileMap::getTile(Vetor2D pos, string nome_camada)
 {
-	return &tiles[getTileLayer(nomeLayer)->getIDdoTile(tx, ty)];
+	return getTile(pos.x, pos.y, nome_camada);
 }
 
-ObjetoTile* TileMap::getObjeto(int indice)
+Tile *TileMap::getTile(int tx, int ty, int indice_camada)
 {
-	return objetos[indice];
+	return &tiles[camadas_tiles[indice_camada].getIDdoTile(tx, ty)];
 }
 
-ObjetoTile* TileMap::getObjeto(string nome)
+Tile *TileMap::getTile(int tx, int ty, string nome_camada)
 {
-	for(int i = 0; i < objetos.size(); ++i)
-		if(objetos[i]->getNome() == nome)
-			return objetos[i];
-
-	return NULL;
+	return &tiles[getCamadaDeTiles(nome_camada)->getIDdoTile(tx, ty)];
 }
 
-ObjetoTile* TileMap::getObjetoNaPos(float tx, float ty)
+bool TileMap::existeObjetoNaPos(Vetor2D pos)
 {
-	float ox0, oy0, ox, oy;
-	for(int i = 0; i < objetos.size(); ++i)
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		objetos[i]->obterPos(ox0, oy0);
-		objetos[i]->obterTamanho(ox, oy);
-		ox += ox0;
-		oy += oy0;
+		if(camadas_objetos[i]->existeObjetoNaPos(pos))
+			return true;
+	}
 
-		if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
-			return objetos[i];
+	return false;
+}
+
+bool TileMap::existeObjetoNaPos(float tx, float ty)
+{
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		if(camadas_objetos[i]->existeObjetoNaPos(tx, ty))
+			return true;
+	}
+
+	return false;
+}
+
+bool TileMap::existeObjetoDoTipoNaPos(string tipo, Vetor2D pos)
+{
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		if(camadas_objetos[i]->existeObjetoDoTipoNaPos(tipo, pos))
+			return true;
+	}
+
+	return false;
+}
+
+bool TileMap::existeObjetoDoTipoNaPos(string tipo, float tx, float ty)
+{
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		if(camadas_objetos[i]->existeObjetoDoTipoNaPos(tipo, tx, ty))
+			return true;
+	}
+
+	return false;
+}
+
+ObjetoTile *TileMap::getObjeto(string nome)
+{
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		ObjetoTile *obj = camadas_objetos[i]->getObjeto(nome);
+		if(obj)
+			return obj;
 	}
 
 	return NULL;
 }
 
-ObjetoTile* TileMap::getObjetoDoTipoNaPos(string tipo, float tx, float ty)
+ObjetoTile *TileMap::getObjetoNaPos(Vetor2D pos)
 {
-	float ox0, oy0, ox, oy;
-	for(int i = 0; i < objetos.size(); ++i)
-	{
-		if(objetos[i]->getTipo() == tipo)
-		{
-			objetos[i]->obterPos(ox0, oy0);
-			objetos[i]->obterTamanho(ox, oy);
-			ox += ox0;
-			oy += oy0;
+	return getObjetoNaPos(pos.x, pos.y);
+}
 
-			if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
-				return objetos[i];
-		}
+ObjetoTile *TileMap::getObjetoNaPos(float tx, float ty)
+{
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		ObjetoTile *obj = camadas_objetos[i]->getObjetoNaPos(tx, ty);
+		if(obj)
+			return obj;
+	}
+
+	return NULL;
+}
+
+ObjetoTile *TileMap::getObjetoDoTipoNaPos(string tipo, Vetor2D pos)
+{
+	return getObjetoDoTipoNaPos(tipo, pos.x, pos.y);
+}
+
+ObjetoTile *TileMap::getObjetoDoTipoNaPos(string tipo, float tx, float ty)
+{
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		ObjetoTile *obj = camadas_objetos[i]->getObjetoDoTipoNaPos(tipo, tx, ty);
+		if(obj)
+			return obj;
 	}
 
 	return NULL;
@@ -808,50 +827,66 @@ ObjetoTile* TileMap::getObjetoDoTipoNaPos(string tipo, float tx, float ty)
 vector<ObjetoTile*> TileMap::getObjetosDoTipo(string tipo)
 {
 	vector<ObjetoTile*> r;
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosDoTipo(tipo);
+		r.insert(r.end(), v.begin(), v.end());
+	}
+	return r;
+}
 
-	for(int i = 0; i < objetos.size(); ++i)
-		if(objetos[i]->getTipo() == tipo)
-			r.push_back(objetos[i]);
-
+vector<ObjetoTile*> TileMap::getObjetosNaPos(Vetor2D pos)
+{
+	vector<ObjetoTile*> r;
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosNaPos(pos);
+		r.insert(r.end(), v.begin(), v.end());
+	}
 	return r;
 }
 
 vector<ObjetoTile*> TileMap::getObjetosNaPos(float tx, float ty)
 {
 	vector<ObjetoTile*> r;
-	float ox0, oy0, ox, oy;
-	for(int i = 0; i < objetos.size(); ++i)
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		objetos[i]->obterPos(ox0, oy0);
-		objetos[i]->obterTamanho(ox, oy);
-		ox += ox0;
-		oy += oy0;
-
-		if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
-			r.push_back(objetos[i]);
+		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosNaPos(tx, ty);
+		r.insert(r.end(), v.begin(), v.end());
 	}
+	return r;
+}
 
+vector<ObjetoTile*> TileMap::getObjetosDoTipoNaPos(string tipo, Vetor2D pos)
+{
+	vector<ObjetoTile*> r;
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosDoTipoNaPos(tipo, pos);
+		r.insert(r.end(), v.begin(), v.end());
+	}
 	return r;
 }
 
 vector<ObjetoTile*> TileMap::getObjetosDoTipoNaPos(string tipo, float tx, float ty)
 {
 	vector<ObjetoTile*> r;
-	float ox0, oy0, ox, oy;
-	for(int i = 0; i < objetos.size(); ++i)
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		if(objetos[i]->getTipo() == tipo)
-		{
-			objetos[i]->obterPos(ox0, oy0);
-			objetos[i]->obterTamanho(ox, oy);
-			ox += ox0;
-			oy += oy0;
-
-			if(tx >= ox0 && tx <= ox && ty >= oy0 && ty <= oy)
-				r.push_back(objetos[i]);
-		}
+		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosDoTipoNaPos(tipo, tx, ty);
+		r.insert(r.end(), v.begin(), v.end());
 	}
+	return r;
+}
 
+vector<ObjetoTile*> TileMap::getTodosObjetos()
+{
+	vector<ObjetoTile*> r;
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		vector<ObjetoTile*> v = camadas_objetos[i]->getTodosObjetos();
+		r.insert(r.end(), v.begin(), v.end());
+	}
 	return r;
 }
 
@@ -980,9 +1015,71 @@ void TileMap::setPropriedadeBool(string nome, bool valor)
 		setPropriedade(nome, "false");
 }
 
+bool TileMap::juntarCamadasDeObjetos(int indice_camada1, int indice_camada2)
+{
+	if(indice_camada1 == indice_camada2)
+		return false;
+
+	CamadaDeObjetos *camada1 = camadas_objetos[indice_camada1];
+	CamadaDeObjetos *camada2 = camadas_objetos[indice_camada2];
+	for(unsigned int i = 0; i < camada2->getNumObjetos(); ++i)
+	{
+		ObjetoTile *obj = camada1->criarObjeto();
+
+		*obj = *camada2->getObjeto(i);
+		obj->setCamada(camada1);
+	}
+
+	camada2->destruirTodosObjetos();
+	delete camada2;
+	camadas_objetos.erase(camadas_objetos.begin() + indice_camada2);
+
+	return true;
+}
+
+bool TileMap::juntarCamadasDeObjetos(string nome_camada1, string nome_camada2)
+{
+	if(nome_camada1 == nome_camada2)
+		return false;
+
+	int i1, i2;
+	i1 = i2 = -1;
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+		if(nome_camada1 == camadas_objetos[i]->getNome())
+			i1 = i;
+
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+		if(nome_camada2 == camadas_objetos[i]->getNome())
+			i2 = i;
+
+	if(i1 == -1 || i2 == -1)
+		return false;
+
+	return juntarCamadasDeObjetos(i1, i2);
+}
+
+void TileMap::juntarTodasCamadasDeObjetos()
+{
+	for(unsigned int i = camadas_objetos.size()-1; i > 0; --i)
+	{
+		CamadaDeObjetos *camada2 = camadas_objetos[i];
+		for(unsigned int j = 0; j < camada2->getNumObjetos(); ++j)
+		{
+			ObjetoTile *obj = camadas_objetos[0]->criarObjeto();
+
+			*obj = *camada2->getObjeto(j);
+			obj->setCamada(camadas_objetos[0]);
+		}
+
+		camada2->destruirTodosObjetos();
+		delete camada2;
+		camadas_objetos.erase(camadas_objetos.begin() + i);
+	}
+}
+
 void TileMap::desenharTileNoPixel(int id, float px, float py)
 {
-	TileSet* tileset = tiles[id-1].getTileSet();
+	TileSet *tileset = tiles[id-1].getTileSet();
 
 	SDL_Rect clip;
 	clip.w = tileset->getLarguraTiles();
@@ -999,37 +1096,77 @@ void TileMap::desenharTileNoPixel(int id, float px, float py)
 	rect.x = (px) - pivot.x;
 	rect.y = (py+altura_tile) - pivot.y;	//	soma 1 tile na altura, pois altura 0 em deve ser no pixel 'altura_tile', para ficar igual a ancora do Tiled Map Editor
 
-	SDL_Texture* tex = tileset->getTextura();
+	SDL_Texture *tex = tileset->getTextura();
 
     //	Draw the texture
 	SDL_RenderCopyEx(sdl_renderer, tex, &clip, &rect, 0, &pivot, SDL_FLIP_NONE);
 }
 
-void TileMap::ordenarObjetosPorYCentral()
+void TileMap::prepararRenderQueues()
 {
-	bool ordenados = true;
-	for(int i = 1; i < objetos.size(); ++i)
+	vector<ObjetoTile*> *render_queue;
+
+	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		if(objetos[i]->getYCentro() < objetos[i-1]->getYCentro())
+		if(!camadas_objetos[i]->estaVisivel())
+			continue;
+
+		vector<ObjetoTile*> objs = camadas_objetos[i]->getTodosObjetos();
+		unsigned int size = objs.size();
+		unsigned int menor;
+
+		switch(camadas_objetos[i]->getNivel())
 		{
-			ordenados = false;
+		case ABAIXO_DOS_OBJETOS:
+			render_queue = &render_queue_abaixo;
+			menor = render_queue->size();
 			break;
+
+		case ACIMA_DOS_OBJETOS:
+			render_queue = &render_queue_acima;
+			menor = render_queue->size();
+			break;
+
+		case NO_NIVEL_DOS_OBJETOS:
+		default:
+			render_queue = &render_queue_aomeio;
+			menor = 0;
+		}
+
+		for(unsigned int j = 0; j < size; ++j)
+		{
+			if(objs[j]->estaVisivel() && objs[j]->getSprite())
+				quicksortObjetosTile(render_queue, objs[j], menor, render_queue->size());
 		}
 	}
+}
 
-	if(ordenados)
-		return;
+void TileMap::limparRenderQueues()
+{
+	render_queue_abaixo.clear();
+	render_queue_aomeio.clear();
+	render_queue_acima.clear();
+}
 
-	for(int i = 0; i < objetos.size(); ++i)
+void TileMap::quicksortObjetosTile(vector<ObjetoTile*> *queue, ObjetoTile *o, unsigned int menor, unsigned int maior)
+{
+	if(menor == maior)
 	{
-		for(int j = i+1; j < objetos.size(); ++j)
+		queue->insert(queue->begin() + menor, o);
+		return;
+	}
+	else
+	{
+		unsigned int meio = menor + ((maior-menor)/2);
+		ObjetoTile *o_meio = (*queue)[meio];
+
+		if(o->getYCentro() < o_meio->getYCentro())
 		{
-			if(objetos[j]->getYCentro() < objetos[i]->getYCentro())
-			{
-				ObjetoTile* temp = objetos[j];
-				objetos[j]= objetos[i];
-				objetos[i] = temp;
-			}
+			quicksortObjetosTile(queue, o, menor, meio);
+		}
+		else
+		{
+			quicksortObjetosTile(queue, o, meio+1, maior);
 		}
 	}
 }

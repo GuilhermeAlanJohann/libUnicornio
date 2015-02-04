@@ -5,7 +5,7 @@ Tile::Tile()
 	tileset = NULL;
 
 	caminhavel = true;
-	profundidade = ABAIXO_DOS_OBJETOS;
+	nivel = ABAIXO_DOS_OBJETOS;
 
 	custoAdicional = 0;
 }
@@ -24,9 +24,9 @@ int Tile::getCustoAdicional()
 	return custoAdicional;
 }
 
-ProfundidadeTile Tile::getProfundidade()
+NivelTile Tile::getNivel()
 {
-	return profundidade;
+	return nivel;
 }
 
 TileSet* Tile::getTileSet()
@@ -44,9 +44,9 @@ void Tile::setCustoAdicional(int c)
 	custoAdicional = c;
 }
 
-void Tile::setProfundidade(ProfundidadeTile profundidade)
+void Tile::setNivel(NivelTile nivel)
 {
-	this->profundidade = profundidade;
+	this->nivel = nivel;
 }
 
 void Tile::setTileset(TileSet* tileset)

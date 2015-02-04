@@ -20,7 +20,7 @@ void Jogo::inicializar()
 
 	//	3)	inicializar o personagem do player,
 			//	passando o nome do spritesheet e o objeto que representa ele no mapa
-	player.inicializar("player", mapa.getObjeto("Player"));
+	player.inicializar("player", mapa.getCamadaDeObjetos("Objetos")->getObjeto("Player"));
 }
 
 void Jogo::finalizar()

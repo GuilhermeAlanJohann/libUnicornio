@@ -27,10 +27,11 @@
     <ClInclude Include="..\..\..\include\Midia\Texto.h" />
     <ClInclude Include="..\..\..\include\MixadorDeAudios.h" />
     <ClInclude Include="..\..\..\include\TileMap\AStar.h" />
+    <ClInclude Include="..\..\..\include\TileMap\CamadaDeObjetos.h" />
+    <ClInclude Include="..\..\..\include\TileMap\CamadaDeTiles.h" />
     <ClInclude Include="..\..\..\include\TileMap\NodoAStar.h" />
     <ClInclude Include="..\..\..\include\TileMap\ObjetoTile.h" />
     <ClInclude Include="..\..\..\include\TileMap\Tile.h" />
-    <ClInclude Include="..\..\..\include\TileMap\TileLayer.h" />
     <ClInclude Include="..\..\..\include\TileMap\TileMap.h" />
     <ClInclude Include="..\..\..\include\TileMap\TileSet.h" />
     <ClInclude Include="..\..\..\include\versao_lib.h" />
@@ -60,10 +61,11 @@
     <ClCompile Include="..\..\..\src\Midia\Texto.cpp" />
     <ClCompile Include="..\..\..\src\MixadorDeAudios.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\AStar.cpp" />
+    <ClCompile Include="..\..\..\src\TileMap\CamadaDeObjetos.cpp" />
+    <ClCompile Include="..\..\..\src\TileMap\CamadaDeTiles.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\NodoAStar.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\ObjetoTile.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\Tile.cpp" />
-    <ClCompile Include="..\..\..\src\TileMap\TileLayer.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\TileMap.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\TileSet.cpp" />
     <ClCompile Include="..\..\..\src\Vetor2D.cpp" />
