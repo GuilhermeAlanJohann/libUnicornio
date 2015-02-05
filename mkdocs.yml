@@ -1,1 +1,12 @@
-site_name: My Docs
+site_name: libUnicornio
+pages:
+- [index.md, Home]
+- [iniciando.md, Como começar a usar]
+- [recursos.md, Recursos]
+- [texto.md, Texto]
+- [sprite.md, Sprite]
+- [botaosprite.md, BotaoSprite]
+- [som.md, Som]
+- [tilemap.md, Tilemap]
+- [globais.md, Globais]
+theme: readthedocs
