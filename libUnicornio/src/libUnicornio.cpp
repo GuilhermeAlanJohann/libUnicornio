@@ -5,13 +5,7 @@
 #include <string>
 #include <sstream>
 
-SDL_Renderer *sdl_renderer;
-SDL_Window *sdl_window;
-int res_x; 
-int res_y;
-bool telaCheia = false;
-Uint32 clear_color;
-
+SDL_Renderer *sdl_renderer = NULL;
 bool uni_init = false;
 bool uni_debug = false;
 
@@ -20,6 +14,10 @@ Uint64 tempoAntes;		// tempo em ticks
 Uint32 maxFPS;
 double framerate;
 Uint32 framerateMs;		// framerate em microsegundos
+
+Janela janela;
+int res_x; 
+int res_y;
 
 MixadorDeAudios mixador_de_audios;
 
@@ -43,48 +41,21 @@ EventosTeclado teclado;
 EventosJoysticks joysticks;
 EventosTelaDeToque telaDeToque;
 
-bool uniInicializar(int resolucao_x, int resolucao_y, bool tela_cheia, string titulo_janela)
+bool uniInicializar(int largura_tela, int altura_tela, bool tela_cheia, string titulo_janela)
 {
 	//	inicializa SDL
 	SDL_Init( SDL_INIT_EVERYTHING );
 
-	//	inicializa video
-	if(tela_cheia)
-		sdl_window = SDL_CreateWindow(titulo_janela.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
-	else
-		sdl_window = SDL_CreateWindow(titulo_janela.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resolucao_x, resolucao_y, SDL_WINDOW_SHOWN);
-
-	if(sdl_window == NULL)
+	//	cria janela principal
+	bool janela_ok = janela.criar(largura_tela, altura_tela, tela_cheia, titulo_janela);
+	if(!janela_ok)
 	{
-        //	ERRO
-        return false;
-    }
-
-	sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE /*| SDL_RENDERER_PRESENTVSYNC*/);
-
-	if(sdl_renderer == NULL)
-	{
-        //	ERRO
-        return false;
-    }
-
-	clear_color = ((255 & 0x0ff) << 24) | ((0 & 0x0ff) << 16) | ((0 & 0x0ff) << 8 ) | ( 0 & 0x0ff);
-	Uint8 a = (clear_color >> 24) & 0x0ff;
-	Uint8 r = (clear_color >> 16) & 0x0ff;
-	Uint8 g = (clear_color >>  8) & 0x0ff;
-	Uint8 b = (clear_color) & 0x0ff;
-
-	SDL_SetRenderDrawColor(sdl_renderer, r, g, b, a);
-	SDL_SetRenderDrawBlendMode(sdl_renderer, SDL_BLENDMODE_BLEND);
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");  // nao usa nenhum tipo de interpolacao para fazer a escala
-	SDL_RenderSetLogicalSize(sdl_renderer, resolucao_x, resolucao_y);
-
-	SDL_RenderClear(sdl_renderer);
-	SDL_RenderPresent(sdl_renderer);
-
-	telaCheia = tela_cheia;
-	res_x = resolucao_x; 
-	res_y = resolucao_y;
+		return false;
+	}
+	sdl_renderer = janela.sdl_renderer;
+	//	mantido para compatibilidade
+	res_x = largura_tela;
+	res_y = altura_tela;
 
 	//	inicializa audio
 	bool mixador_init_ok = mixador_de_audios.inicializar();
@@ -107,6 +78,7 @@ bool uniInicializar(int resolucao_x, int resolucao_y, bool tela_cheia, string ti
 	}
 
 	//	inicializa handlers de eventos
+	eventos.janela = &janela;
 	eventos.aplicacao = &aplicacao;
 	eventos.mouse = &mouse;
 	eventos.teclado = &teclado;
@@ -150,9 +122,8 @@ void uniFinalizar()
 	// finaliza audio
 	mixador_de_audios.finalizar();
 
-	//	finaliza video
-	SDL_DestroyRenderer(sdl_renderer);
-	SDL_DestroyWindow(sdl_window);
+	//	destroi janela principal
+	janela.destruir();
 
 	//	finaliza SDL
 	SDL_Quit();
@@ -189,6 +160,10 @@ void uniIniciarFrame(bool sleep_loop)
 	uniControlarFramerate(sleep_loop);
 
 	uniProcessarEventos();
+
+	//	mantido somente para compatibilidade
+	res_x = janela.getLarguraTela();
+	res_y = janela.getAlturaTela();
 }
 
 void uniTerminarFrame()
@@ -206,31 +181,6 @@ void uniSetFPS(unsigned int fps)
 	maxFPS = fps;
 	framerate = 1.0/maxFPS;
 	framerateMs = (Uint32)(1000.0/maxFPS);
-}
-
-string uniGetTituloJanela()
-{
-	return SDL_GetWindowTitle(sdl_window);
-}
-
-void uniSetTituloJanela(string titulo_janela)
-{
-	SDL_SetWindowTitle(sdl_window, titulo_janela.c_str());
-}
-
-void uniSetIconeJanela(string arquivo)
-{
-	SDL_Surface *surface = IMG_Load(arquivo.c_str());
-	if(surface)
-	{
-		SDL_SetWindowIcon(sdl_window, surface);
-		SDL_FreeSurface(surface);
-	}
-}
-
-bool uniEstaEmModoTelaCheia()
-{
-	return telaCheia;
 }
 
 Fonte* uniGetFontePadrao()
@@ -277,11 +227,11 @@ void processarDebug()
 	if(rect.w < 200)
 		rect.w = 200;
 
-	if(rect.w > res_x)
-		rect.w = res_x;
+	if(rect.w > janela.getLarguraTela())
+		rect.w = janela.getLarguraTela();
 
-	SDL_SetRenderDrawColor(sdl_renderer, 128, 128, 128, 128);
-	SDL_RenderFillRect(sdl_renderer, &rect);
+	SDL_SetRenderDrawColor(janela.sdl_renderer, 128, 128, 128, 128);
+	SDL_RenderFillRect(janela.sdl_renderer, &rect);
 
 	Texto t;
 	t.setFonte(uniGetFontePadrao());
@@ -411,25 +361,20 @@ void uniDepurar(string chave, char valor)
 	uniDepurar(chave,temp);
 }
 
-void uniSetCorDeFundo(int vermelho, int verde, int azul)
-{
-	clear_color = ((255 & 0x0ff) << 24) | ((vermelho & 0x0ff) << 16) | ((verde & 0x0ff) << 8 ) | (azul & 0x0ff);
-}
-
 void uniDesenharPixel(int x,int y, int vermelho, int verde, int azul, int opaciade)
 {
 	if(!uni_init) return;
 
-	SDL_SetRenderDrawColor(sdl_renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, (Uint8)opaciade); 
-	SDL_RenderDrawPoint(sdl_renderer, x, y);
+	SDL_SetRenderDrawColor(janela.sdl_renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, (Uint8)opaciade); 
+	SDL_RenderDrawPoint(janela.sdl_renderer, x, y);
 }
 
 void uniDesenharLinha(int x1,int y1, int x2,int y2, int vermelho, int verde, int azul, int opaciade)
 {
 	if(!uni_init) return;
 
-	SDL_SetRenderDrawColor(sdl_renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, (Uint8)opaciade); 
-	SDL_RenderDrawLine(sdl_renderer, x1, y1, x2, y2); 
+	SDL_SetRenderDrawColor(janela.sdl_renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, (Uint8)opaciade); 
+	SDL_RenderDrawLine(janela.sdl_renderer, x1, y1, x2, y2); 
 }
 
 void uniDesenharCirculo(int x, int y, float raio, int num_segmentos, int vermelho, int verde, int azul)
@@ -538,23 +483,13 @@ void uniDesenharTexto(string txt, int x, int y, int cR, int cG, int cB, float an
 	t.desenhar(x, y);
 }
 
-void uniDesenharFrame(bool limpa)
+void uniDesenharFrame(bool limpar)
 {
 	if(!uni_init) return;
 
 	processarDebug();
-
-	SDL_RenderPresent(sdl_renderer);
+	janela.desenhar();
 	
-	if(limpa) 
-	{
-		Uint8 a = (clear_color >> 24) & 0x0ff;
-		Uint8 r = (clear_color >> 16) & 0x0ff;
-		Uint8 g = (clear_color >>  8) & 0x0ff;
-		Uint8 b = (clear_color) & 0x0ff;
-
-		SDL_SetRenderDrawColor(sdl_renderer, r, g, b, a);
-		SDL_RenderClear(sdl_renderer);		
-	}
-
+	if(limpar) 
+		janela.limpar();
 }

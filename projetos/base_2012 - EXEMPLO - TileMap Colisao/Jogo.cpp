@@ -95,7 +95,7 @@ void Jogo::executar()
 		mapa.desenhar();
 
 		//	11) desenhar texto da colisao
-		texto.desenhar(res_x/2, res_y/5);
+		texto.desenhar(janela.getLarguraTela()/2, janela.getAlturaTela()/5);
 
 		uniTerminarFrame();
 	}

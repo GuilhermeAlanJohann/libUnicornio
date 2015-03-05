@@ -66,11 +66,11 @@ bool TileMap::carregar(string arquivo)
 	altura_tile= root.get("tileheight", 0).asInt();
 
 	// posicionar tile (0, 0) no canto superior esquerdo da tela e centralizar o mapa, caso ele caiba inteiro na tela
-	if(largura_em_tiles*largura_tile < res_x)
-		desloc_x = ((float)(res_x)/(float)(largura_tile) - (float)(largura_em_tiles))/2.0f;
+	if(largura_em_tiles*largura_tile < janela.getLarguraTela())
+		desloc_x = ((float)(janela.getLarguraTela())/(float)(largura_tile) - (float)(largura_em_tiles))/2.0f;
 
-	if(altura_em_tiles*altura_tile < res_y)
-		desloc_y = ((float)(res_y)/(float)(altura_tile) - (float)(altura_em_tiles))/2.0f;
+	if(altura_em_tiles*altura_tile < janela.getAlturaTela())
+		desloc_y = ((float)(janela.getAlturaTela())/(float)(altura_tile) - (float)(altura_em_tiles))/2.0f;
 
 	x = 0.0f;
 	y = 0.0f;
@@ -330,8 +330,8 @@ bool TileMap::estaCarregado()
 
 void TileMap::desenhar()
 {
-	float tiles_na_tela_x = (float)(res_x)/(float)largura_tile;
-	float tiles_na_tela_y = (float)(res_y)/(float)altura_tile;
+	float tiles_na_tela_x = (float)(janela.getLarguraTela())/(float)largura_tile;
+	float tiles_na_tela_y = (float)(janela.getAlturaTela())/(float)altura_tile;
 
 	if(tiles_na_tela_x > largura_em_tiles)
 		tiles_na_tela_x = largura_em_tiles;
@@ -626,7 +626,7 @@ int TileMap::getAlturaTile()
 
 int TileMap::getNumTilesNaTelaEmX()
 {
-	float tiles_na_tela_em_x = (float)(res_x)/(float)(largura_tile);
+	float tiles_na_tela_em_x = (float)(janela.getLarguraTela())/(float)(largura_tile);
 
 	if(tiles_na_tela_em_x > largura_em_tiles)
 		tiles_na_tela_em_x = largura_em_tiles;
@@ -636,7 +636,7 @@ int TileMap::getNumTilesNaTelaEmX()
 
 int TileMap::getNumTilesNaTelaEmY()
 {
-	float tiles_na_tela_em_y = (float)(res_y)/(float)(altura_tile);
+	float tiles_na_tela_em_y = (float)(janela.getAlturaTela())/(float)(altura_tile);
 
 	if(tiles_na_tela_em_y > altura_em_tiles)
 		tiles_na_tela_em_y = altura_em_tiles;

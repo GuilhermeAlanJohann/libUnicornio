@@ -57,6 +57,18 @@ void EventosJoysticks::processarEvento(const SDL_Event& evento)
 				joy->yDir = evento.caxis.value/32767.0;
 				filtrarInput(joy->yDir, joy);
 				break;
+
+			//	nao testado
+			case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
+				joy->z = evento.caxis.value/32767.0;
+				filtrarInput(joy->z, joy);
+				break;
+
+			//	nao testado
+			case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
+				joy->zDir = evento.caxis.value/32767.0;
+				filtrarInput(joy->zDir, joy);
+				break;
 			}
 		}
 		break;

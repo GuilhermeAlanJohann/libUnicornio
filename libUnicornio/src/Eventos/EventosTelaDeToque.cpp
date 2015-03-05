@@ -91,30 +91,30 @@ Toque EventosTelaDeToque::gerarToque(const SDL_TouchFingerEvent& evento)
 
 void EventosTelaDeToque::calcularPosicaoEmPixels(Toque& toque)
 {
-	toque.x = toque.nx*res_x;
-	toque.y = toque.ny*res_y;
-	toque.dx = toque.ndx*res_x;
-	toque.dy = toque.ndy*res_y;
+	toque.x = toque.nx*janela.getLarguraTela();
+	toque.y = toque.ny*janela.getAlturaTela();
+	toque.dx = toque.ndx*janela.getLarguraTela();
+	toque.dy = toque.ndy*janela.getAlturaTela();
 }
 
 void EventosTelaDeToque::corrigirPosicaoFullscreen(Toque& toque)
 {
-	if(!uniEstaEmModoTelaCheia())
+	if(!janela.estaEmTelaCheia())
 		return;
 
 	SDL_Rect display;
 	SDL_GetDisplayBounds(0, &display);
 
-	float ratio = (float)res_x/(float)res_y;
+	float ratio = (float)janela.getLarguraTela()/(float)janela.getAlturaTela();
 	float larguraEscalada;
 	float alturaEscalada;
 		
-	if(res_x/(float)display.w < res_y/(float)display.h)			//	tarjas nas laterais
+	if(janela.getLarguraTela()/(float)display.w < janela.getAlturaTela()/(float)display.h)			//	tarjas nas laterais
 	{
 		larguraEscalada = display.h*ratio;
 		alturaEscalada = larguraEscalada/ratio;	
 	}
-	else if(res_y/(float)display.h < res_x/(float)display.w)	//	tarjas em cima e em baixo
+	else if(janela.getAlturaTela()/(float)display.h < janela.getLarguraTela()/(float)display.w)	//	tarjas em cima e em baixo
 	{
 		alturaEscalada = display.w/ratio;
 		larguraEscalada = alturaEscalada*ratio;
@@ -126,8 +126,8 @@ void EventosTelaDeToque::corrigirPosicaoFullscreen(Toque& toque)
 	}
 
 	toque.x = toque.x - (display.w - larguraEscalada)/2;
-	toque.x = toque.x*(res_x/(float)larguraEscalada);
+	toque.x = toque.x*(janela.getLarguraTela()/(float)larguraEscalada);
 	
 	toque.y = toque.y - (display.h - alturaEscalada)/2;
-	toque.y = toque.y*(res_y/(float)alturaEscalada);
+	toque.y = toque.y*(janela.getAlturaTela()/(float)alturaEscalada);
 }

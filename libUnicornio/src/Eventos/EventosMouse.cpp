@@ -48,8 +48,8 @@ void EventosMouse::atualizar()
 
 	SDL_GetMouseState(&x, &y);
 	corrigirPosicaoFullscreen();
-	nx = (float)x/(float)res_x;
-	ny = (float)y/(float)res_y;
+	nx = (float)x/(float)janela.getLarguraTela();
+	ny = (float)y/(float)janela.getAlturaTela();
 
 	dx = x - xAnt;
 	dy = y - yAnt;
@@ -71,8 +71,8 @@ void EventosMouse::processarEvento(const SDL_Event& evento)
 
 		x = evento.button.x;
 		y = evento.button.y;
-		nx = (float)x/(float)res_x;
-		ny = (float)y/(float)res_y;
+		nx = (float)x/(float)janela.getLarguraTela();
+		ny = (float)y/(float)janela.getAlturaTela();
 
 		//	deve-se somar, pois este evento pode ocorrer mais de uma vez em um mesmo frame;
 		dx += x - xAnt;
@@ -116,22 +116,22 @@ void EventosMouse::processarEvento(const SDL_Event& evento)
 
 void EventosMouse::corrigirPosicaoFullscreen()
 {
-	if(!uniEstaEmModoTelaCheia())
+	if(!janela.estaEmTelaCheia())
 		return;
 
 	SDL_Rect display;
 	SDL_GetDisplayBounds(0, &display);
 
-	float ratio = (float)res_x/(float)res_y;
+	float ratio = (float)janela.getLarguraTela()/(float)janela.getAlturaTela();
 	float larguraEscalada;
 	float alturaEscalada;
 		
-	if(res_x/(float)display.w < res_y/(float)display.h)			//	tarjas nas laterais
+	if(janela.getLarguraTela()/(float)display.w < janela.getAlturaTela()/(float)display.h)			//	tarjas nas laterais
 	{
 		larguraEscalada = display.h*ratio;
 		alturaEscalada = larguraEscalada/ratio;	
 	}
-	else if(res_y/(float)display.h < res_x/(float)display.w)	//	tarjas em cima e em baixo
+	else if(janela.getAlturaTela()/(float)display.h < janela.getLarguraTela()/(float)display.w)	//	tarjas em cima e em baixo
 	{
 		alturaEscalada = display.w/ratio;
 		larguraEscalada = alturaEscalada*ratio;
@@ -143,10 +143,10 @@ void EventosMouse::corrigirPosicaoFullscreen()
 	}
 
 	x = x - (display.w - larguraEscalada)/2;
-	x = x*(res_x/(float)larguraEscalada);
+	x = x*(janela.getLarguraTela()/(float)larguraEscalada);
 	
 	y = y - (display.h - alturaEscalada)/2;
-	y = y*(res_y/(float)alturaEscalada);
+	y = y*(janela.getAlturaTela()/(float)alturaEscalada);
 }
 
 void EventosMouse::esconderCursor()
@@ -163,7 +163,7 @@ void EventosMouse::posicionarEm(int x, int y)
 {
 	this->x = x;
 	this->y = y;
-	SDL_WarpMouseInWindow(sdl_window, x, y);
-	nx = (float)x/(float)res_x;
-	ny = (float)y/(float)res_y;
+	SDL_WarpMouseInWindow(janela.sdl_window, x, y);
+	nx = (float)x/(float)janela.getLarguraTela();
+	ny = (float)y/(float)janela.getAlturaTela();
 }

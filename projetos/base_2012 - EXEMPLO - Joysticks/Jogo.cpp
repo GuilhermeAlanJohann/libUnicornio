@@ -22,7 +22,7 @@ void Jogo::inicializar()
 	for(int i = 0; i < MAXIMO_DE_PLAYERS; ++i)
 	{
 		//	posicao
-		players[i].setPos(res_x/5 * (i+1), res_y/2);
+		players[i].setPos(janela.getLarguraTela()/5 * (i+1), janela.getAlturaTela()/2);
 	}
 	//	spritesheets
 	players[0].setSpriteSheet("player1");

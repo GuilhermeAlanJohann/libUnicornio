@@ -44,7 +44,7 @@ void Jogo::executar()
 		uniIniciarFrame();
 
 		//	3)	Desenhar o texto (x, y, rot)
-		texto.desenhar(res_x/2, res_y/2);		//	bem no meio da tela
+		texto.desenhar(janela.getLarguraTela()/2, janela.getAlturaTela()/2);		//	bem no meio da tela
 
 		uniTerminarFrame();
 	}

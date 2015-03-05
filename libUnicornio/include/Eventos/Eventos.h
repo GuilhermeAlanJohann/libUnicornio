@@ -4,6 +4,7 @@
 #include "SDL_events.h"
 #include "SDL_joystick.h"
 #include "InputEnums.h"
+#include "Janela.h"
 #include <vector>
 #include <queue>
 
@@ -106,7 +107,7 @@ public:
 struct Joystick
 {
 public:
-	Joystick(): id(-1), deadZone(0.2f), x(0), y(0), xDir(0), yDir(0), js(NULL)
+	Joystick(): id(-1), deadZone(0.2f), x(0), y(0), z(0), xDir(0), yDir(0), zDir(0), js(NULL)
 	{
 		for(int i = 0; i < NUMERO_DE_BOTOES_JOYSTICK; ++i)
 		{
@@ -124,9 +125,11 @@ public:
 
 	float x;
 	float y;
+	float z;
 
 	float xDir;
 	float yDir;
+	float zDir;
 
 	bool pressionou[NUMERO_DE_BOTOES_JOYSTICK];
 	bool segurando[NUMERO_DE_BOTOES_JOYSTICK];
@@ -199,23 +202,6 @@ private:
 	void corrigirPosicaoFullscreen(Toque& toque);
 };
 
-class EventosiOS
-{
-public:
-	EventosiOS();
-	~EventosiOS();
-
-	void atualizar();
-	void processarEvento(const SDL_Event& evento);
-
-	bool appEstaTerminando;
-	bool appTemPoucaMemoria;
-	bool appVaiEntrarEmPlanoDeFundo;
-	bool appEntrouEmPlanoDeFundo;
-	bool appVaiEntrarEmPrimeiroPlano;
-	bool appEntrouEmPrimeiroPlano;
-};
-
 class EventosAplicacao
 {
 public:
@@ -226,7 +212,13 @@ public:
 	void processarEvento(const SDL_Event& evento);
 
 	bool sair;
-	EventosiOS iOS;
+
+	bool appEstaTerminando;
+	bool appTemPoucaMemoria;
+	bool appVaiEntrarEmPlanoDeFundo;
+	bool appEntrouEmPlanoDeFundo;
+	bool appVaiEntrarEmPrimeiroPlano;
+	bool appEntrouEmPrimeiroPlano;
 };
 
 class Eventos
@@ -246,6 +238,7 @@ public:
 	int registrarEventoDeUsuario();
 	void adicionarEventoDeUsuario(int tipo, int codigo = 0, void *dado1 = NULL, void *dado2 = NULL);
 
+	Janela *janela;
 	EventosAplicacao *aplicacao;
 	EventosMouse *mouse;
 	EventosTeclado *teclado;

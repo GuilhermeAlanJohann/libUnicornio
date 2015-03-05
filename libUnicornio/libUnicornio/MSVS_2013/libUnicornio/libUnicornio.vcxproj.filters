@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="..\..\..\include\libUnicornio.h" />
-    <ClInclude Include="..\..\..\include\versao_lib.h" />
     <ClInclude Include="..\..\..\include\Eventos\Eventos.h">
       <Filter>Eventos</Filter>
     </ClInclude>
@@ -66,6 +65,9 @@
     <ClInclude Include="..\..\..\include\TileMap\CamadaDeTiles.h">
       <Filter>TileMap</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\Janela.h" />
+    <ClInclude Include="..\..\..\include\uniConfig.h" />
+    <ClInclude Include="..\..\..\include\uniPlataformas.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Interface">
@@ -96,9 +98,6 @@
       <Filter>Eventos</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Eventos\EventosAplicacao.cpp">
-      <Filter>Eventos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Eventos\EventosiOS.cpp">
       <Filter>Eventos</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Eventos\EventosJoysticks.cpp">
@@ -176,5 +175,6 @@
     <ClCompile Include="..\..\..\src\TileMap\CamadaDeTiles.cpp">
       <Filter>TileMap</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Janela.cpp" />
   </ItemGroup>
 </Project>

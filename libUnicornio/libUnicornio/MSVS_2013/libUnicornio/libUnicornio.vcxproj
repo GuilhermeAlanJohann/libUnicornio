@@ -17,6 +17,7 @@
     <ClInclude Include="..\..\..\include\Eventos\InputEnums.h" />
     <ClInclude Include="..\..\..\include\GerenciadorDeRecursos.h" />
     <ClInclude Include="..\..\..\include\Interface\BotaoSprite.h" />
+    <ClInclude Include="..\..\..\include\Janela.h" />
     <ClInclude Include="..\..\..\include\libUnicornio.h" />
     <ClInclude Include="..\..\..\include\Midia\Audio.h" />
     <ClInclude Include="..\..\..\include\Midia\Fonte.h" />
@@ -34,7 +35,8 @@
     <ClInclude Include="..\..\..\include\TileMap\Tile.h" />
     <ClInclude Include="..\..\..\include\TileMap\TileMap.h" />
     <ClInclude Include="..\..\..\include\TileMap\TileSet.h" />
-    <ClInclude Include="..\..\..\include\versao_lib.h" />
+    <ClInclude Include="..\..\..\include\uniConfig.h" />
+    <ClInclude Include="..\..\..\include\uniPlataformas.h" />
     <ClInclude Include="..\..\..\include\Vetor2D.h" />
   </ItemGroup>
   <ItemGroup>
@@ -43,13 +45,13 @@
     <ClCompile Include="..\..\..\src\Eventos\Eventos.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosAplicacao.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosInputTexto.cpp" />
-    <ClCompile Include="..\..\..\src\Eventos\EventosiOS.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosJoysticks.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosMouse.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosTeclado.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosTelaDeToque.cpp" />
     <ClCompile Include="..\..\..\src\GerenciadorDeRecursos.cpp" />
     <ClCompile Include="..\..\..\src\Interface\BotaoSprite.cpp" />
+    <ClCompile Include="..\..\..\src\Janela.cpp" />
     <ClCompile Include="..\..\..\src\json\jsoncpp.cpp" />
     <ClCompile Include="..\..\..\src\libUnicornio.cpp" />
     <ClCompile Include="..\..\..\src\Midia\Audio.cpp" />

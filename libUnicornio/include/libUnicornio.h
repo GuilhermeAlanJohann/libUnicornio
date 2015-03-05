@@ -35,7 +35,8 @@ SOFTWARE.
 #ifndef UNI_LIBUNICORNIO_H
 #define UNI_LIBUNICORNIO_H
 
-#include "versao_lib.h"
+#include "uniPlataformas.h"
+#include "uniConfig.h"
 #include "json/json.h"
 #include <string>
 #include <vector>
@@ -47,13 +48,13 @@ using namespace std;
 #endif
 
 extern SDL_Renderer *sdl_renderer;
-extern SDL_Window *sdl_window;
-extern int res_x; 
-extern int res_y;
-
 extern bool uni_init;
 extern double deltaTempo;
 
+#include "Janela.h"
+extern Janela janela;
+extern int res_x;	//	OBSOLETO ( usar janela.getLarguraTela() )
+extern int res_y;	//	OBSOLETO ( usar janela.getAlturaTela() )
 
 #include "MixadorDeAudios.h"
 extern MixadorDeAudios mixador_de_audios;
@@ -71,7 +72,7 @@ extern EventosTelaDeToque telaDeToque;
 
 class Vetor2D;
 
-bool UNI_CALL_CONV uniInicializar(int resolucao_x, int resolucao_y, bool tela_cheia = false, string titulo_janela = "libUNICORNIO");
+bool UNI_CALL_CONV uniInicializar(int largura_tela, int altura_tela, bool tela_cheia = false, string titulo_janela = "libUNICORNIO");
 void UNI_CALL_CONV uniFinalizar();
 
 void UNI_CALL_CONV uniIniciarFrame(bool sleep_loop = true);
@@ -79,13 +80,6 @@ void UNI_CALL_CONV uniTerminarFrame();
 
 unsigned int UNI_CALL_CONV uniGetFPS();
 void UNI_CALL_CONV uniSetFPS(unsigned int fps);
-
-string UNI_CALL_CONV uniGetTituloJanela();
-void UNI_CALL_CONV uniSetTituloJanela(string titulo_janela);
-
-void UNI_CALL_CONV uniSetIconeJanela(string arquivo);
-
-bool UNI_CALL_CONV uniEstaEmModoTelaCheia();
 
 Fonte* UNI_CALL_CONV uniGetFontePadrao();
 
@@ -106,15 +100,13 @@ void UNI_CALL_CONV uniDepurar(string chave, double valor);
 void UNI_CALL_CONV uniDepurar(string chave, float valor);
 void UNI_CALL_CONV uniDepurar(string chave, char valor);
 
-void UNI_CALL_CONV uniSetCorDeFundo(int vermelho, int verde, int azul);
-
 void UNI_CALL_CONV uniDesenharPixel(int x, int y, int vermelho, int verde, int azul, int opaciade = 255);
 void UNI_CALL_CONV uniDesenharLinha(int x1, int y1, int x2, int y2, int vermelho, int verde, int azul, int opaciade = 255);
 void UNI_CALL_CONV uniDesenharCirculo(int x, int y, float raio, int num_segmentos, int vermelho = 255, int verde = 255, int azul = 255);
 void UNI_CALL_CONV uniDesenharRetangulo(int x, int y, float rot, int largura, int altura, float ancora_x, float ancora_y, int vermelho = 255, int verde = 255, int azul = 255);
 void UNI_CALL_CONV uniDesenharPoligono(int x, int y, float rot, Vetor2D* pontos, int num_pontos, int vermelho = 255, int verde = 255, int azul = 255);
 void UNI_CALL_CONV uniDesenharTexto(string txt, int x, int y, int cR=255, int cG=255, int cB=255, float ancora_x = 0.5f, float ancora_y = 0.5f);
-void UNI_CALL_CONV uniDesenharFrame(bool limpa = true);
+void UNI_CALL_CONV uniDesenharFrame(bool limpar = true);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 

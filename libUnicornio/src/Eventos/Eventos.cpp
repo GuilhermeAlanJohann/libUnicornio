@@ -1,5 +1,4 @@
 #include "Eventos.h"
-#include "libUnicornio.h"
  
 Eventos::Eventos()
 {
@@ -18,6 +17,7 @@ Eventos::~Eventos()
 
 void Eventos::atualizar()
 {
+	janela->limparEventos();
 	aplicacao->atualizar();
 	mouse->atualizar();
 	teclado->atualizar();
@@ -30,6 +30,7 @@ void Eventos::atualizar()
 	SDL_Event evento;
 	while(SDL_PollEvent(&evento))
 	{
+		janela->processarEvento(evento);
 		aplicacao->processarEvento(evento);
 		mouse->processarEvento(evento);
 		teclado->processarEvento(evento);

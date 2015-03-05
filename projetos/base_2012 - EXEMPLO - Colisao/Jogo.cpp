@@ -53,8 +53,8 @@ void Jogo::descarregarSpriteSheets()
 void Jogo::inicializarNave()
 {
 	int x, y;
-	x = res_x/2;
-	y = res_y - 30;
+	x = janela.getLarguraTela()/2;
+	y = janela.getAlturaTela() - 30;
 
 	nave.setSpriteSheet("nave");
 	nave.setPos(x, y);
@@ -63,7 +63,7 @@ void Jogo::inicializarNave()
 void Jogo::inicializarTiro()
 {
 	int x, y;
-	x = res_x/2;
+	x = janela.getLarguraTela()/2;
 	y = -20;
 
 	tiro.setSpriteSheet("tiro");

@@ -23,9 +23,9 @@ void Menu::inicializar()
 	botaoAzul.setSpriteSheet("botao_azul");
 
 	//	posiciona os botoes
-	botaoVermelho.setPos(res_x/2, res_y/2 - 100);
-	botaoVerde.setPos(res_x/2, res_y/2);
-	botaoAzul.setPos(res_x/2, res_y/2 + 100);
+	botaoVermelho.setPos(janela.getLarguraTela()/2, janela.getAlturaTela()/2 - 100);
+	botaoVerde.setPos(janela.getLarguraTela()/2, janela.getAlturaTela()/2);
+	botaoAzul.setPos(janela.getLarguraTela()/2, janela.getAlturaTela()/2 + 100);
 
 }
 
@@ -46,11 +46,11 @@ void Menu::atualizar()
 
 	//	processa os cliques nos botoes
 	if(botaoVermelho.estaClicado())
-		uniSetCorDeFundo(255, 0, 0);	//	muda cor de fundo para vermelho
+		janela.setCorDeFundo(255, 0, 0);	//	muda cor de fundo para vermelho
 	if(botaoVerde.estaClicado())
-		uniSetCorDeFundo(0, 255, 0);	//	muda cor de fundo para verde
+		janela.setCorDeFundo(0, 255, 0);	//	muda cor de fundo para verde
 	if(botaoAzul.estaClicado())
-		uniSetCorDeFundo(0, 0, 255);	//	muda cor de fundo para azul
+		janela.setCorDeFundo(0, 0, 255);	//	muda cor de fundo para azul
 }
 
 void Menu::desenhar()

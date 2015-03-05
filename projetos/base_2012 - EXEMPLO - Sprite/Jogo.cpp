@@ -11,7 +11,7 @@ Jogo::~Jogo()
 void Jogo::inicializar()
 {
 	uniInicializar(800, 600, false);
-
+	
 	//	1)	carregar spritesheet
 	//		este método recebe como parametro:
 	//			1 - um nome qualquer para o spritesheet
@@ -32,7 +32,7 @@ void Jogo::inicializar()
 
 	//	2)	inicializar personagem (setar spritesheet, posicao e velocidade)
 	per.setSpriteSheet("player");		//	passando o nome dado ao spritesheet!
-	per.setPos(res_x/2, res_y/2);		//	bem no meio da tela
+	per.setPos(janela.getLarguraTela()/2, janela.getAlturaTela()/2);	//	bem no meio da tela
 	per.setVel(0.4);
 }
 
