@@ -39,7 +39,7 @@ void EventosTeclado::processarEvento(const SDL_Event& evento)
 	{
 	case SDL_KEYDOWN:
 		{
-			Uint8 scancode = evento.key.keysym.scancode;
+			Uint16 scancode = evento.key.keysym.scancode;
 
 			if(evento.key.state == SDL_PRESSED && !segurando[scancode])
 			{
@@ -52,7 +52,8 @@ void EventosTeclado::processarEvento(const SDL_Event& evento)
 
 	case SDL_KEYUP:
 		{
-			Uint8 scancode = evento.key.keysym.scancode;
+			Uint16 scancode = evento.key.keysym.scancode;
+
 			segurando[scancode] = false;
 
 			if(evento.key.state == SDL_RELEASED)
