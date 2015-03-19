@@ -18,32 +18,60 @@ Se for necessário (provavelmente será), arrume o caminho para os arquivos de t
 
 * Salve o arquivo novamente e ele estará pronto para usar com a libUnicornio.
 
+```json
+{
+  ...
+  "tilesets":[
+        {
+         ...
+         "image":"dados/tilemaps/tilesets/tileset_campo.png", // <--
+         "name":"tileset campo",
+         ...
+        }
+  ],
+  ...
+}
+```
+
 ## Configuração do TileSet
 
-Para configurar um tileset você deve criar um arquivo de texto com o seguinte formato:
+Antes de poder partir para o código do jogo é preciso criar a configuração do TileSet. Esta configuração ficara dentro de um arquivo txt setado pelo caminho que está dentro do arquivo json do tilemap:
 
-```c
-<caminho para o tileset>
-<largura dos tiles> <altura dos tiles>
-
-*
-<matriz de 0 e 1 que diz se o tile é caminhavel ou não>
-
-*
-<matriz de 0 à 2 que diz o nível de um tile, em relação aos objetos.
-0 == abaixo dos objetos
-1 == no nivel dos objetos
-2 == acima dos objetos>
-
-*
-<matriz de inteiros que informa o custo adicional de tile 
- na hora de calcular o caminho com o algoritmo A* esta 
- informação é usada apenas pelo algorimo de pathfinding A*>
+```json
+{
+  ...
+  "tilesets":[
+        {
+         ...
+         "name":"tileset campo",
+         "properties":
+            {
+             "config":"dados\/tilemaps\/tileset_configs\/campo config.txt"  // <--
+            },
+         ...
+        }
+  ],
+  ...
+}
 ```
+
+A configuração possui as seguintes informações:
+
+* O caminho da imagem tileset.
+* O tamanho de cada tile, largura e altura.
+* Matriz com os pontos que são caminhaveis pelos objetos do jogo através de mapeamentos.
+    * 0 - não caminhavel
+    * 1 - caminhavel
+* Matriz do nível de cada tile em relação aos objetos.
+    * 0 - abaixo dos objetos
+    * 1 - no nivel dos objetos
+    * 2 - acima dos objetos
+* Matriz de inteiros que informa o custo adicional de tile na hora de calcular o caminho com o algoritmo A\* esta 
+informação é usada apenas pelo algorimo de pathfinding A\*.
 
 Exemplo da configuração de um tilemap de um campo.
 
-```
+```json
 dados/tilemaps/tilesets/tileset_campo.png
 32 32
 
@@ -87,17 +115,29 @@ dados/tilemaps/tilesets/tileset_campo.png
 0 0 0 0 0 0 0 0
 ```
 
+## Carregando o Tilemap
 
+Com todas as configurações prontas, crie uma instância da classe __TileMap__ e carregue o arquivo json.
 
-Após criar este arquivo, você deve informar ao tilemap que ele existe, para que os tiles sejam configurados.
+```c
+// instância de um tilemap
+TileMap mapa;
 
-Isso pode ser feito de 2 modos:
+// carregar o tilemap
+mapa.carregar("dados/tilemaps/mapa_campo.json");
+```
 
-* Modo1 - Durante a criação do tilemap, no editor de tilemaps, crie uma propriedade para o tileset que quer configurar chamada "config", e no campo 'valor' digite o caminho para o arquivo de texto que criou.
+Centralize o mapa de acordo com a tela com o método __setPosCentro__ e desenhe com o método __desenhar__.
 
-* Modo 2 - Em código, após o carregamento do tilemap, use o método _TileMap::carregarConfigTileSet(string nome_tileset, string arquivo)_, passando como paramentro o nome do tileset (definido no editor) e o caminho para o arquivo de texto que criou.
+```c
+// centraliza o mapa
+mapa.setPosCentro(res_x/2, res_y/2);
 
-Pronto! Agora o seu mapa possui tilesets configurados.
+// desenhar o tilemap
+mapa.desenhar();
+```
+
+Com isso você já deve conseguir ver o tilemap sendo renderizado na tela.
 
 ## Exemplos
 
