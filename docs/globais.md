@@ -96,3 +96,12 @@ Esta função é uma forma simples de mudar a cor de fundo da tela.
 //	muda cor de fundo para azul
 uniSetCorDeFundo(0, 0, 255);
 ```
+
+### __uniDepurar__ 
+
+Para depurar os valores das váriaveis e objetos que estão no jogo, você pode utilizar a função global __uniDepurar__, passando uma label e um valor que serão adicionados na tela e desenhados por cima do jogo.
+
+```c
+uniDepurar("x: ", player.getX());
+uniDepurar("y: ", player.getY());
+```

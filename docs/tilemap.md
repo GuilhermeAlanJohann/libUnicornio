@@ -127,17 +127,97 @@ TileMap mapa;
 mapa.carregar("dados/tilemaps/mapa_campo.json");
 ```
 
-Centralize o mapa de acordo com a tela com o método __setPosCentro__ e desenhe com o método __desenhar__.
+Centralize o mapa a partir das coordenadas passadas ao método __setPosCentro__, ficando pronto para ser desenhado na tela com o método __desenhar__.
 
 ```c
 // centraliza o mapa
-mapa.setPosCentro(res_x/2, res_y/2);
+mapa.setPosCentro(35.0, 7.5);
 
 // desenhar o tilemap
 mapa.desenhar();
 ```
 
 Com isso você já deve conseguir ver o tilemap sendo renderizado na tela.
+
+## Carregando Objetos
+
+O TileMap Editor possui uma camada chamada __Camada de Objetos__ onde permite adicionar __objetos__ com informações como posição e tamanho, essas informações são vistas através de seus atributos. É possivel adicionar mais atributos dos que vem por padrão, mas o atributo principal é o __nome__ que será necessário para podermos carregar no jogo.
+
+```c
+// Informe o nome da camada para obtê-la
+CamadaDeObjetos * camadaObjetos =  mapa.getCamadaDeObjetos("Objetos");
+
+// Informe o nome do objeto para obtê-lo
+ObjetoTile * objetoTile = camadaObjetos->getObjeto("Player");
+```
+
+#### Adicionando Sprite
+
+Agora podemos adicionar na inicialização um __Sprite__ ao __ObjetoTile__ e controlar sua animação. 
+
+Ao fazer isso, o sprite passa a ser desenhado automaticamente junto com o mapa, na posição central do objeto, então não é preciso chamar sprite.desenhar(x, y).
+
+```c
+// carregar spritesheet para o player
+recursos.carregarSpriteSheet("player", "dados/spritesheets/player.png", 4, 4);
+
+Sprite sprite;
+
+//  setar spritesheet
+sprite.setSpriteSheet(sheet);
+
+//  setar ancora para os pes do personagem
+sprite.setAncora(0.5, 0.75);
+
+//  set vel anim (4 frames por segundo)
+sprite.setVelocidadeAnimacao(4.0);
+
+//  setar sprite para o objeto
+objetoTile->setSprite(&sprite);
+```
+
+Para mover o ObjetoTile junto com a tela é preciso infomar a posição central do __objetoTile__ e do __mapa__.
+
+```c
+// setar posicao atual para o objeto no mapa
+objetoTile->setPosCentro(35.0, 7.5);
+
+// centraliza o mapa na posicao do objeto
+mapa.setPosCentro(objetoTile->getXCentro(), objetoTile->getYCentro());
+```
+
+#### Movimentando o ObjetoTile
+
+Para verificar se um tile é caminhavel pelo ObjetoTile utilize o método __tileECaminhavel__ passando suas coordenadas.
+
+```c
+if(mapa.tileECaminhavel(36.0, 7.5))
+{
+  ...
+}
+```
+
+Para verificar se a posição em que o ObjetoTile está existe outro objeto, você poderá utilizar o método __existeObjetoDoTipoNaPos__ informando o tipo do objeto e a posição do seu __ObjetoTile__.
+
+```c
+// Váriaveis temporárias para melhor visualização do exemplo
+float x = objetoTile->getXCentro();
+float y = objetoTile->getYCentro();
+
+// Caso haja um objeto do tipo "Arvore Seca" no mesmo tile que o objetoTile
+if(mapa.existeObjetoDoTipoNaPos("Arvore Seca", x, y))
+{
+  // ...
+}
+```
+## Descarregar TileMap
+
+Ao finalizar a execução do jogo, é preciso descarregar os tilemaps que foram carregados.
+
+```c
+// descarregar o tilemap
+mapa.descarregar();
+```
 
 ## Exemplos
 
