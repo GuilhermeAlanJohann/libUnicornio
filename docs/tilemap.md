@@ -139,9 +139,17 @@ mapa.desenhar();
 
 Com isso você já deve conseguir ver o tilemap sendo renderizado na tela.
 
-## Carregando Objetos
+## Usando Objetos
 
-O TileMap Editor possui uma camada chamada __Camada de Objetos__ onde permite adicionar __objetos__ com informações como posição e tamanho, essas informações são vistas através de seus atributos. É possivel adicionar mais atributos dos que vem por padrão, mas o atributo principal é o __nome__ que será necessário para podermos carregar no jogo.
+<!-- O TileMap Editor possui uma camada chamada __Camada de Objetos__ onde permite adicionar __objetos__ com informações como posição e tamanho, essas informações são vistas através de seus atributos. É possivel adicionar mais atributos dos que vem por padrão, mas o atributo principal é o __nome__ que será necessário para podermos carregar no jogo. -->
+
+O TileMap Editor permite você adicionar camadas de objetos ao seu mapa. Esses objetos são usados para representar os objetos do seu jogo (personagens, itens, áreas de colisão, coisas que se movem, etc).  
+
+> Na libUnicornio, esses objetos são chamados de __ObjetoTile__.  
+> Um ObjetoTile possui nome, tipo, posição, tamanho e propriedades.  
+
+Para acessar um objeto, você deve primeiro obter a camada em que este objeto está passando o nome como parâmetro.
+Depois, buscar pelo objeto também passando o nome como parâmetro.
 
 ```c
 // Informe o nome da camada para obtê-la
@@ -151,11 +159,24 @@ CamadaDeObjetos * camadaObjetos =  mapa.getCamadaDeObjetos("Objetos");
 ObjetoTile * objetoTile = camadaObjetos->getObjeto("Player");
 ```
 
-#### Adicionando Sprite
+Agora, com um ponteiro para o objeto você pode acessar seus atributos e propriedades assim: 
 
-Agora podemos adicionar na inicialização um __Sprite__ ao __ObjetoTile__ e controlar sua animação. 
+```c
+float x = objetoTile->getXCentro();
+float y = objetoTile->getYCentro();
 
-Ao fazer isso, o sprite passa a ser desenhado automaticamente junto com o mapa, na posição central do objeto, então não é preciso chamar sprite.desenhar(x, y).
+// setando um texto como propriedade
+string texto = "Um texto qualquer!";
+objetoTile->setPropriedade("texto", texto);
+```
+
+#### Desenhando Objetos
+
+<!-- Agora podemos adicionar na inicialização um __Sprite__ ao __ObjetoTile__ e controlar sua animação.  -->
+
+Para desenhar um objeto junto ao seu TileMap, você vai precisar de um __Sprite__. Inicialize o __Sprite__ previamente e então agregue ele ao __ObjetoTile__ usando o método __setSprite__.
+
+<!-- Ao fazer isso, o sprite passa a ser desenhado automaticamente junto com o mapa, na posição central do objeto, então não é preciso chamar sprite.desenhar(x, y). -->
 
 ```c
 // carregar spritesheet para o player
@@ -176,24 +197,28 @@ sprite.setVelocidadeAnimacao(4.0);
 objetoTile->setSprite(&sprite);
 ```
 
-Para mover o ObjetoTile junto com a tela é preciso infomar a posição central do __objetoTile__ e do __mapa__.
+Dessa forma, o __Sprite__ será desenhado junto ao mapa, na posição central do __ObjetoTile__, sempre que você chamar o método __desenhar__ da classe __TileMap__. 
+
+Essa forma de desenho garante que os objetos sejam desenhados na ordem correta, respeitando o nível de cada tile. Isso permite que os objetos possam em alguns momentos, dependendo da sua posição, serem desenhado na frente, em outros atrás, de alguns tiles. Um típico exemplo disso, é um personagem passando pela frente e por trás de um árvore.
+
+#### Movimentando o ObjetoTile
+
+Para mover o ObjetoTile junto com a tela é preciso infomar a posição central do __objetoTile__ e do __mapa__. Assim caso o __objetoTile__ sejá o personagem sendo controlado, ele irá ficar centralizado na tela.
 
 ```c
 // setar posicao atual para o objeto no mapa
-objetoTile->setPosCentro(35.0, 7.5);
+objetoTile->setPosCentro(x, y);
 
 // centraliza o mapa na posicao do objeto
 mapa.setPosCentro(objetoTile->getXCentro(), objetoTile->getYCentro());
 ```
 
-#### Movimentando o ObjetoTile
-
 Para verificar se um tile é caminhavel pelo ObjetoTile utilize o método __tileECaminhavel__ passando suas coordenadas.
 
 ```c
-if(mapa.tileECaminhavel(36.0, 7.5))
+if(mapa.tileECaminhavel(x, y))
 {
-  ...
+  // ...
 }
 ```
 
