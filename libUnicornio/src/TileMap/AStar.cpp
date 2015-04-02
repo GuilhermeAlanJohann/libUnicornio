@@ -1,5 +1,5 @@
 #include "AStar.h"
-#include <algorithm>
+//#include <algorithm>
 #include "libUnicornio.h"
 
 AStar::AStar()
@@ -39,14 +39,9 @@ void AStar::inicializar(TileMap* mapa)
 	largura_em_tiles = mapa->getLarguraEmTiles();
 	altura_em_tiles = mapa->getAlturaEmTiles();
 
-	int larg_tile = mapa->getLarguraTile();
-	int alt_tile = mapa->getAlturaTile();
-
 	grade.resize(largura_em_tiles);
 	for(int i = 0; i < largura_em_tiles; ++i)
 		grade[i].resize(altura_em_tiles);
-
-	int num_camadas = mapa->getNumCamadasDeTiles();
 
 	for(int i = 0; i < largura_em_tiles; ++i)
 		for(int j = 0; j < altura_em_tiles; ++j)
@@ -142,7 +137,7 @@ int AStar::calcularHeuristica(float origem_x, float origem_y, float destino_x, f
 			return ( custoLateral * (abs(origem_x-destino_x) + abs(origem_y-destino_y)) );
 
 		case HEURISTICA_EUCLIDEANA: 
-			return ( custoLateral * sqrt(pow(origem_x-destino_x,2.0) + pow(origem_y-destino_y,2.0)) );
+			return ( custoLateral * sqrt(pow(origem_x-destino_x,2.0f) + pow(origem_y-destino_y,2.0f)) );
 
 		case HEURISTICA_DIAGONAL:
 		{
@@ -267,7 +262,7 @@ bool AStar::executarUmPasso()
 NodoAStar* AStar::processarNodoComMenorCustoF()
 {
 	if(listaAberta.empty()) 
-		return false; 
+		return NULL;
 
 	int menorF;
 	vector<NodoAStar*>::iterator itMenorF;

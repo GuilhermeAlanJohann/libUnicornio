@@ -35,8 +35,12 @@ SOFTWARE.
 #ifndef UNI_LIBUNICORNIO_H
 #define UNI_LIBUNICORNIO_H
 
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_ttf.h"
+#include "SDL_mixer.h"
+
 #include "uniPlataformas.h"
-#include "uniConfig.h"
 #include "json/json.h"
 #include <string>
 #include <vector>
@@ -44,7 +48,11 @@ SOFTWARE.
 using namespace std;
 
 #ifndef UNI_CALL_CONV
-	#define UNI_CALL_CONV _cdecl
+    #if UNI_PLATAFORMA_WINDOWS
+	    #define UNI_CALL_CONV _cdecl
+	#else
+	    #define UNI_CALL_CONV
+	#endif
 #endif
 
 extern SDL_Renderer *sdl_renderer;

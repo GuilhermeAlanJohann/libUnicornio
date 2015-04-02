@@ -34,6 +34,7 @@ bool MixadorDeAudios::inicializar()
 	for(i = 0; i < NUM_MAX_CANAIS_DE_AUDIO; ++i)
 	{
 		pool_de_canais[i].livre = true;
+		pool_de_canais[i].somDestruido = false;
 		pool_de_canais[i].som = NULL;
 	}
 
@@ -67,6 +68,7 @@ void MixadorDeAudios::reservarCanalDeAudio(int indice_canal, Som *som)
 			num_canais_usados += 1;
 
 		pool_de_canais[indice_canal].livre = false;
+		pool_de_canais[indice_canal].somDestruido = false;
 		pool_de_canais[indice_canal].som = som;
 	}
 }
@@ -78,8 +80,11 @@ void MixadorDeAudios::liberarCanalDeAudio(int indice_canal)
 		if(!pool_de_canais[indice_canal].livre)
 			num_canais_usados -= 1;
 
+		if(!pool_de_canais[indice_canal].somDestruido)
+			pool_de_canais[indice_canal].som->indefinirCanal();
+
 		pool_de_canais[indice_canal].livre = true;
-		pool_de_canais[indice_canal].som->indefinirCanal();
+		pool_de_canais[indice_canal].somDestruido = false;
 		pool_de_canais[indice_canal].som = NULL;
 	}
 }
@@ -92,8 +97,11 @@ void MixadorDeAudios::liberarTodosCanaisDeAudio()
 		{
 			if(!pool_de_canais[i].livre)
 			{
+				if(!pool_de_canais[i].somDestruido)
+					pool_de_canais[i].som->indefinirCanal();
+
 				pool_de_canais[i].livre = true;
-				pool_de_canais[i].som->indefinirCanal();
+				pool_de_canais[i].somDestruido = false;
 				pool_de_canais[i].som = NULL;
 			}
 		}
@@ -102,6 +110,12 @@ void MixadorDeAudios::liberarTodosCanaisDeAudio()
 
 		Mix_HaltChannel(-1);
 	}
+}
+
+void MixadorDeAudios::marcarSomComoDestruido(int indice_canal)
+{
+	if(indice_canal >= 0)
+		pool_de_canais[indice_canal].somDestruido = true;
 }
 
 void MixadorDeAudios::pararTodosCanais()

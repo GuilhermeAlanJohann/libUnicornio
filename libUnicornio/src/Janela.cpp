@@ -42,7 +42,7 @@ bool Janela::criar(int largura_tela, int altura_tela, bool tela_cheia, string ti
 {
 	if(criada)
 	{
-		uniErro("Impossivel criar janela. Uma janela já existe!");
+		uniErro("Impossivel criar janela. Uma janela ja existe!");
 		return false;
 	}
 

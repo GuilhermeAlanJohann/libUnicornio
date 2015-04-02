@@ -52,21 +52,20 @@
     <ClInclude Include="..\..\..\include\Colisao\uniColisoesSprite.h">
       <Filter>Colisao</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\MixadorDeAudios.h" />
     <ClInclude Include="..\..\..\include\Midia\Som.h">
       <Filter>Midia</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\Midia\Audio.h">
       <Filter>Midia\Recursos</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\TileMap\CamadaDeObjetos.h">
-      <Filter>TileMap</Filter>
-    </ClInclude>
+    <ClInclude Include="..\..\..\include\MixadorDeAudios.h" />
     <ClInclude Include="..\..\..\include\TileMap\CamadaDeTiles.h">
       <Filter>TileMap</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\TileMap\CamadaDeObjetos.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\Janela.h" />
-    <ClInclude Include="..\..\..\include\uniConfig.h" />
     <ClInclude Include="..\..\..\include\uniPlataformas.h" />
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +88,7 @@
       <UniqueIdentifier>{46ca665d-87bf-4966-adae-6c6fde05a29c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Colisao">
-      <UniqueIdentifier>{2737c8b5-0be6-4142-94d8-30a2c2d4830c}</UniqueIdentifier>
+      <UniqueIdentifier>{449e9932-05b4-4e9f-ad16-474c2256a555}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -156,23 +155,23 @@
     <ClCompile Include="..\..\..\src\Colisao\uniColisoesSprite.cpp">
       <Filter>Colisao</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\MixadorDeAudios.cpp" />
     <ClCompile Include="..\..\..\src\Midia\Som.cpp">
       <Filter>Midia</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Midia\Audio.cpp">
       <Filter>Midia\Recursos</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\MixadorDeAudios.cpp" />
     <ClCompile Include="..\..\..\src\Eventos\EventosInputTexto.cpp">
       <Filter>Eventos</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Eventos\EventosTelaDeToque.cpp">
       <Filter>Eventos</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\TileMap\CamadaDeObjetos.cpp">
+    <ClCompile Include="..\..\..\src\TileMap\CamadaDeTiles.cpp">
       <Filter>TileMap</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\TileMap\CamadaDeTiles.cpp">
+    <ClCompile Include="..\..\..\src\TileMap\CamadaDeObjetos.cpp">
       <Filter>TileMap</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Janela.cpp" />

@@ -1,8 +1,9 @@
 #include "TileMap.h"
 #include "libUnicornio.h"
-#include <fstream>
+//#include <fstream>
 #include <sstream>
 #include <algorithm>
+//#include <locale>
 
 TileMap::TileMap()
 {
@@ -46,17 +47,28 @@ bool TileMap::carregar(string arquivo)
 		return false;
 	}
 
-	//	abrir o arquivo (e fazer o parse)
-	Json::Value root;
-	Json::Reader reader;
-	ifstream ifs(arquivo);
-	if(!reader.parse(ifs, root))
+	//	Abrir o arquivo 
+	SDL_RWops *ifs = SDL_RWFromFile(arquivo.c_str(), "rb");
+	if(!ifs)
 	{
-		uniErro("Erro ao carregar arquivo '" + arquivo + "'.");
-		ifs.close();
+		uniErro("Erro ao abrir arquivo '" + arquivo + "'. Talvez o arquivo nao exista.");
 		return false;
 	}
-	ifs.close();
+
+	unsigned int tamanho_arquivo_em_bytes = ifs->size(ifs);
+	char *bytes_do_arquivo = new char[tamanho_arquivo_em_bytes];
+	ifs->read(ifs, bytes_do_arquivo, tamanho_arquivo_em_bytes, 1);
+	ifs->close(ifs);
+
+	//	Fazer o parse do arquivo
+	Json::Value root;
+	Json::Reader reader;
+	if(!reader.parse(bytes_do_arquivo, bytes_do_arquivo + tamanho_arquivo_em_bytes, root, false))
+	{
+		uniErro("Erro ao fazer o parse do arquivo '" + arquivo + "'.");
+		delete[] bytes_do_arquivo;
+		return false;
+	}
 
 	//	pegar informacoes basicas
 	largura_em_tiles = root.get("width", 0).asInt();
@@ -100,6 +112,7 @@ bool TileMap::carregar(string arquivo)
 		if(!tilesets[i].carregar(arq, tlarg, talt))
 		{
 			tilesets.clear();
+			delete[] bytes_do_arquivo;
 			return false;
 		}
 
@@ -235,21 +248,34 @@ bool TileMap::carregar(string arquivo)
 		++l;
 	}
 
+	delete[] bytes_do_arquivo;
 	carregou = true;
 	return true;
 }
 
 bool TileMap::carregarConfigTileSet(TileSet* tileset, string arquivo)
 {
-	ifstream ifs(arquivo);
-	if(!ifs.is_open())
+	//ifstream ifs(arquivo.c_str());
+	SDL_RWops *file = SDL_RWFromFile(arquivo.c_str(), "r");
+	if(!file)
+	{
+		uniErro("Erro ao abrir arquivo '" + arquivo + "'. Talvez o arquivo nao exista.");
 		return false;
+	}
+
+	unsigned int tamanho_arquivo_em_bytes = file->size(file);
+	char *bytes_do_arquivo = new char[tamanho_arquivo_em_bytes];
+	file->read(file, bytes_do_arquivo, tamanho_arquivo_em_bytes, 1);
+	file->close(file);
+	
+	stringstream stream(bytes_do_arquivo);
+	delete[] bytes_do_arquivo;
 
 	string nome_arquivo;
 	int larg_tile, alt_tile;
 
-	ifs >> nome_arquivo;
-	ifs >> larg_tile >> alt_tile;
+	stream >> nome_arquivo;
+	stream >> larg_tile >> alt_tile;
 
 	if(larg_tile != tileset->getLarguraTiles() || alt_tile != tileset->getAlturaTiles())
 		return false;
@@ -262,39 +288,38 @@ bool TileMap::carregarConfigTileSet(TileSet* tileset, string arquivo)
 	bool b;
 
 	//	caminhavel
-	do ifs >> marcador;
+	do stream >> marcador;
 	while(marcador != "*");
 
 	for(int j = 0; j < tiles_y; ++j)
 		for(int i = 0; i < tiles_x; ++i)
 		{
-			ifs >> b;
+			stream >> b;
 			tiles[tileset->getPrimeiroIDGlobal()-1 + i + j*tiles_x].setCaminhavel(b);
 		}
 
 	//	profundidade
-	do ifs >> marcador;
+	do stream >> marcador;
 	while(marcador != "*");
 
 	for(int j = 0; j < tiles_y; ++j)
 		for(int i = 0; i < tiles_x; ++i)
 		{
-			ifs >> num;
+			stream >> num;
 			tiles[tileset->getPrimeiroIDGlobal()-1 + i + j*tiles_x].setNivel((NivelTile)num);
 		}
 
 	//	custo adicional
-	do ifs >> marcador;
+	do stream >> marcador;
 	while(marcador != "*");
 
 	for(int j = 0; j < tiles_y; ++j)
 		for(int i = 0; i < tiles_x; ++i)
 		{
-			ifs >> num;
+			stream >> num;
 			tiles[tileset->getPrimeiroIDGlobal()-1 + i + j*tiles_x].setCustoAdicional(num);
 		}
 
-	ifs.close();
 	return true;
 }
 
@@ -918,8 +943,7 @@ float TileMap::getPropriedadeFloat(string nome)
 bool TileMap::getPropriedadeBool(string nome)
 {
 	string s = getPropriedade(nome);
-	std::transform(s.begin(), s.end(), s.begin(), ::tolower);
-	
+
 	if(s == "true")
 		return true;
 	else if(getPropriedadeInt(nome) == 1)

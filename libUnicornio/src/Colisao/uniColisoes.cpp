@@ -1,6 +1,8 @@
 #include "uniColisoes.h"
 #include "SDL.h"
-#include <minmax.h>
+#include <algorithm>
+
+using namespace std;
 
 //	colisaor entre ponto e circulo
 bool uniColisaoPontoComCirculo(float ponto_x, float ponto_y, float circulo_x, float circulo_y, float raio)
@@ -13,9 +15,9 @@ bool uniColisaoPontoComCirculo(float ponto_x, float ponto_y, float circulo_x, fl
 //	colisao entre ponto e retangulo
 bool uniColisaoPontoComRetangulo(float ponto_x, float ponto_y, float x, float y, float rot, float largura, float altura, float ancora_x, float ancora_y)
 {
-	//	invez de rotacionar o retangulo, transladar, e calcular se o ponto está dentro dele
-	//	vamos transladar o retangulo, rotacionar o ponto e calcular se o ponto está dentro do retangulo
-	//	essa abordagem é muito mais simples e rápida, pois o retangulo fica alinhado aos eixos, facilitando o calculo
+	//	invez de rotacionar o retangulo, transladar, e calcular se o ponto estï¿½ dentro dele
+	//	vamos transladar o retangulo, rotacionar o ponto e calcular se o ponto estï¿½ dentro do retangulo
+	//	essa abordagem ï¿½ muito mais simples e rï¿½pida, pois o retangulo fica alinhado aos eixos, facilitando o calculo
 
 	//	primeiro translada o retangulo para a origem
 	SDL_Rect rect;
@@ -29,14 +31,14 @@ bool uniColisaoPontoComRetangulo(float ponto_x, float ponto_y, float x, float y,
 	vec.x = ponto_x - x;
 	vec.y = ponto_y - y;
 
-	float rad = (-rot)*(float)(PI/180.0);	//	rotação ao contrario
+	float rad = (-rot)*(float)(PI/180.0);	//	rotaï¿½ï¿½o ao contrario
 	float cs = cos(rad);
 	float sn = sin(rad);
 
 	ponto_x = vec.x * cs - vec.y * sn;
 	ponto_y = vec.x * sn + vec.y * cs;
 
-	//	por fim, calcula se o ponto está dentro do retangulo
+	//	por fim, calcula se o ponto estï¿½ dentro do retangulo
 	return ( (ponto_x <= rect.x + rect.w) && (ponto_x >= rect.x) && (ponto_y <= rect.y + rect.h) && (ponto_y >= rect.y) );
 }
 
@@ -54,7 +56,7 @@ bool uniColisaoPontoComPoligono(float ponto_x, float ponto_y, Vetor2D* pontos, i
 	float cs = cos(rad);
 	float sn = sin(rad);
 
-	//	rotaciona os pontos (em relação a origem)
+	//	rotaciona os pontos (em relaï¿½ï¿½o a origem)
 	float xx = pontos[0].x * cs - pontos[0].y * sn;
 	float yy = pontos[0].x * sn + pontos[0].y * cs;
 
@@ -68,7 +70,7 @@ bool uniColisaoPontoComPoligono(float ponto_x, float ponto_y, Vetor2D* pontos, i
 	//	calcula os pontos
 	for(int i = 1; i < num_pontos; ++i)
 	{
-		//	rotaciona os pontos (em relação a origem)
+		//	rotaciona os pontos (em relaï¿½ï¿½o a origem)
 		float xx = pontos[i].x * cs - pontos[i].y * sn;
 		float yy = pontos[i].x * sn + pontos[i].y * cs;
 
@@ -179,7 +181,7 @@ bool uniColisaoLinhaComRetangulo(float linha_x1, float linha_y1, float linha_x2,
 
 	for(int i = 0; i < 4; ++i)
 	{
-		//	rotaciona os pontos (em relação a origem)
+		//	rotaciona os pontos (em relaï¿½ï¿½o a origem)
 		float xx = pontos[i].x * cs - pontos[i].y * sn;
 		float yy = pontos[i].x * sn + pontos[i].y * cs;
 
@@ -266,7 +268,7 @@ bool uniColisaoCirculoComRetangulo(float circulo_x, float circulo_y, float raio,
 
 	for(int i = 0; i < 4; ++i)
 	{
-		//	rotaciona os pontos (em relação a origem)
+		//	rotaciona os pontos (em relaï¿½ï¿½o a origem)
 		float xx = pontos[i].x * cs - pontos[i].y * sn;
 		float yy = pontos[i].x * sn + pontos[i].y * cs;
 
@@ -356,7 +358,7 @@ bool uniColisaoRetanguloComRetangulo(float x1, float y1, float rot1, float largu
 
 	for(int i = 0; i < 4; ++i)
 	{
-		//	rotaciona os pontos (em relação a origem)
+		//	rotaciona os pontos (em relaï¿½ï¿½o a origem)
 		float xx = pontos[i].x * cs - pontos[i].y * sn;
 		float yy = pontos[i].x * sn + pontos[i].y * cs;
 
@@ -392,7 +394,7 @@ bool uniColisaoRetanguloComRetangulo(float x1, float y1, float rot1, float largu
 
 	for(int i = 0; i < 4; ++i)
 	{
-		//	rotaciona os pontos (em relação a origem)
+		//	rotaciona os pontos (em relaï¿½ï¿½o a origem)
 		float xx = pontos[i].x * cs - pontos[i].y * sn;
 		float yy = pontos[i].x * sn + pontos[i].y * cs;
 
@@ -412,7 +414,7 @@ bool uniColisaoRetanguloComRetangulo(float x1, float y1, float rot1, float largu
 	linhasB[3][0] = pontos[3];
 	linhasB[3][1] = pontos[0];
 
-	//	testa intersecção entre as linhas de um retangulo contra as linhas do outro
+	//	testa intersecï¿½ï¿½o entre as linhas de um retangulo contra as linhas do outro
 	bool colidiu = false;
 	for(int i = 0; i < 4 && !colidiu; ++i)
 	{
@@ -423,9 +425,9 @@ bool uniColisaoRetanguloComRetangulo(float x1, float y1, float rot1, float largu
 		}
 	}
 
-	//	se não ouve nenhuma intersecção
+	//	se nï¿½o ouve nenhuma intersecï¿½ï¿½o
 	//	pode ser que um retangulo esteja totalmente dentro do outro,
-	//	então testa este caso
+	//	entï¿½o testa este caso
 
 	if(!colidiu && testar_dentro)
 	{
@@ -510,9 +512,9 @@ bool uniColisaoPoligonoComPoligono(Vetor2D* pontos1, int num_pontos1, float x1, 
 		}
 	}
 
-	//	se não ouve nenhuma intersecção
+	//	se nï¿½o ouve nenhuma intersecï¿½ï¿½o
 	//	pode ser que um poligono esteja totalmente dentro do outro,
-	//	então testa este caso
+	//	entï¿½o testa este caso
 
 	if(!colidiu && testar_dentro)
 	{

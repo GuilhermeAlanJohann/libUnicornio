@@ -1,9 +1,10 @@
 #include "Texto.h"
 #include "libUnicornio.h"
 #include <string>         // std::string, std::u32string
-#include <locale>         // std::wstring_convert
-#include <codecvt>        // std::codecvt_utf8
 #include <cstdint>        // std::uint_least32_t
+#if !UNI_PLATAFORMA_ANDROID
+#include <codecvt>        // std::codecvt_utf8
+#endif
 
 Texto::Texto()
 {
@@ -79,13 +80,11 @@ int Texto::getAlturaOriginal()
 
 int Texto::getLarguraLinha(int linha)
 {
-	int larg = 0;
 	return getLarguraOriginalLinha(linha)*escala.x;
 }
 
 int Texto::getAlturaLinha(int linha)
 {
-	int alt;
 	return getAlturaOriginalLinha(linha)*escala.y;
 }
 
@@ -160,7 +159,8 @@ string Texto::getString()
 
 string Texto::getStringLinha(int linha)
 {
-	return converterParaString(getWstringLinha(linha));
+    const wstring &w = getWstringLinha(linha);
+	return converterParaString(w);
 }
 
 wstring Texto::getWstring()
@@ -558,6 +558,54 @@ void Texto::apagar()
 	altura = 0;
 }
 
+bool Texto::ajustarStringParaLargura(int larg)
+{
+	if(largura <= larg)
+		return false;
+
+	if(larg < fonte->getGlifo(wstr[0])->avanco*escala.x)
+		return false;
+
+	int larg_linha = 0;
+	int larg_palavra = 0;
+	int ultimo_espaco = 0;
+	for(unsigned int i = 0; i < wstr.size(); ++i)
+	{
+		larg_palavra += fonte->getGlifo(wstr[i])->avanco*escala.x;
+
+		if(wstr[i] == ' ')
+		{
+			ultimo_espaco = i;
+			larg_linha += larg_palavra;
+			larg_palavra = 0;
+		}
+		else if(wstr[i] == '\n')
+		{
+			ultimo_espaco = i;
+			larg_linha = 0;
+			larg_palavra = 0;
+			continue;
+		}
+
+		if(larg_linha + larg_palavra > larg)
+		{
+			if(larg_linha == 0)
+			{
+				wstr.replace(i, 0, L"\n");
+				larg_palavra = 0;
+			}
+			else
+			{
+				wstr.replace(ultimo_espaco, 1, L"\n");
+				larg_linha = 0;
+			}
+		}
+	}
+
+	calcularTamanho();
+	return true;
+}
+
 void Texto::desenhar(int x, int y)
 {
 	if(!uni_init) 
@@ -572,7 +620,6 @@ void Texto::desenhar(int x, int y)
 	int x_canto, y_canto;
 	int x_canto_linha, y_canto_linha;
 	float x_glifo, y_glifo;
-	float avanco = 1.0f;
 	int alt_linha = fonte->getAlturaMaxDosGlifos()*espacamento_linhas*escala.y;
 
 	x_canto = x - (largura*escala.x*ancora.x);
@@ -644,7 +691,6 @@ void Texto::desenhar(int x, int y, float rot)
 	int x_canto, y_canto;
 	int x_canto_linha, y_canto_linha;
 	float x_glifo, y_glifo;
-	float avanco = 1.0f;
 	int alt_linha = fonte->getAlturaMaxDosGlifos()*espacamento_linhas*escala.y;
 
 	x_canto = x - (largura*escala.x*ancora.x);
@@ -702,7 +748,7 @@ void Texto::desenhar(int x, int y, float rot)
 	}
 }
 
-string Texto::converterParaString(wstring& s)
+string Texto::converterParaString(const wstring& s)
 {
 	string r(s.begin(), s.end());
 	return r;
@@ -710,15 +756,13 @@ string Texto::converterParaString(wstring& s)
 	//return converter.to_bytes(s);
 }
 
-wstring Texto::converterParaWstring(string& s)
+wstring Texto::converterParaWstring(const string& s)
 {
 	wstring r;
 	r.resize(s.size());
-	for(unsigned int i = 0; i < s.size(); ++i)
+	for(unsigned int i = 0; i < r.size(); ++i)
 		r[i] = (unsigned char)s[i];
-
 	return r;
-
 	//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 	//return converter.from_bytes(s.data());
 }
@@ -788,7 +832,6 @@ void Texto::calcularTamanho()
 	}
 
 	unsigned int linha = 0;
-	unsigned int inicio = 0, fim = 0;
 
 	int larg = 0;
 	largura = 0;

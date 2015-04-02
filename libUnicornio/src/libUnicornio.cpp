@@ -13,7 +13,6 @@ double deltaTempo;
 Uint64 tempoAntes;		// tempo em ticks
 Uint32 maxFPS;
 double framerate;
-Uint32 framerateMs;		// framerate em microsegundos
 
 Janela janela;
 int res_x; 
@@ -74,7 +73,12 @@ bool uniInicializar(int largura_tela, int altura_tela, bool tela_cheia, string t
 	fonte_padrao = new Fonte;
 	if(fonte_padrao->carregar("fonte_padrao.ttf", 10) == false)
 	{
+        delete fonte_padrao;
 		fonte_padrao = NULL;
+        //  limpa as mensagens de debug, para nao tentar desenha-las sem ter uma fonte.
+        for(unsigned int i = 0; i < mensagensDebug.size(); i++)
+            delete mensagensDebug[i];
+        mensagensDebug.clear();
 	}
 
 	//	inicializa handlers de eventos
@@ -90,7 +94,6 @@ bool uniInicializar(int largura_tela, int altura_tela, bool tela_cheia, string t
 	deltaTempo = 0;
 	maxFPS = 60;	//	60 frames por segundo
 	framerate = 1.0/maxFPS;
-	framerateMs = (Uint32)(1000.0/maxFPS);
 	tempoAntes = SDL_GetPerformanceCounter();
 
 	return true;
@@ -134,21 +137,24 @@ void uniFinalizar()
 
 void uniControlarFramerate(bool sleep_loop)
 {
+	Uint64 framerateUs = (Uint64)(1000000.0/maxFPS);
 	Uint64 tempoAtual = SDL_GetPerformanceCounter();	// tempo em counts
-	double deltaTempoMs = ((double)(tempoAtual - tempoAntes)/(double)SDL_GetPerformanceFrequency())*1000.0;	//	deltaTempo em milisegundos
+	Uint64 deltaTempoUs = (1000000*(tempoAtual - tempoAntes))/SDL_GetPerformanceFrequency();	//	deltaTempo em microsegundos
 	
-	if((deltaTempoMs < framerateMs) && (sleep_loop))
+	if((deltaTempoUs < framerateUs) && (sleep_loop))
 	{
-		int delay = (int)framerateMs - (int)deltaTempoMs;	// delay em milisegundos
-		while(delay > .0)
+		int delay = (int)framerateUs - (int)deltaTempoUs;	// delay em microsegundos
+		while(delay > 0)
 		{
-			uniDormir(1);
-			deltaTempoMs = ((double)(SDL_GetPerformanceCounter() - tempoAntes)/(double)SDL_GetPerformanceFrequency())*1000.0;	//	deltaTempo em milisegundos
-			delay = (int)(framerateMs - deltaTempoMs);
+			if(delay > 1000)
+				uniDormir(1);
+
+			deltaTempoUs = (1000000*(SDL_GetPerformanceCounter() - tempoAntes))/SDL_GetPerformanceFrequency();	//	deltaTempo em milisegundos
+			delay = (int)(framerateUs - deltaTempoUs);
 		}
 	}
 
-	deltaTempo = ((double)deltaTempoMs)/1000.0;	//	deltaTempo em segundos.
+	deltaTempo = ((double)deltaTempoUs)/1000000.0;	//	deltaTempo em segundos.
 
 	tempoAntes = tempoAtual;
 }
@@ -180,7 +186,6 @@ void uniSetFPS(unsigned int fps)
 {
 	maxFPS = fps;
 	framerate = 1.0/maxFPS;
-	framerateMs = (Uint32)(1000.0/maxFPS);
 }
 
 Fonte* uniGetFontePadrao()
@@ -202,6 +207,7 @@ void processarDebug()
 {
 	if(!uni_debug) return;
 	if(mensagensDebug.size() == 0) return;
+    if(!fonte_padrao) return;
 
 	unsigned int size_maior_chave = 0;
 	unsigned int size_maior_valor = 0;
@@ -385,7 +391,6 @@ void uniDesenharCirculo(int x, int y, float raio, int num_segmentos, int vermelh
 	int anterior_y = y;
 
 	//	desenha borda
-	float numLinhas = 120;	// numero de linhas para desenhar a borda do circulo
 	for(float i = 0; i <= 360; i += 360.0f/(float)num_segmentos)
 	{
 		c = cos(i*(float)(PI/180.0));
@@ -405,9 +410,6 @@ void uniDesenharRetangulo(int x, int y, float rot, int largura, int altura, floa
 {
 	float cs = cos(rot*(float)(PI/180.0));
 	float sn = sin(rot*(float)(PI/180.0));
-
-	float meiaLargura = (float)largura*ancora_x;
-	float meiaAltura = (float)altura*ancora_y;
 
 	SDL_Point pontos[4];
 
@@ -472,9 +474,10 @@ void uniDesenharPoligono(int x, int y, float rot, Vetor2D* pontos, int num_ponto
 void uniDesenharTexto(string txt, int x, int y, int cR, int cG, int cB, float ancora_x, float ancora_y)
 {
 	if(!uni_init) return;
+    if(!fonte_padrao) return;
 
 	Texto t;
-	t.setFonte(uniGetFontePadrao());
+	t.setFonte(fonte_padrao);
 	t.setString(txt);
 	t.setCor(cR, cG, cB);
 

@@ -28,6 +28,7 @@ Som::Som(const Som& r)
 
 Som::~Som()
 {
+	mixador_de_audios.marcarSomComoDestruido(indice_canal_atual);
 }
 
 Som& Som::operator=(const Som &r)

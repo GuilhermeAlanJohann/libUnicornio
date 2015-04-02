@@ -3,6 +3,7 @@
 
 #include "SDL.h"
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -60,6 +61,9 @@ public:
 	bool removerAnimacao(int anim);
 	bool removerFrameDaAnimacao(int anim, int frame);
 
+	void juntarAnimacoes(int anim1, int anim2);
+	void juntarTodasAnimacoes();
+
 	int getNumAnimacoes();
 	int getNumFramesDaAnimacao(int anim);
 
@@ -74,7 +78,7 @@ public:
 
 private:
 	SDL_Texture *sdl_tex;
-	vector<vector<Frame>> frames;
+	vector<vector<Frame> > frames;
 	int largura_total;
 	int altura_total;
 	string caminhoArquivo;

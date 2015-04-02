@@ -1,11 +1,15 @@
 #ifndef UNI_UNICOLISOES_H
 #define UNI_UNICOLISOES_H
 
-#include <math.h>
+#include <cmath>
 #include "Vetor2D.h"
 
 #ifndef UNI_CALL_CONV
-	#define UNI_CALL_CONV _cdecl
+	#if UNI_PLATAFORMA_WINDOWS
+        #define UNI_CALL_CONV _cdecl
+    #else
+        #define UNI_CALL_CONV
+    #endif
 #endif
 
 #ifndef PI

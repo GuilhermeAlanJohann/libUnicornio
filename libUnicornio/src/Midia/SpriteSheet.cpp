@@ -184,6 +184,48 @@ bool SpriteSheet::removerFrameDaAnimacao(int anim, int frame)
 	return true;
 }
 
+void SpriteSheet::juntarAnimacoes(int anim1, int anim2)
+{
+	if(anim1 == anim2)
+		return;
+
+	if(anim1 >= 0 && anim1 < frames.size()
+		&& anim2 >= 0 && anim2 < frames.size())
+	{
+		int size1 = frames[anim1].size();
+		int size2 = frames[anim2].size();
+		frames[anim1].resize(size1 + size2);
+
+		for(int i = 0; i < size2; ++ i)
+			frames[anim1][size1 + i] = frames[anim2][i];
+
+		removerAnimacao(anim2);
+	}
+}
+
+void SpriteSheet::juntarTodasAnimacoes()
+{
+	if(frames.size() <= 1)
+		return;
+
+	unsigned int size = 0;
+	unsigned int i;
+	for(i = 0; i < frames.size(); ++i)
+		size += frames[i].size();
+
+	frames[0].resize(size);
+	for(unsigned int j = 1; j < frames.size(); ++j)
+	{
+		for(unsigned int k = 0; k < frames[j].size(); ++k)
+		{
+			frames[0][i] = frames[j][k];
+			++i;
+		}
+	}
+
+	frames.resize(1);
+}
+
 int SpriteSheet::getNumAnimacoes()
 {
 	return frames.size();

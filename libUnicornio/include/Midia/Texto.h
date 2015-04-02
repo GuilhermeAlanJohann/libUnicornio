@@ -25,12 +25,12 @@ public:
 	float getEscalaY();
 	int	getLargura();			//	escalado
 	int	getAltura();			//	escalado
-	int	getLarguraOriginal();	//	não escalado
-	int	getAlturaOriginal();	//	não escalado
+	int	getLarguraOriginal();	//	nï¿½o escalado
+	int	getAlturaOriginal();	//	nï¿½o escalado
 	int	getLarguraLinha(int linha);				//	escalado
 	int	getAlturaLinha(int linha);				//	escalado
-	int	getLarguraOriginalLinha(int linha);		//	não escalado	
-	int	getAlturaOriginalLinha(int linha);		//	não escalado	
+	int	getLarguraOriginalLinha(int linha);		//	nï¿½o escalado	
+	int	getAlturaOriginalLinha(int linha);		//	nï¿½o escalado	
 	int	getCorVermelho();
 	int	getCorVerde();
 	int	getCorAzul();
@@ -49,9 +49,9 @@ public:
 	void obterAncora(float &x, float &y);
 	void obterEscala(float &sx, float& sy);
 	void obterTamanho(int &larg, int &alt);							//	escalado
-	void obterTamanhoOriginal(int &larg, int &alt);					//	não escalado
+	void obterTamanhoOriginal(int &larg, int &alt);					//	nï¿½o escalado
 	void obterTamanhoLinha(int linha, int &larg, int &alt);			//	escalado		
-	void obterTamanhoOriginalLinha(int linha, int &larg, int &alt);	//	não escalado	
+	void obterTamanhoOriginalLinha(int linha, int &larg, int &alt);	//	nï¿½o escalado	
 	void obterCor(int &vermelho, int &verde, int &azul);
 	void obterCor(int &vermelho, int &verde, int &azul, int &alpha);
 
@@ -87,12 +87,14 @@ public:
 
 	void apagar();
 
+	bool ajustarStringParaLargura(int larg);
+
 	void desenhar(int x, int y);
 	void desenhar(int x, int y, float rot);
 
 private:
-	string converterParaString(wstring &s);
-	wstring converterParaWstring(string &s);
+	string converterParaString(const wstring &s);
+	wstring converterParaWstring(const string &s);
 
 	unsigned int getSomaDosAvancos(unsigned int inicio, unsigned int fim);
 	void desenharCaractere(wchar_t caractere, int x_canto_glifo, int y_canto_glifo, int x_texto, int y_texto);

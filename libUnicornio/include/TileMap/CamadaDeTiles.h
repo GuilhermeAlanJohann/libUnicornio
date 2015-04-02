@@ -25,7 +25,7 @@ public:
 private:
 	string nome;
 	bool visivel;
-	vector<vector<int>> idTiles;
+	vector<vector<int> > idTiles;
 };
 
 #endif

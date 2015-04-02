@@ -29,13 +29,12 @@
     <ClInclude Include="..\..\..\include\MixadorDeAudios.h" />
     <ClInclude Include="..\..\..\include\TileMap\AStar.h" />
     <ClInclude Include="..\..\..\include\TileMap\CamadaDeObjetos.h" />
-    <ClInclude Include="..\..\..\include\TileMap\CamadaDeTiles.h" />
     <ClInclude Include="..\..\..\include\TileMap\NodoAStar.h" />
     <ClInclude Include="..\..\..\include\TileMap\ObjetoTile.h" />
     <ClInclude Include="..\..\..\include\TileMap\Tile.h" />
+    <ClInclude Include="..\..\..\include\TileMap\CamadaDeTiles.h" />
     <ClInclude Include="..\..\..\include\TileMap\TileMap.h" />
     <ClInclude Include="..\..\..\include\TileMap\TileSet.h" />
-    <ClInclude Include="..\..\..\include\uniConfig.h" />
     <ClInclude Include="..\..\..\include\uniPlataformas.h" />
     <ClInclude Include="..\..\..\include\Vetor2D.h" />
   </ItemGroup>
@@ -64,10 +63,10 @@
     <ClCompile Include="..\..\..\src\MixadorDeAudios.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\AStar.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\CamadaDeObjetos.cpp" />
-    <ClCompile Include="..\..\..\src\TileMap\CamadaDeTiles.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\NodoAStar.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\ObjetoTile.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\Tile.cpp" />
+    <ClCompile Include="..\..\..\src\TileMap\CamadaDeTiles.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\TileMap.cpp" />
     <ClCompile Include="..\..\..\src\TileMap\TileSet.cpp" />
     <ClCompile Include="..\..\..\src\Vetor2D.cpp" />
@@ -101,7 +100,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>
@@ -110,14 +111,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\SDL2\include;..\..\SDL2\include;..\..\..\SDL2\include;..\..\..\include\Colisao;..\..\..\include\Eventos;..\..\..\include\Interface;..\..\..\include\TileMap;..\..\..\include\Midia;..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\external\SDL2\include;..\..\external\SDL2_image;..\..\external\SDL2_ttf;..\..\external\SDL2_mixer;..\..\..\external\SDL2\include;..\..\..\external\SDL2_image;..\..\..\external\SDL2_ttf;..\..\..\external\SDL2_mixer;..\..\..\include\Colisao;..\..\..\include\Eventos;..\..\..\include\Interface;..\..\..\include\TileMap;..\..\..\include\Midia;..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>..\..\..\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\external\lib\Windows\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>..\..\..\lib\MSVS_2013\libUnicornio_d.lib</OutputFile>
     </Lib>
@@ -132,7 +133,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\SDL2\include;..\..\SDL2\include;..\..\..\SDL2\include;..\..\..\include\Colisao;..\..\..\include\Eventos;..\..\..\include\Interface;..\..\..\include\TileMap;..\..\..\include\Midia;..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\external\SDL2\include;..\..\external\SDL2_image;..\..\external\SDL2_ttf;..\..\external\SDL2_mixer;..\..\..\external\SDL2\include;..\..\..\external\SDL2_image;..\..\..\external\SDL2_ttf;..\..\..\external\SDL2_mixer;..\..\..\include\Colisao;..\..\..\include\Eventos;..\..\..\include\Interface;..\..\..\include\TileMap;..\..\..\include\Midia;..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,7 +143,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>..\..\..\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\external\lib\Windows\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>..\..\..\lib\MSVS_2013\libUnicornio.lib</OutputFile>
     </Lib>

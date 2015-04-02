@@ -62,7 +62,7 @@ private:
 	int largura_em_tiles;
 	int altura_em_tiles;
 
-	vector<vector<NodoAStar>> grade;
+	vector<vector<NodoAStar> > grade;
 
 	HeuristicaAStar heuristica;
 	vector<NodoAStar*> listaAberta;

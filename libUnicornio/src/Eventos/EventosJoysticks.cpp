@@ -1,5 +1,36 @@
 #include "Eventos.h"
 
+Joystick::Joystick(): id(-1), deadZone(0.2f), x(0), y(0), z(0), xDir(0), yDir(0), zDir(0), sdl_joystick(NULL), sdl_haptic(NULL)
+{
+	for(int i = 0; i < NUMERO_DE_BOTOES_JOYSTICK; ++i)
+	{
+		pressionou[i] = false;
+		segurando[i] = false;
+		soltou[i] = false;
+	}
+};
+
+Joystick::~Joystick()
+{};
+
+void Joystick::vibrar(float forca, float tempo)
+{
+	if(sdl_haptic)
+	{
+		if(SDL_HapticRumbleSupported(sdl_haptic))
+			SDL_HapticRumblePlay(sdl_haptic, forca, tempo*1000);
+	}
+}
+
+void Joystick::pararDeVibrar()
+{
+	if(sdl_haptic)
+	{
+		if(SDL_HapticRumbleSupported(sdl_haptic))
+			SDL_HapticRumbleStop(sdl_haptic);
+	}
+}
+
 int EventosJoysticks::nextId = 0;
 
 EventosJoysticks::EventosJoysticks()
@@ -107,8 +138,13 @@ void EventosJoysticks::processarEvento(const SDL_Event& evento)
 		if(joy)
 		{
 			joy->id = nextId;
-			//joy->js = SDL_JoystickOpen(joy->id);
-			joy->js = SDL_JoystickOpen(evento.jdevice.which);
+			joy->sdl_joystick = SDL_JoystickOpen(evento.jdevice.which);
+			joy->sdl_haptic = SDL_HapticOpenFromJoystick(joy->sdl_joystick);
+			if(joy->sdl_haptic)
+			{
+				if(SDL_HapticRumbleSupported(joy->sdl_haptic))
+					SDL_HapticRumbleInit(joy->sdl_haptic);
+			}
 			nextId++;
 		}
 		break;
@@ -117,8 +153,13 @@ void EventosJoysticks::processarEvento(const SDL_Event& evento)
 		joy = identificarJoystick(evento.jdevice.which);
 		if(joy)
 		{
-			SDL_JoystickClose(joy->js);
-			joy->js = NULL;
+			if(joy->sdl_haptic)
+			{
+				SDL_HapticClose(joy->sdl_haptic);
+				joy->sdl_haptic = NULL;
+			}
+			SDL_JoystickClose(joy->sdl_joystick);
+			joy->sdl_joystick = NULL;
 			joy->id = -1;
 		}
 		break;

@@ -84,7 +84,8 @@ Toque EventosTelaDeToque::gerarToque(const SDL_TouchFingerEvent& evento)
 	t.ndy = evento.dy;
 
 	calcularPosicaoEmPixels(t);
-	corrigirPosicaoFullscreen(t);
+	//	nao eh necessario corrigir a posicao em tela cheia para os eventos de toque
+	//corrigirPosicaoFullscreen(t);
 
 	return t;
 }
@@ -97,6 +98,7 @@ void EventosTelaDeToque::calcularPosicaoEmPixels(Toque& toque)
 	toque.dy = toque.ndy*janela.getAlturaTela();
 }
 
+/*
 void EventosTelaDeToque::corrigirPosicaoFullscreen(Toque& toque)
 {
 	if(!janela.estaEmTelaCheia())
@@ -130,4 +132,4 @@ void EventosTelaDeToque::corrigirPosicaoFullscreen(Toque& toque)
 	
 	toque.y = toque.y - (display.h - alturaEscalada)/2;
 	toque.y = toque.y*(janela.getAlturaTela()/(float)alturaEscalada);
-}
+}*/

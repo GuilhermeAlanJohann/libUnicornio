@@ -107,17 +107,8 @@ public:
 struct Joystick
 {
 public:
-	Joystick(): id(-1), deadZone(0.2f), x(0), y(0), z(0), xDir(0), yDir(0), zDir(0), js(NULL)
-	{
-		for(int i = 0; i < NUMERO_DE_BOTOES_JOYSTICK; ++i)
-		{
-			pressionou[i] = false;
-			segurando[i] = false;
-			soltou[i] = false;
-		}
-	};
-	~Joystick()
-	{};
+	Joystick();
+	~Joystick();
 
 	int id;
 
@@ -135,7 +126,11 @@ public:
 	bool segurando[NUMERO_DE_BOTOES_JOYSTICK];
 	bool soltou[NUMERO_DE_BOTOES_JOYSTICK];
 
-	SDL_Joystick *js;
+	SDL_Joystick *sdl_joystick;
+	SDL_Haptic *sdl_haptic;
+
+	void vibrar(float forca, float tempo);
+	void pararDeVibrar();
 };
 
 class EventosJoysticks
@@ -199,7 +194,7 @@ public:
 private:
 	Toque gerarToque(const SDL_TouchFingerEvent& evento);
 	void calcularPosicaoEmPixels(Toque& toque);
-	void corrigirPosicaoFullscreen(Toque& toque);
+	//void corrigirPosicaoFullscreen(Toque& toque);
 };
 
 class EventosAplicacao

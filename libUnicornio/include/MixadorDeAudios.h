@@ -9,11 +9,13 @@ struct CanalDeAudio
 {
 	CanalDeAudio():
 		livre(true), 
+		somDestruido(false),
 		som(NULL)
 	{};
 	~CanalDeAudio(){};
 
 	bool livre;
+	bool somDestruido;
 	Som *som;
 };
 
@@ -29,6 +31,7 @@ public:
 	void reservarCanalDeAudio(int indice_canal, Som *som);
 	void liberarCanalDeAudio(int indice_canal);
 	void liberarTodosCanaisDeAudio();
+	void marcarSomComoDestruido(int indice_canal);
 
 	void pararTodosCanais();
 

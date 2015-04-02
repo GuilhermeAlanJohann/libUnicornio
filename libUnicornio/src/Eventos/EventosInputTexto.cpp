@@ -1,7 +1,9 @@
 #include "Eventos.h"
-#include <locale>
+#include <algorithm>
+
+#if !UNI_PLATAFORMA_ANDROID
 #include <codecvt>
-#include <minmax.h>
+#endif
 
 EventosInputTexto::EventosInputTexto()
 {
@@ -270,6 +272,9 @@ void EventosInputTexto::processarEvento(const SDL_Event& evento)
 	{
 	case SDL_TEXTINPUT:
 		{
+		#if UNI_PLATAFORMA_ANDROID
+		    inserir(evento.text.text);
+		#else
 			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 			std::wstring ws = converter.from_bytes(evento.text.text);
 
@@ -278,6 +283,7 @@ void EventosInputTexto::processarEvento(const SDL_Event& evento)
 				s.push_back((char)ws[i]);
 
 			inserir(s);
+		#endif
 		}
 		break;
 

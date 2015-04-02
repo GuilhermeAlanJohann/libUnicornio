@@ -145,7 +145,7 @@ bool CamadaDeObjetos::existeObjetoDoTipoNaPos(string tipo, float tx, float ty)
 
 int CamadaDeObjetos::getNumObjetos()
 {
-	return objetos.size();
+	return (int)objetos.size();
 }
 
 ObjetoTile *CamadaDeObjetos::getObjeto(int indice)
