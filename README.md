@@ -40,7 +40,8 @@ Mande um email pra 'pcista@hotmail.com' contendo um v√≠deo ou um link com imagen
 
 ## Como come√ßar
 
-  - Consulte o arquivo "**Como come√ßar.txt**" na pasta "**libUnicornio/docs**".
+  - Consulte a pasta "**libUnicornio/docs**". L· vocÍ encontra o arquivo "**libUnicornio - Documentacao.html**", que contem um link para a documentaÁ„o da biblioteca.
+  - Consulte tambÈm os [Projetos de exemplo](https://github.com/GuilhermeAlanJohann/libUnicornio-projetos_de_exemplo). Eles ajudam a entender como usar as funcionalidades mais b·sicas da biblioteca. 
 
 ## Licen√ßa
 
