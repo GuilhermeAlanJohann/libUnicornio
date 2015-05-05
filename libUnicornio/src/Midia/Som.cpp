@@ -28,7 +28,7 @@ Som::Som(const Som& r)
 
 Som::~Som()
 {
-	mixador_de_audios.marcarSomComoDestruido(indice_canal_atual);
+	mixador.marcarSomComoDestruido(indice_canal_atual);
 }
 
 Som& Som::operator=(const Som &r)
@@ -70,9 +70,10 @@ void Som::tocar(bool repetir)
 	if(!repetindo)
 	{
 		indice_canal_atual = Mix_PlayChannel(-1, audio->getMixChunk(), repetir == 0 ? 0 : -1);
-		Mix_Volume(indice_canal_atual, (volume/100.0)*128);
+		float vol = 128*((volume/100.0f) * (mixador.getVolumeGlobal()/100.0f));
+		Mix_Volume(indice_canal_atual, vol);
 		Mix_SetPosition(indice_canal_atual, angulo, distancia);
-		mixador_de_audios.reservarCanalDeAudio(indice_canal_atual, this);
+		mixador.reservarCanalDeAudio(indice_canal_atual, this);
 		repetindo = repetir;
 		terminou_de_tocar = false;
 	}
@@ -148,10 +149,18 @@ void Som::setAudio(string nome)
 
 void Som::setVolume(float vol)
 {
+	if(vol > 100.0f)
+		vol = 100.0f;
+	if(vol < 0.0f)
+		vol = 0.0f;
+
 	volume = vol;
 
 	if(indice_canal_atual != -1)
-		Mix_Volume(indice_canal_atual, (volume/100.0)*128);
+	{
+		float vol = 128*((volume/100.0f) * (mixador.getVolumeGlobal()/100.0f));
+		Mix_Volume(indice_canal_atual, vol);
+	}
 }
 
 void Som::setDistancia(Uint8 dist)

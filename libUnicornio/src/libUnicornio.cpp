@@ -18,7 +18,7 @@ Janela janela;
 int res_x; 
 int res_y;
 
-MixadorDeAudios mixador_de_audios;
+MixadorDeAudios mixador;
 
 GerenciadorDeRecursos recursos;
 
@@ -57,7 +57,7 @@ bool uniInicializar(int largura_tela, int altura_tela, bool tela_cheia, string t
 	res_y = altura_tela;
 
 	//	inicializa audio
-	bool mixador_init_ok = mixador_de_audios.inicializar();
+	bool mixador_init_ok = mixador.inicializar();
 	if(!mixador_init_ok)
 	{
 		return false;
@@ -123,7 +123,7 @@ void uniFinalizar()
 	TTF_Quit();
 
 	// finaliza audio
-	mixador_de_audios.finalizar();
+	mixador.finalizar();
 
 	//	destroi janela principal
 	janela.destruir();

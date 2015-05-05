@@ -3,7 +3,7 @@
 
 void chanalTerminouDeTocar(int indice_canal) 
 {
-	mixador_de_audios.liberarCanalDeAudio(indice_canal);
+	mixador.liberarCanalDeAudio(indice_canal);
 }
 
 MixadorDeAudios::MixadorDeAudios()
@@ -41,6 +41,8 @@ bool MixadorDeAudios::inicializar()
 	num_canais_usados = 0;
 
 	Mix_ChannelFinished(chanalTerminouDeTocar);
+
+	volume_global = 100.0f;
 
 	inicializado = true;
 	return true;
@@ -139,4 +141,31 @@ int MixadorDeAudios::getNumCanaisUsados()
 int MixadorDeAudios::getNumCanaisLivres()
 {
 	return NUM_MAX_CANAIS_DE_AUDIO - num_canais_usados;
+}
+
+float MixadorDeAudios::getVolumeGlobal()
+{
+	return volume_global;
+}
+
+void MixadorDeAudios::setVolumeGlobal(float volume)
+{
+	if(volume > 100.0f)
+		volume = 100.0f;
+	if(volume < 0.0f)
+		volume = 0.0f;
+
+	volume_global = volume;
+
+	if(inicializado)
+	{
+		for(int i = 0; i < NUM_MAX_CANAIS_DE_AUDIO; ++i)
+		{
+			if(!pool_de_canais[i].livre && !pool_de_canais[i].somDestruido)
+			{
+				float vol = 128*((pool_de_canais[i].som->getVolume()/100.0f) * (volume_global/100.0f));
+				Mix_Volume(i, vol);
+			}
+		}
+	}
 }

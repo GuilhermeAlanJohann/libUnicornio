@@ -65,7 +65,7 @@ extern int res_x;	//	OBSOLETO ( usar janela.getLarguraTela() )
 extern int res_y;	//	OBSOLETO ( usar janela.getAlturaTela() )
 
 #include "MixadorDeAudios.h"
-extern MixadorDeAudios mixador_de_audios;
+extern MixadorDeAudios mixador;
 
 #include "GerenciadorDeRecursos.h"
 extern GerenciadorDeRecursos recursos;

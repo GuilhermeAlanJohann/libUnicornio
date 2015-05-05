@@ -2,6 +2,7 @@
 #include <algorithm>
 
 #if !UNI_PLATAFORMA_ANDROID
+#include <locale>
 #include <codecvt>
 #endif
 

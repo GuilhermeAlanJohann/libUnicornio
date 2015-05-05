@@ -39,6 +39,9 @@ public:
 	int getNumCanaisUsados();
 	int getNumCanaisLivres();
 
+	float getVolumeGlobal();
+	void setVolumeGlobal(float volume);
+
 private:
 	#define NUM_MAX_CANAIS_DE_AUDIO 256
 
@@ -46,6 +49,8 @@ private:
 	int num_canais_usados;
 
 	bool inicializado;
+
+	float volume_global;
 };
 
 #endif
