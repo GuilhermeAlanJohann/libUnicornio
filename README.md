@@ -30,6 +30,8 @@ Foi criada por **Guilherme Alan Johann** e ainda está em desenvolvimento.  É esc
   - I hate Flappy Bird: [ví­deo](http://www.youtube.com/watch?v=IgDd3IXTekg) 
   - PokeTretaMon: [vídeo](http://youtu.be/0x9sIIj6oBU)   
   - Outro jogo estilo pokemon: [ví­deo] (http://youtu.be/FAv_1ucMwac)  
+  - Olympic SS Idol Festival: [página] (https://www.behance.net/gallery/27995525/Olympic-SS-Idol-Festival)
+  - Gamelization: [vídeo] (https://www.youtube.com/watch?v=jIgEIQPC6cg&feature=youtu.be)
   
 Está usando a Unicórnio em algum projeto? Me deixe saber.  
 Mande um email pra 'pcista@hotmail.com' contendo um vídeo ou um link com imagens do projeto.
