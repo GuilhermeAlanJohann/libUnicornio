@@ -345,6 +345,8 @@ void TileMap::descarregar()
 	camadas_tiles.clear();
 	camadas_objetos.clear();
 
+	limparRenderQueues();
+
 	carregou = false;
 }
 

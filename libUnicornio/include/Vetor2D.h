@@ -1,6 +1,10 @@
 #ifndef UNI_VETOR2D_H
 #define UNI_VETOR2D_H
 
+#ifndef PI
+	#define PI 3.14159265358979
+#endif
+
 class Vetor2D
 {
 public:
@@ -61,6 +65,7 @@ public:
 	float comprimento() const;
 	float comprimentoAoQuadrado() const;
 	float normalizar();
+	void rotacionar(float angulo);
 
 	float x, y;
 };

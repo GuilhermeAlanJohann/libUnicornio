@@ -238,3 +238,14 @@ float Vetor2D::normalizar()
 
 	return compr;
 }
+
+void Vetor2D::rotacionar(float angulo)
+{
+	float rad = angulo*PI / 180;
+	float cs = cosf(rad);
+	float sn = sinf(rad);
+	float xx = x*cs - y*sn;
+	float yy = x*sn + y*cs;
+	x = xx;
+	y = yy;
+}

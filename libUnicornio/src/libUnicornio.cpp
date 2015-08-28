@@ -390,8 +390,11 @@ void uniDesenharCirculo(int x, int y, float raio, int num_segmentos, int vermelh
 	int anterior_x = x + (int)raio;
 	int anterior_y = y;
 
-	//	desenha borda
-	for(float i = 0; i <= 360; i += 360.0f/(float)num_segmentos)
+	SDL_SetRenderDrawColor(janela.sdl_renderer, (Uint8)vermelho, (Uint8)verde, (Uint8)azul, 255);
+
+	float inc = 360.0f / (float)num_segmentos;
+
+	for(float i = inc; i < 360.0f; i += inc)
 	{
 		c = cos(i*(float)(PI/180.0));
 		s = sin(i*(float)(PI/180.0));
@@ -399,11 +402,13 @@ void uniDesenharCirculo(int x, int y, float raio, int num_segmentos, int vermelh
 		int atual_x = x + (int)(c*raio);
 		int atual_y = y + (int)(s*raio);
 
-		uniDesenharLinha(anterior_x, anterior_y, atual_x, atual_y, vermelho, verde, azul);
+		SDL_RenderDrawLine(janela.sdl_renderer, anterior_x, anterior_y, atual_x, atual_y);
 
 		anterior_x = atual_x;
 		anterior_y = atual_y;
 	}
+
+	SDL_RenderDrawLine(janela.sdl_renderer, anterior_x, anterior_y, x + (int)raio, y);
 }
 
 void uniDesenharRetangulo(int x, int y, float rot, int largura, int altura, float ancora_x, float ancora_y, int vermelho, int verde, int azul)

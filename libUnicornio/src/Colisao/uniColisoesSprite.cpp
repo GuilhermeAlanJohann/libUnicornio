@@ -1,55 +1,55 @@
 #include "uniColisoesSprite.h"
 
 //	colisao entre ponto e sprite 
-bool uniColisaoPontoComSprite(float ponto_x, float ponto_y, Sprite* spr, float x, float y, float rot)
+bool uniColisaoPontoComSprite(float ponto_x, float ponto_y, Sprite &spr, float x, float y, float rot)
 {
 	float ax, ay;
 	int larg, alt;
 
-	spr->obterAncora(ax, ay);
-	spr->obterTamanho(larg, alt);
+	spr.obterAncora(ax, ay);
+	spr.obterTamanho(larg, alt);
 
 	return uniColisaoPontoComRetangulo(ponto_x, ponto_y, x, y, rot, (float)larg, (float)alt, ax, ay);
 }
 
 //	colisao entre linha e sprite
-bool uniColisaoLinhaComSprite(float linha_x1, float linha_y1, float linha_x2, float linha_y2, Sprite* spr, float x, float y, float rot)
+bool uniColisaoLinhaComSprite(float linha_x1, float linha_y1, float linha_x2, float linha_y2, Sprite &spr, float x, float y, float rot)
 {
 	float ax, ay;
 	int larg, alt;
 
-	spr->obterAncora(ax, ay);
-	spr->obterTamanho(larg, alt);
+	spr.obterAncora(ax, ay);
+	spr.obterTamanho(larg, alt);
 
 	return uniColisaoLinhaComRetangulo(linha_x1, linha_y1, linha_x2, linha_y2, x, y, rot, (float)larg, (float)alt, ax, ay);
 }
 
 //	colisao entre circulo e sprite
-bool uniColisaoCirculoComSprite(float circulo_x, float circulo_y, float raio, Sprite* spr, float x, float y, float rot, bool testar_dentro)
+bool uniColisaoCirculoComSprite(float circulo_x, float circulo_y, float raio, Sprite &spr, float x, float y, float rot, bool testar_dentro)
 {
 	float ax, ay;
 	int larg, alt;
 
-	spr->obterAncora(ax, ay);
-	spr->obterTamanho(larg, alt);
+	spr.obterAncora(ax, ay);
+	spr.obterTamanho(larg, alt);
 
 	return uniColisaoCirculoComRetangulo(circulo_x, circulo_y, raio, x, y, rot, (float)larg, (float)alt, ax, ay, testar_dentro);
 }
 
 //	colisao entre retangulo e sprite
-bool uniColisaoRetanguloComSprite(float retan_x, float retan_y, float retan_rot, float retan_largura, float retan_altura, float retan_ancora_x, float retan_ancora_y, Sprite* spr, float x, float y, float rot, bool testar_dentro)
+bool uniColisaoRetanguloComSprite(float retan_x, float retan_y, float retan_rot, float retan_largura, float retan_altura, float retan_ancora_x, float retan_ancora_y, Sprite &spr, float x, float y, float rot, bool testar_dentro)
 {
 	float ax, ay;
 	int larg, alt;
 
-	spr->obterAncora(ax, ay);
-	spr->obterTamanho(larg, alt);
+	spr.obterAncora(ax, ay);
+	spr.obterTamanho(larg, alt);
 
 	return uniColisaoRetanguloComRetangulo(retan_x, retan_y, retan_rot, retan_largura, retan_altura, retan_ancora_x, retan_ancora_y, x, y, rot, (float)larg, (float)alt, ax, ay, testar_dentro);
 }
 
 //	colisao entre poligono e sprite
-bool uniColisaoPoligonoComSprite(Vetor2D* pontos, int num_pontos, float poli_x, float poli_y, float poli_rot, Sprite* spr, float x, float y, float rot, bool testar_dentro)
+bool uniColisaoPoligonoComSprite(Vetor2D *pontos, int num_pontos, float poli_x, float poli_y, float poli_rot, Sprite &spr, float x, float y, float rot, bool testar_dentro)
 {
 	//	se nao tiver pontos suficientes, nao testa
 	if(num_pontos < 3)
@@ -58,8 +58,8 @@ bool uniColisaoPoligonoComSprite(Vetor2D* pontos, int num_pontos, float poli_x, 
 	float ax, ay;
 	int larg, alt;
 
-	spr->obterAncora(ax, ay);
-	spr->obterTamanho(larg, alt);
+	spr.obterAncora(ax, ay);
+	spr.obterTamanho(larg, alt);
 
 	Vetor2D retan[4];
 	retan[0].x = -ax*larg;
@@ -75,27 +75,27 @@ bool uniColisaoPoligonoComSprite(Vetor2D* pontos, int num_pontos, float poli_x, 
 }
 
 //	colisao entre sprites
-bool uniColisaoSpriteComSprite(Sprite* spr1, float x1, float y1, float rot1, Sprite* spr2, float x2, float y2, float rot2, bool testar_dentro)
+bool uniColisaoSpriteComSprite(Sprite &spr1, float x1, float y1, float rot1, Sprite &spr2, float x2, float y2, float rot2, bool testar_dentro)
 {
 	float ax1, ay1, ax2, ay2;
 	int larg1, alt1, larg2, alt2;
 
-	spr1->obterAncora(ax1, ay1);
-	spr1->obterTamanho(larg1, alt1);
-	spr2->obterAncora(ax2, ay2);
-	spr2->obterTamanho(larg2, alt2);
+	spr1.obterAncora(ax1, ay1);
+	spr1.obterTamanho(larg1, alt1);
+	spr2.obterAncora(ax2, ay2);
+	spr2.obterTamanho(larg2, alt2);
 
 	return uniColisaoRetanguloComRetangulo(x1, y1, rot1, (float)larg1, (float)alt1, ax1, ay1, x2, y2, rot2, (float)larg2, (float)alt2, ax2, ay2, testar_dentro);
 }
 
 //	func de colisao entre ponto e sprite (nome mais curto)
-bool uniColisao(float px, float py, Sprite* spr, float spr_x, float spr_y, float spr_rot)
+bool uniColisao(float px, float py, Sprite &spr, float spr_x, float spr_y, float spr_rot)
 {
 	return uniColisaoPontoComSprite(px, py, spr, spr_x, spr_y, spr_rot);
 }
 
 //	func de colisao entre sprites (nome mais curto)
-bool uniColisao(Sprite* spr1, float x1, float y1, float rot1, Sprite* spr2, float x2, float y2, float rot2)
+bool uniColisao(Sprite &spr1, float x1, float y1, float rot1, Sprite &spr2, float x2, float y2, float rot2)
 {
 	return uniColisaoSpriteComSprite(spr1, x1, y1, rot1, spr2, x2, y2, rot2, true);
 }
