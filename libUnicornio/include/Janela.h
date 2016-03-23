@@ -2,6 +2,8 @@
 #define UNI_JANELA_H
 
 #include "uniPlataformas.h"
+#include "Retangulo.h"
+#include "Fading.h"
 #include "SDL.h"
 #include <string>
 
@@ -39,18 +41,20 @@ public:
 	int getY();
 	int getLargura();
 	int getAltura();
-	int getLarguraTela();
-	int getAlturaTela();
+	int getLarguraReal();
+	int getAlturaReal();
+	int getLarguraTotal();
+	int getAlturaTotal();
+	Retangulo getRetanguloDeCorte();
 
 	void obterPos(int &x, int &y);
 	void obterTamanho(int &larg, int &alt);
-	void obterTamanhoTela(int &larg, int &alt);
+	void obterTamanhoReal(int &larg, int &alt);
+	void obterTamanhoTotal(int &larg, int &alt);
 	void obterCorDeFundo(int &vermelho, int &verde, int &azul);
 
 	bool estaEmModoPaisagem();
 	bool estaEmModoRetrato();
-	bool telaEstaEmModoPaisagem();
-	bool telaEstaEmModoRetrato();
 	bool estaEmTelaCheia();
 
 	bool setIcone(string caminho_arquivo);
@@ -58,16 +62,23 @@ public:
 	void setTitulo(string titulo);
 	void setPos(int x, int y);
 	void setTamanho(int larg, int alt);
-	void setTamanhoTela(int larg, int alt);
+	void setTamanhoReal(int larg, int alt);
+	void setRetanguloDeCorte(const Retangulo& retan);
+	void setRetanguloDeCorteTelaInteira();
+	void setCorDeFundo(const Cor& cor);
 	void setCorDeFundo(int vermelhor, int verde, int azul);
 	void setTelaCheia(bool tela_cheia);
 
-	void ajustarTela();
+	void ajustar();
 	void limpar();
 	void desenhar();
+	void removerRetanguloDeCorte();
+	void removerLetterBoxing();
 
 	SDL_Window *sdl_window;
 	SDL_Renderer *sdl_renderer;
+
+	Fading fading;
 
 private:
 	bool moveu_;
@@ -87,8 +98,8 @@ private:
 	int y;
 	int largura;
 	int altura;
-	int largura_tela;
-	int altura_tela;
+	int largura_real;
+	int altura_real;
 	int id;
 
 	SDL_Color cor;

@@ -35,7 +35,7 @@ float& Vetor2D::operator()(int i)
 
 bool Vetor2D::operator==(const Vetor2D& v)
 {
-	return (abs(x-v.x) < FLT_EPSILON && abs(y - v.y) < FLT_EPSILON);
+	return (fabsf(x-v.x) < FLT_EPSILON && fabsf(y - v.y) < FLT_EPSILON);
 }
 
 bool Vetor2D::operator!=(const Vetor2D& v)
@@ -217,7 +217,7 @@ void Vetor2D::zerar()
 
 float Vetor2D::comprimento() const
 {
-	return sqrt(x * x + y * y);
+	return sqrtf(x * x + y * y);
 }
 
 float Vetor2D::comprimentoAoQuadrado() const
@@ -248,4 +248,31 @@ void Vetor2D::rotacionar(float angulo)
 	float yy = x*sn + y*cs;
 	x = xx;
 	y = yy;
+}
+
+float Vetor2D::getAnguloAteVetor(const Vetor2D& vet)
+{
+	float r = atan2f(vet.y, vet.x) - atan2f(y, x);
+	r *= 180 / PI;
+	if (r < -180.0f)
+		r += 360.0f;
+	if (r > 180.0f)
+		r -= 360.0f;
+	return r;
+}
+
+float Vetor2D::getAnguloDoVetor(const Vetor2D& vet)
+{
+	float r = atan2f(y, x) - atan2f(vet.y, vet.x);
+	r *= 180 / PI;
+	if (r < -180.0f)
+		r += 360.0f;
+	if (r > 180.0f)
+		r -= 360.0f;
+	return r;
+}
+
+float Vetor2D::getAngulo()
+{
+	return getAnguloDoVetor(Vetor2D(1, 0));
 }

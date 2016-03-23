@@ -26,7 +26,7 @@ int Tile::getCustoAdicional()
 
 NivelTile Tile::getNivel()
 {
-	return nivel;
+	return (NivelTile)nivel;
 }
 
 TileSet* Tile::getTileSet()

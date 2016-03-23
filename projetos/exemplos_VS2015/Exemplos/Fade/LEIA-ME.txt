@@ -1,0 +1,12 @@
+Descrição:
+Este exemplo mostra o uso da funcionalidade de fading.
+Nele, o efeito de fadein e fadeout é executado quando o usuário pressiona as teclas [I] e [O] respectivamente.
+
+Objetos importantes:
+- gJanela.fading
+
+Observações:
+É importante reparar que após o fading terminar, o programador é responsável por setar a variavel
+que indica que o efeito de fading terminou para false, assim evita-se possíveis bugs relacionados
+quando existe troca de tela, ou algo parecido. Não é totalmente necessário, mas é uma medida de prevenção.
+

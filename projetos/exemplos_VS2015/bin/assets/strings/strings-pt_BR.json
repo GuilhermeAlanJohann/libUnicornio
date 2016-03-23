@@ -1,0 +1,18 @@
+{
+  "CharDescription": "Descrição do personagem",
+
+  //  strings
+  "Name": "Name",
+  "Class": "Class",
+  //  Não precisamos repetir o nome do personagem aqui, pois é o mesmo que no arquivo padrao
+  //"CharName": "Albatroz",
+  "CharClass": "Cavaleiro Santo",
+  "Skills": "Habiliadades",
+
+  //  vetor de strings
+  "SkillNames": [
+    "Fúria Divina",
+    "Defesa Angelical",
+    "Martelo da Justica"
+  ]
+}

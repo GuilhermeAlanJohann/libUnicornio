@@ -1,0 +1,44 @@
+
+-----------------------------------------------------------
+COMO USAR O PROJETO BASE WINDOWS 8.1
+
+O projeto base para Windows 8.1 está contido em uma solução com vários outros projetos.
+Essa solução é dividida em 3 partes principais:
+
+- Projeto Jogo
+- Projeto Assets
+- Outros Projetos
+
+***Projeto Jogo:***
+
+Esse é o projeto principal. É aqui que todo o código do seu jogo deve estar.
+
+***Projeto Assets:***
+
+Serve para conter os assets usados no jogo. Não é totalmente necessário, mas ajuda a manter a organização 
+separando-os do código. Para adicionar um asset, clique com o botão esquerdo do mouse em cima desse projeto 
+e á em "Add" > "Existing Item". Selecione os assets usados no jogo e clique em Ok. 
+Isso fará com que os arquivos adicionados sejam copiados apra a pasta do final do jogo. Porém alguns tipos 
+de arquivos não são bem interpretados pelo Visual Studio e não serão copiados automaticamente. É o caso de 
+arquivos ".ogg". Para fazer esses arquivos serem copiados como os outros, faça o seguinte:
+	1) Após adicionar o arquivo, clique em cima dele com o botão direito do mouse.
+	2) Selecione "Properties".
+	3) Mude "Content" para "True".
+
+***Outros Projetos:***
+
+Dentre esse projetos estão os projetos da biblioteca SDL e suas dependências, o projeto da biblioteca 
+Unicórnio e o projeto base. Certifique-se de que o projeto base está marcado como "StartUp Project". 
+Ele deve estar em negrito. Caso não esteja:
+	1) Clique com o botão esquerdo do mouse em cima do projeto.
+	2) Va em "Set as StartUp Project".
+
+
+------------------------------------------------------
+COMO ALTERAR OS ÍCONES, LOGOS E SPLASHSCREEN DO JOGO
+
+Na pasta da solução, procure pelo projeto base. Ele deve estar em uma pasta chamada Windows 8.1". 
+Dentro dessa pasta, existe uma pasta chamada "Assets". Dentro da pasta "Assets" existem diversas imagens 
+com resoluções diferentes para ícones logos e uma imagem para splash screen (imagem que aparece no inicio 
+da aplicação). Você pode alterar qualquer uma dessas imagens porém não deve alterar a resolução delas. 
+Também não altere o nome, caso sontrario terá que reconfigurar o projeto base.

@@ -1,0 +1,30 @@
+Descrição:
+Este exemplo mostra como usar um tilemap com AStar.
+Ele mostra um mapa de tiles com um personagem controlavel pelo mouse.
+O movimento do personagem é feito através da classe TravessiaAStar.
+As colisões entre o personagem e os tiles são definidas com base na informação 
+do arquivo de configuração do tileset.
+
+Classes importantes:
+- TileMap
+- Tile
+- TileSet
+- CamadaDeTiles
+- ObjetoTileMap
+- CamadaDeObjetosTileMap
+- AStar
+- TravessiaAStar
+
+Objetos importantes:
+- gRecursos
+- gTempo
+
+Observações:
+Para saber como criar um TileMap, leia o arquivo "Como Criar um TileMap.txt"
+Para saber como configurar um TileSet, leia o arquivo "Como Configurar um TileSet.txt".
+
+Veja também os exemplos:
+- Sprite
+- TileMap
+- TileMap Colisao
+- AStar

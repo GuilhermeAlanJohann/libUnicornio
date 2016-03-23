@@ -1,0 +1,7 @@
+1) Para criar um tilemap vc deve usar o software Tiled Map Editor (www.mapeditor.org).
+2) Faça o download do software e então crie o seu tilemap o ele.
+3) Após criar o tilemap, exporte ele para o formato .json
+4) Se for necessario (provavelmente será), arrume o caminho para os arquivos de tileset. 
+4.1) para fazer isso, abra o arquivo do mapa em um editor de textos e procure o local onde estão contidas as informações dos tileset que vc usou.
+4.2) no campo 'image' digite o caminho correto para a imagem do tileset.
+4.3) salve o arquivo novamente e ele estará pronto para usar com a libUnicórnio.

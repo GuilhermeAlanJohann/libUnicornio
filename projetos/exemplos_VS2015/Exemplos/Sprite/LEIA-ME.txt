@@ -1,0 +1,22 @@
+Descrição:
+Este exemplo mostra como carregar sprite sheets e desenhar um sprite animado na tela.
+Ele mostra um personagem
+
+Classes importantes:
+- Sprite
+- SpriteSheet
+
+Objetos importantes:
+- gRecursos
+
+Observações:
+Perceba que é ao carregar o SpriteSheet ele deve estar com todas as animações 
+e todos os frames bem alinhados entre si. Também devemos passar o número de animações
+e o número de frames da maior animação, mesmo que existam outras animações com menos 
+frames. Neste caso, usa-se o método "setNumFramesDaAnimacao" do SpriteSheet para setar 
+o número de frame de uma animação. Podemos acessar o SpriteSheet usando o método
+"getSpriteSheet" do objeto gRecursos.
+Note que para animar um sprite é necessário chamar o método "avancarAnimacao".
+Perceba também que caso o sprite tenha apenas uma animação com um unico frame, 
+não faz sentido, chamar esse método.
+

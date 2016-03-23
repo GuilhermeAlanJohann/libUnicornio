@@ -1,0 +1,18 @@
+Descrição:
+Este exemplo mostra como carregar Fontes truetype (TTF) e usa-las para mostrar um texto na tela.
+
+Classes importantes:
+- Texto
+- Fonte
+
+Objetos importantes:
+- gRecursos
+
+Observações:
+É possivel alterar a cor de uma palavra/trecho da string ou de cada letra especificamente. 
+Isso permite textos coloridos para chamar atenção a algum trecho específico. 
+O mesmo também é possivel para textos que usam fonte Bitmap, porém como as fontes Bitmap normalmente 
+já são coloridas, não é necessidade de fazer isso.
+
+Veja também os exemplos:
+- Texto Bitmap

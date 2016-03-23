@@ -1,0 +1,25 @@
+Descrição:
+Este exemplo mostra o uso de máquinas de estados.
+Nele, uma máquina de estado é aplicada a um agente para definir o seu comportamento em diferentes estados:
+- Parado
+- Girando
+- Movendo
+Cada estado implementa sua própria lógica e condições de transição. 
+As possíveis transições entre os estados são:
+  Parado   --> Girando
+  Girando <--> Movendo
+  Movendo  --> Parado
+
+Classes importantes:
+- MaquinaDeEstados
+- Estado
+
+Observações:
+Repare que neste exemplo a classe MaquinaDeEstados foi utilizada como classe pai para a classe Agente.
+E uma classe base foi implementada para todos os estados do agente (EstadoAgente).
+Essa classe possui um método para pegar o ponteiro para o agente, podendo assim chamar os métodos
+do próprio agente.
+Isso não é necessário, mas essa estratégia facilita muito o uso da maquina de estados e é a estratégia recomendada.
+
+Veja também os exemplos:
+- Sprite

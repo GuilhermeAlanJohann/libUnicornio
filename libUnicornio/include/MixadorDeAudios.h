@@ -27,6 +27,7 @@ public:
 
 	bool inicializar();
 	bool finalizar();
+	bool estaInicializado();
 
 	void reservarCanalDeAudio(int indice_canal, Som *som);
 	void liberarCanalDeAudio(int indice_canal);
@@ -36,21 +37,24 @@ public:
 	void pararTodosCanais();
 
 	int getNumMaxCanaisDeAudio();
-	int getNumCanaisUsados();
+	int getNumCanaisOcupados();
 	int getNumCanaisLivres();
+
+	void setNumMaxCanaisDeAudio(unsigned int max);
 
 	float getVolumeGlobal();
 	void setVolumeGlobal(float volume);
 
-private:
-	#define NUM_MAX_CANAIS_DE_AUDIO 256
+	int tocar(Mix_Chunk* mix_chunk, bool repetir, float tempo_fadein, float volume, Sint16 angulo, Sint8 distancia);
 
-	CanalDeAudio* pool_de_canais;
-	int num_canais_usados;
+private:
+	CanalDeAudio* poolDeCanais;
+	unsigned int numMaxCanais;
+	unsigned int numCanaisOcupados;
 
 	bool inicializado;
 
-	float volume_global;
+	float volumeGlobal;
 };
 
 #endif

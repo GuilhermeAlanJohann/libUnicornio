@@ -1,0 +1,11 @@
+Descrição:
+Este exemplo mostra o uso de LetterBoxing (faixas "pretas") na libUnicórnio
+e como remove-lo.
+Nele é possível alterar as dimensões da tela e remover o letterboxing.
+
+Objetos importantes:
+- gJanela
+
+Observações:
+Por padrão o letterboxing já ativado toda vez que as dimensões da tela mudam. 
+Porém é possivel remove-lo chamando o método "removerLetterBoxing" da classe Janela.

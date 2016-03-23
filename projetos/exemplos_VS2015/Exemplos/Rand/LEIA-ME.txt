@@ -1,0 +1,17 @@
+Descrição:
+Este exemplo mostra como gerar números aleatórios entre um valor e outro 
+usando a libUnicórnio.
+Nele, um número aleatório entre -100 e +100 é gerado toda vez que o usuário
+pressionar uma das teclas indicadas.
+
+Funções importantes:
+- uniRandSetSemente
+- uniRandEntre*
+
+Observações:
+Repare que é possivel gerar números aleatórios com virgula (float e double).
+Também é possivel gerar vetor ateatório (Vetor2D). O vetor resultante é uma 
+posição qualquer dentro da área (retângulo) formada pelos dois pontos. 
+
+Veja também os exemplos:
+- Texto TTF

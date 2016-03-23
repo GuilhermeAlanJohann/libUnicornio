@@ -1,5 +1,4 @@
-#include "Eventos.h"
-#include "SDL.h"
+#include "EventosTeclado.h"
 
 EventosTeclado::EventosTeclado()
 {

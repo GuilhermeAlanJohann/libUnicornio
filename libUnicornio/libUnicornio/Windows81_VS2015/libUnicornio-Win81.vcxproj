@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\AStar.h" />
+    <ClInclude Include="..\..\include\Audio.h" />
+    <ClInclude Include="..\..\include\BotaoSprite.h" />
+    <ClInclude Include="..\..\include\CamadaDeObjetosTileMap.h" />
+    <ClInclude Include="..\..\include\CamadaDeTiles.h" />
+    <ClInclude Include="..\..\include\Cor.h" />
+    <ClInclude Include="..\..\include\EnumQualidadeEscala.h" />
+    <ClInclude Include="..\..\include\EnumsInputs.h" />
+    <ClInclude Include="..\..\include\Estado.h" />
+    <ClInclude Include="..\..\include\EventosInputTexto.h" />
+    <ClInclude Include="..\..\include\EventosJoysticks.h" />
+    <ClInclude Include="..\..\include\EventosMouse.h" />
+    <ClInclude Include="..\..\include\EventosTeclado.h" />
+    <ClInclude Include="..\..\include\EventosToques.h" />
+    <ClInclude Include="..\..\include\Fading.h" />
+    <ClInclude Include="..\..\include\FiltroDeEventosDeApp.h" />
+    <ClInclude Include="..\..\include\Fonte.h" />
+    <ClInclude Include="..\..\include\GerenciadorDeEventos.h" />
+    <ClInclude Include="..\..\include\GerenciadorDeGraficos.h" />
+    <ClInclude Include="..\..\include\GerenciadorDeMusica.h" />
+    <ClInclude Include="..\..\include\GerenciadorDeRecursos.h" />
+    <ClInclude Include="..\..\include\GerenciadorDeStrings.h" />
+    <ClInclude Include="..\..\include\GerenciadorDeTempo.h" />
+    <ClInclude Include="..\..\include\Global.h" />
+    <ClInclude Include="..\..\include\GrupoDeStrings.h" />
+    <ClInclude Include="..\..\include\Janela.h" />
+    <ClInclude Include="..\..\include\Joystick.h" />
+    <ClInclude Include="..\..\include\libUnicornio.h" />
+    <ClInclude Include="..\..\include\ListenerDeEventos.h" />
+    <ClInclude Include="..\..\include\MaquinaDeEstados.h" />
+    <ClInclude Include="..\..\include\MaquinaDeEstadosComPilha.h" />
+    <ClInclude Include="..\..\include\MixadorDeAudios.h" />
+    <ClInclude Include="..\..\include\Musica.h" />
+    <ClInclude Include="..\..\include\Neuronio.h" />
+    <ClInclude Include="..\..\include\NodoAStar.h" />
+    <ClInclude Include="..\..\include\ObjetoTileMap.h" />
+    <ClInclude Include="..\..\include\PainelDeDebug.h" />
+    <ClInclude Include="..\..\include\Preferencias.h" />
+    <ClInclude Include="..\..\include\RedeNeural.h" />
+    <ClInclude Include="..\..\include\Retangulo.h" />
+    <ClInclude Include="..\..\include\Som.h" />
+    <ClInclude Include="..\..\include\Sprite.h" />
+    <ClInclude Include="..\..\include\SpriteSheet.h" />
+    <ClInclude Include="..\..\include\Texto.h" />
+    <ClInclude Include="..\..\include\Tile.h" />
+    <ClInclude Include="..\..\include\TileMap.h" />
+    <ClInclude Include="..\..\include\TileSet.h" />
+    <ClInclude Include="..\..\include\Toque.h" />
+    <ClInclude Include="..\..\include\TravessiaAStar.h" />
+    <ClInclude Include="..\..\include\uniEase.h" />
+    <ClInclude Include="..\..\include\uniFuncoesPrincipais.h" />
+    <ClInclude Include="..\..\include\uniPlataformas.h" />
+    <ClInclude Include="..\..\include\uniRand.h" />
+    <ClInclude Include="..\..\include\uniSistemaDeArquivos.h" />
+    <ClInclude Include="..\..\include\uniTestarColisao.h" />
+    <ClInclude Include="..\..\include\uniTestarColisaoSprite.h" />
+    <ClInclude Include="..\..\include\Vetor2D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Arquivos\Preferencias.cpp" />
+    <ClCompile Include="..\..\src\Arquivos\uniSistemaDeArquivos.cpp" />
+    <ClCompile Include="..\..\src\Audio\Audio.cpp" />
+    <ClCompile Include="..\..\src\Audio\GerenciadorDeMusica.cpp" />
+    <ClCompile Include="..\..\src\Audio\MixadorDeAudios.cpp" />
+    <ClCompile Include="..\..\src\Audio\Musica.cpp" />
+    <ClCompile Include="..\..\src\Audio\Som.cpp" />
+    <ClCompile Include="..\..\src\Colisao\uniTestarColisao.cpp" />
+    <ClCompile Include="..\..\src\Colisao\uniTestarColisaoSprite.cpp" />
+    <ClCompile Include="..\..\src\Debug\PainelDeDebug.cpp" />
+    <ClCompile Include="..\..\src\Eventos\EventosInputTexto.cpp" />
+    <ClCompile Include="..\..\src\Eventos\EventosJoysticks.cpp" />
+    <ClCompile Include="..\..\src\Eventos\EventosMouse.cpp" />
+    <ClCompile Include="..\..\src\Eventos\EventosTeclado.cpp" />
+    <ClCompile Include="..\..\src\Eventos\EventosToques.cpp" />
+    <ClCompile Include="..\..\src\Eventos\FiltroDeEventosDeApp.cpp" />
+    <ClCompile Include="..\..\src\Eventos\GerenciadorDeEventos.cpp" />
+    <ClCompile Include="..\..\src\Eventos\Joystick.cpp" />
+    <ClCompile Include="..\..\src\Eventos\ListenerDeEventos.cpp" />
+    <ClCompile Include="..\..\src\Global.cpp" />
+    <ClCompile Include="..\..\src\IA\AStar.cpp" />
+    <ClCompile Include="..\..\src\IA\Estado.cpp" />
+    <ClCompile Include="..\..\src\IA\MaquinaDeEstados.cpp" />
+    <ClCompile Include="..\..\src\IA\MaquinaDeEstadosComPilha.cpp" />
+    <ClCompile Include="..\..\src\IA\Neuronio.cpp" />
+    <ClCompile Include="..\..\src\IA\RedeNeural.cpp" />
+    <ClCompile Include="..\..\src\IA\TravessiaAStar.cpp" />
+    <ClCompile Include="..\..\src\Interface\BotaoSprite.cpp" />
+    <ClCompile Include="..\..\src\json\jsoncpp.cpp" />
+    <ClCompile Include="..\..\src\Recursos\GerenciadorDeRecursos.cpp" />
+    <ClCompile Include="..\..\src\Render\Cor.cpp" />
+    <ClCompile Include="..\..\src\Render\Fading.cpp" />
+    <ClCompile Include="..\..\src\Render\Fonte.cpp" />
+    <ClCompile Include="..\..\src\Render\GerenciadorDeGraficos.cpp" />
+    <ClCompile Include="..\..\src\Render\Janela.cpp" />
+    <ClCompile Include="..\..\src\Render\Sprite.cpp" />
+    <ClCompile Include="..\..\src\Render\SpriteSheet.cpp" />
+    <ClCompile Include="..\..\src\Render\Texto.cpp" />
+    <ClCompile Include="..\..\src\Strings\GerenciadorDeStrings.cpp" />
+    <ClCompile Include="..\..\src\Strings\GrupoDeStrings.cpp" />
+    <ClCompile Include="..\..\src\Tempo\GerenciadorDeTempo.cpp" />
+    <ClCompile Include="..\..\src\TileMap\CamadaDeObjetosTileMap.cpp" />
+    <ClCompile Include="..\..\src\TileMap\CamadaDeTiles.cpp" />
+    <ClCompile Include="..\..\src\TileMap\NodoAStar.cpp" />
+    <ClCompile Include="..\..\src\TileMap\ObjetoTileMap.cpp" />
+    <ClCompile Include="..\..\src\TileMap\Tile.cpp" />
+    <ClCompile Include="..\..\src\TileMap\TileMap.cpp" />
+    <ClCompile Include="..\..\src\TileMap\TileSet.cpp" />
+    <ClCompile Include="..\..\src\uniEase.cpp" />
+    <ClCompile Include="..\..\src\uniFuncoesPrincipais.cpp" />
+    <ClCompile Include="..\..\src\uniRand.cpp" />
+    <ClCompile Include="..\..\src\Vetor2D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dep\SDL2\VisualC-WinRT\WinRT81_VS2013\SDL-WinRT81.vcxproj">
+      <Project>{c8df6173-06a1-4f56-a9bc-2002596b30e9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\SDL2_image\VisualC-WinRT\WinRT81_VS2013\SDL_image-WinRT81.vcxproj">
+      <Project>{29b4d11f-59f3-4ebc-a769-3babd140db9a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\SDL2_mixer\VisualC-WinRT\WinRT81_VS2013\SDL_mixer-WinRT81.vcxproj">
+      <Project>{3a833c7a-c776-4202-9dbd-bc879b23c605}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\SDL2_ttf\VisualC-WinRT\WinRT81_VS2013\SDL_ttf-WinRT81.vcxproj">
+      <Project>{90ca40dc-84b4-4d06-91d1-dc82a7a1e4d0}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{f18bcd55-a6fa-46b7-9e42-67164b9cd731}</ProjectGuid>
+    <Keyword>StaticLibrary</Keyword>
+    <ProjectName>libUnicornio-Win81</ProjectName>
+    <RootNamespace>libUnicornio</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <ApplicationTypeRevision>8.1</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Objs\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Objs\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Objs\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Objs\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Objs\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Objs\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(RootNamespace)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;$(ProjectDir)..\..\dep\SDL2\include;$(ProjectDir)..\..\dep\SDL2_image;$(ProjectDir)..\..\dep\SDL2_mixer;$(ProjectDir)..\..\dep\SDL2_ttf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;$(ProjectDir)..\..\dep\SDL2\include;$(ProjectDir)..\..\dep\SDL2_image;$(ProjectDir)..\..\dep\SDL2_mixer;$(ProjectDir)..\..\dep\SDL2_ttf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;$(ProjectDir)..\..\dep\SDL2\include;$(ProjectDir)..\..\dep\SDL2_image;$(ProjectDir)..\..\dep\SDL2_mixer;$(ProjectDir)..\..\dep\SDL2_ttf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;$(ProjectDir)..\..\dep\SDL2\include;$(ProjectDir)..\..\dep\SDL2_image;$(ProjectDir)..\..\dep\SDL2_mixer;$(ProjectDir)..\..\dep\SDL2_ttf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;$(ProjectDir)..\..\dep\SDL2\include;$(ProjectDir)..\..\dep\SDL2_image;$(ProjectDir)..\..\dep\SDL2_mixer;$(ProjectDir)..\..\dep\SDL2_ttf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\include;$(ProjectDir)..\..\dep\SDL2\include;$(ProjectDir)..\..\dep\SDL2_image;$(ProjectDir)..\..\dep\SDL2_mixer;$(ProjectDir)..\..\dep\SDL2_ttf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\lib\$(TargetOsAndVersion)\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,29 @@
+Descrição:
+Este exemplo mostra o uso de máquinas de estados com pilha.
+Uma máquina de estados com pilha, é uma máquina de estados em que é possível empilhar e
+desempilhar estados. Isso permite que a máquina de estados volte para um anterior, 
+se ele estiver na pilha.
+Apenas o estado no topo da pilha fica ativo.
+Neste exemplo, uma maquina de estados com pilha é usada para fazer a trasição entre telas.
+Cada Tela é tratada como um estado. Existem 3 estados/telas.
+- TelaInicial: que mostra o logo da libUnicórnio. (Essa tela é mostrada só no inicio da aplicação)
+- TelaMenu: com os botões Play e Exit. 
+- TelaJogo: que mostra um texto na tela.
+
+Classes importantes:
+- MaquinaDeEstadosComPilha
+- Estado
+
+Observações:
+Repare que é possivel não só empilhar e desempilhar estados, mas também trocar o estado.
+Isso é usado na primeira tela (TelaInicial), para impedir que ao sair do menu, o usuário 
+volte a ver essa tela.
+Este exemplo faz uso de diversas partes da biblioteca. É altamente recomendavel que você 
+veja os exemplos indicados abaixo antes de ver este aqui.
+
+Veja também os exemplos:
+- Fade
+- Sprite
+- Texto TTF
+- BotaoSprite
+

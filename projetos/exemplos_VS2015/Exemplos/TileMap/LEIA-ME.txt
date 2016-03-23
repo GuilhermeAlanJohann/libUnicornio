@@ -1,0 +1,31 @@
+Descrição:
+Este exemplo mostra como usar um tilemap.
+Ele mostra um mapa de tiles com um personagem controlavel pelo teclado.
+As colisões entre o personagem e os tiles são definidas com base na informação 
+do arquivo de configuração do tileset.
+
+Classes importantes:
+- TileMap
+- Tile
+- TileSet
+- CamadaDeTiles
+- ObjetoTileMap
+- CamadaDeObjetosTileMap
+
+Objetos importantes:
+- gRecursos
+
+Observações:
+Para saber como criar um TileMap, leia o arquivo "Como Criar um TileMap.txt"
+Para saber como configurar um TileSet, leia o arquivo "Como Configurar um TileSet.txt".
+Este exemplo carrega um mapa de tiles contendo um objeto chamado "Player".
+Esse objeto é usado para representar o jogador durante o jogo.
+Para que esse objeto seja visto, é necessário associar um Sprite a este objeto.
+O Sprite deve ser carregado separadamente e "associado" manualmente.
+Repare que todos os objetos carregado junto com o tilemap (ObjetoTileMap) são
+tratados com se fossem retangulos.
+
+Veja também os exemplos:
+- Sprite
+- TileMap Colisao
+- TileMap e AStar

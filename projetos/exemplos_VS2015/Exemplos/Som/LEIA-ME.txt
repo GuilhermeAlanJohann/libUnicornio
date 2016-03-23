@@ -1,0 +1,20 @@
+Descrição:
+Este exemplo mostra como tocar um som usando a libUnicórnio.
+Ele simula o comportamento de uma arma com até 10 tiros. 
+Cada vez que o jogador pressionar a tecla [ENTER], a arma 
+irá diparar um tiro e um som de tiro irá tocar.
+Ao pressionar a tecla [ESPACO] a arma recarrega.
+
+Classes importantes:
+- Som
+- Audio
+
+Objetos importantes:
+- gRecursos
+- gAudios
+
+Observações:
+Neste exemplo usa-se o GerenciadorDeRecursos (gRecursos) para carregar o áudio para o som.
+E usa-se o GerenciadorDeAudio (gAudios) para setar o volume global para os sons. Volume que
+afeta todos os sons.
+

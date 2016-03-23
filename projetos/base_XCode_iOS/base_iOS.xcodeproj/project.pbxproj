@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
+		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+		B98030291AB7CBC200EB7F23 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98030281AB7CBC200EB7F23 /* ImageIO.framework */; };
+		B980303D1AB7D0EA00EB7F23 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B980303C1AB7D0EA00EB7F23 /* MobileCoreServices.framework */; };
+		B9BBCE1C1AB474E900ECBD40 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9BBCE1B1AB474E900ECBD40 /* Default-568h@2x.png */; };
+		B9FD49A41C96AAB800A878EC /* libUnicornio-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD499A1C96AA9700A878EC /* libUnicornio-iOS.a */; };
+		B9FD49A91C96AAB800A878EC /* libSDL2_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49A51C96AAB800A878EC /* libSDL2_image.a */; };
+		B9FD49AA1C96AAB800A878EC /* libSDL2_mixer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49A61C96AAB800A878EC /* libSDL2_mixer.a */; };
+		B9FD49AB1C96AAB800A878EC /* libSDL2_ttf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49A71C96AAB800A878EC /* libSDL2_ttf.a */; };
+		B9FD49AC1C96AAB800A878EC /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49A81C96AAB800A878EC /* libSDL2.a */; };
+		B9FD49B51C96BE7900A878EC /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49B41C96BE7900A878EC /* GameController.framework */; };
+		B9FD49B71C96BEB300A878EC /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49B61C96BEB300A878EC /* CoreMotion.framework */; };
+		B9FD49BB1C96C4C400A878EC /* Jogo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD49B81C96C4C400A878EC /* Jogo.cpp */; };
+		B9FD49BC1C96C4C400A878EC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD49BA1C96C4C400A878EC /* main.cpp */; };
+		B9FD49BF1C96C57400A878EC /* fonte_padrao.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9FD49BE1C96C57400A878EC /* fonte_padrao.ttf */; };
+		B9FD49C11C96C58000A878EC /* assets in Resources */ = {isa = PBXBuildFile; fileRef = B9FD49C01C96C58000A878EC /* assets */; };
+		B9FD49C81C96D1B200A878EC /* LEIA-ME - iOS.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B9FD49C71C96D1B200A878EC /* LEIA-ME - iOS.rtf */; };
+		FD779EDE0E26BA1200F39101 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD779EDD0E26BA1200F39101 /* CoreAudio.framework */; };
+		FD77A07D0E26BD8C00F39101 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FD77A07C0E26BD8C00F39101 /* Icon.png */; };
+		FD77A07F0E26BDA900F39101 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FD77A07E0E26BDA900F39101 /* Default.png */; };
+		FD77A0850E26BDB800F39101 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD77A0840E26BDB800F39101 /* AudioToolbox.framework */; };
+		FDB8BFC60E5A0F6A00980157 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDB8BFC50E5A0F6A00980157 /* CoreGraphics.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B9FD49991C96AA9700A878EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9FD49911C96AA9600A878EC /* Unicornio-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B9A7EF0A1AB5B8AF00AC1C35;
+			remoteInfo = "Unicornio-iOS";
+		};
+		B9FD49AD1C96ACCC00A878EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B9FD49911C96AA9600A878EC /* Unicornio-iOS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B9A7EF091AB5B8AF00AC1C35;
+			remoteInfo = "Unicornio-iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D6058910D05DD3D006BFB54 /* base_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = base_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B98030281AB7CBC200EB7F23 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		B980303C1AB7D0EA00EB7F23 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		B9BBCE1B1AB474E900ECBD40 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		B9FD49911C96AA9600A878EC /* Unicornio-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Unicornio-iOS.xcodeproj"; path = "../../libUnicornio/libUnicornio/iOS_XCode/Unicornio-iOS.xcodeproj"; sourceTree = "<group>"; };
+		B9FD49A51C96AAB800A878EC /* libSDL2_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_image.a; path = "../../libUnicornio/dep/SDL2_image/Xcode-iOS/build/Debug-iphoneos/libSDL2_image.a"; sourceTree = "<group>"; };
+		B9FD49A61C96AAB800A878EC /* libSDL2_mixer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_mixer.a; path = "../../libUnicornio/dep/SDL2_mixer/Xcode-iOS/build/Debug-iphoneos/libSDL2_mixer.a"; sourceTree = "<group>"; };
+		B9FD49A71C96AAB800A878EC /* libSDL2_ttf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2_ttf.a; path = "../../libUnicornio/dep/SDL2_ttf/Xcode-iOS/build/Debug-iphoneos/libSDL2_ttf.a"; sourceTree = "<group>"; };
+		B9FD49A81C96AAB800A878EC /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = "../../libUnicornio/dep/SDL2/Xcode-iOS/SDL/build/Debug-iphoneos/libSDL2.a"; sourceTree = "<group>"; };
+		B9FD49B41C96BE7900A878EC /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
+		B9FD49B61C96BEB300A878EC /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		B9FD49B81C96C4C400A878EC /* Jogo.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = Jogo.cpp; sourceTree = "<group>"; };
+		B9FD49B91C96C4C400A878EC /* Jogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jogo.h; sourceTree = "<group>"; };
+		B9FD49BA1C96C4C400A878EC /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		B9FD49BE1C96C57400A878EC /* fonte_padrao.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fonte_padrao.ttf; sourceTree = "<group>"; };
+		B9FD49C01C96C58000A878EC /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		B9FD49C71C96D1B200A878EC /* LEIA-ME - iOS.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "LEIA-ME - iOS.rtf"; path = "../../libUnicornio/docs/LEIA-ME - iOS.rtf"; sourceTree = "<group>"; };
+		FD779EDD0E26BA1200F39101 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		FD77A07C0E26BD8C00F39101 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		FD77A07E0E26BDA900F39101 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		FD77A0840E26BDB800F39101 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FDB8BFC50E5A0F6A00980157 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9FD49B71C96BEB300A878EC /* CoreMotion.framework in Frameworks */,
+				B9FD49B51C96BE7900A878EC /* GameController.framework in Frameworks */,
+				B9FD49A91C96AAB800A878EC /* libSDL2_image.a in Frameworks */,
+				B9FD49AA1C96AAB800A878EC /* libSDL2_mixer.a in Frameworks */,
+				B9FD49AB1C96AAB800A878EC /* libSDL2_ttf.a in Frameworks */,
+				B9FD49AC1C96AAB800A878EC /* libSDL2.a in Frameworks */,
+				B9FD49A41C96AAB800A878EC /* libUnicornio-iOS.a in Frameworks */,
+				B980303D1AB7D0EA00EB7F23 /* MobileCoreServices.framework in Frameworks */,
+				B98030291AB7CBC200EB7F23 /* ImageIO.framework in Frameworks */,
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */,
+				28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */,
+				FD779EDE0E26BA1200F39101 /* CoreAudio.framework in Frameworks */,
+				FD77A0850E26BDB800F39101 /* AudioToolbox.framework in Frameworks */,
+				FDB8BFC60E5A0F6A00980157 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* base_iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD49BD1C96C55500A878EC /* Assets */,
+				B9802F5E1AB7921800EB7F23 /* Libraries */,
+				B9BBCE1B1AB474E900ECBD40 /* Default-568h@2x.png */,
+				29B97315FDCFA39411CA2CEA /* Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD49C71C96D1B200A878EC /* LEIA-ME - iOS.rtf */,
+				B9FD49B81C96C4C400A878EC /* Jogo.cpp */,
+				B9FD49B91C96C4C400A878EC /* Jogo.h */,
+				B9FD49BA1C96C4C400A878EC /* main.cpp */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FD77A07E0E26BDA900F39101 /* Default.png */,
+				FD77A07C0E26BD8C00F39101 /* Icon.png */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD49B61C96BEB300A878EC /* CoreMotion.framework */,
+				B9FD49B41C96BE7900A878EC /* GameController.framework */,
+				B9FD49A51C96AAB800A878EC /* libSDL2_image.a */,
+				B9FD49A61C96AAB800A878EC /* libSDL2_mixer.a */,
+				B9FD49A71C96AAB800A878EC /* libSDL2_ttf.a */,
+				B9FD49A81C96AAB800A878EC /* libSDL2.a */,
+				B980303C1AB7D0EA00EB7F23 /* MobileCoreServices.framework */,
+				B98030281AB7CBC200EB7F23 /* ImageIO.framework */,
+				FDB8BFC50E5A0F6A00980157 /* CoreGraphics.framework */,
+				FD77A0840E26BDB800F39101 /* AudioToolbox.framework */,
+				FD779EDD0E26BA1200F39101 /* CoreAudio.framework */,
+				28FD15070DC6FC5B0079059D /* QuartzCore.framework */,
+				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B9802F5E1AB7921800EB7F23 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD49911C96AA9600A878EC /* Unicornio-iOS.xcodeproj */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		B9FD49921C96AA9600A878EC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD499A1C96AA9700A878EC /* libUnicornio-iOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B9FD49BD1C96C55500A878EC /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD49C01C96C58000A878EC /* assets */,
+				B9FD49BE1C96C57400A878EC /* fonte_padrao.ttf */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* base_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "base_iOS" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B9FD49AE1C96ACCC00A878EC /* PBXTargetDependency */,
+			);
+			name = base_iOS;
+			productName = "___PROJECTNAME___";
+			productReference = 1D6058910D05DD3D006BFB54 /* base_iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "base_iOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B9FD49921C96AA9600A878EC /* Products */;
+					ProjectRef = B9FD49911C96AA9600A878EC /* Unicornio-iOS.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* base_iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B9FD499A1C96AA9700A878EC /* libUnicornio-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libUnicornio-iOS.a";
+			remoteRef = B9FD49991C96AA9700A878EC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9FD49C11C96C58000A878EC /* assets in Resources */,
+				B9FD49C81C96D1B200A878EC /* LEIA-ME - iOS.rtf in Resources */,
+				FD77A07D0E26BD8C00F39101 /* Icon.png in Resources */,
+				FD77A07F0E26BDA900F39101 /* Default.png in Resources */,
+				B9FD49BF1C96C57400A878EC /* fonte_padrao.ttf in Resources */,
+				B9BBCE1C1AB474E900ECBD40 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9FD49BC1C96C4C400A878EC /* main.cpp in Sources */,
+				B9FD49BB1C96C4C400A878EC /* Jogo.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B9FD49AE1C96ACCC00A878EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Unicornio-iOS";
+			targetProxy = B9FD49AD1C96ACCC00A878EC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../../libUnicornio/include/**",
+					../../libUnicornio/dep/SDL2/include,
+					../../libUnicornio/dep/SDL2_image,
+					../../libUnicornio/dep/SDL2_ttf,
+					../../libUnicornio/dep/SDL2_mixer,
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"../../libUnicornio/lib/iOS/Build/Products/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(PROJECT_DIR)/Build/Products/Debug-iphoneos",
+					"/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/dep/SDL2_image/Xcode-iOS/build/Debug-iphoneos",
+					"/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/dep/SDL2_mixer/Xcode-iOS/build/Debug-iphoneos",
+					"/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/dep/SDL2_ttf/Xcode-iOS/build/Debug-iphoneos",
+					"/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/dep/SDL2/Xcode-iOS/SDL/build/Debug-iphoneos",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = base_iOS;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../../libUnicornio/include/**",
+					../../libUnicornio/dep/SDL2/include,
+					../../libUnicornio/dep/SDL2_image,
+					../../libUnicornio/dep/SDL2_ttf,
+					../../libUnicornio/dep/SDL2_mixer,
+				);
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"../../libUnicornio/lib/iOS/Build/Products/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(PROJECT_DIR)/Build/Products/Release-iphoneos",
+					"/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/dep/SDL2_image/Xcode-iOS/build/Release-iphoneos",
+					"/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/dep/SDL2_mixer/Xcode-iOS/build/Release-iphoneos",
+					"/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/dep/SDL2_ttf/Xcode-iOS/build/Release-iphoneos",
+					"/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/dep/SDL2/Xcode-iOS/SDL/build/Release-iphoneos",
+				);
+				PRODUCT_NAME = base_iOS;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "";
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "base_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "base_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

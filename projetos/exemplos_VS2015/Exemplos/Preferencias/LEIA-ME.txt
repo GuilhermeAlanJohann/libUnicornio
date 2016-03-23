@@ -1,0 +1,21 @@
+Descrição:
+Este exemplo mostra como usar a funcionalidade Preferências.
+Preferências é uma classe que auxilia no salvamento de dados do usuário.
+Ex: Preferências do usuário (volume, controles, tecla cheia, etc), ou 
+Save Game (pontuação, numero de vidas, etc).
+Neste exemplo, ela é usada para salvar os seguintes dados de um jogador.
+  Nome
+  pontos
+  achievement1
+  achievement2
+  achievement3
+
+Classes importantes:
+- Preferencias
+
+Observações:
+Repare que neste exemplo as informações do usuário são salvas apenas quando
+a aplicação se encerra. Isso não é necessário. Elas podem ser salvas a qualquer momento.
+
+Veja também os exemplos:
+- Texto TTF

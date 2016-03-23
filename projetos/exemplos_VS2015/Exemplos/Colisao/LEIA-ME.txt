@@ -1,0 +1,36 @@
+Descrição:
+Este exemplo mostra como usar as funções de teste de colisão.
+Nele é mostrado dois testes de colisão: 
+- Colisão de Sprite com Sprite (Nave com Míssel)
+- Colisão de Ponto com Sprite (Mouse com Míssel)
+
+O exemplo mostra uma nave que fica imóvel no centro inferior da tela, enquanto um míssel surge no centro superior,
+vindo em sua direção. Quando ambos colidem, o míssel retorna a sua posição original.
+Também é feito o teste de colisão entre o mouse e o míssel. Sempre que o mouse colidir com o míssel, este último
+retorna a sua posição original.
+
+Funções importantes:
+- uniTestarColisao*
+
+Observações:
+Outras funções de colisão também existem.
+É possivel testar coliões entre diferentes formas geométricas e sprites.
+Sprites são sempre tratados como se fossem retângulos.
+As formas "colidiveis" são as seguintes: (da mais simples para a mais complexa)
+- Ponto
+- Linha
+- Círculo
+- Retângulo
+- Polígono
+- Sprite (Retângulo)
+	
+Para testar a colisão entre uma forma e outra usa-se uma função com a segunte nomenclatura:
+uniTestarColisão + <NomeDaFormaMaisSimples> + "Com" + <NomeDaFormaMaisComplexa>
+Ex: 
+- "uniTestarColisaoCirculoComRetangulo"
+- "uniTestarColisaoPoligonoComSprite"
+- "uniTestarColisaoPontoComCirculo"
+- "uniTestarColisaoLinhaComLinha"
+
+Veja também os exemplos:
+- Sprite

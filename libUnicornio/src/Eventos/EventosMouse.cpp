@@ -1,5 +1,6 @@
-#include "Eventos.h"
-#include "libUnicornio.h"
+#include "EventosMouse.h"
+#include "Global.h"
+#include <algorithm>
 
 EventosMouse::EventosMouse()
 {
@@ -19,6 +20,8 @@ EventosMouse::EventosMouse()
 	ndx = 0.0f;
 	ndy = 0.0f;
 	roda = 0;
+
+	limitandoPos = true;
 }
 
 EventosMouse::~EventosMouse()
@@ -47,9 +50,11 @@ void EventosMouse::atualizar()
 	float nyAnt = ny;
 
 	SDL_GetMouseState(&x, &y);
-	corrigirPosicaoFullscreen();
-	nx = (float)x/(float)janela.getLarguraTela();
-	ny = (float)y/(float)janela.getAlturaTela();
+	corrigirPosicao();
+	if (limitandoPos)
+		limitarPosicao();
+	nx = (float)x/(float)gJanela.getLargura();
+	ny = (float)y/(float)gJanela.getAltura();
 
 	dx = x - xAnt;
 	dy = y - yAnt;
@@ -71,8 +76,8 @@ void EventosMouse::processarEvento(const SDL_Event& evento)
 
 		x = evento.button.x;
 		y = evento.button.y;
-		nx = (float)x/(float)janela.getLarguraTela();
-		ny = (float)y/(float)janela.getAlturaTela();
+		nx = (float)x/(float)janela.getLargura();
+		ny = (float)y/(float)janela.getAltura();
 
 		//	deve-se somar, pois este evento pode ocorrer mais de uma vez em um mesmo frame;
 		dx += x - xAnt;
@@ -114,39 +119,47 @@ void EventosMouse::processarEvento(const SDL_Event& evento)
 	}
 }
 
-void EventosMouse::corrigirPosicaoFullscreen()
+void EventosMouse::corrigirPosicao()
 {
-	if(!janela.estaEmTelaCheia())
-		return;
+	int jLarg, jAlt;
+	gJanela.obterTamanho(jLarg, jAlt);
+	int jLargReal, jAltReal;
+	gJanela.obterTamanhoReal(jLargReal, jAltReal);
+	float razao = (float)jLarg / (float)jAlt;
+	float razaoLarg = jLarg / (float)jLargReal;
+	float razaoAlt = jAlt / (float)jAltReal;
 
-	SDL_Rect display;
-	SDL_GetDisplayBounds(0, &display);
+	if (razaoLarg < razaoAlt)		//	tarjas pretas nas laterais 
+	{
+		float largEscalada = jAltReal * razao;
+		x = (x - (jLargReal - largEscalada) / 2.0f) * razaoAlt;
+		y *= razaoAlt;
+	}
+	else if (razaoAlt < razaoLarg)	// tarjas pretas em cima e em baixo
+	{
+		float altEscalada = jLargReal / razao;
+		x *= razaoLarg;
+		y = (y - (jAltReal - altEscalada) / 2.0f) * razaoLarg;
+	}
+	else	//	sem tarjas pretas
+	{
+		x *= razaoLarg;
+		y *= razaoAlt;
+	}
+}
 
-	float ratio = (float)janela.getLarguraTela()/(float)janela.getAlturaTela();
-	float larguraEscalada;
-	float alturaEscalada;
-		
-	if(janela.getLarguraTela()/(float)display.w < janela.getAlturaTela()/(float)display.h)			//	tarjas nas laterais
-	{
-		larguraEscalada = display.h*ratio;
-		alturaEscalada = larguraEscalada/ratio;	
-	}
-	else if(janela.getAlturaTela()/(float)display.h < janela.getLarguraTela()/(float)display.w)	//	tarjas em cima e em baixo
-	{
-		alturaEscalada = display.w/ratio;
-		larguraEscalada = alturaEscalada*ratio;
-	}
-	else	//	sem tarjas
-	{
-		larguraEscalada = display.h*ratio;
-		alturaEscalada = display.w/ratio;
-	}
+void EventosMouse::limitarPosicao()
+{
+	int minx = 0;
+	int miny = 0;
+	int maxx = minx + gJanela.getLargura();
+	int maxy = miny + gJanela.getAltura();
 
-	x = x - (display.w - larguraEscalada)/2;
-	x = x*(janela.getLarguraTela()/(float)larguraEscalada);
-	
-	y = y - (display.h - alturaEscalada)/2;
-	y = y*(janela.getAlturaTela()/(float)alturaEscalada);
+	x = max(minx, x);
+	y = max(miny, y);
+
+	x = min(maxx, x);
+	y = min(maxy, y);
 }
 
 void EventosMouse::esconderCursor()
@@ -163,7 +176,17 @@ void EventosMouse::posicionarEm(int x, int y)
 {
 	this->x = x;
 	this->y = y;
-	SDL_WarpMouseInWindow(janela.sdl_window, x, y);
-	nx = (float)x/(float)janela.getLarguraTela();
-	ny = (float)y/(float)janela.getAlturaTela();
+	SDL_WarpMouseInWindow(gJanela.sdl_window, x, y);
+	nx = (float)x/(float)gJanela.getLargura();
+	ny = (float)y/(float)gJanela.getAltura();
+}
+
+bool EventosMouse::estaLimitandoPosicao()
+{
+	return limitandoPos;
+}
+
+void EventosMouse::setLimitandoPosicao(bool limitar)
+{
+	limitandoPos = limitar;
 }

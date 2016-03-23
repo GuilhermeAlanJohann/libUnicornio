@@ -1,0 +1,29 @@
+Descrição:
+Este exemplo mostra o uso de Redes Neurais para aprender a operação lógica XOR.
+Este tipo de teste é o mais simples para indicar se uma rede neural funciona ou não.
+Nele, uma rede neural é treinada usando retropropagação (backpropagation) para aprender
+a executar a operação XOR. Os valores são mostrados usando o Painel De Debug.
+É possivel interromper o treinamento a qualquer momento, bem como salvar e carregar os 
+pessos da rede.
+
+Classes importantes:
+- RedeNeural
+- Neuronio
+
+Observações:
+É importante notar que para treinar uma rede neural, não devemos treinar casos isolados.
+Deve-se treinar a rede com vários inputs diferentes. Por isso, treinamos o XOR com as 4
+possibilidades em sequencia, repetidamente até a rede aprender.
+Nunca deve-se treinar primeiro uma possibilidade, depois a outra, depois a outra e assim
+por diante. Caso isso seja feito, a rede enfrentará um problema chamado "mínimo local",
+no qual ela aprende a resolver uma parte do problema apenas, mas a solução não serve para
+todos os casos.
+Também é imporante saber que se você está rodando a aplicação em uma plataforma mobile, 
+não é possivel salvar arquivos em qualquer lugar. Por isso deve-se salvar os pesos da rede
+no caminho das preferências do usuário. Quando salvando nesse local, não é possivel usar '/'.
+Uma prática comum é substituir a barra por um '.'.
+Pode-se pegar o caminho das preferências do usuário usando uniGetCaminhoPreferencias();
+
+Veja também os exemplos:
+- PainelDeDebug
+

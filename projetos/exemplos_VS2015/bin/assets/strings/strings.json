@@ -1,0 +1,17 @@
+{
+  //  strings
+  "CharDescription": "Character Description",
+
+  "Name": "Name",
+  "Class": "Class",
+  "CharName": "Albatroz",
+  "CharClass": "Holy Knight",
+  "Skills": "Skills",
+
+  //  vetor de strings
+  "SkillNames": [
+    "Divine Fury",
+    "Angelic Defense",
+    "Justice Hammer"
+  ]
+}

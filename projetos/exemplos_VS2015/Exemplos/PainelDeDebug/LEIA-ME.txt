@@ -1,0 +1,21 @@
+Descrição:
+Este exemplo mostra o uso da funcionalidade Painel de Debug.
+O painel de debug permite que você visualize erros e o valor de variaveis em tempo real.
+Para isso usa-se os métodos "erro" e "depurar" do objeto gDebug.
+Neste exemplo o painel de debug é usado para depurar diversas variaveis.
+
+Objetos importantes:
+- gDebug
+
+Observações:
+É possivel mover o painel por código ou usando o mouse, basta clicar na
+barra de título dele e arrastar.
+Também é possivel minimizar e fechar o painel. 
+Porém para restaura-lo, é necessário fazer isso via código.
+Além disso você pode usar cores diferentes para cada depuração e erro, ou mudar a cor
+de todos de uma vez. Você também pode mudar a cor do próprio painel.
+Repare também que o painel não é alterado conforme a escala da tela quando em tela cheia,
+assim ele fica o tempo todo legível, seus textos nunca são deformados pela escala.
+
+Veja também os exemplos:
+- Sprite

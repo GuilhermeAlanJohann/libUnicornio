@@ -1,0 +1,34 @@
+Descrição:
+Este exemplo mostra o uso de Redes Neurais para treinar um agente 
+que vai atraz de comidas em um cenário.
+Nele 3 agentes são treinados simultaneamente para buscar comidas em
+um ambiente cheio delas. Sempre que eu agente colide com uma comida, 
+uma nova posição é sorteada para a comida e o agente continua indo em 
+busca da comida mais próxima à sua frente.
+É possivel interromper o treinamento a qualquer momento.
+Também é possivel salvar os pesos da rede e carrega-los mais tarde.
+
+Classes importantes:
+- RedeNeural
+- Neuronio
+
+Observações:
+Repare que é na classe Agente é usado uma RedeNeural declarada com static.
+Isso é importante para que os agente sejam treinados com a mesma rede.
+Caso os agentes sejam treinados cada um com sua própria rede, é muito provavel 
+que as rede caiam em um mínimo local e, como consequância, nunca aprendam.
+Pra evitar isso usa-se a mesma rede para todos os agentes.
+Faça o teste! Mude NUM_AGENTES para 1 (no arquivo Ambiente.h) e tente fazer a
+rede aprender a buscar as comidas. Enquanto a rede estiver sendo treinada 
+tudo vai funcionar. No momento que você interromper o treinamento, vai perceber 
+que a rede não aprendeu, pois caiu em um mínimo local.
+Também é imporante saber que se você está rodando a aplicação em uma plataforma mobile, 
+não é possivel salvar arquivos em qualquer lugar. Por isso deve-se salvar os pesos da rede
+no caminho das preferências do usuário. Quando salvando nesse local, não é possivel usar '/'.
+Uma prática comum é substituir a barra por um '.'.
+Pode-se pegar o caminho das preferências do usuário usando uniGetCaminhoPreferencias();
+
+Veja também os exemplos:
+- Sprite
+- RedeNeural XOR
+

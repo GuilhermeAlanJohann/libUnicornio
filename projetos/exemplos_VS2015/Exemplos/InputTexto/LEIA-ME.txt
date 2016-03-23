@@ -1,0 +1,21 @@
+Descrição:
+Este exemplo mostra como usar a funcionalidade de input de texto para que 
+o usuário possa digitar algum texto que vai ser usado no jogo. 
+Ex: Digitar se próprio nome.
+Nele, o usuário o convidado a digitar um texto utilizando o teclado. 
+O texto digitado é mostrado na tela epode ser editado usando o teclado.
+
+Objetos importantes:
+- gTeclado.inputTexto
+- gTeclado
+
+Observações:
+É importante reparar que para poder utilizar o input de texto, deve-se habilitar o seu uso primeiro.
+Também é tão importante quanto reparar que ao não ser mais necessário, deve-se desabilitar o uso do 
+input de texto. Pois caso contrário a string digitada continuará a crescer até que a aplicação seja encerrada.
+Se isso acontecer, é possivel que, em algum momento, a string fique tão grande que a aplicação não tem mais
+memória para continuar executando, então ela vai encerrar com um erro.
+Portanto para evitar problemas, use os métodos "habilitar" e "desabilitar" corretamente.
+
+Veja também os exemplos:
+- Texto TTF

@@ -1,0 +1,16 @@
+Descrição:
+Esse exemplo mostra a funcionalidade de Easing. 
+Ele mostra um personagem (pássaro) que se move para a posição do mouse quando o usuário pressiona o botão esquerdo.
+Esse movimento é feito usando as funções de easing para gerar uma animação não linear. Quando o personagem se move,
+ele o seguindo uma tragetória curva no eixo x. O eixo y permanece linear. 
+A combinação de duas funções de easing diferentes, gera o efeito de animação em curva.
+
+Funções importantes:
+- uniEase*
+
+Observações:
+Repare no uso de duas funções de easing diferentes, para gerar uma animação não linear.
+
+Veja também os exemplos:
+- Sprite
+

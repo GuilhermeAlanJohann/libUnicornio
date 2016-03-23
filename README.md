@@ -1,4 +1,4 @@
-# Unicórnio (versão BETA)
+# Unicórnio (versão 1.0.0)
 
 **Unicórnio**, ou **lib Unicórnio**, É uma biblioteca de programação de jogos 2D, voltada para programadores iniciantes.  Por isso, visa ser **fácil de aprender** e **simples de usar**.  
 Ela dá suporte as principais funcionalidades necessárias para a criação de um jogo. E deixa o usuário livre para estruturar seu código como bem entender.  
@@ -16,22 +16,30 @@ Foi criada por **Guilherme Alan Johann** e ainda está em desenvolvimento.  É esc
 ## Funcionalidades
 
   - Rendering de sprites (com sprite sheets)
-  - Rendering de textos (com fontes .ttf)
-  - Reprodução de áudios (.wav, .mp3, .ogg, outros)
+  - Rendering de textos (com fontes .ttf e bitmap)
+  - Reprodução de áudios(.wav, .mp3, .ogg, outros)
+  - Suporte a música
   - Gerenciamento de recursos
+  - Gerenciador de strings (para tradução)
+  - Suporte a arquivos de Preferências
   - Controle de tempo
-  - Captura de inputs (teclado, mouse, joystick e toque)
-  - Funções para testes de colisão (OBB)
+  - Captura de inputs (teclado, mouse, joysticks e toques)
+  - Funções para testes de colisão (OBB e AABB)
   - Tilemap com suporte a multiplas camadas e objetos
+  - Inteligência Artificial (A*, Maquina de Estados e Redes Neurais)
+  - Funções de Easing
+  - Funções de Rand
+  - Painel de Debug em tempo real
   - Entre outras...
 
-## Jogos usando a Unicórnio
+## Projetos usando a Unicórnio
 
   - I hate Flappy Bird: [ví­deo](http://www.youtube.com/watch?v=IgDd3IXTekg) 
   - PokeTretaMon: [vídeo](http://youtu.be/0x9sIIj6oBU)   
   - Outro jogo estilo pokemon: [ví­deo] (http://youtu.be/FAv_1ucMwac)  
   - Olympic SS Idol Festival: [página] (https://www.behance.net/gallery/27995525/Olympic-SS-Idol-Festival)
   - Gamelization: [vídeo] (https://www.youtube.com/watch?v=jIgEIQPC6cg&feature=youtu.be)
+  - GrifoNet: biblioteca de redes P2P [github] (https://github.com/fenixrw/GrifoNet)
   
 Está usando a Unicórnio em algum projeto? Me deixe saber.  
 Mande um email pra 'pcista@hotmail.com' contendo um vídeo ou um link com imagens do projeto.
@@ -42,8 +50,8 @@ Mande um email pra 'pcista@hotmail.com' contendo um vídeo ou um link com imagens
 
 ## Como começar
 
-  - Consulte a pasta "**libUnicornio/docs**". Lá você encontra o arquivo "**libUnicornio - Documentacao.html**", que contem um link para a documentação da biblioteca.
-  - Consulte também os [Projetos de exemplo](https://github.com/GuilhermeAlanJohann/libUnicornio-projetos_de_exemplo). Eles ajudam a entender como usar as funcionalidades mais básicas da biblioteca. 
+  - Consulte a pasta "**libUnicornio/docs**". Lá você encontra o arquivo "**Como começar.txt**", que contem as intruções básicas para começar a utilizar a biblioteca.
+  - Consulte também os Projetos de exemplo na pasta **projetos/exemplos_VS2015**. Eles ajudam a entender como usar as funcionalidades mais básicas da biblioteca e algumas da funcionalidades avançadas.
 
 ## Licença
 

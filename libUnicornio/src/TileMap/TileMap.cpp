@@ -1,9 +1,8 @@
 #include "TileMap.h"
-#include "libUnicornio.h"
-//#include <fstream>
+#include "uniFuncoesPrincipais.h"
+#include "Global.h"
 #include <sstream>
 #include <algorithm>
-//#include <locale>
 
 TileMap::TileMap()
 {
@@ -35,15 +34,15 @@ TileMap::~TileMap()
 
 bool TileMap::carregar(string arquivo)
 {
-	if(!uni_init)
+	if(!uniEstaInicializada())
 	{
-		uniErro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
+		gDebug.erro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
 		return false;
 	}
 
 	if(estaCarregado())
 	{
-		uniErro("Arquivo '" + arquivo + "' nao pode ser carregado, pois TileMap ja carregou algum arquivo.");
+		gDebug.erro("Arquivo '" + arquivo + "' nao pode ser carregado, pois TileMap ja carregou algum arquivo.");
 		return false;
 	}
 
@@ -51,7 +50,7 @@ bool TileMap::carregar(string arquivo)
 	SDL_RWops *ifs = SDL_RWFromFile(arquivo.c_str(), "rb");
 	if(!ifs)
 	{
-		uniErro("Erro ao abrir arquivo '" + arquivo + "'. Talvez o arquivo nao exista.");
+		gDebug.erro("Erro ao abrir arquivo '" + arquivo + "'. Talvez o arquivo nao exista.");
 		return false;
 	}
 
@@ -65,7 +64,7 @@ bool TileMap::carregar(string arquivo)
 	Json::Reader reader;
 	if(!reader.parse(bytes_do_arquivo, bytes_do_arquivo + tamanho_arquivo_em_bytes, root, false))
 	{
-		uniErro("Erro ao fazer o parse do arquivo '" + arquivo + "'.");
+		gDebug.erro("Erro ao fazer o parse do arquivo '" + arquivo + "'.");
 		delete[] bytes_do_arquivo;
 		return false;
 	}
@@ -78,11 +77,11 @@ bool TileMap::carregar(string arquivo)
 	altura_tile= root.get("tileheight", 0).asInt();
 
 	// posicionar tile (0, 0) no canto superior esquerdo da tela e centralizar o mapa, caso ele caiba inteiro na tela
-	if(largura_em_tiles*largura_tile < janela.getLarguraTela())
-		desloc_x = ((float)(janela.getLarguraTela())/(float)(largura_tile) - (float)(largura_em_tiles))/2.0f;
+	if(largura_em_tiles*largura_tile < gJanela.getLargura())
+		desloc_x = ((float)(gJanela.getLargura())/(float)(largura_tile) - (float)(largura_em_tiles))/2.0f;
 
-	if(altura_em_tiles*altura_tile < janela.getAlturaTela())
-		desloc_y = ((float)(janela.getAlturaTela())/(float)(altura_tile) - (float)(altura_em_tiles))/2.0f;
+	if(altura_em_tiles*altura_tile < gJanela.getAltura())
+		desloc_y = ((float)(gJanela.getAltura())/(float)(altura_tile) - (float)(altura_em_tiles))/2.0f;
 
 	x = 0.0f;
 	y = 0.0f;
@@ -203,7 +202,7 @@ bool TileMap::carregar(string arquivo)
 		if(jLayers[i].get("type", "").asString() != "objectgroup")
 			continue;
 
-		camadas_objetos[l] = new CamadaDeObjetos;
+		camadas_objetos[l] = new CamadaDeObjetosTileMap;
 
 		camadas_objetos[l]->setNome(jLayers[i].get("name", "").asString());
 		camadas_objetos[l]->setVisivel(jLayers[i].get("visible", true).asBool());
@@ -226,7 +225,7 @@ bool TileMap::carregar(string arquivo)
 		objs = jLayers[i]["objects"];
 		for(unsigned int j = 0; j < objs.size(); ++j)
 		{
-			ObjetoTile* o = camadas_objetos[l]->criarObjeto();
+			ObjetoTileMap* o = camadas_objetos[l]->criarObjeto();
 			o->setNome(objs[j].get("name", "").asString());
 			o->setTipo(objs[j].get("type", "").asString());
 
@@ -259,7 +258,7 @@ bool TileMap::carregarConfigTileSet(TileSet* tileset, string arquivo)
 	SDL_RWops *file = SDL_RWFromFile(arquivo.c_str(), "r");
 	if(!file)
 	{
-		uniErro("Erro ao abrir arquivo '" + arquivo + "'. Talvez o arquivo nao exista.");
+		gDebug.erro("Erro ao abrir arquivo '" + arquivo + "'. Talvez o arquivo nao exista.");
 		return false;
 	}
 
@@ -357,8 +356,8 @@ bool TileMap::estaCarregado()
 
 void TileMap::desenhar()
 {
-	float tiles_na_tela_x = (float)(janela.getLarguraTela())/(float)largura_tile;
-	float tiles_na_tela_y = (float)(janela.getAlturaTela())/(float)altura_tile;
+	float tiles_na_tela_x = (float)(gJanela.getLargura())/(float)largura_tile;
+	float tiles_na_tela_y = (float)(gJanela.getAltura())/(float)altura_tile;
 
 	if(tiles_na_tela_x > largura_em_tiles)
 		tiles_na_tela_x = largura_em_tiles;
@@ -653,7 +652,7 @@ int TileMap::getAlturaTile()
 
 int TileMap::getNumTilesNaTelaEmX()
 {
-	float tiles_na_tela_em_x = (float)(janela.getLarguraTela())/(float)(largura_tile);
+	float tiles_na_tela_em_x = (float)(gJanela.getLargura())/(float)(largura_tile);
 
 	if(tiles_na_tela_em_x > largura_em_tiles)
 		tiles_na_tela_em_x = largura_em_tiles;
@@ -663,7 +662,7 @@ int TileMap::getNumTilesNaTelaEmX()
 
 int TileMap::getNumTilesNaTelaEmY()
 {
-	float tiles_na_tela_em_y = (float)(janela.getAlturaTela())/(float)(altura_tile);
+	float tiles_na_tela_em_y = (float)(gJanela.getAltura())/(float)(altura_tile);
 
 	if(tiles_na_tela_em_y > altura_em_tiles)
 		tiles_na_tela_em_y = altura_em_tiles;
@@ -691,12 +690,12 @@ int TileMap::getNumTiles()
 	return tiles.size();
 }
 
-CamadaDeObjetos *TileMap::getCamadaDeObjetos(int indice)
+CamadaDeObjetosTileMap *TileMap::getCamadaDeObjetos(int indice)
 {
 	return camadas_objetos[indice];
 }
 
-CamadaDeObjetos *TileMap::getCamadaDeObjetos(string nome)
+CamadaDeObjetosTileMap *TileMap::getCamadaDeObjetos(string nome)
 {
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
@@ -805,11 +804,11 @@ bool TileMap::existeObjetoDoTipoNaPos(string tipo, float tx, float ty)
 	return false;
 }
 
-ObjetoTile *TileMap::getObjeto(string nome)
+ObjetoTileMap *TileMap::getObjeto(string nome)
 {
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		ObjetoTile *obj = camadas_objetos[i]->getObjeto(nome);
+		ObjetoTileMap *obj = camadas_objetos[i]->getObjeto(nome);
 		if(obj)
 			return obj;
 	}
@@ -817,16 +816,16 @@ ObjetoTile *TileMap::getObjeto(string nome)
 	return NULL;
 }
 
-ObjetoTile *TileMap::getObjetoNaPos(Vetor2D pos)
+ObjetoTileMap *TileMap::getObjetoNaPos(Vetor2D pos)
 {
 	return getObjetoNaPos(pos.x, pos.y);
 }
 
-ObjetoTile *TileMap::getObjetoNaPos(float tx, float ty)
+ObjetoTileMap *TileMap::getObjetoNaPos(float tx, float ty)
 {
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		ObjetoTile *obj = camadas_objetos[i]->getObjetoNaPos(tx, ty);
+		ObjetoTileMap *obj = camadas_objetos[i]->getObjetoNaPos(tx, ty);
 		if(obj)
 			return obj;
 	}
@@ -834,16 +833,16 @@ ObjetoTile *TileMap::getObjetoNaPos(float tx, float ty)
 	return NULL;
 }
 
-ObjetoTile *TileMap::getObjetoDoTipoNaPos(string tipo, Vetor2D pos)
+ObjetoTileMap *TileMap::getObjetoDoTipoNaPos(string tipo, Vetor2D pos)
 {
 	return getObjetoDoTipoNaPos(tipo, pos.x, pos.y);
 }
 
-ObjetoTile *TileMap::getObjetoDoTipoNaPos(string tipo, float tx, float ty)
+ObjetoTileMap *TileMap::getObjetoDoTipoNaPos(string tipo, float tx, float ty)
 {
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		ObjetoTile *obj = camadas_objetos[i]->getObjetoDoTipoNaPos(tipo, tx, ty);
+		ObjetoTileMap *obj = camadas_objetos[i]->getObjetoDoTipoNaPos(tipo, tx, ty);
 		if(obj)
 			return obj;
 	}
@@ -851,67 +850,67 @@ ObjetoTile *TileMap::getObjetoDoTipoNaPos(string tipo, float tx, float ty)
 	return NULL;
 }
 
-vector<ObjetoTile*> TileMap::getObjetosDoTipo(string tipo)
+vector<ObjetoTileMap*> TileMap::getObjetosDoTipo(string tipo)
 {
-	vector<ObjetoTile*> r;
+	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosDoTipo(tipo);
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosDoTipo(tipo);
 		r.insert(r.end(), v.begin(), v.end());
 	}
 	return r;
 }
 
-vector<ObjetoTile*> TileMap::getObjetosNaPos(Vetor2D pos)
+vector<ObjetoTileMap*> TileMap::getObjetosNaPos(Vetor2D pos)
 {
-	vector<ObjetoTile*> r;
+	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosNaPos(pos);
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosNaPos(pos);
 		r.insert(r.end(), v.begin(), v.end());
 	}
 	return r;
 }
 
-vector<ObjetoTile*> TileMap::getObjetosNaPos(float tx, float ty)
+vector<ObjetoTileMap*> TileMap::getObjetosNaPos(float tx, float ty)
 {
-	vector<ObjetoTile*> r;
+	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosNaPos(tx, ty);
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosNaPos(tx, ty);
 		r.insert(r.end(), v.begin(), v.end());
 	}
 	return r;
 }
 
-vector<ObjetoTile*> TileMap::getObjetosDoTipoNaPos(string tipo, Vetor2D pos)
+vector<ObjetoTileMap*> TileMap::getObjetosDoTipoNaPos(string tipo, Vetor2D pos)
 {
-	vector<ObjetoTile*> r;
+	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosDoTipoNaPos(tipo, pos);
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosDoTipoNaPos(tipo, pos);
 		r.insert(r.end(), v.begin(), v.end());
 	}
 	return r;
 }
 
-vector<ObjetoTile*> TileMap::getObjetosDoTipoNaPos(string tipo, float tx, float ty)
+vector<ObjetoTileMap*> TileMap::getObjetosDoTipoNaPos(string tipo, float tx, float ty)
 {
-	vector<ObjetoTile*> r;
+	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		vector<ObjetoTile*> v = camadas_objetos[i]->getObjetosDoTipoNaPos(tipo, tx, ty);
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosDoTipoNaPos(tipo, tx, ty);
 		r.insert(r.end(), v.begin(), v.end());
 	}
 	return r;
 }
 
-vector<ObjetoTile*> TileMap::getTodosObjetos()
+vector<ObjetoTileMap*> TileMap::getTodosObjetos()
 {
-	vector<ObjetoTile*> r;
+	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		vector<ObjetoTile*> v = camadas_objetos[i]->getTodosObjetos();
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getTodosObjetos();
 		r.insert(r.end(), v.begin(), v.end());
 	}
 	return r;
@@ -1046,11 +1045,11 @@ bool TileMap::juntarCamadasDeObjetos(int indice_camada1, int indice_camada2)
 	if(indice_camada1 == indice_camada2)
 		return false;
 
-	CamadaDeObjetos *camada1 = camadas_objetos[indice_camada1];
-	CamadaDeObjetos *camada2 = camadas_objetos[indice_camada2];
+	CamadaDeObjetosTileMap *camada1 = camadas_objetos[indice_camada1];
+	CamadaDeObjetosTileMap *camada2 = camadas_objetos[indice_camada2];
 	for(unsigned int i = 0; i < camada2->getNumObjetos(); ++i)
 	{
-		ObjetoTile *obj = camada1->criarObjeto();
+		ObjetoTileMap *obj = camada1->criarObjeto();
 
 		*obj = *camada2->getObjeto(i);
 		obj->setCamada(camada1);
@@ -1088,10 +1087,10 @@ void TileMap::juntarTodasCamadasDeObjetos()
 {
 	for(unsigned int i = camadas_objetos.size()-1; i > 0; --i)
 	{
-		CamadaDeObjetos *camada2 = camadas_objetos[i];
+		CamadaDeObjetosTileMap *camada2 = camadas_objetos[i];
 		for(unsigned int j = 0; j < camada2->getNumObjetos(); ++j)
 		{
-			ObjetoTile *obj = camadas_objetos[0]->criarObjeto();
+			ObjetoTileMap *obj = camadas_objetos[0]->criarObjeto();
 
 			*obj = *camada2->getObjeto(j);
 			obj->setCamada(camadas_objetos[0]);
@@ -1125,19 +1124,19 @@ void TileMap::desenharTileNoPixel(int id, float px, float py)
 	SDL_Texture *tex = tileset->getTextura();
 
     //	Draw the texture
-	SDL_RenderCopyEx(sdl_renderer, tex, &clip, &rect, 0, &pivot, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(gJanela.sdl_renderer, tex, &clip, &rect, 0, &pivot, SDL_FLIP_NONE);
 }
 
 void TileMap::prepararRenderQueues()
 {
-	vector<ObjetoTile*> *render_queue;
+	vector<ObjetoTileMap*> *render_queue;
 
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
 		if(!camadas_objetos[i]->estaVisivel())
 			continue;
 
-		vector<ObjetoTile*> objs = camadas_objetos[i]->getTodosObjetos();
+		vector<ObjetoTileMap*> objs = camadas_objetos[i]->getTodosObjetos();
 		unsigned int size = objs.size();
 		unsigned int menor;
 
@@ -1162,7 +1161,7 @@ void TileMap::prepararRenderQueues()
 		for(unsigned int j = 0; j < size; ++j)
 		{
 			if(objs[j]->estaVisivel() && objs[j]->getSprite())
-				quicksortObjetosTile(render_queue, objs[j], menor, render_queue->size());
+				quicksortObjetosTileMap(render_queue, objs[j], menor, render_queue->size());
 		}
 	}
 }
@@ -1174,7 +1173,7 @@ void TileMap::limparRenderQueues()
 	render_queue_acima.clear();
 }
 
-void TileMap::quicksortObjetosTile(vector<ObjetoTile*> *queue, ObjetoTile *o, unsigned int menor, unsigned int maior)
+void TileMap::quicksortObjetosTileMap(vector<ObjetoTileMap*> *queue, ObjetoTileMap *o, unsigned int menor, unsigned int maior)
 {
 	if(menor == maior)
 	{
@@ -1184,15 +1183,15 @@ void TileMap::quicksortObjetosTile(vector<ObjetoTile*> *queue, ObjetoTile *o, un
 	else
 	{
 		unsigned int meio = menor + ((maior-menor)/2);
-		ObjetoTile *o_meio = (*queue)[meio];
+		ObjetoTileMap *o_meio = (*queue)[meio];
 
 		if(o->getYCentro() < o_meio->getYCentro())
 		{
-			quicksortObjetosTile(queue, o, menor, meio);
+			quicksortObjetosTileMap(queue, o, menor, meio);
 		}
 		else
 		{
-			quicksortObjetosTile(queue, o, meio+1, maior);
+			quicksortObjetosTileMap(queue, o, meio+1, maior);
 		}
 	}
 }

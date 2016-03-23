@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Media Include="$(MSBuildThisFileDirectory)assets\shot.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="$(MSBuildThisFileDirectory)assets\arial.ttf" />
+    <Font Include="$(MSBuildThisFileDirectory)fonte_padrao.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)assets\Taylor Swift - Shake It Off.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="$(MSBuildThisFileDirectory)assets\logo.png" />
+  </ItemGroup>
+</Project>

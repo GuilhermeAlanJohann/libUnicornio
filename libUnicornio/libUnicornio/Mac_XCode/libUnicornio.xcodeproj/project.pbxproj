@@ -1,0 +1,812 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B93FAC8D1AB225E200EF39A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B93FAC8C1AB225E200EF39A4 /* Cocoa.framework */; };
+		B9FD49CD1C96D52A00A878EC /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49C91C96D52A00A878EC /* SDL2_image.framework */; };
+		B9FD49CE1C96D52A00A878EC /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49CA1C96D52A00A878EC /* SDL2_mixer.framework */; };
+		B9FD49CF1C96D52A00A878EC /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49CB1C96D52A00A878EC /* SDL2_ttf.framework */; };
+		B9FD49D01C96D52A00A878EC /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49CC1C96D52A00A878EC /* SDL2.framework */; };
+		B9FD4A0A1C96D55100A878EC /* AStar.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49D11C96D55100A878EC /* AStar.h */; };
+		B9FD4A0B1C96D55100A878EC /* Audio.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49D21C96D55100A878EC /* Audio.h */; };
+		B9FD4A0C1C96D55100A878EC /* BotaoSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49D31C96D55100A878EC /* BotaoSprite.h */; };
+		B9FD4A0D1C96D55100A878EC /* CamadaDeObjetosTileMap.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49D41C96D55100A878EC /* CamadaDeObjetosTileMap.h */; };
+		B9FD4A0E1C96D55100A878EC /* CamadaDeTiles.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49D51C96D55100A878EC /* CamadaDeTiles.h */; };
+		B9FD4A0F1C96D55100A878EC /* Cor.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49D61C96D55100A878EC /* Cor.h */; };
+		B9FD4A101C96D55100A878EC /* EnumQualidadeEscala.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49D71C96D55100A878EC /* EnumQualidadeEscala.h */; };
+		B9FD4A111C96D55100A878EC /* EnumsInputs.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49D81C96D55100A878EC /* EnumsInputs.h */; };
+		B9FD4A121C96D55100A878EC /* Estado.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49D91C96D55100A878EC /* Estado.h */; };
+		B9FD4A131C96D55100A878EC /* EventosInputTexto.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49DA1C96D55100A878EC /* EventosInputTexto.h */; };
+		B9FD4A141C96D55100A878EC /* EventosJoysticks.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49DB1C96D55100A878EC /* EventosJoysticks.h */; };
+		B9FD4A151C96D55100A878EC /* EventosMouse.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49DC1C96D55100A878EC /* EventosMouse.h */; };
+		B9FD4A161C96D55100A878EC /* EventosTeclado.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49DD1C96D55100A878EC /* EventosTeclado.h */; };
+		B9FD4A171C96D55100A878EC /* EventosToques.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49DE1C96D55100A878EC /* EventosToques.h */; };
+		B9FD4A181C96D55100A878EC /* Fading.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49DF1C96D55100A878EC /* Fading.h */; };
+		B9FD4A191C96D55100A878EC /* FiltroDeEventosDeApp.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E01C96D55100A878EC /* FiltroDeEventosDeApp.h */; };
+		B9FD4A1A1C96D55100A878EC /* Fonte.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E11C96D55100A878EC /* Fonte.h */; };
+		B9FD4A1B1C96D55100A878EC /* GerenciadorDeEventos.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E21C96D55100A878EC /* GerenciadorDeEventos.h */; };
+		B9FD4A1C1C96D55100A878EC /* GerenciadorDeGraficos.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E31C96D55100A878EC /* GerenciadorDeGraficos.h */; };
+		B9FD4A1D1C96D55100A878EC /* GerenciadorDeMusica.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E41C96D55100A878EC /* GerenciadorDeMusica.h */; };
+		B9FD4A1E1C96D55100A878EC /* GerenciadorDeRecursos.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E51C96D55100A878EC /* GerenciadorDeRecursos.h */; };
+		B9FD4A1F1C96D55100A878EC /* GerenciadorDeStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E61C96D55100A878EC /* GerenciadorDeStrings.h */; };
+		B9FD4A201C96D55100A878EC /* GerenciadorDeTempo.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E71C96D55100A878EC /* GerenciadorDeTempo.h */; };
+		B9FD4A211C96D55100A878EC /* Global.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E81C96D55100A878EC /* Global.h */; };
+		B9FD4A221C96D55100A878EC /* GrupoDeStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49E91C96D55100A878EC /* GrupoDeStrings.h */; };
+		B9FD4A231C96D55100A878EC /* Janela.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49EA1C96D55100A878EC /* Janela.h */; };
+		B9FD4A241C96D55100A878EC /* Joystick.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49EB1C96D55100A878EC /* Joystick.h */; };
+		B9FD4A251C96D55100A878EC /* libUnicornio.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49EC1C96D55100A878EC /* libUnicornio.h */; };
+		B9FD4A261C96D55100A878EC /* ListenerDeEventos.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49ED1C96D55100A878EC /* ListenerDeEventos.h */; };
+		B9FD4A271C96D55100A878EC /* MaquinaDeEstados.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49EE1C96D55100A878EC /* MaquinaDeEstados.h */; };
+		B9FD4A281C96D55100A878EC /* MaquinaDeEstadosComPilha.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49EF1C96D55100A878EC /* MaquinaDeEstadosComPilha.h */; };
+		B9FD4A291C96D55100A878EC /* MixadorDeAudios.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F01C96D55100A878EC /* MixadorDeAudios.h */; };
+		B9FD4A2A1C96D55100A878EC /* Musica.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F11C96D55100A878EC /* Musica.h */; };
+		B9FD4A2B1C96D55100A878EC /* Neuronio.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F21C96D55100A878EC /* Neuronio.h */; };
+		B9FD4A2C1C96D55100A878EC /* NodoAStar.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F31C96D55100A878EC /* NodoAStar.h */; };
+		B9FD4A2D1C96D55100A878EC /* ObjetoTileMap.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F41C96D55100A878EC /* ObjetoTileMap.h */; };
+		B9FD4A2E1C96D55100A878EC /* PainelDeDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F51C96D55100A878EC /* PainelDeDebug.h */; };
+		B9FD4A2F1C96D55100A878EC /* Preferencias.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F61C96D55100A878EC /* Preferencias.h */; };
+		B9FD4A301C96D55100A878EC /* RedeNeural.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F71C96D55100A878EC /* RedeNeural.h */; };
+		B9FD4A311C96D55100A878EC /* Retangulo.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F81C96D55100A878EC /* Retangulo.h */; };
+		B9FD4A321C96D55100A878EC /* Som.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F91C96D55100A878EC /* Som.h */; };
+		B9FD4A331C96D55100A878EC /* Sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49FA1C96D55100A878EC /* Sprite.h */; };
+		B9FD4A341C96D55100A878EC /* SpriteSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49FB1C96D55100A878EC /* SpriteSheet.h */; };
+		B9FD4A351C96D55100A878EC /* Texto.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49FC1C96D55100A878EC /* Texto.h */; };
+		B9FD4A361C96D55100A878EC /* Tile.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49FD1C96D55100A878EC /* Tile.h */; };
+		B9FD4A371C96D55100A878EC /* TileMap.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49FE1C96D55100A878EC /* TileMap.h */; };
+		B9FD4A381C96D55100A878EC /* TileSet.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49FF1C96D55100A878EC /* TileSet.h */; };
+		B9FD4A391C96D55100A878EC /* Toque.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A001C96D55100A878EC /* Toque.h */; };
+		B9FD4A3A1C96D55100A878EC /* TravessiaAStar.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A011C96D55100A878EC /* TravessiaAStar.h */; };
+		B9FD4A3B1C96D55100A878EC /* uniEase.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A021C96D55100A878EC /* uniEase.h */; };
+		B9FD4A3C1C96D55100A878EC /* uniFuncoesPrincipais.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A031C96D55100A878EC /* uniFuncoesPrincipais.h */; };
+		B9FD4A3D1C96D55100A878EC /* uniPlataformas.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A041C96D55100A878EC /* uniPlataformas.h */; };
+		B9FD4A3E1C96D55100A878EC /* uniRand.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A051C96D55100A878EC /* uniRand.h */; };
+		B9FD4A3F1C96D55100A878EC /* uniSistemaDeArquivos.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A061C96D55100A878EC /* uniSistemaDeArquivos.h */; };
+		B9FD4A401C96D55100A878EC /* uniTestarColisao.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A071C96D55100A878EC /* uniTestarColisao.h */; };
+		B9FD4A411C96D55100A878EC /* uniTestarColisaoSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A081C96D55100A878EC /* uniTestarColisaoSprite.h */; };
+		B9FD4A421C96D55100A878EC /* Vetor2D.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A091C96D55100A878EC /* Vetor2D.h */; };
+		B9FD4A471C96D57200A878EC /* json-forwards.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A451C96D57200A878EC /* json-forwards.h */; };
+		B9FD4A481C96D57200A878EC /* json.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD4A461C96D57200A878EC /* json.h */; };
+		B9FD4A4B1C96D59A00A878EC /* Global.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A4A1C96D59A00A878EC /* Global.cpp */; };
+		B9FD4A501C96D5AD00A878EC /* uniEase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A4C1C96D5AD00A878EC /* uniEase.cpp */; };
+		B9FD4A511C96D5AD00A878EC /* uniFuncoesPrincipais.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A4D1C96D5AD00A878EC /* uniFuncoesPrincipais.cpp */; };
+		B9FD4A521C96D5AD00A878EC /* uniRand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A4E1C96D5AD00A878EC /* uniRand.cpp */; };
+		B9FD4A531C96D5AD00A878EC /* Vetor2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A4F1C96D5AD00A878EC /* Vetor2D.cpp */; };
+		B9FD4A561C96D5BC00A878EC /* Preferencias.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A541C96D5BC00A878EC /* Preferencias.cpp */; };
+		B9FD4A571C96D5BC00A878EC /* uniSistemaDeArquivos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A551C96D5BC00A878EC /* uniSistemaDeArquivos.cpp */; };
+		B9FD4A5D1C96D5CF00A878EC /* Audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A581C96D5CF00A878EC /* Audio.cpp */; };
+		B9FD4A5E1C96D5CF00A878EC /* GerenciadorDeMusica.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A591C96D5CF00A878EC /* GerenciadorDeMusica.cpp */; };
+		B9FD4A5F1C96D5CF00A878EC /* MixadorDeAudios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A5A1C96D5CF00A878EC /* MixadorDeAudios.cpp */; };
+		B9FD4A601C96D5CF00A878EC /* Musica.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A5B1C96D5CF00A878EC /* Musica.cpp */; };
+		B9FD4A611C96D5CF00A878EC /* Som.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A5C1C96D5CF00A878EC /* Som.cpp */; };
+		B9FD4A641C96D5EB00A878EC /* uniTestarColisao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A621C96D5EB00A878EC /* uniTestarColisao.cpp */; };
+		B9FD4A651C96D5EB00A878EC /* uniTestarColisaoSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A631C96D5EB00A878EC /* uniTestarColisaoSprite.cpp */; };
+		B9FD4A671C96D5F600A878EC /* PainelDeDebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A661C96D5F600A878EC /* PainelDeDebug.cpp */; };
+		B9FD4A711C96D60600A878EC /* EventosInputTexto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A681C96D60600A878EC /* EventosInputTexto.cpp */; };
+		B9FD4A721C96D60600A878EC /* EventosJoysticks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A691C96D60600A878EC /* EventosJoysticks.cpp */; };
+		B9FD4A731C96D60600A878EC /* EventosMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A6A1C96D60600A878EC /* EventosMouse.cpp */; };
+		B9FD4A741C96D60600A878EC /* EventosTeclado.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A6B1C96D60600A878EC /* EventosTeclado.cpp */; };
+		B9FD4A751C96D60600A878EC /* EventosToques.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A6C1C96D60600A878EC /* EventosToques.cpp */; };
+		B9FD4A761C96D60600A878EC /* FiltroDeEventosDeApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A6D1C96D60600A878EC /* FiltroDeEventosDeApp.cpp */; };
+		B9FD4A771C96D60600A878EC /* GerenciadorDeEventos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A6E1C96D60600A878EC /* GerenciadorDeEventos.cpp */; };
+		B9FD4A781C96D60600A878EC /* Joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A6F1C96D60600A878EC /* Joystick.cpp */; };
+		B9FD4A791C96D60600A878EC /* ListenerDeEventos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A701C96D60600A878EC /* ListenerDeEventos.cpp */; };
+		B9FD4A811C96D61D00A878EC /* AStar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A7A1C96D61D00A878EC /* AStar.cpp */; };
+		B9FD4A821C96D61D00A878EC /* Estado.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A7B1C96D61D00A878EC /* Estado.cpp */; };
+		B9FD4A831C96D61D00A878EC /* MaquinaDeEstados.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A7C1C96D61D00A878EC /* MaquinaDeEstados.cpp */; };
+		B9FD4A841C96D61D00A878EC /* MaquinaDeEstadosComPilha.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A7D1C96D61D00A878EC /* MaquinaDeEstadosComPilha.cpp */; };
+		B9FD4A851C96D61D00A878EC /* Neuronio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A7E1C96D61D00A878EC /* Neuronio.cpp */; };
+		B9FD4A861C96D61D00A878EC /* RedeNeural.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A7F1C96D61D00A878EC /* RedeNeural.cpp */; };
+		B9FD4A871C96D61E00A878EC /* TravessiaAStar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A801C96D61D00A878EC /* TravessiaAStar.cpp */; };
+		B9FD4A8B1C96D63C00A878EC /* BotaoSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A8A1C96D63C00A878EC /* BotaoSprite.cpp */; };
+		B9FD4A8D1C96D64F00A878EC /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A8C1C96D64F00A878EC /* jsoncpp.cpp */; };
+		B9FD4A911C96D66800A878EC /* GerenciadorDeRecursos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A901C96D66800A878EC /* GerenciadorDeRecursos.cpp */; };
+		B9FD4A9A1C96D67800A878EC /* Cor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A921C96D67800A878EC /* Cor.cpp */; };
+		B9FD4A9B1C96D67800A878EC /* Fading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A931C96D67800A878EC /* Fading.cpp */; };
+		B9FD4A9C1C96D67800A878EC /* Fonte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A941C96D67800A878EC /* Fonte.cpp */; };
+		B9FD4A9D1C96D67800A878EC /* GerenciadorDeGraficos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A951C96D67800A878EC /* GerenciadorDeGraficos.cpp */; };
+		B9FD4A9E1C96D67800A878EC /* Janela.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A961C96D67800A878EC /* Janela.cpp */; };
+		B9FD4A9F1C96D67800A878EC /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A971C96D67800A878EC /* Sprite.cpp */; };
+		B9FD4AA01C96D67800A878EC /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A981C96D67800A878EC /* SpriteSheet.cpp */; };
+		B9FD4AA11C96D67800A878EC /* Texto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4A991C96D67800A878EC /* Texto.cpp */; };
+		B9FD4AA41C96D68600A878EC /* GerenciadorDeStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AA21C96D68600A878EC /* GerenciadorDeStrings.cpp */; };
+		B9FD4AA51C96D68600A878EC /* GrupoDeStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AA31C96D68600A878EC /* GrupoDeStrings.cpp */; };
+		B9FD4AA71C96D69C00A878EC /* GerenciadorDeTempo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AA61C96D69C00A878EC /* GerenciadorDeTempo.cpp */; };
+		B9FD4AAF1C96D6AA00A878EC /* CamadaDeObjetosTileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AA81C96D6A900A878EC /* CamadaDeObjetosTileMap.cpp */; };
+		B9FD4AB01C96D6AA00A878EC /* CamadaDeTiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AA91C96D6A900A878EC /* CamadaDeTiles.cpp */; };
+		B9FD4AB11C96D6AA00A878EC /* NodoAStar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AAA1C96D6A900A878EC /* NodoAStar.cpp */; };
+		B9FD4AB21C96D6AA00A878EC /* ObjetoTileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AAB1C96D6AA00A878EC /* ObjetoTileMap.cpp */; };
+		B9FD4AB31C96D6AA00A878EC /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AAC1C96D6AA00A878EC /* Tile.cpp */; };
+		B9FD4AB41C96D6AA00A878EC /* TileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AAD1C96D6AA00A878EC /* TileMap.cpp */; };
+		B9FD4AB51C96D6AA00A878EC /* TileSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD4AAE1C96D6AA00A878EC /* TileSet.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B93FAC221AB21FC200EF39A4 /* libUnicornio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libUnicornio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B93FAC261AB21FC200EF39A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B93FAC8C1AB225E200EF39A4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		B9FD49C91C96D52A00A878EC /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../lib/Mac/SDL2_image.framework; sourceTree = "<group>"; };
+		B9FD49CA1C96D52A00A878EC /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../lib/Mac/SDL2_mixer.framework; sourceTree = "<group>"; };
+		B9FD49CB1C96D52A00A878EC /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../lib/Mac/SDL2_ttf.framework; sourceTree = "<group>"; };
+		B9FD49CC1C96D52A00A878EC /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../lib/Mac/SDL2.framework; sourceTree = "<group>"; };
+		B9FD49D11C96D55100A878EC /* AStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AStar.h; path = ../../../include/AStar.h; sourceTree = "<group>"; };
+		B9FD49D21C96D55100A878EC /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Audio.h; path = ../../../include/Audio.h; sourceTree = "<group>"; };
+		B9FD49D31C96D55100A878EC /* BotaoSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BotaoSprite.h; path = ../../../include/BotaoSprite.h; sourceTree = "<group>"; };
+		B9FD49D41C96D55100A878EC /* CamadaDeObjetosTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CamadaDeObjetosTileMap.h; path = ../../../include/CamadaDeObjetosTileMap.h; sourceTree = "<group>"; };
+		B9FD49D51C96D55100A878EC /* CamadaDeTiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CamadaDeTiles.h; path = ../../../include/CamadaDeTiles.h; sourceTree = "<group>"; };
+		B9FD49D61C96D55100A878EC /* Cor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cor.h; path = ../../../include/Cor.h; sourceTree = "<group>"; };
+		B9FD49D71C96D55100A878EC /* EnumQualidadeEscala.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnumQualidadeEscala.h; path = ../../../include/EnumQualidadeEscala.h; sourceTree = "<group>"; };
+		B9FD49D81C96D55100A878EC /* EnumsInputs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EnumsInputs.h; path = ../../../include/EnumsInputs.h; sourceTree = "<group>"; };
+		B9FD49D91C96D55100A878EC /* Estado.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Estado.h; path = ../../../include/Estado.h; sourceTree = "<group>"; };
+		B9FD49DA1C96D55100A878EC /* EventosInputTexto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventosInputTexto.h; path = ../../../include/EventosInputTexto.h; sourceTree = "<group>"; };
+		B9FD49DB1C96D55100A878EC /* EventosJoysticks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventosJoysticks.h; path = ../../../include/EventosJoysticks.h; sourceTree = "<group>"; };
+		B9FD49DC1C96D55100A878EC /* EventosMouse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventosMouse.h; path = ../../../include/EventosMouse.h; sourceTree = "<group>"; };
+		B9FD49DD1C96D55100A878EC /* EventosTeclado.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventosTeclado.h; path = ../../../include/EventosTeclado.h; sourceTree = "<group>"; };
+		B9FD49DE1C96D55100A878EC /* EventosToques.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventosToques.h; path = ../../../include/EventosToques.h; sourceTree = "<group>"; };
+		B9FD49DF1C96D55100A878EC /* Fading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fading.h; path = ../../../include/Fading.h; sourceTree = "<group>"; };
+		B9FD49E01C96D55100A878EC /* FiltroDeEventosDeApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FiltroDeEventosDeApp.h; path = ../../../include/FiltroDeEventosDeApp.h; sourceTree = "<group>"; };
+		B9FD49E11C96D55100A878EC /* Fonte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fonte.h; path = ../../../include/Fonte.h; sourceTree = "<group>"; };
+		B9FD49E21C96D55100A878EC /* GerenciadorDeEventos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GerenciadorDeEventos.h; path = ../../../include/GerenciadorDeEventos.h; sourceTree = "<group>"; };
+		B9FD49E31C96D55100A878EC /* GerenciadorDeGraficos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GerenciadorDeGraficos.h; path = ../../../include/GerenciadorDeGraficos.h; sourceTree = "<group>"; };
+		B9FD49E41C96D55100A878EC /* GerenciadorDeMusica.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GerenciadorDeMusica.h; path = ../../../include/GerenciadorDeMusica.h; sourceTree = "<group>"; };
+		B9FD49E51C96D55100A878EC /* GerenciadorDeRecursos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GerenciadorDeRecursos.h; path = ../../../include/GerenciadorDeRecursos.h; sourceTree = "<group>"; };
+		B9FD49E61C96D55100A878EC /* GerenciadorDeStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GerenciadorDeStrings.h; path = ../../../include/GerenciadorDeStrings.h; sourceTree = "<group>"; };
+		B9FD49E71C96D55100A878EC /* GerenciadorDeTempo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GerenciadorDeTempo.h; path = ../../../include/GerenciadorDeTempo.h; sourceTree = "<group>"; };
+		B9FD49E81C96D55100A878EC /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = ../../../include/Global.h; sourceTree = "<group>"; };
+		B9FD49E91C96D55100A878EC /* GrupoDeStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GrupoDeStrings.h; path = ../../../include/GrupoDeStrings.h; sourceTree = "<group>"; };
+		B9FD49EA1C96D55100A878EC /* Janela.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Janela.h; path = ../../../include/Janela.h; sourceTree = "<group>"; };
+		B9FD49EB1C96D55100A878EC /* Joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Joystick.h; path = ../../../include/Joystick.h; sourceTree = "<group>"; };
+		B9FD49EC1C96D55100A878EC /* libUnicornio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libUnicornio.h; path = ../../../include/libUnicornio.h; sourceTree = "<group>"; };
+		B9FD49ED1C96D55100A878EC /* ListenerDeEventos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListenerDeEventos.h; path = ../../../include/ListenerDeEventos.h; sourceTree = "<group>"; };
+		B9FD49EE1C96D55100A878EC /* MaquinaDeEstados.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaquinaDeEstados.h; path = ../../../include/MaquinaDeEstados.h; sourceTree = "<group>"; };
+		B9FD49EF1C96D55100A878EC /* MaquinaDeEstadosComPilha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaquinaDeEstadosComPilha.h; path = ../../../include/MaquinaDeEstadosComPilha.h; sourceTree = "<group>"; };
+		B9FD49F01C96D55100A878EC /* MixadorDeAudios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MixadorDeAudios.h; path = ../../../include/MixadorDeAudios.h; sourceTree = "<group>"; };
+		B9FD49F11C96D55100A878EC /* Musica.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Musica.h; path = ../../../include/Musica.h; sourceTree = "<group>"; };
+		B9FD49F21C96D55100A878EC /* Neuronio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Neuronio.h; path = ../../../include/Neuronio.h; sourceTree = "<group>"; };
+		B9FD49F31C96D55100A878EC /* NodoAStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodoAStar.h; path = ../../../include/NodoAStar.h; sourceTree = "<group>"; };
+		B9FD49F41C96D55100A878EC /* ObjetoTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjetoTileMap.h; path = ../../../include/ObjetoTileMap.h; sourceTree = "<group>"; };
+		B9FD49F51C96D55100A878EC /* PainelDeDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PainelDeDebug.h; path = ../../../include/PainelDeDebug.h; sourceTree = "<group>"; };
+		B9FD49F61C96D55100A878EC /* Preferencias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preferencias.h; path = ../../../include/Preferencias.h; sourceTree = "<group>"; };
+		B9FD49F71C96D55100A878EC /* RedeNeural.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RedeNeural.h; path = ../../../include/RedeNeural.h; sourceTree = "<group>"; };
+		B9FD49F81C96D55100A878EC /* Retangulo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Retangulo.h; path = ../../../include/Retangulo.h; sourceTree = "<group>"; };
+		B9FD49F91C96D55100A878EC /* Som.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Som.h; path = ../../../include/Som.h; sourceTree = "<group>"; };
+		B9FD49FA1C96D55100A878EC /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sprite.h; path = ../../../include/Sprite.h; sourceTree = "<group>"; };
+		B9FD49FB1C96D55100A878EC /* SpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteSheet.h; path = ../../../include/SpriteSheet.h; sourceTree = "<group>"; };
+		B9FD49FC1C96D55100A878EC /* Texto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texto.h; path = ../../../include/Texto.h; sourceTree = "<group>"; };
+		B9FD49FD1C96D55100A878EC /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tile.h; path = ../../../include/Tile.h; sourceTree = "<group>"; };
+		B9FD49FE1C96D55100A878EC /* TileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TileMap.h; path = ../../../include/TileMap.h; sourceTree = "<group>"; };
+		B9FD49FF1C96D55100A878EC /* TileSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TileSet.h; path = ../../../include/TileSet.h; sourceTree = "<group>"; };
+		B9FD4A001C96D55100A878EC /* Toque.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Toque.h; path = ../../../include/Toque.h; sourceTree = "<group>"; };
+		B9FD4A011C96D55100A878EC /* TravessiaAStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TravessiaAStar.h; path = ../../../include/TravessiaAStar.h; sourceTree = "<group>"; };
+		B9FD4A021C96D55100A878EC /* uniEase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uniEase.h; path = ../../../include/uniEase.h; sourceTree = "<group>"; };
+		B9FD4A031C96D55100A878EC /* uniFuncoesPrincipais.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uniFuncoesPrincipais.h; path = ../../../include/uniFuncoesPrincipais.h; sourceTree = "<group>"; };
+		B9FD4A041C96D55100A878EC /* uniPlataformas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uniPlataformas.h; path = ../../../include/uniPlataformas.h; sourceTree = "<group>"; };
+		B9FD4A051C96D55100A878EC /* uniRand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uniRand.h; path = ../../../include/uniRand.h; sourceTree = "<group>"; };
+		B9FD4A061C96D55100A878EC /* uniSistemaDeArquivos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uniSistemaDeArquivos.h; path = ../../../include/uniSistemaDeArquivos.h; sourceTree = "<group>"; };
+		B9FD4A071C96D55100A878EC /* uniTestarColisao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uniTestarColisao.h; path = ../../../include/uniTestarColisao.h; sourceTree = "<group>"; };
+		B9FD4A081C96D55100A878EC /* uniTestarColisaoSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uniTestarColisaoSprite.h; path = ../../../include/uniTestarColisaoSprite.h; sourceTree = "<group>"; };
+		B9FD4A091C96D55100A878EC /* Vetor2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vetor2D.h; path = ../../../include/Vetor2D.h; sourceTree = "<group>"; };
+		B9FD4A451C96D57200A878EC /* json-forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "json-forwards.h"; path = "../../../include/json/json-forwards.h"; sourceTree = "<group>"; };
+		B9FD4A461C96D57200A878EC /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = json.h; path = ../../../include/json/json.h; sourceTree = "<group>"; };
+		B9FD4A4A1C96D59A00A878EC /* Global.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Global.cpp; path = ../../../src/Global.cpp; sourceTree = "<group>"; };
+		B9FD4A4C1C96D5AD00A878EC /* uniEase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uniEase.cpp; path = ../../../src/uniEase.cpp; sourceTree = "<group>"; };
+		B9FD4A4D1C96D5AD00A878EC /* uniFuncoesPrincipais.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uniFuncoesPrincipais.cpp; path = ../../../src/uniFuncoesPrincipais.cpp; sourceTree = "<group>"; };
+		B9FD4A4E1C96D5AD00A878EC /* uniRand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uniRand.cpp; path = ../../../src/uniRand.cpp; sourceTree = "<group>"; };
+		B9FD4A4F1C96D5AD00A878EC /* Vetor2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vetor2D.cpp; path = ../../../src/Vetor2D.cpp; sourceTree = "<group>"; };
+		B9FD4A541C96D5BC00A878EC /* Preferencias.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Preferencias.cpp; path = ../../../src/Arquivos/Preferencias.cpp; sourceTree = "<group>"; };
+		B9FD4A551C96D5BC00A878EC /* uniSistemaDeArquivos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uniSistemaDeArquivos.cpp; path = ../../../src/Arquivos/uniSistemaDeArquivos.cpp; sourceTree = "<group>"; };
+		B9FD4A581C96D5CF00A878EC /* Audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Audio.cpp; path = ../../../src/Audio/Audio.cpp; sourceTree = "<group>"; };
+		B9FD4A591C96D5CF00A878EC /* GerenciadorDeMusica.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GerenciadorDeMusica.cpp; path = ../../../src/Audio/GerenciadorDeMusica.cpp; sourceTree = "<group>"; };
+		B9FD4A5A1C96D5CF00A878EC /* MixadorDeAudios.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MixadorDeAudios.cpp; path = ../../../src/Audio/MixadorDeAudios.cpp; sourceTree = "<group>"; };
+		B9FD4A5B1C96D5CF00A878EC /* Musica.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Musica.cpp; path = ../../../src/Audio/Musica.cpp; sourceTree = "<group>"; };
+		B9FD4A5C1C96D5CF00A878EC /* Som.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Som.cpp; path = ../../../src/Audio/Som.cpp; sourceTree = "<group>"; };
+		B9FD4A621C96D5EB00A878EC /* uniTestarColisao.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uniTestarColisao.cpp; path = ../../../src/Colisao/uniTestarColisao.cpp; sourceTree = "<group>"; };
+		B9FD4A631C96D5EB00A878EC /* uniTestarColisaoSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uniTestarColisaoSprite.cpp; path = ../../../src/Colisao/uniTestarColisaoSprite.cpp; sourceTree = "<group>"; };
+		B9FD4A661C96D5F600A878EC /* PainelDeDebug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PainelDeDebug.cpp; path = ../../../src/Debug/PainelDeDebug.cpp; sourceTree = "<group>"; };
+		B9FD4A681C96D60600A878EC /* EventosInputTexto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventosInputTexto.cpp; path = ../../../src/Eventos/EventosInputTexto.cpp; sourceTree = "<group>"; };
+		B9FD4A691C96D60600A878EC /* EventosJoysticks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventosJoysticks.cpp; path = ../../../src/Eventos/EventosJoysticks.cpp; sourceTree = "<group>"; };
+		B9FD4A6A1C96D60600A878EC /* EventosMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventosMouse.cpp; path = ../../../src/Eventos/EventosMouse.cpp; sourceTree = "<group>"; };
+		B9FD4A6B1C96D60600A878EC /* EventosTeclado.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventosTeclado.cpp; path = ../../../src/Eventos/EventosTeclado.cpp; sourceTree = "<group>"; };
+		B9FD4A6C1C96D60600A878EC /* EventosToques.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventosToques.cpp; path = ../../../src/Eventos/EventosToques.cpp; sourceTree = "<group>"; };
+		B9FD4A6D1C96D60600A878EC /* FiltroDeEventosDeApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FiltroDeEventosDeApp.cpp; path = ../../../src/Eventos/FiltroDeEventosDeApp.cpp; sourceTree = "<group>"; };
+		B9FD4A6E1C96D60600A878EC /* GerenciadorDeEventos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GerenciadorDeEventos.cpp; path = ../../../src/Eventos/GerenciadorDeEventos.cpp; sourceTree = "<group>"; };
+		B9FD4A6F1C96D60600A878EC /* Joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Joystick.cpp; path = ../../../src/Eventos/Joystick.cpp; sourceTree = "<group>"; };
+		B9FD4A701C96D60600A878EC /* ListenerDeEventos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ListenerDeEventos.cpp; path = ../../../src/Eventos/ListenerDeEventos.cpp; sourceTree = "<group>"; };
+		B9FD4A7A1C96D61D00A878EC /* AStar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AStar.cpp; path = ../../../src/IA/AStar.cpp; sourceTree = "<group>"; };
+		B9FD4A7B1C96D61D00A878EC /* Estado.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Estado.cpp; path = ../../../src/IA/Estado.cpp; sourceTree = "<group>"; };
+		B9FD4A7C1C96D61D00A878EC /* MaquinaDeEstados.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaquinaDeEstados.cpp; path = ../../../src/IA/MaquinaDeEstados.cpp; sourceTree = "<group>"; };
+		B9FD4A7D1C96D61D00A878EC /* MaquinaDeEstadosComPilha.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaquinaDeEstadosComPilha.cpp; path = ../../../src/IA/MaquinaDeEstadosComPilha.cpp; sourceTree = "<group>"; };
+		B9FD4A7E1C96D61D00A878EC /* Neuronio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Neuronio.cpp; path = ../../../src/IA/Neuronio.cpp; sourceTree = "<group>"; };
+		B9FD4A7F1C96D61D00A878EC /* RedeNeural.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RedeNeural.cpp; path = ../../../src/IA/RedeNeural.cpp; sourceTree = "<group>"; };
+		B9FD4A801C96D61D00A878EC /* TravessiaAStar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TravessiaAStar.cpp; path = ../../../src/IA/TravessiaAStar.cpp; sourceTree = "<group>"; };
+		B9FD4A8A1C96D63C00A878EC /* BotaoSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BotaoSprite.cpp; path = ../../../src/Interface/BotaoSprite.cpp; sourceTree = "<group>"; };
+		B9FD4A8C1C96D64F00A878EC /* jsoncpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jsoncpp.cpp; path = ../../../src/json/jsoncpp.cpp; sourceTree = "<group>"; };
+		B9FD4A901C96D66800A878EC /* GerenciadorDeRecursos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GerenciadorDeRecursos.cpp; path = ../../../src/Recursos/GerenciadorDeRecursos.cpp; sourceTree = "<group>"; };
+		B9FD4A921C96D67800A878EC /* Cor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cor.cpp; path = ../../../src/Render/Cor.cpp; sourceTree = "<group>"; };
+		B9FD4A931C96D67800A878EC /* Fading.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Fading.cpp; path = ../../../src/Render/Fading.cpp; sourceTree = "<group>"; };
+		B9FD4A941C96D67800A878EC /* Fonte.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Fonte.cpp; path = ../../../src/Render/Fonte.cpp; sourceTree = "<group>"; };
+		B9FD4A951C96D67800A878EC /* GerenciadorDeGraficos.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GerenciadorDeGraficos.cpp; path = ../../../src/Render/GerenciadorDeGraficos.cpp; sourceTree = "<group>"; };
+		B9FD4A961C96D67800A878EC /* Janela.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Janela.cpp; path = ../../../src/Render/Janela.cpp; sourceTree = "<group>"; };
+		B9FD4A971C96D67800A878EC /* Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sprite.cpp; path = ../../../src/Render/Sprite.cpp; sourceTree = "<group>"; };
+		B9FD4A981C96D67800A878EC /* SpriteSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpriteSheet.cpp; path = ../../../src/Render/SpriteSheet.cpp; sourceTree = "<group>"; };
+		B9FD4A991C96D67800A878EC /* Texto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texto.cpp; path = ../../../src/Render/Texto.cpp; sourceTree = "<group>"; };
+		B9FD4AA21C96D68600A878EC /* GerenciadorDeStrings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GerenciadorDeStrings.cpp; path = ../../../src/Strings/GerenciadorDeStrings.cpp; sourceTree = "<group>"; };
+		B9FD4AA31C96D68600A878EC /* GrupoDeStrings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GrupoDeStrings.cpp; path = ../../../src/Strings/GrupoDeStrings.cpp; sourceTree = "<group>"; };
+		B9FD4AA61C96D69C00A878EC /* GerenciadorDeTempo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GerenciadorDeTempo.cpp; path = ../../../src/Tempo/GerenciadorDeTempo.cpp; sourceTree = "<group>"; };
+		B9FD4AA81C96D6A900A878EC /* CamadaDeObjetosTileMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CamadaDeObjetosTileMap.cpp; path = ../../../src/TileMap/CamadaDeObjetosTileMap.cpp; sourceTree = "<group>"; };
+		B9FD4AA91C96D6A900A878EC /* CamadaDeTiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CamadaDeTiles.cpp; path = ../../../src/TileMap/CamadaDeTiles.cpp; sourceTree = "<group>"; };
+		B9FD4AAA1C96D6A900A878EC /* NodoAStar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NodoAStar.cpp; path = ../../../src/TileMap/NodoAStar.cpp; sourceTree = "<group>"; };
+		B9FD4AAB1C96D6AA00A878EC /* ObjetoTileMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObjetoTileMap.cpp; path = ../../../src/TileMap/ObjetoTileMap.cpp; sourceTree = "<group>"; };
+		B9FD4AAC1C96D6AA00A878EC /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tile.cpp; path = ../../../src/TileMap/Tile.cpp; sourceTree = "<group>"; };
+		B9FD4AAD1C96D6AA00A878EC /* TileMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TileMap.cpp; path = ../../../src/TileMap/TileMap.cpp; sourceTree = "<group>"; };
+		B9FD4AAE1C96D6AA00A878EC /* TileSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TileSet.cpp; path = ../../../src/TileMap/TileSet.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B93FAC1E1AB21FC200EF39A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9FD49CD1C96D52A00A878EC /* SDL2_image.framework in Frameworks */,
+				B9FD49CE1C96D52A00A878EC /* SDL2_mixer.framework in Frameworks */,
+				B9FD49CF1C96D52A00A878EC /* SDL2_ttf.framework in Frameworks */,
+				B9FD49D01C96D52A00A878EC /* SDL2.framework in Frameworks */,
+				B93FAC8D1AB225E200EF39A4 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B93FAC181AB21FC100EF39A4 = {
+			isa = PBXGroup;
+			children = (
+				B93FAC481AB221DC00EF39A4 /* Frameworks */,
+				B93FAC241AB21FC200EF39A4 /* libUnicornio */,
+				B93FAC231AB21FC200EF39A4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B93FAC231AB21FC200EF39A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B93FAC221AB21FC200EF39A4 /* libUnicornio.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B93FAC241AB21FC200EF39A4 /* libUnicornio */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD4AA81C96D6A900A878EC /* CamadaDeObjetosTileMap.cpp */,
+				B9FD4AA91C96D6A900A878EC /* CamadaDeTiles.cpp */,
+				B9FD4AAA1C96D6A900A878EC /* NodoAStar.cpp */,
+				B9FD4AAB1C96D6AA00A878EC /* ObjetoTileMap.cpp */,
+				B9FD4AAC1C96D6AA00A878EC /* Tile.cpp */,
+				B9FD4AAD1C96D6AA00A878EC /* TileMap.cpp */,
+				B9FD4AAE1C96D6AA00A878EC /* TileSet.cpp */,
+				B9FD4AA61C96D69C00A878EC /* GerenciadorDeTempo.cpp */,
+				B9FD4AA21C96D68600A878EC /* GerenciadorDeStrings.cpp */,
+				B9FD4AA31C96D68600A878EC /* GrupoDeStrings.cpp */,
+				B9FD4A921C96D67800A878EC /* Cor.cpp */,
+				B9FD4A931C96D67800A878EC /* Fading.cpp */,
+				B9FD4A941C96D67800A878EC /* Fonte.cpp */,
+				B9FD4A951C96D67800A878EC /* GerenciadorDeGraficos.cpp */,
+				B9FD4A961C96D67800A878EC /* Janela.cpp */,
+				B9FD4A971C96D67800A878EC /* Sprite.cpp */,
+				B9FD4A981C96D67800A878EC /* SpriteSheet.cpp */,
+				B9FD4A991C96D67800A878EC /* Texto.cpp */,
+				B9FD4A901C96D66800A878EC /* GerenciadorDeRecursos.cpp */,
+				B9FD4A8C1C96D64F00A878EC /* jsoncpp.cpp */,
+				B9FD4A8A1C96D63C00A878EC /* BotaoSprite.cpp */,
+				B9FD4A7A1C96D61D00A878EC /* AStar.cpp */,
+				B9FD4A7B1C96D61D00A878EC /* Estado.cpp */,
+				B9FD4A7C1C96D61D00A878EC /* MaquinaDeEstados.cpp */,
+				B9FD4A7D1C96D61D00A878EC /* MaquinaDeEstadosComPilha.cpp */,
+				B9FD4A7E1C96D61D00A878EC /* Neuronio.cpp */,
+				B9FD4A7F1C96D61D00A878EC /* RedeNeural.cpp */,
+				B9FD4A801C96D61D00A878EC /* TravessiaAStar.cpp */,
+				B9FD4A681C96D60600A878EC /* EventosInputTexto.cpp */,
+				B9FD4A691C96D60600A878EC /* EventosJoysticks.cpp */,
+				B9FD4A6A1C96D60600A878EC /* EventosMouse.cpp */,
+				B9FD4A6B1C96D60600A878EC /* EventosTeclado.cpp */,
+				B9FD4A6C1C96D60600A878EC /* EventosToques.cpp */,
+				B9FD4A6D1C96D60600A878EC /* FiltroDeEventosDeApp.cpp */,
+				B9FD4A6E1C96D60600A878EC /* GerenciadorDeEventos.cpp */,
+				B9FD4A6F1C96D60600A878EC /* Joystick.cpp */,
+				B9FD4A701C96D60600A878EC /* ListenerDeEventos.cpp */,
+				B9FD4A661C96D5F600A878EC /* PainelDeDebug.cpp */,
+				B9FD4A621C96D5EB00A878EC /* uniTestarColisao.cpp */,
+				B9FD4A631C96D5EB00A878EC /* uniTestarColisaoSprite.cpp */,
+				B9FD4A581C96D5CF00A878EC /* Audio.cpp */,
+				B9FD4A591C96D5CF00A878EC /* GerenciadorDeMusica.cpp */,
+				B9FD4A5A1C96D5CF00A878EC /* MixadorDeAudios.cpp */,
+				B9FD4A5B1C96D5CF00A878EC /* Musica.cpp */,
+				B9FD4A5C1C96D5CF00A878EC /* Som.cpp */,
+				B9FD4A541C96D5BC00A878EC /* Preferencias.cpp */,
+				B9FD4A551C96D5BC00A878EC /* uniSistemaDeArquivos.cpp */,
+				B9FD4A4C1C96D5AD00A878EC /* uniEase.cpp */,
+				B9FD4A4D1C96D5AD00A878EC /* uniFuncoesPrincipais.cpp */,
+				B9FD4A4E1C96D5AD00A878EC /* uniRand.cpp */,
+				B9FD4A4F1C96D5AD00A878EC /* Vetor2D.cpp */,
+				B9FD4A4A1C96D59A00A878EC /* Global.cpp */,
+				B9FD4A491C96D57900A878EC /* json */,
+				B9FD49D11C96D55100A878EC /* AStar.h */,
+				B9FD49D21C96D55100A878EC /* Audio.h */,
+				B9FD49D31C96D55100A878EC /* BotaoSprite.h */,
+				B9FD49D41C96D55100A878EC /* CamadaDeObjetosTileMap.h */,
+				B9FD49D51C96D55100A878EC /* CamadaDeTiles.h */,
+				B9FD49D61C96D55100A878EC /* Cor.h */,
+				B9FD49D71C96D55100A878EC /* EnumQualidadeEscala.h */,
+				B9FD49D81C96D55100A878EC /* EnumsInputs.h */,
+				B9FD49D91C96D55100A878EC /* Estado.h */,
+				B9FD49DA1C96D55100A878EC /* EventosInputTexto.h */,
+				B9FD49DB1C96D55100A878EC /* EventosJoysticks.h */,
+				B9FD49DC1C96D55100A878EC /* EventosMouse.h */,
+				B9FD49DD1C96D55100A878EC /* EventosTeclado.h */,
+				B9FD49DE1C96D55100A878EC /* EventosToques.h */,
+				B9FD49DF1C96D55100A878EC /* Fading.h */,
+				B9FD49E01C96D55100A878EC /* FiltroDeEventosDeApp.h */,
+				B9FD49E11C96D55100A878EC /* Fonte.h */,
+				B9FD49E21C96D55100A878EC /* GerenciadorDeEventos.h */,
+				B9FD49E31C96D55100A878EC /* GerenciadorDeGraficos.h */,
+				B9FD49E41C96D55100A878EC /* GerenciadorDeMusica.h */,
+				B9FD49E51C96D55100A878EC /* GerenciadorDeRecursos.h */,
+				B9FD49E61C96D55100A878EC /* GerenciadorDeStrings.h */,
+				B9FD49E71C96D55100A878EC /* GerenciadorDeTempo.h */,
+				B9FD49E81C96D55100A878EC /* Global.h */,
+				B9FD49E91C96D55100A878EC /* GrupoDeStrings.h */,
+				B9FD49EA1C96D55100A878EC /* Janela.h */,
+				B9FD49EB1C96D55100A878EC /* Joystick.h */,
+				B9FD49EC1C96D55100A878EC /* libUnicornio.h */,
+				B9FD49ED1C96D55100A878EC /* ListenerDeEventos.h */,
+				B9FD49EE1C96D55100A878EC /* MaquinaDeEstados.h */,
+				B9FD49EF1C96D55100A878EC /* MaquinaDeEstadosComPilha.h */,
+				B9FD49F01C96D55100A878EC /* MixadorDeAudios.h */,
+				B9FD49F11C96D55100A878EC /* Musica.h */,
+				B9FD49F21C96D55100A878EC /* Neuronio.h */,
+				B9FD49F31C96D55100A878EC /* NodoAStar.h */,
+				B9FD49F41C96D55100A878EC /* ObjetoTileMap.h */,
+				B9FD49F51C96D55100A878EC /* PainelDeDebug.h */,
+				B9FD49F61C96D55100A878EC /* Preferencias.h */,
+				B9FD49F71C96D55100A878EC /* RedeNeural.h */,
+				B9FD49F81C96D55100A878EC /* Retangulo.h */,
+				B9FD49F91C96D55100A878EC /* Som.h */,
+				B9FD49FA1C96D55100A878EC /* Sprite.h */,
+				B9FD49FB1C96D55100A878EC /* SpriteSheet.h */,
+				B9FD49FC1C96D55100A878EC /* Texto.h */,
+				B9FD49FD1C96D55100A878EC /* Tile.h */,
+				B9FD49FE1C96D55100A878EC /* TileMap.h */,
+				B9FD49FF1C96D55100A878EC /* TileSet.h */,
+				B9FD4A001C96D55100A878EC /* Toque.h */,
+				B9FD4A011C96D55100A878EC /* TravessiaAStar.h */,
+				B9FD4A021C96D55100A878EC /* uniEase.h */,
+				B9FD4A031C96D55100A878EC /* uniFuncoesPrincipais.h */,
+				B9FD4A041C96D55100A878EC /* uniPlataformas.h */,
+				B9FD4A051C96D55100A878EC /* uniRand.h */,
+				B9FD4A061C96D55100A878EC /* uniSistemaDeArquivos.h */,
+				B9FD4A071C96D55100A878EC /* uniTestarColisao.h */,
+				B9FD4A081C96D55100A878EC /* uniTestarColisaoSprite.h */,
+				B9FD4A091C96D55100A878EC /* Vetor2D.h */,
+				B93FAC251AB21FC200EF39A4 /* Supporting Files */,
+			);
+			path = libUnicornio;
+			sourceTree = "<group>";
+		};
+		B93FAC251AB21FC200EF39A4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B93FAC261AB21FC200EF39A4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B93FAC481AB221DC00EF39A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD49C91C96D52A00A878EC /* SDL2_image.framework */,
+				B9FD49CA1C96D52A00A878EC /* SDL2_mixer.framework */,
+				B9FD49CB1C96D52A00A878EC /* SDL2_ttf.framework */,
+				B9FD49CC1C96D52A00A878EC /* SDL2.framework */,
+				B93FAC8C1AB225E200EF39A4 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B9FD4A491C96D57900A878EC /* json */ = {
+			isa = PBXGroup;
+			children = (
+				B9FD4A451C96D57200A878EC /* json-forwards.h */,
+				B9FD4A461C96D57200A878EC /* json.h */,
+			);
+			name = json;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		B93FAC1F1AB21FC200EF39A4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9FD4A361C96D55100A878EC /* Tile.h in Headers */,
+				B9FD4A0D1C96D55100A878EC /* CamadaDeObjetosTileMap.h in Headers */,
+				B9FD4A3A1C96D55100A878EC /* TravessiaAStar.h in Headers */,
+				B9FD4A331C96D55100A878EC /* Sprite.h in Headers */,
+				B9FD4A251C96D55100A878EC /* libUnicornio.h in Headers */,
+				B9FD4A421C96D55100A878EC /* Vetor2D.h in Headers */,
+				B9FD4A1E1C96D55100A878EC /* GerenciadorDeRecursos.h in Headers */,
+				B9FD4A1F1C96D55100A878EC /* GerenciadorDeStrings.h in Headers */,
+				B9FD4A3B1C96D55100A878EC /* uniEase.h in Headers */,
+				B9FD4A3D1C96D55100A878EC /* uniPlataformas.h in Headers */,
+				B9FD4A471C96D57200A878EC /* json-forwards.h in Headers */,
+				B9FD4A241C96D55100A878EC /* Joystick.h in Headers */,
+				B9FD4A1D1C96D55100A878EC /* GerenciadorDeMusica.h in Headers */,
+				B9FD4A101C96D55100A878EC /* EnumQualidadeEscala.h in Headers */,
+				B9FD4A0C1C96D55100A878EC /* BotaoSprite.h in Headers */,
+				B9FD4A191C96D55100A878EC /* FiltroDeEventosDeApp.h in Headers */,
+				B9FD4A371C96D55100A878EC /* TileMap.h in Headers */,
+				B9FD4A2E1C96D55100A878EC /* PainelDeDebug.h in Headers */,
+				B9FD4A2B1C96D55100A878EC /* Neuronio.h in Headers */,
+				B9FD4A291C96D55100A878EC /* MixadorDeAudios.h in Headers */,
+				B9FD4A351C96D55100A878EC /* Texto.h in Headers */,
+				B9FD4A201C96D55100A878EC /* GerenciadorDeTempo.h in Headers */,
+				B9FD4A1B1C96D55100A878EC /* GerenciadorDeEventos.h in Headers */,
+				B9FD4A1C1C96D55100A878EC /* GerenciadorDeGraficos.h in Headers */,
+				B9FD4A411C96D55100A878EC /* uniTestarColisaoSprite.h in Headers */,
+				B9FD4A401C96D55100A878EC /* uniTestarColisao.h in Headers */,
+				B9FD4A321C96D55100A878EC /* Som.h in Headers */,
+				B9FD4A381C96D55100A878EC /* TileSet.h in Headers */,
+				B9FD4A261C96D55100A878EC /* ListenerDeEventos.h in Headers */,
+				B9FD4A131C96D55100A878EC /* EventosInputTexto.h in Headers */,
+				B9FD4A2A1C96D55100A878EC /* Musica.h in Headers */,
+				B9FD4A311C96D55100A878EC /* Retangulo.h in Headers */,
+				B9FD4A271C96D55100A878EC /* MaquinaDeEstados.h in Headers */,
+				B9FD4A3F1C96D55100A878EC /* uniSistemaDeArquivos.h in Headers */,
+				B9FD4A301C96D55100A878EC /* RedeNeural.h in Headers */,
+				B9FD4A391C96D55100A878EC /* Toque.h in Headers */,
+				B9FD4A231C96D55100A878EC /* Janela.h in Headers */,
+				B9FD4A2C1C96D55100A878EC /* NodoAStar.h in Headers */,
+				B9FD4A0E1C96D55100A878EC /* CamadaDeTiles.h in Headers */,
+				B9FD4A181C96D55100A878EC /* Fading.h in Headers */,
+				B9FD4A151C96D55100A878EC /* EventosMouse.h in Headers */,
+				B9FD4A0F1C96D55100A878EC /* Cor.h in Headers */,
+				B9FD4A161C96D55100A878EC /* EventosTeclado.h in Headers */,
+				B9FD4A481C96D57200A878EC /* json.h in Headers */,
+				B9FD4A0A1C96D55100A878EC /* AStar.h in Headers */,
+				B9FD4A3C1C96D55100A878EC /* uniFuncoesPrincipais.h in Headers */,
+				B9FD4A221C96D55100A878EC /* GrupoDeStrings.h in Headers */,
+				B9FD4A141C96D55100A878EC /* EventosJoysticks.h in Headers */,
+				B9FD4A111C96D55100A878EC /* EnumsInputs.h in Headers */,
+				B9FD4A281C96D55100A878EC /* MaquinaDeEstadosComPilha.h in Headers */,
+				B9FD4A0B1C96D55100A878EC /* Audio.h in Headers */,
+				B9FD4A171C96D55100A878EC /* EventosToques.h in Headers */,
+				B9FD4A2D1C96D55100A878EC /* ObjetoTileMap.h in Headers */,
+				B9FD4A121C96D55100A878EC /* Estado.h in Headers */,
+				B9FD4A341C96D55100A878EC /* SpriteSheet.h in Headers */,
+				B9FD4A2F1C96D55100A878EC /* Preferencias.h in Headers */,
+				B9FD4A1A1C96D55100A878EC /* Fonte.h in Headers */,
+				B9FD4A3E1C96D55100A878EC /* uniRand.h in Headers */,
+				B9FD4A211C96D55100A878EC /* Global.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		B93FAC211AB21FC200EF39A4 /* libUnicornio */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B93FAC381AB21FC200EF39A4 /* Build configuration list for PBXNativeTarget "libUnicornio" */;
+			buildPhases = (
+				B93FAC1D1AB21FC200EF39A4 /* Sources */,
+				B93FAC1E1AB21FC200EF39A4 /* Frameworks */,
+				B93FAC1F1AB21FC200EF39A4 /* Headers */,
+				B93FAC201AB21FC200EF39A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libUnicornio;
+			productName = libUnicornio;
+			productReference = B93FAC221AB21FC200EF39A4 /* libUnicornio.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B93FAC191AB21FC200EF39A4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = libUnicornio;
+				TargetAttributes = {
+					B93FAC211AB21FC200EF39A4 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+				};
+			};
+			buildConfigurationList = B93FAC1C1AB21FC200EF39A4 /* Build configuration list for PBXProject "libUnicornio" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B93FAC181AB21FC100EF39A4;
+			productRefGroup = B93FAC231AB21FC200EF39A4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B93FAC211AB21FC200EF39A4 /* libUnicornio */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B93FAC201AB21FC200EF39A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B93FAC1D1AB21FC200EF39A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9FD4A9B1C96D67800A878EC /* Fading.cpp in Sources */,
+				B9FD4AA01C96D67800A878EC /* SpriteSheet.cpp in Sources */,
+				B9FD4A9C1C96D67800A878EC /* Fonte.cpp in Sources */,
+				B9FD4A9F1C96D67800A878EC /* Sprite.cpp in Sources */,
+				B9FD4A511C96D5AD00A878EC /* uniFuncoesPrincipais.cpp in Sources */,
+				B9FD4A9A1C96D67800A878EC /* Cor.cpp in Sources */,
+				B9FD4A791C96D60600A878EC /* ListenerDeEventos.cpp in Sources */,
+				B9FD4AB41C96D6AA00A878EC /* TileMap.cpp in Sources */,
+				B9FD4A571C96D5BC00A878EC /* uniSistemaDeArquivos.cpp in Sources */,
+				B9FD4AA41C96D68600A878EC /* GerenciadorDeStrings.cpp in Sources */,
+				B9FD4A9E1C96D67800A878EC /* Janela.cpp in Sources */,
+				B9FD4A521C96D5AD00A878EC /* uniRand.cpp in Sources */,
+				B9FD4A771C96D60600A878EC /* GerenciadorDeEventos.cpp in Sources */,
+				B9FD4A751C96D60600A878EC /* EventosToques.cpp in Sources */,
+				B9FD4AA11C96D67800A878EC /* Texto.cpp in Sources */,
+				B9FD4A611C96D5CF00A878EC /* Som.cpp in Sources */,
+				B9FD4AB21C96D6AA00A878EC /* ObjetoTileMap.cpp in Sources */,
+				B9FD4A731C96D60600A878EC /* EventosMouse.cpp in Sources */,
+				B9FD4A561C96D5BC00A878EC /* Preferencias.cpp in Sources */,
+				B9FD4A9D1C96D67800A878EC /* GerenciadorDeGraficos.cpp in Sources */,
+				B9FD4A5D1C96D5CF00A878EC /* Audio.cpp in Sources */,
+				B9FD4A501C96D5AD00A878EC /* uniEase.cpp in Sources */,
+				B9FD4A821C96D61D00A878EC /* Estado.cpp in Sources */,
+				B9FD4A8B1C96D63C00A878EC /* BotaoSprite.cpp in Sources */,
+				B9FD4A851C96D61D00A878EC /* Neuronio.cpp in Sources */,
+				B9FD4AAF1C96D6AA00A878EC /* CamadaDeObjetosTileMap.cpp in Sources */,
+				B9FD4A5E1C96D5CF00A878EC /* GerenciadorDeMusica.cpp in Sources */,
+				B9FD4A761C96D60600A878EC /* FiltroDeEventosDeApp.cpp in Sources */,
+				B9FD4A781C96D60600A878EC /* Joystick.cpp in Sources */,
+				B9FD4AA71C96D69C00A878EC /* GerenciadorDeTempo.cpp in Sources */,
+				B9FD4A811C96D61D00A878EC /* AStar.cpp in Sources */,
+				B9FD4A8D1C96D64F00A878EC /* jsoncpp.cpp in Sources */,
+				B9FD4AB01C96D6AA00A878EC /* CamadaDeTiles.cpp in Sources */,
+				B9FD4A4B1C96D59A00A878EC /* Global.cpp in Sources */,
+				B9FD4A721C96D60600A878EC /* EventosJoysticks.cpp in Sources */,
+				B9FD4A651C96D5EB00A878EC /* uniTestarColisaoSprite.cpp in Sources */,
+				B9FD4A641C96D5EB00A878EC /* uniTestarColisao.cpp in Sources */,
+				B9FD4A5F1C96D5CF00A878EC /* MixadorDeAudios.cpp in Sources */,
+				B9FD4AB51C96D6AA00A878EC /* TileSet.cpp in Sources */,
+				B9FD4A601C96D5CF00A878EC /* Musica.cpp in Sources */,
+				B9FD4A841C96D61D00A878EC /* MaquinaDeEstadosComPilha.cpp in Sources */,
+				B9FD4AA51C96D68600A878EC /* GrupoDeStrings.cpp in Sources */,
+				B9FD4A871C96D61E00A878EC /* TravessiaAStar.cpp in Sources */,
+				B9FD4A861C96D61D00A878EC /* RedeNeural.cpp in Sources */,
+				B9FD4AB11C96D6AA00A878EC /* NodoAStar.cpp in Sources */,
+				B9FD4A671C96D5F600A878EC /* PainelDeDebug.cpp in Sources */,
+				B9FD4A711C96D60600A878EC /* EventosInputTexto.cpp in Sources */,
+				B9FD4A911C96D66800A878EC /* GerenciadorDeRecursos.cpp in Sources */,
+				B9FD4A741C96D60600A878EC /* EventosTeclado.cpp in Sources */,
+				B9FD4A531C96D5AD00A878EC /* Vetor2D.cpp in Sources */,
+				B9FD4A831C96D61D00A878EC /* MaquinaDeEstados.cpp in Sources */,
+				B9FD4AB31C96D6AA00A878EC /* Tile.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B93FAC361AB21FC200EF39A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../lib/Mac";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../../include",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_image.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_mixer.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_ttf.framework/Headers",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B93FAC371AB21FC200EF39A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../lib/Mac";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../../include",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_image.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_mixer.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_ttf.framework/Headers",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B93FAC391AB21FC200EF39A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../../SDL2/lib/Mac\\ OS\\ X",
+					/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/lib/Mac,
+				);
+				FRAMEWORK_VERSION = A;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../../include/**",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_image.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_mixer.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_ttf.framework/Headers",
+				);
+				INFOPLIST_FILE = libUnicornio/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B93FAC3A1AB21FC200EF39A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../../SDL2/lib/Mac\\ OS\\ X",
+					/Users/guilhermealanjohann/Desktop/libUnicornio/libUnicornio/lib/Mac,
+				);
+				FRAMEWORK_VERSION = A;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../../include/**",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_image.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_mixer.framework/Headers",
+					"$(PROJECT_DIR)/../../lib/Mac/SDL2_ttf.framework/Headers",
+				);
+				INFOPLIST_FILE = libUnicornio/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B93FAC1C1AB21FC200EF39A4 /* Build configuration list for PBXProject "libUnicornio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B93FAC361AB21FC200EF39A4 /* Debug */,
+				B93FAC371AB21FC200EF39A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B93FAC381AB21FC200EF39A4 /* Build configuration list for PBXNativeTarget "libUnicornio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B93FAC391AB21FC200EF39A4 /* Debug */,
+				B93FAC3A1AB21FC200EF39A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B93FAC191AB21FC200EF39A4 /* Project object */;
+}

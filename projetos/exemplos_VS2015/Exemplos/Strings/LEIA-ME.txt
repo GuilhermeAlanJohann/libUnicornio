@@ -1,0 +1,21 @@
+Descrição:
+Este exemplo mostra o uso do GerenciadorDeStrings (gStrings) para fazer 
+traduções dos jogos.
+Nele, diversos arquivos de strings são carregados, um para cada lingua do jogo.
+Um texto é mostrado na tela contendo as informações de um personagem. 
+Quando o usuário muda a lingua do jogo, o texto é alterado para a lingua selecionada.
+
+Objetos importantes:
+- gStrings
+
+Observações:
+Note que o primeiro arquivo de strings a ser carregado é tratado com o arquivo padrão.
+Todos os outros arquivos são traduções deste arquivo padrão. 
+Para mudar a língua atual, chame o método "setTraducao".
+Para usar uma string, chame o método "getString".
+Caso alguma string não seja encontrada na tradução atual, ela será buscada no arquivo padrão.
+Portanto não é necessário traduzir as strings que não possuem tradução.
+
+Veja também os exemplos:
+- Texto TTF
+

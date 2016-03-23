@@ -1,5 +1,7 @@
 #include "TileSet.h"
-#include "libUnicornio.h"
+#include "uniFuncoesPrincipais.h"
+#include "Global.h"
+#include "SDL_image.h"
 
 TileSet::TileSet()
 {
@@ -24,23 +26,23 @@ TileSet::~TileSet()
 
 bool TileSet::carregar(string arquivo, int largura_tiles, int altura_tiles)
 {
-	if(!uni_init)
+	if(!uniEstaInicializada())
 	{
-		uniErro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
+		gDebug.erro("Sem uniInicializar() antes de tentar carregar: '" + arquivo + "'.");
 		return false;
 	}
 
 	if(estaCarregado())
 	{
-		uniErro("Arquivo '" + arquivo + "' nao pode ser carregado, pois TileSet '" + nome + "' ja carregou algum arquivo.");
+		gDebug.erro("Arquivo '" + arquivo + "' nao pode ser carregado, pois TileSet '" + nome + "' ja carregou algum arquivo.");
 		return false;
 	}
 
-	tex = IMG_LoadTexture(sdl_renderer, arquivo.c_str());
+	tex = IMG_LoadTexture(gJanela.sdl_renderer, arquivo.c_str());
 	
 	if(!tex) 
 	{
-		uniErro("Erro ao carregar arquivo: '" + arquivo + "'.");
+		gDebug.erro("Erro ao carregar arquivo: '" + arquivo + "'.");
 		tex = NULL;
 		return false;
 	}

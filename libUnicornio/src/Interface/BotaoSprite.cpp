@@ -1,5 +1,5 @@
 #include "BotaoSprite.h"
-#include "libUnicornio.h"
+#include "Global.h"
 
 BotaoSprite::BotaoSprite()
 {
@@ -9,7 +9,7 @@ BotaoSprite::BotaoSprite()
 	mudou = false;
 	mouse_entrou = false;
 	mouse_saiu = false;
-	botao_mouse = BOTAO_ESQ;
+	botao_mouse = BOTAO_MOUSE_ESQ;
 	for(unsigned int i = 0; i < NUMERO_DE_ESTADOS_BOTAOSPRITE; ++i)
 		anims[i] = 0;
 }
@@ -36,19 +36,19 @@ bool BotaoSprite::setSpriteSheet(SpriteSheet *spritesheet)
 
 bool BotaoSprite::setSpriteSheet(string spritesheet)
 {
-	return setSpriteSheet(recursos.getSpriteSheet(spritesheet));
+	return setSpriteSheet(gRecursos.getSpriteSheet(spritesheet));
 }
 
 void BotaoSprite::atualizar()
 {
-	atualizar(deltaTempo);
+	atualizar(gTempo.getDeltaTempo());
 }
 
 void BotaoSprite::atualizar(double dt)
 {
 	spr.avancarAnimacao(dt);
 
-	if(estaDentroDoRetangulo(mouse.x, mouse.y))
+	if(estaDentroDoRetangulo(gMouse.x, gMouse.y))
 		atualizarEstadoMouse();
 	else 
 		atualizarEstadoToque();
@@ -206,22 +206,22 @@ void BotaoSprite::atualizarEstadoMouse()
 	clicado = false;
 	mudou = false;
 
-	if(estaDentroDoRetangulo(mouse.x, mouse.y))
+	if(estaDentroDoRetangulo(gMouse.x, gMouse.y))
 	{
 		if(!mouse_entrou)
 			mouse_entrou = true;
 		mouse_saiu = false;
 
-		if(mouse.pressionou[botao_mouse])
+		if(gMouse.pressionou[botao_mouse])
 		{
 			setEstado(BOTAOSPRITE_ABAIXADO);
 		}
-		else if(mouse.soltou[botao_mouse] && estado == BOTAOSPRITE_ABAIXADO)
+		else if(gMouse.soltou[botao_mouse] && estado == BOTAOSPRITE_ABAIXADO)
 		{
 			setEstado(BOTAOSPRITE_COM_MOUSE_EM_CIMA);
 			clicado = true;
 		}
-		else if(!(mouse.segurando[botao_mouse] && estado == BOTAOSPRITE_ABAIXADO))
+		else if(!(gMouse.segurando[botao_mouse] && estado == BOTAOSPRITE_ABAIXADO))
 		{
 			setEstado(BOTAOSPRITE_COM_MOUSE_EM_CIMA);
 		}
@@ -244,7 +244,7 @@ void BotaoSprite::atualizarEstadoToque()
 	bool dentro = false;
 
 	Toque t;
-	vector<Toque> vetToques = telaDeToque.getTodosToques();
+	vector<Toque> vetToques = gToques.getTodosToques();
 	for(unsigned int i = 0; i < vetToques.size() && !dentro; ++i)
 	{
 		t = vetToques[i];

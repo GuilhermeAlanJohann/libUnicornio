@@ -1,0 +1,23 @@
+Descrição:
+Este exemplo mostra o uso da funcionalidade de A* (a star) e Travessia em A*
+Ele mostra um personagem que se move em um mapa quadriculado conforme o clique do mouse.
+
+Classes importantes:
+- AStar
+- TravessiaAStar
+
+Objetos importantes:
+- gTempo
+
+Observações:
+Ao usar a classe TravessiaAStar, 
+é importante reparar que quando deseja-se que um personagem altere o seu movimento para 
+percorrer um novo caminho sem antes ter terminado o caminho atual, para manter a coerencia do movimento, 
+isso é, evitar que ele pule de uma posição para outra, deve-se usar o método "interromper" e não o método 
+"parar". 
+Ao chamar o método "parar", o movimento é interrompido imediatamente, independentemente da posição do personagem.
+Ao chamar o método "interromper", o movimento ainda continua até que o personagem chegue no próximo nodo do caminho.
+Para isso é necessario continuar chamando o método "avancar", até que ele pare no próximo nodo.
+
+Veja também os exemplos:
+- Sprite

@@ -1,0 +1,13 @@
+Descrição:
+Este exemplo mostra o uso de Joysticks na libUnicórnio.
+Nele é possivel controlar até 4 personagens diferentes, um para cada joystick.
+
+Objetos importantes:
+- gJoysticks
+
+Observações:
+A libUnicórnio suporta no máximo 4 joysticks. 
+
+Veja também os exemplos:
+- Sprite
+

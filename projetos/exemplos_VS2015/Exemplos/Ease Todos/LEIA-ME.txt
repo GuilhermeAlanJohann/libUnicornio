@@ -1,0 +1,21 @@
+Descrição:
+Este exemplo tem como objetivo a demonstração de todos os efeitos de easing e 
+como eles afetam o movimento de um objeto. 
+Para isso são mostrados vários botões na tela, um para cada tipo de função de easing, e 
+três objetos que se movem no eixo x, indo da esquerda para a direita e voltando. 
+O movimento desses objetos é determinado pela função de easing escolhida. Cada um deles mostra
+uma variação do easing (In, InOut, Out). 
+Além disso, existe uma linha branca que acompanha os objetos com velocidade linar. 
+Ao comparar o movimento dos objetos com o movimento da linha, podemos perceber como a velocidade os 
+objetos é alterada pelas funções de easing.
+
+Funções importantes:
+- uniEase*
+
+Observações:
+Este exemplo não está comentado, pois seu objetivo não é mostrar como usar as funções de easing, 
+e sim, mostrar o efeito que cada uma causa no movimento de um objeto.
+
+Veja também os exemplos:
+- Ease
+

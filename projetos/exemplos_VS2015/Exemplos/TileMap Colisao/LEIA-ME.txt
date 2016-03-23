@@ -1,0 +1,27 @@
+Descrição:
+Este exemplo mostra como testar colisões entre Objetos de tilemap (ObjetoTileMap).
+Ele mostra um mapa de tiles com um personagem controlavel pelo teclado
+e que ao colidir com outros objetos invisíveis é mostrado um texto na tela.
+Procure por Árvores Secas, Grama Alta, e uma Flor Rosada.
+As colisões dos objetos entre si devem ser testadas manualmente.
+
+Classes importantes:
+- TileMap
+- Tile
+- TileSet
+- CamadaDeTiles
+- ObjetoTileMap
+- CamadaDeObjetosTileMap
+
+Objetos importantes:
+- gRecursos
+
+Observações:
+Para saber como criar um TileMap, leia o arquivo "Como Criar um TileMap.txt"
+Para saber como configurar um TileSet, leia o arquivo "Como Configurar um TileSet.txt".
+
+Veja também os exemplos:
+- Sprite
+- Texto TTF
+- TileMap 
+- TileMap e AStar

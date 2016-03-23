@@ -4,21 +4,21 @@ COMO COMEÇAR A USAR?
 
 
 - Para começar a utilizar a biblioteca Unicórnio é recomendado que você use o projeto base.
-O projeto base é um projeto feito com a IDE Microsoft Visual Studio 2013 e está totalmente configurado para usar a biblioteca.
+O projeto base é um projeto feito com a IDE Microsoft Visual Studio 2015 e está totalmente configurado para usar a biblioteca.
 
-- Vá ao diretório "projetos" e você encontrará a pasta "base_2013".
+- Vá ao diretório "projetos" e você encontrará a pasta "base_VS2015".
 Essa pasta contem o projeto base.
 Para garantir que vc sempre tenho o projeto base intacto, faça um backup do mesmo, ou utilize uma cópia dele. Neste caso, utilizaremos uma cópia.
 
-- Copie a pasta "base_2013" e cole dentro do mesmo diretório.
-Agora você terá uma pasta chamada "base_2013" e outra chamada "base_2013 - Cópia".
+- Copie a pasta "base_VS2015" e cole dentro do mesmo diretório.
+Agora você terá uma pasta chamada "base_VS2015" e outra chamada "base_VS2015 - Cópia".
 A primeira servirá como backup, e a segunda será a pasta do projeto que vc irá trabalhar.
 
-- Primeiramente, renomeie a pasta "base_2013 - Cópia" para o nome do seu jogo. Ex: "Meu primeiro Jogo".
+- Primeiramente, renomeie a pasta "base_VS2015 - Cópia" para o nome do seu jogo. Ex: "Meu primeiro Jogo".
 
-- Abra esta pasta e você encontrará os arquivos do projeto configurados para o Visual Studio 2013.
+- Abra esta pasta e você encontrará os arquivos do projeto configurados para o Visual Studio 2015.
 
-- Abra o projeto com o visual Studio 2013 e você verá que ele já vem com um código base, que inclui uma classe chamada Jogo.
+- Abra o projeto com o visual Studio 2015 e você verá que ele já vem com um código base, que inclui uma classe chamada Jogo.
 
 No arquivo main.cpp, a função 'main' cria uma instância da classe Jogo, e chama seus métodos que determinam o fluxo da aplicação.
 
@@ -97,7 +97,7 @@ Repare que ele também vem comentado, indicando onde o seu código deve ir.
 
 void Jogo::executar()
 {
-	while(!teclado.soltou[TECLA_ESC] && !aplicacao.sair)
+	while(!gTeclado.soltou[TECLA_ESC] && !gEventos.sair)
 	{
 		uniIniciarFrame();
 

@@ -1,0 +1,19 @@
+Descrição:
+Este exemplo mostra o uso de músicas na bibliteca Unicórnio.
+Nele, três músicas são carregadase tocadas conforme o usuário desejar.
+Cada música é tocada com algum parâmetro diferente, para que você estenda quais os efeitos 
+que pode-se aplicar as músicas.
+A música 1 é tocada apenas uma vez.
+A música 2 é tocada repetidamente.
+A música 3 é tocada uma vez com fadein de 3 segundos.
+Além disso é possivel, pausar, continuar e parar a música que estiver tocando.
+Também é possivel parar aplicando o efeito de fadeout.
+
+Objetos importantes:
+- gRecursos
+- gMusica
+
+Observações:
+É muito importante entender que apesar de varias músicas poderem ser carregadas, apenas
+uma pode ser estar tocando por vez. 
+

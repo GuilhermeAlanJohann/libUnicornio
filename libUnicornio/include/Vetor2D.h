@@ -66,6 +66,9 @@ public:
 	float comprimentoAoQuadrado() const;
 	float normalizar();
 	void rotacionar(float angulo);
+	float getAnguloAteVetor(const Vetor2D& vet);
+	float getAnguloDoVetor(const Vetor2D& vet);
+	float getAngulo();
 
 	float x, y;
 };

@@ -1,35 +1,4 @@
-#include "Eventos.h"
-
-Joystick::Joystick(): id(-1), deadZone(0.2f), x(0), y(0), z(0), xDir(0), yDir(0), zDir(0), sdl_joystick(NULL), sdl_haptic(NULL)
-{
-	for(int i = 0; i < NUMERO_DE_BOTOES_JOYSTICK; ++i)
-	{
-		pressionou[i] = false;
-		segurando[i] = false;
-		soltou[i] = false;
-	}
-};
-
-Joystick::~Joystick()
-{};
-
-void Joystick::vibrar(float forca, float tempo)
-{
-	if(sdl_haptic)
-	{
-		if(SDL_HapticRumbleSupported(sdl_haptic))
-			SDL_HapticRumblePlay(sdl_haptic, forca, tempo*1000);
-	}
-}
-
-void Joystick::pararDeVibrar()
-{
-	if(sdl_haptic)
-	{
-		if(SDL_HapticRumbleSupported(sdl_haptic))
-			SDL_HapticRumbleStop(sdl_haptic);
-	}
-}
+#include "EventosJoysticks.h"
 
 int EventosJoysticks::nextId = 0;
 
@@ -70,36 +39,60 @@ void EventosJoysticks::processarEvento(const SDL_Event& evento)
 			switch(evento.jaxis.axis)
 			{
 			case SDL_CONTROLLER_AXIS_LEFTX:
-				joy->x = evento.caxis.value/32767.0;
+				joy->x = evento.caxis.value/32767.0f;
 				filtrarInput(joy->x, joy);
 				break;
 
 			case SDL_CONTROLLER_AXIS_LEFTY:
-				joy->y = evento.caxis.value/32767.0;
+				joy->y = evento.caxis.value/32767.0f;
 				filtrarInput(joy->y, joy);
 				break;
 
 			case SDL_CONTROLLER_AXIS_RIGHTX:
-				joy->xDir = evento.caxis.value/32767.0;
+				joy->xDir = evento.caxis.value/32767.0f;
 				filtrarInput(joy->xDir, joy);
 				break;
 
 			case SDL_CONTROLLER_AXIS_RIGHTY:
-				joy->yDir = evento.caxis.value/32767.0;
+				joy->yDir = evento.caxis.value/32767.0f;
 				filtrarInput(joy->yDir, joy);
 				break;
 
-			//	nao testado
 			case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
-				joy->z = evento.caxis.value/32767.0;
+				joy->z = evento.caxis.value/32767.0f;
 				filtrarInput(joy->z, joy);
 				break;
 
-			//	nao testado
 			case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
-				joy->zDir = evento.caxis.value/32767.0;
+				joy->zDir = evento.caxis.value/32767.0f;
 				filtrarInput(joy->zDir, joy);
 				break;
+			}
+		}
+		break;
+
+	case SDL_CONTROLLERBUTTONDOWN:
+		joy = identificarJoystick(evento.cbutton.which);
+		if (joy)
+		{
+			joy->segurando[evento.cbutton.button] = true;
+
+			if (evento.cbutton.state == SDL_PRESSED)
+			{
+				joy->pressionou[evento.cbutton.button] = true;
+			}
+		}
+		break;
+
+	case SDL_CONTROLLERBUTTONUP:
+		joy = identificarJoystick(evento.cbutton.which);
+		if (joy)
+		{
+			joy->segurando[evento.cbutton.button] = false;
+
+			if (evento.cbutton.state == SDL_RELEASED)
+			{
+				joy->soltou[evento.cbutton.button] = true;
 			}
 		}
 		break;
@@ -108,6 +101,12 @@ void EventosJoysticks::processarEvento(const SDL_Event& evento)
 		joy = identificarJoystick(evento.jbutton.which);
 		if(joy)
 		{
+			if (joy->eControle())
+			{
+				//	para aqui, pois controles são tratados separadamente
+				break;
+			}
+
 			joy->segurando[evento.jbutton.button] = true;
 
 			if(evento.jbutton.state == SDL_PRESSED)
@@ -122,6 +121,12 @@ void EventosJoysticks::processarEvento(const SDL_Event& evento)
 		joy = identificarJoystick(evento.jbutton.which);
 		if(joy)
 		{
+			if (joy->eControle())
+			{
+				//	para aqui, pois controles são tratados separadamente
+				break;
+			}
+
 			joy->segurando[evento.jbutton.button] = false;
 
 			if(evento.jbutton.state == SDL_RELEASED)
@@ -137,8 +142,17 @@ void EventosJoysticks::processarEvento(const SDL_Event& evento)
 		joy = getPrimeiroJoystickLivre();
 		if(joy)
 		{
+			if (SDL_IsGameController(evento.jdevice.which))
+			{
+				joy->sdl_controller = SDL_GameControllerOpen(evento.jdevice.which);
+				joy->sdl_joystick = SDL_GameControllerGetJoystick(joy->sdl_controller);
+			}
+			else
+			{
+				joy->sdl_joystick = SDL_JoystickOpen(evento.jdevice.which);
+				joy->sdl_controller = NULL;
+			}
 			joy->id = nextId;
-			joy->sdl_joystick = SDL_JoystickOpen(evento.jdevice.which);
 			joy->sdl_haptic = SDL_HapticOpenFromJoystick(joy->sdl_joystick);
 			if(joy->sdl_haptic)
 			{
@@ -158,11 +172,46 @@ void EventosJoysticks::processarEvento(const SDL_Event& evento)
 				SDL_HapticClose(joy->sdl_haptic);
 				joy->sdl_haptic = NULL;
 			}
-			SDL_JoystickClose(joy->sdl_joystick);
+
+			if (joy->sdl_controller)
+			{
+				SDL_GameControllerClose(joy->sdl_controller);
+			}
+			else
+			{
+				SDL_JoystickClose(joy->sdl_joystick);
+			}
+			joy->sdl_controller = NULL;
 			joy->sdl_joystick = NULL;
 			joy->id = -1;
 		}
 		break;
+	}
+}
+
+Joystick& EventosJoysticks::operator[](const int i)
+{
+	switch (i)
+	{
+	case 0:
+		return player1;
+		break;
+
+	case 1:
+		return player2;
+		break;
+
+	case 2:
+		return player3;
+		break;
+
+	case 3:
+		return player4;
+		break;
+
+	default:
+		//	retorna o player 1;
+		return player1;
 	}
 }
 

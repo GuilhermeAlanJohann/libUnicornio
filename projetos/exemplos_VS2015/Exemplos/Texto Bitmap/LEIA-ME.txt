@@ -1,0 +1,19 @@
+Descrição:
+Este exemplo mostra como carregar Fontes Bitmap e usa-las para mostrar um texto na tela.
+
+Classes importantes:
+- Texto
+- Fonte
+
+Objetos importantes:
+- gRecursos
+
+Observações:
+Para que a fonte funcione corretamente é necessário que os caracteres dela estejam 
+devidamente ordenados. Não é necessário que a imagem da fonte contenha todos os 
+caracteres, porém é necessário que todos estejam em ordem. Caso você desconheça a ordem
+dos caracteres, consulte a tambela ASCII: http://ic.unicamp.br/~everton/aulas/hardware/tabelaASCII.pdf
+
+Veja também os exemplos:
+- Texto TTF
+

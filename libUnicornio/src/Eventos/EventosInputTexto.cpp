@@ -1,5 +1,7 @@
-#include "Eventos.h"
+#include "EventosInputTexto.h"
 #include <algorithm>
+
+using namespace std;
 
 #if !UNI_PLATAFORMA_ANDROID
 #include <locale>
@@ -94,6 +96,8 @@ void EventosInputTexto::apagar()
 	tamanho_selecao = 0;
 	if(pos_cursor < 0)
 		pos_cursor = 0;
+	if (pos_cursor > str.size())
+		pos_cursor = str.size();
 }
 
 void EventosInputTexto::apagarTudo()
@@ -123,11 +127,13 @@ void EventosInputTexto::apagarStringSelecao()
 		int pos = min(pos_cursor, pos_cursor + tamanho_selecao);
 		int tam = max(tamanho_selecao, -tamanho_selecao);
 		str.erase(str.begin() + pos, str.begin() + pos + tam);
-		pos_cursor -= tam;
+		pos_cursor = pos;
 
 		tamanho_selecao = 0;
 		if(pos_cursor < 0)
 			pos_cursor = 0;
+		if (pos_cursor > str.size())
+			pos_cursor = str.size();
 	}
 }
 

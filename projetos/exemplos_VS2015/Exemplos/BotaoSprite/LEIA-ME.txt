@@ -1,0 +1,20 @@
+Descrição:
+Este exemplo mostra como usar a classe BotaoSprite para criar Botões e Menus
+Ele mostra um menu com três botões. Cada botão possui uma cor. Quando clicados, 
+os botões alteram a cor de fundo da janela para a sua própria cor. 
+
+Observações:
+Repare que cada botão possui 3 estados: Normal, Mouse em cima e Abaixado. 
+O SpriteSheet usado para os botões possui 3 animações, uma para cada estado. Mas isso não é obrigatório. 
+Caso um spritesheet tenha menos de 3 animações o botão irá usar somente o número de animações que o spritesheet possui.
+Além disso, a classe BotaoSprite possui métodos para setar a animação de cada estado, 
+assim você pode mudar as animações para cada estado conforme desejar.
+
+Classes importantes:
+- BotaoSprite
+
+Objetos importantes:
+- gRecursos
+
+Veja também os exemplos:
+- Sprite
