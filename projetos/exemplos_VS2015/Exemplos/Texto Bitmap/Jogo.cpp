@@ -31,7 +31,7 @@ void Jogo::inicializar()
 	//	(Opcional)	Alterar o avanço dos glifos (caracteres), para que eles não fiquem muito afastados entre si
 	Fonte* fonte = gRecursos.getFonte("fonteBMP");
 	for (int i = 0; i < fonte->getNumGlifos(); ++i)
-		fonte->getGlifoPeloIndice(i)->avanco = 42;
+		fonte->getGlifoPeloIndice(i)->avanco = 44;
 
 	//	2)	Setar a fonte e a string no texto
 	texto.setFonte("fonteBMP");

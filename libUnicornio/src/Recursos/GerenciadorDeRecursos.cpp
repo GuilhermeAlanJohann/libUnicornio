@@ -79,9 +79,10 @@ Fonte* GerenciadorDeRecursos::carregarFonte(const string& nome, const string& ca
 Fonte* GerenciadorDeRecursos::carregarFonte(const string& nome, const string& caminho, const string& caracteres, int num_glifos_x, int num_glifos_y, EnumQualidadeEscala qualidade_escala)
 {
 	wstring carac;
-	unsigned int size = carac.size();
+	unsigned int size = caracteres.size();
+	carac.resize(size);
 	for (unsigned int i = 0; i < size; ++i)
-		carac.push_back((unsigned char)caracteres[i]);
+		carac[i] = (unsigned char)caracteres[i];
 
 	return carregarFonte(nome, caminho, carac, num_glifos_x, num_glifos_y, qualidade_escala);
 }

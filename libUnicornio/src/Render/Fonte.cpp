@@ -34,9 +34,10 @@ bool Fonte::carregar(const string& arquivo, const wstring& caracteres, int num_g
 bool Fonte::carregar(const string& arquivo, const string& caracteres, int num_glifos_x, int num_glifos_y, EnumQualidadeEscala qualidade_escala)
 {
 	wstring carac;
-	unsigned int size = carac.size();
+	unsigned int size = caracteres.size();
+	carac.resize(size);
 	for (unsigned int i = 0; i < size; ++i)
-		carac.push_back((unsigned char)caracteres[i]);
+		carac[i] = (unsigned char)caracteres[i];
 
 	return carregar(arquivo, carac, num_glifos_x, num_glifos_y, qualidade_escala);
 }
@@ -320,6 +321,12 @@ bool Fonte::carregarBitmap(const string& arquivo, const wstring& caracteres, int
 	if (estaCarregada())
 	{
 		gDebug.erro("Arquivo '" + arquivo + "' nao pode ser carregado, pois Fonte ja carregou o arquivo " + caminhoArquivo + ".");
+		return false;
+	}
+
+	if (caracteres.empty())
+	{
+		gDebug.erro("Fonte bitmap '" + arquivo + "' não pode ser carregada sem informar os caracteres usados.");
 		return false;
 	}
 

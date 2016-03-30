@@ -169,6 +169,6 @@ UniVersao uniGetVersao()
 	UniVersao versao;
 	versao.maior = 1;
 	versao.menor = 0;
-	versao.patch = 0;
+	versao.patch = 1;
 	return versao;
 }

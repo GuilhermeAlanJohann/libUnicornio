@@ -1,4 +1,4 @@
-# Unicórnio (versão 1.0.0)
+# Unicórnio (versão 1.0.1)
 
 **Unicórnio**, ou **lib Unicórnio**, É uma biblioteca de programação de jogos 2D, voltada para programadores iniciantes.  Por isso, visa ser **fácil de aprender** e **simples de usar**.  
 Ela dá suporte as principais funcionalidades necessárias para a criação de um jogo. E deixa o usuário livre para estruturar seu código como bem entender.  
