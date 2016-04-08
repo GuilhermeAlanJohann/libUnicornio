@@ -88,12 +88,13 @@ bool TileMap::carregar(string arquivo)
 
 	//	carregar propriedades do mapa
 	Json::Value props = root.get("properties", -1);
-	for(unsigned int i = 0; i < props.getMemberNames().size(); ++i)
-	{
-		string nome = props.getMemberNames()[i];
-		string valor = props.get(nome, "").asString();
-		setPropriedade(nome, valor);
-	}
+	if (!props.isInt())
+		for(unsigned int i = 0; i < props.getMemberNames().size(); ++i)
+		{
+			string nome = props.getMemberNames()[i];
+			string valor = props.get(nome, "").asString();
+			setPropriedade(nome, valor);
+		}
 
 	//	carregar tilesets
 	vector<string> tilesets_config;
@@ -121,15 +122,16 @@ bool TileMap::carregar(string arquivo)
 		//	guarda nome do arquivo de configuracao do tileset
 		//	e ignora todas as outras propriedades
 		Json::Value props = tsets[i].get("properties", -1);
-		for(unsigned int p = 0; p < props.getMemberNames().size(); ++p)
-		{
-			string nome = props.getMemberNames()[p];
-			if(nome == "config")
+		if(!props.isInt())
+			for(unsigned int p = 0; p < props.getMemberNames().size(); ++p)
 			{
-				string valor = props.get(nome, "").asString();
-				tilesets_config[i] = valor;
+				string nome = props.getMemberNames()[p];
+				if(nome == "config")
+				{
+					string valor = props.get(nome, "").asString();
+					tilesets_config[i] = valor;
+				}
 			}
-		}
 
 		if(maior_largura_tile < tlarg)
 			maior_largura_tile = tlarg;
@@ -153,7 +155,8 @@ bool TileMap::carregar(string arquivo)
 
 	//	configurar tiles/tilesets
 	for(unsigned int i = 0; i < tilesets_config.size(); ++i)
-		carregarConfigTileSet(&tilesets[i], tilesets_config[i]);
+		if(!tilesets_config[i].empty())
+			carregarConfigTileSet(&tilesets[i], tilesets_config[i]);
 
 	//	calcular num camadas de tiles e num camadas de objetos
 	Json::Value jLayers = root["layers"];
@@ -209,18 +212,18 @@ bool TileMap::carregar(string arquivo)
 
 		Json::Value props = jLayers[i].get("properties", -1);
 		if(!props.isInt())
-		for(unsigned int p = 0; p < props.getMemberNames().size(); ++p)
-		{
-			string nome = props.getMemberNames()[p];
-			if(nome == "nivel")
+			for(unsigned int p = 0; p < props.getMemberNames().size(); ++p)
 			{
-				string valor = props.get(nome, NO_NIVEL_DOS_OBJETOS).asString();
-				int nivel = atoi(valor.c_str());
-				if(nivel < ABAIXO_DOS_OBJETOS || nivel > ACIMA_DOS_OBJETOS)
-					nivel = NO_NIVEL_DOS_OBJETOS;
-				camadas_objetos[l]->setNivel((NivelTile)nivel);
+				string nome = props.getMemberNames()[p];
+				if(nome == "nivel")
+				{
+					string valor = props.get(nome, NO_NIVEL_DOS_OBJETOS).asString();
+					int nivel = atoi(valor.c_str());
+					if(nivel < ABAIXO_DOS_OBJETOS || nivel > ACIMA_DOS_OBJETOS)
+						nivel = NO_NIVEL_DOS_OBJETOS;
+					camadas_objetos[l]->setNivel((NivelTile)nivel);
+				}
 			}
-		}
 
 		objs = jLayers[i]["objects"];
 		for(unsigned int j = 0; j < objs.size(); ++j)
@@ -235,12 +238,13 @@ bool TileMap::carregar(string arquivo)
 			o->setVisivel(objs[j].get("visible", true).asBool());
 
 			props = objs[j].get("properties", -1);
-			for(unsigned int i = 0; i < props.getMemberNames().size(); ++i)
-			{
-				string nome = props.getMemberNames()[i];
-				string valor = props.get(nome, "").asString();
-				o->setPropriedade(nome, valor);
-			}
+			if (!props.isInt())
+				for(unsigned int i = 0; i < props.getMemberNames().size(); ++i)
+				{
+					string nome = props.getMemberNames()[i];
+					string valor = props.get(nome, "").asString();
+					o->setPropriedade(nome, valor);
+				}
 
 		}
 

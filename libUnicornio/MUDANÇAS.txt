@@ -1,6 +1,15 @@
 Essa é uma lista das principais mudanças na lib Unicórnio a partir da versão 1.0.0
 
 ---------------------------------------------------------------------------
+1.0.2:
+---------------------------------------------------------------------------
+
+General:
+* Bug Corrigido: Crash ao carregar TileMap criado com sem propriedades ou com objetos ou tilesets sem propriedades.
+* Bug Corrigido: Painel de Debug imprimindo erro ao tentar carregar arquivo de configuração de tileset, junto com o tilemap, quando a string contendo o caminho para o arquivo está vazia.
+
+
+---------------------------------------------------------------------------
 1.0.1:
 ---------------------------------------------------------------------------
 
