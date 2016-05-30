@@ -37,8 +37,10 @@ Foi criada por **Guilherme Alan Johann** e ainda está em desenvolvimento.  É esc
   - I hate Flappy Bird: [ví­deo](http://www.youtube.com/watch?v=IgDd3IXTekg) 
   - PokeTretaMon: [vídeo](http://youtu.be/0x9sIIj6oBU)   
   - Outro jogo estilo pokemon: [ví­deo] (http://youtu.be/FAv_1ucMwac)  
-  - Olympic SS Idol Festival: [página] (https://www.behance.net/gallery/27995525/Olympic-SS-Idol-Festival)
-  - Gamelization: [vídeo] (https://www.youtube.com/watch?v=jIgEIQPC6cg&feature=youtu.be)
+  - Olympic SS Idol Festival: [página/Download] (https://www.behance.net/gallery/27995525/Olympic-SS-Idol-Festival)
+  - Great Cybnet: [página] (https://www.behance.net/gallery/34422343/Great-Cybnet)
+  - Gamelization: [vídeo] (https://www.youtube.com/watch?v=jIgEIQPC6cg&feature=youtu.be), [página/Download] (https://www.behance.net/gallery/28310881/Gamelization)
+  - Zombie Dice: [página/Download] (http://gamejolt.com/games/zombie-dice/149531)
   - GrifoNet: biblioteca de redes P2P [github] (https://github.com/fenixrw/GrifoNet)
   
 Está usando a Unicórnio em algum projeto? Me deixe saber.  
