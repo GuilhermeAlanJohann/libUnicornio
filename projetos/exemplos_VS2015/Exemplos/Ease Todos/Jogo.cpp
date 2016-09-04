@@ -54,14 +54,14 @@ void Jogo::inicializar()
 
 	retan.x = 150;
 	retan.y = botoes[0].pos.y + 70;
-	retan.largura = gJanela.getLargura() - retan.x - 30;
-	retan.altura = gJanela.getAltura() - retan.y - 30;
+	retan.larg = gJanela.getLargura() - retan.x - 30;
+	retan.alt = gJanela.getAltura() - retan.y - 30;
 
 	for (int i = 0; i < 3; ++i)
 	{
 		tipos[i] = botoes[atual];
 		tipos[i].pos.x = retan.x - 70;
-		tipos[i].pos.y = retan.y + (retan.altura*(i + 1)*0.25);
+		tipos[i].pos.y = retan.y + (retan.alt*(i + 1)*0.25);
 		tipos[i].cor.set(255, 255, 255, 255);
 	}
 	tipos[0].nome = "In";
@@ -75,7 +75,7 @@ void Jogo::inicializar()
 		objetos[i].grafico = &tipos[i];
 		objetos[i].tam.set(50, 50);
 		objetos[i].posInicial.set(retan.x + objetos[i].tam.x/2, tipos[i].pos.y);
-		objetos[i].posFinal.set(retan.x + retan.largura - objetos[i].tam.x/2, tipos[i].pos.y);
+		objetos[i].posFinal.set(retan.x + retan.larg - objetos[i].tam.x/2, tipos[i].pos.y);
 		objetos[i].duracao = duracaoMov;
 		objetos[i].reset();
 	}
@@ -83,7 +83,7 @@ void Jogo::inicializar()
 	objetos[1].cor.set(0, 255, 0, 255);
 	objetos[2].cor.set(0, 0, 255, 255);
 
-	linha.alt = retan.altura;
+	linha.alt = retan.alt;
 	linha.inicio = objetos[0].posInicial.x;
 	linha.fim = objetos[0].posFinal.x;
 	linha.pos.set(linha.inicio, retan.y);

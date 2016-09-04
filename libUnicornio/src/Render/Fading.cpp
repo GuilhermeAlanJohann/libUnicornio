@@ -54,11 +54,13 @@ void Fading::desenhar()
 	if (alpha == 0)
 		return;
 
-	SDL_Texture* tex = gGraficos.getSDL_TextureBranco();
+	/*SDL_Texture* tex = gGraficos.getSDL_TextureBranco();
 	SDL_SetTextureColorMod(tex, cor.r, cor.g, cor.b);
 	SDL_SetTextureAlphaMod(tex, alpha);
 	SDL_Rect dest = { 0, 0, gJanela.getLargura(), gJanela.getAltura() };
-	SDL_RenderCopy(gJanela.sdl_renderer, tex, NULL, &dest);
+	SDL_RenderCopy(gGraficos.sdl_renderer, tex, NULL, &dest);*/
+	Quad r(0, 0, gJanela.getLargura(), gJanela.getAltura());
+	gGraficos.desenharRetangulo(r, cor.r, cor.g, cor.b, alpha, true);
 }
 
 void Fading::cancelar()

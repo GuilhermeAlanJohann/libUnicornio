@@ -4,55 +4,39 @@
 #include "SDL_image.h"
 
 SpriteSheet::SpriteSheet()
-	:largura_total(0), altura_total(0), sdl_tex(NULL), carregado(false)
 {
-
 }
 
 SpriteSheet::SpriteSheet(const SpriteSheet& cp)
 {
-	sdl_tex = cp.sdl_tex;
+	tex = cp.tex;
 	frames = cp.frames;
-	largura_total = cp.largura_total;
-	altura_total = cp.altura_total;
-	caminhoArquivo = cp.caminhoArquivo;
-	carregado = cp.carregado;
-	qualidade_escala = cp.qualidade_escala;
 }
 
 SpriteSheet::~SpriteSheet()
 {
 }
 
-SpriteSheet& SpriteSheet::operator=(const SpriteSheet &r)
+SpriteSheet& SpriteSheet::operator=(const SpriteSheet &cp)
 {
-	if(*this != r)
+	if(*this != cp)
 	{
-		sdl_tex = r.sdl_tex;
-		frames = r.frames;
-		largura_total = r.largura_total;
-		altura_total = r.altura_total;
-		caminhoArquivo = r.caminhoArquivo;
-		carregado = r.carregado;
-		qualidade_escala = r.qualidade_escala;
+		tex = cp.tex;
+		frames = cp.frames;
 	}
 
 	return *this;
 }
 
-bool SpriteSheet::operator==(const SpriteSheet &r)
+bool SpriteSheet::operator==(const SpriteSheet &cp)
 {
-	return (frames == r.frames 
-		&& sdl_tex == r.sdl_tex 
-		&& largura_total == r.largura_total 
-		&& altura_total == r.altura_total
-		&& carregado == r.carregado
-		&& qualidade_escala == r.qualidade_escala);
+	return (frames == cp.frames 
+		&& tex == cp.tex);
 }
 
-bool SpriteSheet::operator!=(const SpriteSheet &r)
+bool SpriteSheet::operator!=(const SpriteSheet &cp)
 {
-	return !(*this == r);
+	return !(*this == cp);
 }
 
 bool SpriteSheet::carregar(string arquivo, int num_animacoes, int num_max_frames, EnumQualidadeEscala qualidade_escala)
@@ -65,33 +49,23 @@ bool SpriteSheet::carregar(string arquivo, int num_animacoes, int num_max_frames
 
 	if(estaCarregado())
 	{
-		gDebug.erro("Arquivo '" + arquivo + "' nao pode ser carregado, pois SpriteSheet ja carregou o arquivo " + caminhoArquivo + ".");
+		gDebug.erro("Arquivo '" + arquivo + "' nao pode ser carregado, pois SpriteSheet ja carregou o arquivo " + tex.getCaminhoDoArquivo() + ".");
 		return false;
 	}
 
-	char buffer[2];
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, SDL_itoa((int)qualidade_escala, buffer, 10));
-	sdl_tex = IMG_LoadTexture(gJanela.sdl_renderer, arquivo.c_str());
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	
-	if(!sdl_tex) 
+	if(!tex.criarDoArquivo(arquivo, qualidade_escala))
 	{
 		gDebug.erro("Erro ao carregar arquivo: '" + arquivo + "' - " + SDL_GetError() + ".");
-		carregado = false;
 		return false;
 	}
-
-	this->qualidade_escala = qualidade_escala;
-
-	SDL_QueryTexture(sdl_tex, NULL, NULL, &largura_total, &altura_total);
 
 	if(num_animacoes < 1)
 		num_animacoes = 1;
 	if(num_max_frames < 1)
 		num_max_frames = 1;
 
-	int largura_frame = largura_total/num_max_frames;
-	int altura_frame = altura_total/num_animacoes;
+	int largura_frame = tex.getLargura()/num_max_frames;
+	int altura_frame = tex.getAltura()/num_animacoes;
 
 	frames.resize(num_animacoes);
 	for(int i = 0; i < frames.size(); ++i)
@@ -99,35 +73,29 @@ bool SpriteSheet::carregar(string arquivo, int num_animacoes, int num_max_frames
 		frames[i].resize(num_max_frames);
 		for(int j = 0; j < num_max_frames; ++j)
 		{
-			frames[i][j] = Retangulo(j*largura_frame, i*altura_frame, largura_frame, altura_frame);
+			frames[i][j] = Quad(j*largura_frame, i*altura_frame, largura_frame, altura_frame);
 		}
 	}
 
-	caminhoArquivo = arquivo;
-
-	carregado = true;
 	return true;
 }
 
 void SpriteSheet::descarregar()
 {
-	SDL_DestroyTexture(sdl_tex);
-	sdl_tex = NULL;
-	caminhoArquivo = "";
-	frames.clear();
-	largura_total = 0;
-	altura_total = 0;
-	carregado = false;
+	if (tex.destruir())
+	{
+		frames.clear();
+	}
 }
 
 bool SpriteSheet::estaCarregado()
 {
-	return carregado;
+	return tex.estaCriada();
 }
 
-int SpriteSheet::adicionarAnimacao(const Retangulo& frame_inicial)
+int SpriteSheet::adicionarAnimacao(const Quad& frame_inicial)
 {
-	vector<Retangulo> anim;
+	vector<Quad> anim;
 	anim.push_back(frame_inicial);
 	frames.push_back(anim);
 	return frames.size()-1;
@@ -135,10 +103,10 @@ int SpriteSheet::adicionarAnimacao(const Retangulo& frame_inicial)
 
 int SpriteSheet::adicionarAnimacao(int x0, int y0, int larg, int alt)
 {
-	return adicionarAnimacao(Retangulo(x0, y0, larg, alt));
+	return adicionarAnimacao(Quad(x0, y0, larg, alt));
 }
 
-int SpriteSheet::adicionarFrameNaAnimacao(int anim, const Retangulo& frame)
+int SpriteSheet::adicionarFrameNaAnimacao(int anim, const Quad& frame)
 {
 	if(frames.size() <= anim)
 		return -1;
@@ -149,7 +117,7 @@ int SpriteSheet::adicionarFrameNaAnimacao(int anim, const Retangulo& frame)
 
 int SpriteSheet::adicionarFrameNaAnimacao(int anim, int x0, int y0, int larg, int alt)
 {
-	return adicionarFrameNaAnimacao(anim, Retangulo(x0, y0, larg, alt));
+	return adicionarFrameNaAnimacao(anim, Quad(x0, y0, larg, alt));
 }
 
 bool SpriteSheet::removerAnimacao(int anim)
@@ -226,7 +194,7 @@ int SpriteSheet::getNumFramesDaAnimacao(int anim)
 	return frames[anim].size();
 }
 
-Retangulo* SpriteSheet::getRetanguloFrame(int anim, int frame)
+Quad* SpriteSheet::getRetanguloFrame(int anim, int frame)
 {
 	return &frames[anim][frame];
 }
@@ -256,26 +224,31 @@ void SpriteSheet::setNumFramesDaAnimacao(int anim, int num_frames)
 	else
 	{
 		unsigned int dif = num_frames - frames[anim].size();
-		Retangulo f = frames[anim][frames[anim].size()-1];
+		Quad f = frames[anim][frames[anim].size()-1];
 		for(unsigned int i = 0; i < dif; ++i)
 			frames[anim].push_back(f);
 	}
 }
 
+Textura* SpriteSheet::getTextura()
+{
+	return &tex;
+}
+
 SDL_Texture* SpriteSheet::getSDL_Texture()
 {
-	return sdl_tex;
+	return tex.getSDL_Texture();
 }
 
 string SpriteSheet::getCaminhoDoArquivo()
 {
-	return caminhoArquivo;
+	return tex.getCaminhoDoArquivo();
 }
 
 SpriteSheet SpriteSheet::clonar()
 {
 	SpriteSheet r;
-	r.carregar(caminhoArquivo, 1, 1, qualidade_escala);
+	r.tex = tex.clonar();
 	r.frames = frames;
 	return r;
 }

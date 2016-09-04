@@ -112,18 +112,18 @@ void InputTexto::desenhar()
 	int tamSelecao = gTeclado.inputTexto.getTamanhoSelecao();
 	if (tamSelecao != 0)
 	{
-		Retangulo retan;
-		retan.largura = 0;
-		retan.altura = txt.getFonte()->getAlturaGlifos();
+		Quad retan;
+		retan.larg = 0;
+		retan.alt = txt.getFonte()->getAlturaGlifos();
 		retan.x = (gJanela.getLargura() / 2) - txt.getLargura() / 2;
-		retan.y = (gJanela.getAltura() / 2) - retan.altura / 2;
+		retan.y = (gJanela.getAltura() / 2) - retan.alt / 2;
 		
 		int posCursor = gTeclado.inputTexto.getPosCursor();
 		int inicio = min(posCursor, posCursor + tamSelecao);
 		int fim = max(posCursor, posCursor + tamSelecao);
 
 		for (int i = inicio; i < fim; ++i)
-			retan.largura += txt.getLetra(i)->glifo->avanco*txt.getEscalaX();
+			retan.larg += txt.getLetra(i)->glifo->avanco*txt.getEscalaX();
 
 		for (int i = 0; i < inicio; ++i)
 			retan.x += txt.getLetra(i)->glifo->avanco*txt.getEscalaX();

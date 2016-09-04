@@ -1,10 +1,11 @@
 #ifndef UNI_TOQUE_H
 #define UNI_TOQUE_H
 
+#include "uniAPI.h"
 #include "SDL_events.h"
 #include "EnumsInputs.h"
 
-struct Toque
+struct UNI_API Toque
 {
 public:
 	EnumToque tipo;

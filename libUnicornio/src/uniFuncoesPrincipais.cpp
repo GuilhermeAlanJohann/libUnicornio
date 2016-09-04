@@ -10,7 +10,7 @@ bool uniInicializada = false;
 //	-------- FUNCS EXTERNAS --------- //
 //
 
-bool uniInicializar(int largura_janela, int altura_janela, bool tela_cheia, string titulo_janela)
+bool uniInicializar(int largura_janela, int altura_janela, bool tela_cheia, string titulo_janela, int flags_sdl_window)
 {
 	if (uniEstaInicializada())
 	{
@@ -35,7 +35,7 @@ bool uniInicializar(int largura_janela, int altura_janela, bool tela_cheia, stri
 	Global::getInstancia().inicializar();
 
 	//	cria janela principal
-	bool janela_ok = gJanela.criar(largura_janela, altura_janela, tela_cheia, titulo_janela);
+	bool janela_ok = gJanela.criar(largura_janela, altura_janela, tela_cheia, titulo_janela, flags_sdl_window);
 	if (!janela_ok)
 	{
 		Global::getInstancia().finalizar();
@@ -45,7 +45,7 @@ bool uniInicializar(int largura_janela, int altura_janela, bool tela_cheia, stri
 	}
 
 	uniInicializada = true;		//	seta uniInicializada para true. Precisa ser feito aqui para poder carregar a fonte padrao
-	gGraficos.inicializar();
+	gGraficos.inicializar(gJanela.getSDL_Renderer());
 	if (!gGraficos.getFontePadrao())
 	{
 		//	se a fonte padrao nao foi carregada,
@@ -168,7 +168,7 @@ UniVersao uniGetVersao()
 {
 	UniVersao versao;
 	versao.maior = 1;
-	versao.menor = 0;
-	versao.patch = 2;
+	versao.menor = 1;
+	versao.patch = 0;
 	return versao;
 }

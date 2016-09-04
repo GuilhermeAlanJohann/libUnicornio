@@ -96,3 +96,13 @@ void Cor::set(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 	this->b = b;
 	this->a = a;
 }
+
+Uint32 Cor::getARGB()
+{
+	return (a << 24) | (r << 16) | (g << 8) | b;
+}
+
+Uint32 Cor::getRGBA()
+{
+	return (r << 24) | (g << 16) | (b << 8) | a;
+}

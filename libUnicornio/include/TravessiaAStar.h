@@ -1,9 +1,10 @@
 #ifndef UNI_TRAVESSIAASTAR_H
 #define UNI_TRAVESSIAASTAR_H
 
+#include "uniAPI.h"
 #include "AStar.h"
 
-class TravessiaAStar
+class UNI_API TravessiaAStar
 {
 public:
 	TravessiaAStar();

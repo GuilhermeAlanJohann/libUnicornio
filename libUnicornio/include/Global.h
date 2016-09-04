@@ -1,6 +1,7 @@
 #ifndef UNI_GLOBAL_H
 #define UNI_GLOBAL_H
 
+#include "uniAPI.h"
 #include "GerenciadorDeTempo.h"
 #include "GerenciadorDeEventos.h"
 #include "GerenciadorDeRecursos.h"
@@ -11,7 +12,7 @@
 #include "GerenciadorDeMusica.h"
 #include "PainelDeDebug.h"
 
-class Global
+class UNI_API Global
 {
 public:
 	~Global();

@@ -218,9 +218,10 @@ void MixadorDeAudios::setVolumeGlobal(float volume)
 	}
 }
 
-int MixadorDeAudios::tocar(Mix_Chunk* mix_chunk, bool repetir, float tempo_fadein, float volume, Sint16 angulo, Sint8 distancia)
+int MixadorDeAudios::tocar(Mix_Chunk* mix_chunk, bool repetir, float volume, Sint16 angulo, Sint8 distancia)
 {
-	int canal = Mix_FadeInChannel(-1, mix_chunk, repetir ? -1 : 0, tempo_fadein*1000);
+	//int canal = Mix_FadeInChannel(-1, mix_chunk, repetir ? -1 : 0, tempo_fadein*1000);
+	int canal = Mix_PlayChannel(-1, mix_chunk, repetir ? -1 : 0);
 	if (canal != -1)
 	{
 		int vol = 128 * ((volume / 100.0f) * (volumeGlobal / 100.0f));

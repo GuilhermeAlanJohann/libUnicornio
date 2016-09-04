@@ -1,6 +1,7 @@
 #ifndef UNI_PREFERENCIAS_H
 #define UNI_PREFERENCIAS_H
 
+#include "uniAPI.h"
 #include <string>
 #include "json/json.h"
 #include <fstream>
@@ -8,7 +9,7 @@
 
 using namespace std;
 
-class Preferencias
+class UNI_API Preferencias
 {
 public:
 	Preferencias();

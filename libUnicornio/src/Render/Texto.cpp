@@ -1,7 +1,6 @@
 #include "Texto.h"
-#include "uniFuncoesPrincipais.h"
+//#include "uniFuncoesPrincipais.h"
 #include "Global.h"
-#include <sstream>
 
 Texto::Texto()
 {
@@ -129,9 +128,13 @@ Fonte* Texto::getFonte()
 
 string Texto::getString()
 {
-	stringstream ss;
-	ss << wstr.c_str();
-	return ss.str();
+	string s;
+	int size = wstr.size();
+	s.resize(size);
+	for (int i = 0; i < size; ++i)
+		s[i] = wstr[i];
+
+	return s;
 }
 
 wstring Texto::getWstring()
@@ -451,8 +454,8 @@ bool Texto::quebrarStringParaLargura(int larg)
 
 void Texto::desenhar(int x, int y, float rot)
 {
-	if (!uniEstaInicializada())
-		return;
+	//if (!uniEstaInicializada())
+		//return;
 
 	if (!fonte)
 	{
@@ -494,7 +497,6 @@ void Texto::desenhar(int x, int y, float rot)
 				break;
 			}
 		}
-		largLinha *= escala.x;
 
 		switch (alinhamento)
 		{
@@ -526,7 +528,7 @@ void Texto::desenhar(int x, int y, float rot)
 		for (unsigned int j = 0; j < numLetrasNaLinha; ++j)
 		{
 			g = letras[inicio + j].glifo;
-			fonte->desenharGlifo(g, x_glifo, y_glifo, x, y, rot, escala, SDL_FLIP_NONE, letras[inicio + j].cor);
+			fonte->desenharGlifo(g, x_glifo, y_glifo, x, y, rot, escala, letras[inicio + j].cor, NAO_INVERTER);
 			x_glifo += g->avanco*escala.x;
 		}
 
@@ -741,11 +743,12 @@ void Texto::adicionarAoVetorDeLetras(string str, bool noInicio)
 
 	vector<Letra> l;
 	unsigned int numLetras = str.size();
+	l.resize(numLetras);
 	for (unsigned int i = 0; i < numLetras; ++i)
 	{
 		l[i].cor = cor;
 		l[i].fimDeLinha = false;
-		l[i].glifo = fonte->getGlifo(str[i]);
+		l[i].glifo = fonte->getGlifo((unsigned char)str[i]);
 	}
 
 	if (noInicio)
@@ -761,6 +764,7 @@ void Texto::adicionarAoVetorDeLetras(wstring wstr_, bool noInicio)
 
 	vector<Letra> l;
 	unsigned int numLetras = wstr_.size();
+	l.resize(numLetras);
 	for (unsigned int i = 0; i < numLetras; ++i)
 	{
 		l[i].cor = cor;

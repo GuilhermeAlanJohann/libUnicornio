@@ -1,10 +1,11 @@
 #ifndef UNI_SOM_H
 #define UNI_SOM_H
 
+#include "uniAPI.h"
 #include "Audio.h"
 #include "MixadorDeAudios.h"
 
-class Som
+class UNI_API Som
 {
 public:
 	Som();
@@ -15,11 +16,10 @@ public:
 	bool operator==(const Som &r);
 	bool operator!=(const Som &r);
 
-	void tocar(bool repetir = false, float tempo_fadein = 0.0f);
+	void tocar(bool repetir = false);
 	void parar(float tempo_fadeout = 0.0f);
 	void pausar();
 	void continuar();
-	bool estaExecutandoFadeIn();
 	bool estaExecutandoFadeOut();
 	bool estaTocando();
 	bool estaRepetindo();

@@ -174,11 +174,43 @@ void EventosMouse::mostrarCursor()
 
 void EventosMouse::posicionarEm(int x, int y)
 {
+	int jLarg, jAlt;
+	gJanela.obterTamanho(jLarg, jAlt);
+
 	this->x = x;
 	this->y = y;
-	SDL_WarpMouseInWindow(gJanela.sdl_window, x, y);
-	nx = (float)x/(float)gJanela.getLargura();
-	ny = (float)y/(float)gJanela.getAltura();
+	nx = (float)x/(float)jLarg;
+	ny = (float)y/(float)jAlt;
+
+	int jLargReal, jAltReal;
+	gJanela.obterTamanhoReal(jLargReal, jAltReal);
+	float razao = (float)jLarg / (float)jAlt;
+	float razaoLarg = jLarg / (float)jLargReal;
+	float razaoAlt = jAlt / (float)jAltReal;
+
+	if (razaoLarg < razaoAlt)		//	tarjas pretas nas laterais 
+	{
+		float largEscalada = jAltReal * razao;
+		float largTarja = (jLargReal - largEscalada) / 2.0f;
+		x = largTarja + (x / razaoAlt);
+		y /= razaoAlt;
+	}
+	else if (razaoAlt < razaoLarg)	// tarjas pretas em cima e em baixo
+	{
+		float altEscalada = jLargReal / razao;
+		float altTarja = (jAltReal - altEscalada) / 2.0f;
+		x /= razaoLarg;
+		y = altTarja + (y / razaoLarg);
+	}
+	else	//	sem tarjas pretas
+	{
+		x /= razaoLarg;
+		y /= razaoAlt;
+	}
+
+	SDL_WarpMouseInWindow(gJanela.getSDL_Window(), x, y);
+
+	limitarPosicao();
 }
 
 bool EventosMouse::estaLimitandoPosicao()

@@ -1,13 +1,14 @@
 #ifndef UNI_GRUPODESTRINGS_H
 #define UNI_GRUPODESTRINGS_H
 
+#include "uniAPI.h"
 #include <string>
 #include <vector>
 #include "json/json.h"
 
 using namespace std;
 
-class GrupoDeStrings
+class UNI_API GrupoDeStrings
 {
 public:
 	GrupoDeStrings();

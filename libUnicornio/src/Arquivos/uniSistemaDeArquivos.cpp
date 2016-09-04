@@ -72,3 +72,36 @@ string uniGetCaminhoPreferencias()
 
 	return caminho;
 }*/
+
+
+string uniGetNomeEExtencaoDoArquivo(const string& caminho)
+{
+	for (int i = caminho.size() - 1; i >= 0; --i)
+	{
+		if (caminho[i] == '/' || caminho[i] == '\\')
+		{
+			std::string nome = caminho.substr(i + 1);
+			return nome;
+		}
+	}
+
+	return caminho;
+}
+
+string uniGetExtencaoDoArquivo(const string& caminho)
+{
+	for (int i = caminho.size() - 1; i >= 0; --i)
+	{
+		if (caminho[i] == '.')
+		{
+			std::string ext = caminho.substr(i + 1);
+			return ext;
+		}
+		else if (caminho[i] == '/' || caminho[i] == '\\')
+		{
+			return "";
+		}
+	}
+
+	return "";
+}

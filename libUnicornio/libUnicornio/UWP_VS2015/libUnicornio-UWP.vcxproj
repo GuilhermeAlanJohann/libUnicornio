@@ -66,7 +66,6 @@
     <ClInclude Include="..\..\include\PainelDeDebug.h" />
     <ClInclude Include="..\..\include\Preferencias.h" />
     <ClInclude Include="..\..\include\RedeNeural.h" />
-    <ClInclude Include="..\..\include\Retangulo.h" />
     <ClInclude Include="..\..\include\Som.h" />
     <ClInclude Include="..\..\include\Sprite.h" />
     <ClInclude Include="..\..\include\SpriteSheet.h" />
@@ -84,6 +83,11 @@
     <ClInclude Include="..\..\include\uniTestarColisao.h" />
     <ClInclude Include="..\..\include\uniTestarColisaoSprite.h" />
     <ClInclude Include="..\..\include\Vetor2D.h" />
+    <ClInclude Include="..\..\include\Textura.h" />
+    <ClInclude Include="..\..\include\TexturaBase.h" />
+    <ClInclude Include="..\..\include\TexturaAlvo.h" />
+    <ClInclude Include="..\..\include\Quad.h" />
+    <ClInclude Include="..\..\include\uniAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Arquivos\Preferencias.cpp" />
@@ -124,6 +128,9 @@
     <ClCompile Include="..\..\src\Render\Sprite.cpp" />
     <ClCompile Include="..\..\src\Render\SpriteSheet.cpp" />
     <ClCompile Include="..\..\src\Render\Texto.cpp" />
+    <ClCompile Include="..\..\src\Render\Textura.cpp" />
+    <ClCompile Include="..\..\src\Render\TexturaAlvo.cpp" />
+    <ClCompile Include="..\..\src\Render\TexturaBase.cpp" />
     <ClCompile Include="..\..\src\Strings\GerenciadorDeStrings.cpp" />
     <ClCompile Include="..\..\src\Strings\GrupoDeStrings.cpp" />
     <ClCompile Include="..\..\src\Tempo\GerenciadorDeTempo.cpp" />
@@ -138,6 +145,7 @@
     <ClCompile Include="..\..\src\uniFuncoesPrincipais.cpp" />
     <ClCompile Include="..\..\src\uniRand.cpp" />
     <ClCompile Include="..\..\src\Vetor2D.cpp" />
+    <ClCompile Include="..\..\src\Quad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\dep\SDL2\VisualC-WinRT\UWP_VS2015\SDL-UWP.vcxproj">

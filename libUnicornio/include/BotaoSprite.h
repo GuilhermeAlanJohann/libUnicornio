@@ -1,9 +1,10 @@
 #ifndef UNI_BOTAOSPRITE_H
 #define UNI_BOTAOSPRITE_H
 
+#include "uniAPI.h"
 #include "Sprite.h"
 
-enum EstadoBotaoSprite
+enum UNI_API EstadoBotaoSprite
 {
 	BOTAOSPRITE_NORMAL,
 	BOTAOSPRITE_COM_MOUSE_EM_CIMA,
@@ -11,7 +12,7 @@ enum EstadoBotaoSprite
 	NUMERO_DE_ESTADOS_BOTAOSPRITE
 };
 
-class BotaoSprite
+class UNI_API BotaoSprite
 {
 public:
 	BotaoSprite();

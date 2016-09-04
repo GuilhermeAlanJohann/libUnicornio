@@ -1,6 +1,7 @@
 #ifndef UNI_GERENCIADORDEMUSICA_H
 #define UNI_GERENCIADORDEMUSICA_H
 
+#include "uniAPI.h"
 #include <string>
 #include "SDL_mixer.h"
 
@@ -8,7 +9,7 @@ using namespace std;
 
 class Musica;
 
-class GerenciadorDeMusica
+class UNI_API GerenciadorDeMusica
 {
 public:
 	GerenciadorDeMusica();

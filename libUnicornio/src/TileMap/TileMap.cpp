@@ -1,5 +1,6 @@
 #include "TileMap.h"
 #include "uniFuncoesPrincipais.h"
+#include "uniSistemaDeArquivos.h"
 #include "Global.h"
 #include <sstream>
 #include <algorithm>
@@ -21,6 +22,9 @@ TileMap::TileMap()
 	largura_tile = 0;
 	altura_tile = 0;
 
+	finalRenderQueueAbaixo = -1;
+	finalRenderQueueAoMeio = -1;
+
 	carregou = false;
 }
 
@@ -32,7 +36,7 @@ TileMap::~TileMap()
 	}
 }
 
-bool TileMap::carregar(string arquivo)
+bool TileMap::carregar(const string& arquivo)
 {
 	if(!uniEstaInicializada())
 	{
@@ -108,6 +112,8 @@ bool TileMap::carregar(string arquivo)
 		int tlarg = tsets[i].get("tilewidth", 0).asInt();
 		int talt = tsets[i].get("tileheight", 0).asInt();
 		string arq = tsets[i].get("image", "").asString();
+
+		arq = acharCaminhoTileSet(arq, arquivo);
 
 		if(!tilesets[i].carregar(arq, tlarg, talt))
 		{
@@ -207,24 +213,18 @@ bool TileMap::carregar(string arquivo)
 
 		camadas_objetos[l] = new CamadaDeObjetosTileMap;
 
+		camadas_objetos[l]->setTileMap(this);
 		camadas_objetos[l]->setNome(jLayers[i].get("name", "").asString());
 		camadas_objetos[l]->setVisivel(jLayers[i].get("visible", true).asBool());
 
-		Json::Value props = jLayers[i].get("properties", -1);
+		/*Json::Value props = jLayers[i].get("properties", -1);
 		if(!props.isInt())
 			for(unsigned int p = 0; p < props.getMemberNames().size(); ++p)
 			{
 				string nome = props.getMemberNames()[p];
-				if(nome == "nivel")
-				{
-					string valor = props.get(nome, NO_NIVEL_DOS_OBJETOS).asString();
-					int nivel = atoi(valor.c_str());
-					if(nivel < ABAIXO_DOS_OBJETOS || nivel > ACIMA_DOS_OBJETOS)
-						nivel = NO_NIVEL_DOS_OBJETOS;
-					camadas_objetos[l]->setNivel((NivelTile)nivel);
-				}
+				string valor = props.get(nome, "").toStyledString();//.asString();
 			}
-
+			*/
 		objs = jLayers[i]["objects"];
 		for(unsigned int j = 0; j < objs.size(); ++j)
 		{
@@ -242,8 +242,17 @@ bool TileMap::carregar(string arquivo)
 				for(unsigned int i = 0; i < props.getMemberNames().size(); ++i)
 				{
 					string nome = props.getMemberNames()[i];
-					string valor = props.get(nome, "").asString();
-					o->setPropriedade(nome, valor);
+					string valor = props.get(nome, "").toStyledString();//.asString();
+
+					if (nome == "nivel")
+					{
+						int nivel = atoi(valor.c_str());
+						if (nivel < ABAIXO_DOS_OBJETOS || nivel > ACIMA_DOS_OBJETOS)
+							nivel = NO_NIVEL_DOS_OBJETOS;
+						o->setNivel((NivelTile)nivel);
+					}
+					else
+						o->setPropriedade(nome, valor);
 				}
 
 		}
@@ -256,9 +265,8 @@ bool TileMap::carregar(string arquivo)
 	return true;
 }
 
-bool TileMap::carregarConfigTileSet(TileSet* tileset, string arquivo)
+bool TileMap::carregarConfigTileSet(TileSet* tileset, const string& arquivo)
 {
-	//ifstream ifs(arquivo.c_str());
 	SDL_RWops *file = SDL_RWFromFile(arquivo.c_str(), "r");
 	if(!file)
 	{
@@ -326,7 +334,7 @@ bool TileMap::carregarConfigTileSet(TileSet* tileset, string arquivo)
 	return true;
 }
 
-bool TileMap::carregarConfigTileSet(string nome_tileset, string arquivo)
+bool TileMap::carregarConfigTileSet(const string& nome_tileset, const string& arquivo)
 {
 	for(unsigned int i = 0; i < tilesets.size(); ++i)
 		if(tilesets[i].getNome() == nome_tileset)
@@ -348,7 +356,8 @@ void TileMap::descarregar()
 	camadas_tiles.clear();
 	camadas_objetos.clear();
 
-	limparRenderQueues();
+	limparRenderQueue();
+	objetosDesenhaveis.clear();
 
 	carregou = false;
 }
@@ -411,34 +420,34 @@ void TileMap::desenhar()
 	}
 
 	//	desenhar objetos e tiles no nivel dos objetos
-	prepararRenderQueues();
+	prepararRenderQueue();
 
 		//	objetos que estao abaixo dos outros
-	for(unsigned int i = 0; i < render_queue_abaixo.size(); ++i)
+	for(int i = 0; i <= finalRenderQueueAbaixo; ++i)
 	{
 		float xo, yo;
 		int pxo, pyo;
-		render_queue_abaixo[i]->obterPosCentro(xo, yo);
+		renderQueueObjetos[i]->obterPosCentro(xo, yo);
 		tileParaTela(xo, yo, pxo, pyo);
-		render_queue_abaixo[i]->desenhar(pxo, pyo);
+		renderQueueObjetos[i]->desenhar(pxo, pyo);
 	}
 
 		//	objetos que estao no meio e tiles que estao no nivel dos objetos
-	int prox_obj = 0;
+	int prox_obj = finalRenderQueueAbaixo + 1;
 	int py = py0;
 	for(int j = ity; j <= fty; ++j, py += altura_tile)
 	{
 		//	objetos nesta linha (ou antes dela)
-		for(unsigned int o = prox_obj; o < render_queue_aomeio.size(); ++o)
+		for(int o = prox_obj; o <= finalRenderQueueAoMeio; ++o)
 		{
 			float xo, yo;
 			int pxo, pyo;
-			render_queue_aomeio[o]->obterPosCentro(xo, yo);
+			renderQueueObjetos[o]->obterPosCentro(xo, yo);
 			tileParaTela(xo, yo, pxo, pyo);
 
 			if(pyo <= py+altura_tile)
 			{
-				render_queue_aomeio[o]->desenhar(pxo, pyo);
+				renderQueueObjetos[o]->desenhar(pxo, pyo);
 				prox_obj++;
 			}
 			else
@@ -464,26 +473,24 @@ void TileMap::desenhar()
 	}
 
 		//	objetos restantes (abaixo da tela) 
-	for(unsigned int o = prox_obj; o < render_queue_aomeio.size(); ++o)
+	for(int o = prox_obj; o <= finalRenderQueueAoMeio; ++o)
 	{
 		float xo, yo;
 		int pxo, pyo;
-		render_queue_aomeio[o]->obterPosCentro(xo, yo);
+		renderQueueObjetos[o]->obterPosCentro(xo, yo);
 		tileParaTela(xo, yo, pxo, pyo);
-		render_queue_aomeio[o]->desenhar(pxo, pyo);
+		renderQueueObjetos[o]->desenhar(pxo, pyo);
 	}
 
 		//	objetos que estao acima dos outros
-	for(unsigned int i = 0; i < render_queue_acima.size(); ++i)
+	for(unsigned int i = finalRenderQueueAoMeio; i < renderQueueObjetos.size(); ++i)
 	{
 		float xo, yo;
 		int pxo, pyo;
-		render_queue_acima[i]->obterPosCentro(xo, yo);
+		renderQueueObjetos[i]->obterPosCentro(xo, yo);
 		tileParaTela(xo, yo, pxo, pyo);
-		render_queue_acima[i]->desenhar(pxo, pyo);
+		renderQueueObjetos[i]->desenhar(pxo, pyo);
 	}
-
-	limparRenderQueues();
 
 	//	desenhar tiles acima dos objetos
 	for(unsigned int camada = 0; camada < camadas_tiles.size(); ++camada)
@@ -612,6 +619,26 @@ int TileMap::getCustoAdicionalNoTile(float tx, float ty)
 			}
 
 	return custo;
+}
+
+void TileMap::adicionarObjetoNaRenderQueue(ObjetoTileMap* obj)
+{
+	objetosDesenhaveis.push_back(obj);
+}
+
+void TileMap::removerObjetoDaRenderQueue(ObjetoTileMap* obj)
+{
+	vector<ObjetoTileMap*>::iterator it;
+	unsigned int size = objetosDesenhaveis.size();
+	for(int i = 0; i < size; ++i)
+		if (objetosDesenhaveis[i] == obj)
+		{
+			//	troca de lugar com o último
+			objetosDesenhaveis[i] = objetosDesenhaveis[size - 1];
+			//	remove o último
+			objetosDesenhaveis.pop_back();
+			return;
+		}
 }
 
 float TileMap::getX()
@@ -1106,96 +1133,118 @@ void TileMap::juntarTodasCamadasDeObjetos()
 	}
 }
 
+string TileMap::acharCaminhoTileSet(const string& caminhoOriginal, const string& caminhoTilemap)
+{
+	SDL_RWops *file = SDL_RWFromFile(caminhoOriginal.c_str(), "rb");
+	if (file)
+	{
+		file->close(file);
+		return caminhoOriginal;
+	}
+
+	string nome = uniGetNomeEExtencaoDoArquivo(caminhoTilemap);
+	string pasta = caminhoTilemap.substr(0, caminhoTilemap.size() - nome.size());
+	string caminho = pasta + caminhoOriginal;
+	file = SDL_RWFromFile(caminho.c_str(), "rb");
+	if (file)
+	{
+		file->close(file);
+		return caminho;
+	}
+
+	return caminhoOriginal;
+}
+
 void TileMap::desenharTileNoPixel(int id, float px, float py)
 {
 	TileSet *tileset = tiles[id-1].getTileSet();
 
-	SDL_Rect clip;
-	clip.w = tileset->getLarguraTiles();
-	clip.h = tileset->getAlturaTiles();
-	clip.x = ((id - tileset->getPrimeiroIDGlobal())%tileset->getNumTilesX())*clip.w;
-	clip.y = ((id - tileset->getPrimeiroIDGlobal())/tileset->getNumTilesX())*clip.h;
+	Quad retan;
+	retan.larg = tileset->getLarguraTiles();
+	retan.alt = tileset->getAlturaTiles();
+	retan.x = ((id - tileset->getPrimeiroIDGlobal()) % tileset->getNumTilesX())*retan.larg;
+	retan.y = ((id - tileset->getPrimeiroIDGlobal()) / tileset->getNumTilesX())*retan.alt;
 
-	SDL_Rect rect;
-	rect.w = clip.w;
-	rect.h = clip.h;
+	Quad dest;
+	dest.larg = retan.larg;
+	dest.alt = retan.alt;
 
-	SDL_Point pivot = {0, rect.h};	//	ancora igual ao Tiled Map editor (0, 1)
+	SDL_Point pivot = { 0, dest.alt };	//	ancora igual ao Tiled Map editor (0, 1)
 
-	rect.x = (px) - pivot.x;
-	rect.y = (py+altura_tile) - pivot.y;	//	soma 1 tile na altura, pois altura 0 em deve ser no pixel 'altura_tile', para ficar igual a ancora do Tiled Map Editor
+	dest.x = (px)-pivot.x;
+	dest.y = (py + altura_tile) - pivot.y;	//	soma 1 tile na altura, pois altura 0 em deve ser no pixel 'altura_tile', para ficar igual a ancora do Tiled Map Editor
 
-	SDL_Texture *tex = tileset->getTextura();
-
-    //	Draw the texture
-	SDL_RenderCopyEx(gJanela.sdl_renderer, tex, &clip, &rect, 0, &pivot, SDL_FLIP_NONE);
+	gGraficos.desenharTextura(tileset->getTextura(), retan, dest, Cor(255, 255, 255, 255));
 }
 
-void TileMap::prepararRenderQueues()
+void TileMap::prepararRenderQueue()
 {
-	vector<ObjetoTileMap*> *render_queue;
-
-	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	limparRenderQueue();
+	unsigned int size = objetosDesenhaveis.size();
+	int menor, maior;
+	for (unsigned int j = 0; j < size; ++j)
 	{
-		if(!camadas_objetos[i]->estaVisivel())
-			continue;
-
-		vector<ObjetoTileMap*> objs = camadas_objetos[i]->getTodosObjetos();
-		unsigned int size = objs.size();
-		unsigned int menor;
-
-		switch(camadas_objetos[i]->getNivel())
+		ObjetoTileMap* obj = objetosDesenhaveis[j];
+		CamadaDeObjetosTileMap* c = obj->getCamada();
+		if (c->estaVisivel())
 		{
-		case ABAIXO_DOS_OBJETOS:
-			render_queue = &render_queue_abaixo;
-			menor = render_queue->size();
-			break;
+			switch (obj->getNivel())
+			{
+			case ABAIXO_DOS_OBJETOS:
+				menor = 0;
+				maior = finalRenderQueueAbaixo + 1;
+				finalRenderQueueAbaixo++;
+				finalRenderQueueAoMeio++;
+				break;
 
-		case ACIMA_DOS_OBJETOS:
-			render_queue = &render_queue_acima;
-			menor = render_queue->size();
-			break;
+			case ACIMA_DOS_OBJETOS:
+				menor = finalRenderQueueAoMeio + 1;
+				maior = renderQueueObjetos.size();
+				break;
 
-		case NO_NIVEL_DOS_OBJETOS:
-		default:
-			render_queue = &render_queue_aomeio;
-			menor = 0;
+			case NO_NIVEL_DOS_OBJETOS:
+			default:
+				menor = finalRenderQueueAbaixo + 1;
+				maior = finalRenderQueueAoMeio + 1;
+				finalRenderQueueAoMeio++;
+			}
 		}
-
-		for(unsigned int j = 0; j < size; ++j)
-		{
-			if(objs[j]->estaVisivel() && objs[j]->getSprite())
-				quicksortObjetosTileMap(render_queue, objs[j], menor, render_queue->size());
-		}
+		quicksortObjetosTileMap(obj, menor, maior);
 	}
+
 }
 
-void TileMap::limparRenderQueues()
+void TileMap::limparRenderQueue()
 {
-	render_queue_abaixo.clear();
-	render_queue_aomeio.clear();
-	render_queue_acima.clear();
+	renderQueueObjetos.clear();
+	finalRenderQueueAbaixo = -1;
+	finalRenderQueueAoMeio = -1;
 }
 
-void TileMap::quicksortObjetosTileMap(vector<ObjetoTileMap*> *queue, ObjetoTileMap *o, unsigned int menor, unsigned int maior)
+void TileMap::quicksortObjetosTileMap(ObjetoTileMap *o, int menor, int maior)
 {
-	if(menor == maior)
+	if (menor >= maior)
 	{
-		queue->insert(queue->begin() + menor, o);
+		if (menor > maior)
+			menor = maior;
+		if (menor < 0)
+			menor = 0;
+
+		renderQueueObjetos.insert(renderQueueObjetos.begin() + menor, o);
 		return;
 	}
 	else
 	{
-		unsigned int meio = menor + ((maior-menor)/2);
-		ObjetoTileMap *o_meio = (*queue)[meio];
+		unsigned int meio = menor + ((maior - menor) / 2);
+		ObjetoTileMap *o_meio = renderQueueObjetos[meio];
 
-		if(o->getYCentro() < o_meio->getYCentro())
+		if (o->getYCentro() < o_meio->getYCentro())
 		{
-			quicksortObjetosTileMap(queue, o, menor, meio);
+			quicksortObjetosTileMap(o, menor, meio);
 		}
 		else
 		{
-			quicksortObjetosTileMap(queue, o, meio+1, maior);
+			quicksortObjetosTileMap(o, meio + 1, maior);
 		}
 	}
 }

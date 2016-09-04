@@ -1,10 +1,11 @@
 #ifndef UNI_ESTADO_H
 #define UNI_ESTADO_H
 
+#include "uniAPI.h"
 #include "MaquinaDeEstados.h"
 #include "MaquinaDeEstadosComPilha.h"
 
-class Estado
+class UNI_API Estado
 {
 public:
 	Estado();

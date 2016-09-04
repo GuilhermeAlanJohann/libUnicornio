@@ -261,7 +261,7 @@ float Vetor2D::getAnguloAteVetor(const Vetor2D& vet)
 	return r;
 }
 
-float Vetor2D::getAnguloDoVetor(const Vetor2D& vet)
+float Vetor2D::getAnguloAPartirDoVetor(const Vetor2D& vet)
 {
 	float r = atan2f(y, x) - atan2f(vet.y, vet.x);
 	r *= 180 / PI;
@@ -274,5 +274,19 @@ float Vetor2D::getAnguloDoVetor(const Vetor2D& vet)
 
 float Vetor2D::getAngulo()
 {
-	return getAnguloDoVetor(Vetor2D(1, 0));
+	return getAnguloAPartirDoVetor(Vetor2D(1, 0));
+}
+
+Vetor2D Vetor2D::getNormal()
+{
+	float invCompr = 1.0f / comprimento();
+	return Vetor2D(x * invCompr, y * invCompr);
+}
+
+Vetor2D Vetor2D::getRotacionado(float angulo)
+{
+	float rad = angulo*PI / 180;
+	float cs = cosf(rad);
+	float sn = sinf(rad);
+	return Vetor2D(x*cs - y*sn, x*sn + y*cs);
 }

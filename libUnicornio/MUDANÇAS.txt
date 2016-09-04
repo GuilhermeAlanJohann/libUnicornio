@@ -1,10 +1,60 @@
 Essa é uma lista das principais mudanças na lib Unicórnio a partir da versão 1.0.0
 
+
+---------------------------------------------------------------------------
+1.1.0:
+---------------------------------------------------------------------------
+
+Geral:
+* Adicionado: classe Textura, para lidar com texturas estáticas e de streaming;
+* Adicionado: classe TexturaAlvo, para lidar com texturas que podem servir de render target (texturas nas quais se pode desenhar);
+* Adicionado: classe TexturaBase, interface para as classes Textura e TexturaAlvo;
+* Adicionado: enum para tipos de texturas (estática, de streaming, alvo). EnumTipoTextura;
+* Adicionado: enum para indicar quando uma textura deve ser desenhada invertida (em um eixo ou ambos). EnumInverterDesenho;
+* Adicionado: métodos na classe GerenciadorDeRecursos (gRecursos) para lidar com Textura;
+* Adicionado: defines para ancoras (Vetor2D). Ex: ANCORA_CENTRO, ANCORA_CIMA, ANCORA_DIR_BAIXO;
+* Adicionado: defines para vetores unitários (Vetor2D). Ex: VETOR2D_UNIT_X, VETOR2D_UNIT_Y;
+* Adicionado: métodos para pegar uma Cor como se fosse um Uint32 (Cor::getRGBA() e Cor::getARGB());
+* Adicionado: método Sprite::estaTocandoAnimacaoAoContrario();
+* Adicionado: métodos para pegar ticks e calcular o tempo entre ticks na classe GerenciadorDeTempo (gTempo);
+* Adicionado: métodos para desenho de novas primitivas;
+* Adicionado: uma boolena aos métodos de desenho de primitivas para indicar se a primitiva deve ser desenhada preenchida ou não;
+* Adicionado: método ObjetoTileMap::getTileMap();
+* Adicionado: método CamadaDeObjetosTileMap::destruirObjeto(int);
+* Adicionado: atributo public ObjetoTileMap::_indiceNaCamada, para agilizar a deleção do objeto. OBS: não deve ser alterado pelo usuário.
+* Adicionado: funções para pegar o nome e extenção de arquivos, com base no caminho para ele;
+* Adicionado: parâmetro no final da função uniInicializar para setar as flags da SDL_Window, nessesário para usar a libUnicórnio com OpenGL.
+* Adicionado: Exemplo de uso da classe Textura;
+* Adicionado: Exemplo de uso da classe TexturaAlvo;
+* Adicionado: Exemplo de desenho de primitivas;
+* Modificado: todas as classes que continham um objeto do tipo SDL_Texture, agora usam Textura no lugar;
+* Modificado: classe Retangulo foi substituida pela classe Quad;
+* Modificado: classe Glifo era filha de Retangulo, agora não é mais. Ao invés disso ela tem um atributo do tipo Quad, chamado quad, que contem a informação do retangulo que o glifo usa da textura da fonte;
+* Modificado: método Fonte::desenharGlifo teve alguns parâmetros alterados;
+* Modificado: método Vetor2D::getAnguloDoVetor() agora se chama Vetor2D::getAnguloAPartirDoVetor();
+* Modificado: métodos da classe Janela para lidar com clipping (setRetanguloDeCorte, getRetanguloDeCorte, setRetanguloDeCorteTelaInteira) passaram para a classe GerenciadorDeGraficos (gGraficos) e mudaram de nome (setLimites, getLimites, unsetLimites);
+* Modificado: classe Sprite agora usa flags internamente para ao invés de booleanas, com o objetivo de reduzir o tamanho da classe;
+* Modificado: classe Sprite agora usa float para medir o tempo e não mais double. Método Sprite::avancarAnimacao(double dt) agora recebe um float como parâmetro;
+* Modificado: TileSet::getTextura() agora retorna um ponteiro para Textura e não SDL_Texture;
+* Modificado: CamadaDeObjetosTileMap não posui mais métodos para setar o nível dos objetos. Esses métodos foram passados para a classe ObjetoTileMap.
+* Modificado: foram feitas melhorias no render de ObjetoTileMap na classe Tilemap;
+* Modificado: foram feitas melhorias na destruição de ObjetosTileMap na classe CamadaDeObjetosTileMap;
+* Bug Corrigido: gMusica.setVolumeGlobal(float) acessava ponteiro inválido e dava crash.
+* Bug Corrigido: gMusica.getMusica() retornava NULL sempre.
+* Bug Corrigido: primitivas eram desenhadas sempre com alpha = 255;
+* Bug Corrigido: Texto::getString() não retornava o valor correto;
+* Bug Corrigido: Texto::adicionarString() causava crash;
+* Bug Corrigido: Texto não desenhava na posição correta quando escala em x era diferente de 1.0 e alinhamento diferente de TEXTO_ALINHADO_A_ESQUERDA;
+* Bug Corrigido: gMouse.posicionarEm(int, int) não setava posição corretamente em tela cheia com letterboxing;
+* Removido: gGraficos.desenharSDL_Texture();
+* Removido: Suporte a FadeIn na classe Som. Isso causava bugs relacionados ao volume global.
+
+
 ---------------------------------------------------------------------------
 1.0.2:
 ---------------------------------------------------------------------------
 
-General:
+Geral:
 * Bug Corrigido: Crash ao carregar TileMap criado com sem propriedades ou com objetos ou tilesets sem propriedades.
 * Bug Corrigido: Painel de Debug imprimindo erro ao tentar carregar arquivo de configuração de tileset, junto com o tilemap, quando a string contendo o caminho para o arquivo está vazia.
 
@@ -13,7 +63,7 @@ General:
 1.0.1:
 ---------------------------------------------------------------------------
 
-General:
+Geral:
 * Início do log de mudânças
 * Corrigido Bug ao carregar fontes bitmap passando string de caracteres.
 

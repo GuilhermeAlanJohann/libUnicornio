@@ -1,16 +1,17 @@
 #ifndef UNI_TILE_H
 #define UNI_TILE_H
 
+#include "uniAPI.h"
 #include "TileSet.h"
 
-enum NivelTile
+enum UNI_API NivelTile
 {
 	ABAIXO_DOS_OBJETOS,
 	NO_NIVEL_DOS_OBJETOS,
 	ACIMA_DOS_OBJETOS
 };
 
-class Tile
+class UNI_API Tile
 {
 public:
 	Tile();

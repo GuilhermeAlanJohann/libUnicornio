@@ -1,13 +1,14 @@
 #ifndef UNI_MUSICA_H
 #define UNI_MUSICA_H
 
+#include "uniAPI.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
 #include <string>
 
 using namespace std;
 
-class Musica
+class UNI_API Musica
 {  
 public:
 	Musica();

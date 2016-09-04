@@ -1,10 +1,11 @@
 #ifndef UNI_EVENTOSTELADETOQUE_H
 #define UNI_EVENTOSTELADETOQUE_H
 
+#include "uniAPI.h"
 #include "Toque.h"
 #include <vector>
 
-class EventosToques
+class UNI_API EventosToques
 {
 public:
 	EventosToques();

@@ -1,21 +1,22 @@
 #ifndef UNI_TILEMAP_H
 #define UNI_TILEMAP_H
 
+#include "uniAPI.h"
 #include "CamadaDeObjetosTileMap.h"
 #include "CamadaDeTiles.h"
 #include "TileSet.h"
 #include "Tile.h"
 #include "json/json.h"
 
-class TileMap
+class UNI_API TileMap
 {
 public:
 	TileMap();
 	~TileMap();
 
-	bool carregar(string arquivo);
-	bool carregarConfigTileSet(TileSet *tileset, string arquivo);
-	bool carregarConfigTileSet(string nome_tileset, string arquivo);
+	bool carregar(const string& arquivo);
+	bool carregarConfigTileSet(TileSet *tileset, const string& arquivo);
+	bool carregarConfigTileSet(const string& nome_tileset, const string& arquivo);
 	void descarregar();
 	bool estaCarregado();
 	void desenhar();
@@ -25,6 +26,9 @@ public:
 
 	bool tileECaminhavel(float tx, float ty);			//	verifica em todas as camadas se o tile é caminhavel (leva em consideracao tiles de tamanho diferente)
 	int getCustoAdicionalNoTile(float tx, float ty);	//	verifica em todas as camadas e soma o custo adicional (leva em consideracao tiles de tamanho diferente)
+
+	void adicionarObjetoNaRenderQueue(ObjetoTileMap* obj);	//	não usar! Uso interno.
+	void removerObjetoDaRenderQueue(ObjetoTileMap* obj);	//	não usar! Uso interno.
 
 	//	gets
 	float getX();
@@ -101,10 +105,11 @@ public:
 	void juntarTodasCamadasDeObjetos();
 
 protected:
+	string acharCaminhoTileSet(const string& caminhoOriginal, const string& caminhoTilemap);
 	void desenharTileNoPixel(int id, float px, float py);
-	void prepararRenderQueues();
-	void limparRenderQueues();
-	void quicksortObjetosTileMap(vector<ObjetoTileMap*> *queue, ObjetoTileMap *o, unsigned int menor, unsigned int maior);
+	void prepararRenderQueue();
+	void limparRenderQueue();
+	void quicksortObjetosTileMap(ObjetoTileMap *o, int menor, int maior);
 
 	bool carregou;
 
@@ -130,9 +135,11 @@ protected:
 
 	map<string, string> propriedades;	//	propriedades do mapa
 
-	vector<ObjetoTileMap*> render_queue_abaixo;
-	vector<ObjetoTileMap*> render_queue_aomeio;
-	vector<ObjetoTileMap*> render_queue_acima;
+
+	vector<ObjetoTileMap*> objetosDesenhaveis;
+	vector<ObjetoTileMap*> renderQueueObjetos;
+	Sint32 finalRenderQueueAbaixo;
+	Sint32 finalRenderQueueAoMeio;
 };
 
 #endif

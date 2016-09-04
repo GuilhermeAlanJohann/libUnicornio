@@ -45,7 +45,7 @@ void Jogo::executar()
 		gDebug.depurar("FPS", (int)gTempo.getFPS());
 		gDebug.depurar("deltaTempo", gTempo.getDeltaTempo());
 		gDebug.depurar("mouse", Vetor2D(gMouse.x, gMouse.y));
-		gDebug.depurar("retanguloTela", Retangulo(0, 0, gJanela.getLargura(), gJanela.getAltura()));
+		gDebug.depurar("retanguloTela", Quad(0, 0, gJanela.getLargura(), gJanela.getAltura()));
 
 		//	Cria um erro
 		gDebug.erro("Erro Teste", this);

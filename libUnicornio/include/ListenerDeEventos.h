@@ -1,9 +1,10 @@
 #ifndef UNI_LISTENERDEEVENTOS_H
 #define UNI_LISTENERDEEVENTOS_H
 
+#include "uniAPI.h"
 #include "SDL_events.h"
 
-class ListenerDeEventos
+class UNI_API ListenerDeEventos
 {
 public:
 	ListenerDeEventos();

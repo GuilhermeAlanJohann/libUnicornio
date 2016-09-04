@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		B93FAC8D1AB225E200EF39A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B93FAC8C1AB225E200EF39A4 /* Cocoa.framework */; };
+		B9B587341D7CC8DD00ECADA0 /* Quad.h in Headers */ = {isa = PBXBuildFile; fileRef = B9B5872F1D7CC8DD00ECADA0 /* Quad.h */; };
+		B9B587351D7CC8DD00ECADA0 /* Textura.h in Headers */ = {isa = PBXBuildFile; fileRef = B9B587301D7CC8DD00ECADA0 /* Textura.h */; };
+		B9B587361D7CC8DD00ECADA0 /* TexturaAlvo.h in Headers */ = {isa = PBXBuildFile; fileRef = B9B587311D7CC8DD00ECADA0 /* TexturaAlvo.h */; };
+		B9B587371D7CC8DD00ECADA0 /* TexturaBase.h in Headers */ = {isa = PBXBuildFile; fileRef = B9B587321D7CC8DD00ECADA0 /* TexturaBase.h */; };
+		B9B587381D7CC8DD00ECADA0 /* uniAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = B9B587331D7CC8DD00ECADA0 /* uniAPI.h */; };
+		B9B5873A1D7CC8EE00ECADA0 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9B587391D7CC8EE00ECADA0 /* Quad.cpp */; };
+		B9B5873E1D7CC90100ECADA0 /* Textura.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9B5873B1D7CC90100ECADA0 /* Textura.cpp */; };
+		B9B5873F1D7CC90100ECADA0 /* TexturaAlvo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9B5873C1D7CC90100ECADA0 /* TexturaAlvo.cpp */; };
+		B9B587401D7CC90100ECADA0 /* TexturaBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9B5873D1D7CC90100ECADA0 /* TexturaBase.cpp */; };
 		B9FD49CD1C96D52A00A878EC /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49C91C96D52A00A878EC /* SDL2_image.framework */; };
 		B9FD49CE1C96D52A00A878EC /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49CA1C96D52A00A878EC /* SDL2_mixer.framework */; };
 		B9FD49CF1C96D52A00A878EC /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FD49CB1C96D52A00A878EC /* SDL2_ttf.framework */; };
@@ -51,7 +60,6 @@
 		B9FD4A2E1C96D55100A878EC /* PainelDeDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F51C96D55100A878EC /* PainelDeDebug.h */; };
 		B9FD4A2F1C96D55100A878EC /* Preferencias.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F61C96D55100A878EC /* Preferencias.h */; };
 		B9FD4A301C96D55100A878EC /* RedeNeural.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F71C96D55100A878EC /* RedeNeural.h */; };
-		B9FD4A311C96D55100A878EC /* Retangulo.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F81C96D55100A878EC /* Retangulo.h */; };
 		B9FD4A321C96D55100A878EC /* Som.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49F91C96D55100A878EC /* Som.h */; };
 		B9FD4A331C96D55100A878EC /* Sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49FA1C96D55100A878EC /* Sprite.h */; };
 		B9FD4A341C96D55100A878EC /* SpriteSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = B9FD49FB1C96D55100A878EC /* SpriteSheet.h */; };
@@ -129,6 +137,15 @@
 		B93FAC221AB21FC200EF39A4 /* libUnicornio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libUnicornio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B93FAC261AB21FC200EF39A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B93FAC8C1AB225E200EF39A4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		B9B5872F1D7CC8DD00ECADA0 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Quad.h; path = ../../../include/Quad.h; sourceTree = "<group>"; };
+		B9B587301D7CC8DD00ECADA0 /* Textura.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Textura.h; path = ../../../include/Textura.h; sourceTree = "<group>"; };
+		B9B587311D7CC8DD00ECADA0 /* TexturaAlvo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TexturaAlvo.h; path = ../../../include/TexturaAlvo.h; sourceTree = "<group>"; };
+		B9B587321D7CC8DD00ECADA0 /* TexturaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TexturaBase.h; path = ../../../include/TexturaBase.h; sourceTree = "<group>"; };
+		B9B587331D7CC8DD00ECADA0 /* uniAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uniAPI.h; path = ../../../include/uniAPI.h; sourceTree = "<group>"; };
+		B9B587391D7CC8EE00ECADA0 /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Quad.cpp; path = ../../../src/Quad.cpp; sourceTree = "<group>"; };
+		B9B5873B1D7CC90100ECADA0 /* Textura.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Textura.cpp; path = ../../../src/Render/Textura.cpp; sourceTree = "<group>"; };
+		B9B5873C1D7CC90100ECADA0 /* TexturaAlvo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TexturaAlvo.cpp; path = ../../../src/Render/TexturaAlvo.cpp; sourceTree = "<group>"; };
+		B9B5873D1D7CC90100ECADA0 /* TexturaBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TexturaBase.cpp; path = ../../../src/Render/TexturaBase.cpp; sourceTree = "<group>"; };
 		B9FD49C91C96D52A00A878EC /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../lib/Mac/SDL2_image.framework; sourceTree = "<group>"; };
 		B9FD49CA1C96D52A00A878EC /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../lib/Mac/SDL2_mixer.framework; sourceTree = "<group>"; };
 		B9FD49CB1C96D52A00A878EC /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../lib/Mac/SDL2_ttf.framework; sourceTree = "<group>"; };
@@ -172,7 +189,6 @@
 		B9FD49F51C96D55100A878EC /* PainelDeDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PainelDeDebug.h; path = ../../../include/PainelDeDebug.h; sourceTree = "<group>"; };
 		B9FD49F61C96D55100A878EC /* Preferencias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preferencias.h; path = ../../../include/Preferencias.h; sourceTree = "<group>"; };
 		B9FD49F71C96D55100A878EC /* RedeNeural.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RedeNeural.h; path = ../../../include/RedeNeural.h; sourceTree = "<group>"; };
-		B9FD49F81C96D55100A878EC /* Retangulo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Retangulo.h; path = ../../../include/Retangulo.h; sourceTree = "<group>"; };
 		B9FD49F91C96D55100A878EC /* Som.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Som.h; path = ../../../include/Som.h; sourceTree = "<group>"; };
 		B9FD49FA1C96D55100A878EC /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sprite.h; path = ../../../include/Sprite.h; sourceTree = "<group>"; };
 		B9FD49FB1C96D55100A878EC /* SpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteSheet.h; path = ../../../include/SpriteSheet.h; sourceTree = "<group>"; };
@@ -282,6 +298,15 @@
 		B93FAC241AB21FC200EF39A4 /* libUnicornio */ = {
 			isa = PBXGroup;
 			children = (
+				B9B5873B1D7CC90100ECADA0 /* Textura.cpp */,
+				B9B5873C1D7CC90100ECADA0 /* TexturaAlvo.cpp */,
+				B9B5873D1D7CC90100ECADA0 /* TexturaBase.cpp */,
+				B9B587391D7CC8EE00ECADA0 /* Quad.cpp */,
+				B9B5872F1D7CC8DD00ECADA0 /* Quad.h */,
+				B9B587301D7CC8DD00ECADA0 /* Textura.h */,
+				B9B587311D7CC8DD00ECADA0 /* TexturaAlvo.h */,
+				B9B587321D7CC8DD00ECADA0 /* TexturaBase.h */,
+				B9B587331D7CC8DD00ECADA0 /* uniAPI.h */,
 				B9FD4AA81C96D6A900A878EC /* CamadaDeObjetosTileMap.cpp */,
 				B9FD4AA91C96D6A900A878EC /* CamadaDeTiles.cpp */,
 				B9FD4AAA1C96D6A900A878EC /* NodoAStar.cpp */,
@@ -374,7 +399,6 @@
 				B9FD49F51C96D55100A878EC /* PainelDeDebug.h */,
 				B9FD49F61C96D55100A878EC /* Preferencias.h */,
 				B9FD49F71C96D55100A878EC /* RedeNeural.h */,
-				B9FD49F81C96D55100A878EC /* Retangulo.h */,
 				B9FD49F91C96D55100A878EC /* Som.h */,
 				B9FD49FA1C96D55100A878EC /* Sprite.h */,
 				B9FD49FB1C96D55100A878EC /* SpriteSheet.h */,
@@ -433,6 +457,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9B587351D7CC8DD00ECADA0 /* Textura.h in Headers */,
 				B9FD4A361C96D55100A878EC /* Tile.h in Headers */,
 				B9FD4A0D1C96D55100A878EC /* CamadaDeObjetosTileMap.h in Headers */,
 				B9FD4A3A1C96D55100A878EC /* TravessiaAStar.h in Headers */,
@@ -455,16 +480,17 @@
 				B9FD4A291C96D55100A878EC /* MixadorDeAudios.h in Headers */,
 				B9FD4A351C96D55100A878EC /* Texto.h in Headers */,
 				B9FD4A201C96D55100A878EC /* GerenciadorDeTempo.h in Headers */,
+				B9B587361D7CC8DD00ECADA0 /* TexturaAlvo.h in Headers */,
 				B9FD4A1B1C96D55100A878EC /* GerenciadorDeEventos.h in Headers */,
 				B9FD4A1C1C96D55100A878EC /* GerenciadorDeGraficos.h in Headers */,
 				B9FD4A411C96D55100A878EC /* uniTestarColisaoSprite.h in Headers */,
 				B9FD4A401C96D55100A878EC /* uniTestarColisao.h in Headers */,
 				B9FD4A321C96D55100A878EC /* Som.h in Headers */,
+				B9B587371D7CC8DD00ECADA0 /* TexturaBase.h in Headers */,
 				B9FD4A381C96D55100A878EC /* TileSet.h in Headers */,
 				B9FD4A261C96D55100A878EC /* ListenerDeEventos.h in Headers */,
 				B9FD4A131C96D55100A878EC /* EventosInputTexto.h in Headers */,
 				B9FD4A2A1C96D55100A878EC /* Musica.h in Headers */,
-				B9FD4A311C96D55100A878EC /* Retangulo.h in Headers */,
 				B9FD4A271C96D55100A878EC /* MaquinaDeEstados.h in Headers */,
 				B9FD4A3F1C96D55100A878EC /* uniSistemaDeArquivos.h in Headers */,
 				B9FD4A301C96D55100A878EC /* RedeNeural.h in Headers */,
@@ -480,6 +506,7 @@
 				B9FD4A0A1C96D55100A878EC /* AStar.h in Headers */,
 				B9FD4A3C1C96D55100A878EC /* uniFuncoesPrincipais.h in Headers */,
 				B9FD4A221C96D55100A878EC /* GrupoDeStrings.h in Headers */,
+				B9B587381D7CC8DD00ECADA0 /* uniAPI.h in Headers */,
 				B9FD4A141C96D55100A878EC /* EventosJoysticks.h in Headers */,
 				B9FD4A111C96D55100A878EC /* EnumsInputs.h in Headers */,
 				B9FD4A281C96D55100A878EC /* MaquinaDeEstadosComPilha.h in Headers */,
@@ -489,6 +516,7 @@
 				B9FD4A121C96D55100A878EC /* Estado.h in Headers */,
 				B9FD4A341C96D55100A878EC /* SpriteSheet.h in Headers */,
 				B9FD4A2F1C96D55100A878EC /* Preferencias.h in Headers */,
+				B9B587341D7CC8DD00ECADA0 /* Quad.h in Headers */,
 				B9FD4A1A1C96D55100A878EC /* Fonte.h in Headers */,
 				B9FD4A3E1C96D55100A878EC /* uniRand.h in Headers */,
 				B9FD4A211C96D55100A878EC /* Global.h in Headers */,
@@ -522,7 +550,7 @@
 		B93FAC191AB21FC200EF39A4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = libUnicornio;
 				TargetAttributes = {
 					B93FAC211AB21FC200EF39A4 = {
@@ -568,6 +596,7 @@
 				B9FD4A9F1C96D67800A878EC /* Sprite.cpp in Sources */,
 				B9FD4A511C96D5AD00A878EC /* uniFuncoesPrincipais.cpp in Sources */,
 				B9FD4A9A1C96D67800A878EC /* Cor.cpp in Sources */,
+				B9B5873F1D7CC90100ECADA0 /* TexturaAlvo.cpp in Sources */,
 				B9FD4A791C96D60600A878EC /* ListenerDeEventos.cpp in Sources */,
 				B9FD4AB41C96D6AA00A878EC /* TileMap.cpp in Sources */,
 				B9FD4A571C96D5BC00A878EC /* uniSistemaDeArquivos.cpp in Sources */,
@@ -577,6 +606,7 @@
 				B9FD4A771C96D60600A878EC /* GerenciadorDeEventos.cpp in Sources */,
 				B9FD4A751C96D60600A878EC /* EventosToques.cpp in Sources */,
 				B9FD4AA11C96D67800A878EC /* Texto.cpp in Sources */,
+				B9B5873E1D7CC90100ECADA0 /* Textura.cpp in Sources */,
 				B9FD4A611C96D5CF00A878EC /* Som.cpp in Sources */,
 				B9FD4AB21C96D6AA00A878EC /* ObjetoTileMap.cpp in Sources */,
 				B9FD4A731C96D60600A878EC /* EventosMouse.cpp in Sources */,
@@ -584,6 +614,7 @@
 				B9FD4A9D1C96D67800A878EC /* GerenciadorDeGraficos.cpp in Sources */,
 				B9FD4A5D1C96D5CF00A878EC /* Audio.cpp in Sources */,
 				B9FD4A501C96D5AD00A878EC /* uniEase.cpp in Sources */,
+				B9B587401D7CC90100ECADA0 /* TexturaBase.cpp in Sources */,
 				B9FD4A821C96D61D00A878EC /* Estado.cpp in Sources */,
 				B9FD4A8B1C96D63C00A878EC /* BotaoSprite.cpp in Sources */,
 				B9FD4A851C96D61D00A878EC /* Neuronio.cpp in Sources */,
@@ -591,6 +622,7 @@
 				B9FD4A5E1C96D5CF00A878EC /* GerenciadorDeMusica.cpp in Sources */,
 				B9FD4A761C96D60600A878EC /* FiltroDeEventosDeApp.cpp in Sources */,
 				B9FD4A781C96D60600A878EC /* Joystick.cpp in Sources */,
+				B9B5873A1D7CC8EE00ECADA0 /* Quad.cpp in Sources */,
 				B9FD4AA71C96D69C00A878EC /* GerenciadorDeTempo.cpp in Sources */,
 				B9FD4A811C96D61D00A878EC /* AStar.cpp in Sources */,
 				B9FD4A8D1C96D64F00A878EC /* jsoncpp.cpp in Sources */,
@@ -640,6 +672,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../lib/Mac";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -747,6 +780,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "libUnicornio.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -778,6 +812,7 @@
 				INFOPLIST_FILE = libUnicornio/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "libUnicornio.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

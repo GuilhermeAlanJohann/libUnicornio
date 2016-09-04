@@ -1,9 +1,10 @@
 #ifndef UNI_COR_H
 #define UNI_COR_H
 
+#include "uniAPI.h"
 #include "SDL_Pixels.h"
 
-class Cor :public SDL_Color
+class UNI_API Cor :public SDL_Color
 {
 public:
 	Cor();
@@ -22,6 +23,8 @@ public:
 
 	SDL_Color getSDL_Color();
 	void set(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+	Uint32 getARGB();
+	Uint32 getRGBA();
 };
 
 #endif

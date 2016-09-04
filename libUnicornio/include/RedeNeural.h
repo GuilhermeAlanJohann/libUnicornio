@@ -1,17 +1,18 @@
 #ifndef UNI_REDENEURAL_H
 #define UNI_REDENEURAL_H
 
+#include "uniAPI.h"
 #include "Neuronio.h"
 
-enum EnumFuncaoDeAtivacaoRedeNeural
+enum UNI_API EnumFuncaoDeAtivacaoRedeNeural
 {
 	FUNCAO_DE_ATIVACAO_RN_SIGMOID,
 	FUNCAO_DE_ATIVACAO_RN_TANH
 };
 
-typedef vector<Neuronio> CamadaDeNeuronios;
+typedef UNI_API vector<Neuronio> CamadaDeNeuronios;
 
-class RedeNeural
+class UNI_API RedeNeural
 {
 public:
 	RedeNeural();

@@ -19,9 +19,9 @@ void PainelDeDebug::inicializar()
 	x = y = 0;
 	maiorLargura = 0;
 	escalaGlobal.set(1.0f, 1.0f);
-	retanTitulo = Retangulo(0, 0, 0, 0);
-	retanFechar = Retangulo(0, 0, 0, 0);
-	retanMinimizar = Retangulo(0, 0, 0, 0);
+	retanTitulo.set(0, 0, 0, 0);
+	retanFechar.set(0, 0, 0, 0);
+	retanMinimizar.set(0, 0, 0, 0);
 
 	corFundo.set(0, 0, 0, 128);
 	corTitulo.set(255, 255, 255, 255);
@@ -58,7 +58,7 @@ void PainelDeDebug::atualizar()
 		return;
 
 	//	guarda a escala global usada para render
-	SDL_RenderGetScale(gJanela.sdl_renderer, &escalaGlobal.x, &escalaGlobal.y);
+	SDL_RenderGetScale(gGraficos.sdl_renderer, &escalaGlobal.x, &escalaGlobal.y);
 
 	//	calcula tamanho titulo (largura, altura)
 	atualizarTamanhoTitulo();
@@ -84,11 +84,11 @@ void PainelDeDebug::desenhar()
 		return;
 
 	//	guarda a escala global usada para render
-	SDL_RenderGetScale(gJanela.sdl_renderer, &escalaGlobal.x, &escalaGlobal.y);
+	SDL_RenderGetScale(gGraficos.sdl_renderer, &escalaGlobal.x, &escalaGlobal.y);
 
 	//	muda a escala do render para 1.0f, 1.0f
 	//	pois nao queremos deformar a fonte usada nos textos
-	SDL_RenderSetScale(gJanela.sdl_renderer, 1.0f, 1.0f);
+	SDL_RenderSetScale(gGraficos.sdl_renderer, 1.0f, 1.0f);
 
 	int proxY;
 	desenharTitulo(proxY);
@@ -103,14 +103,14 @@ void PainelDeDebug::desenhar()
 
 		for (unsigned int i = 0; i < itens.size(); i++)
 		{
-			desenharItem(itens[i], retanTitulo.x, proxY, retanTitulo.largura, proxY);
+			desenharItem(itens[i], retanTitulo.x, proxY, retanTitulo.larg, proxY);
 		}
 		
-		gGraficos.desenharRetangulo(retanTitulo.x, yItens - 1, 0, retanTitulo.largura, proxY - yItens + 1, 0, 0, corContorno.r, corContorno.g, corContorno.b);
+		gGraficos.desenharRetangulo(retanTitulo.x, yItens - 1, 0, retanTitulo.larg, proxY - yItens + 1, 0, 0, corContorno.r, corContorno.g, corContorno.b);
 	}
 
 	//	volta para a escala anterior
-	SDL_RenderSetScale(gJanela.sdl_renderer, escalaGlobal.x, escalaGlobal.y);
+	SDL_RenderSetScale(gGraficos.sdl_renderer, escalaGlobal.x, escalaGlobal.y);
 }
 
 void PainelDeDebug::erro(const string& mensagem, void* ptr)
@@ -249,12 +249,12 @@ void PainelDeDebug::depurar(const string& chave, const Vetor2D& valor, const Cor
 	depurar(chave, sstream.str(), corDepuracao);
 }
 
-void PainelDeDebug::depurar(const string& chave, const Retangulo& valor)
+void PainelDeDebug::depurar(const string& chave, const Quad& valor)
 {
 	depurar(chave, valor, corDepuracao);
 }
 
-void PainelDeDebug::depurar(const string& chave, const Retangulo& valor, const Cor& cor)
+void PainelDeDebug::depurar(const string& chave, const Quad& valor, const Cor& cor)
 {
 	std::ostringstream sstream;
 	sstream << "{ ";
@@ -262,9 +262,9 @@ void PainelDeDebug::depurar(const string& chave, const Retangulo& valor, const C
 	sstream << " , ";
 	sstream << valor.y;
 	sstream << " , ";
-	sstream << valor.largura;
+	sstream << valor.larg;
 	sstream << " , ";
-	sstream << valor.altura;
+	sstream << valor.alt;
 	sstream << " }";
 	depurar(chave, sstream.str(), corDepuracao);
 }
@@ -481,17 +481,17 @@ void PainelDeDebug::atualizarTamanhoTitulo()
 	else if (larg < maiorLargura)
 		larg = maiorLargura;
 
-	retanTitulo.largura = larg;
-	retanTitulo.altura = fonte->getAlturaGlifos() + 10;
+	retanTitulo.larg = larg;
+	retanTitulo.alt = fonte->getAlturaGlifos() + 10;
 }
 
 void PainelDeDebug::atualizarTamanhoBotaoFechar()
 {
 	//	 calcular tamanho
-	int margem = (retanTitulo.altura - (retanTitulo.altura*0.8));
-	retanFechar.largura = retanTitulo.altura - (margem * 2);
-	retanFechar.altura = retanFechar.largura;
-	retanFechar.x = (retanTitulo.x) + retanTitulo.largura - retanFechar.largura - margem;
+	int margem = (retanTitulo.alt - (retanTitulo.alt*0.8));
+	retanFechar.larg = retanTitulo.alt - (margem * 2);
+	retanFechar.alt = retanFechar.larg;
+	retanFechar.x = (retanTitulo.x) + retanTitulo.larg - retanFechar.larg - margem;
 	retanFechar.y = (retanTitulo.y) + margem;
 }
 
@@ -510,10 +510,10 @@ void PainelDeDebug::atualizarCliqueBotaoFechar()
 void PainelDeDebug::atualizarTamanhoBotaoMinimizar()
 {
 	//	 calcular tamanho
-	int margem = (retanTitulo.altura - (retanTitulo.altura*0.8));
-	retanMinimizar.largura = retanTitulo.altura - margem * 2;
-	retanMinimizar.altura = retanMinimizar.largura;
-	retanMinimizar.x = (retanTitulo.x) + retanTitulo.largura - retanMinimizar.largura - retanFechar.largura - margem*2;
+	int margem = (retanTitulo.alt - (retanTitulo.alt*0.8));
+	retanMinimizar.larg = retanTitulo.alt - margem * 2;
+	retanMinimizar.alt = retanMinimizar.larg;
+	retanMinimizar.x = (retanTitulo.x) + retanTitulo.larg - retanMinimizar.larg - retanFechar.larg - margem*2;
 	retanMinimizar.y = (retanTitulo.y) + margem;
 }
 
@@ -559,34 +559,37 @@ void PainelDeDebug::desenharTitulo(int &proxY)
 	t.setAncora(0.5f, 0.5f);
 	t.setCor(corTitulo);
 
-	SDL_Rect dest = retanTitulo.getSDL_Rect();
-	SDL_Texture* tex = gGraficos.getSDL_TextureBranco();
-	SDL_SetTextureColorMod(tex, corFundo.r, corFundo.g, corFundo.b);
-	SDL_SetTextureAlphaMod(tex, corFundo.a);
-	SDL_RenderCopy(gJanela.sdl_renderer, tex, NULL, &dest);
+	//SDL_Rect dest = retanTitulo.getSDL_Rect();
+	//SDL_Texture* tex = gGraficos.getSDL_TextureBranco();
+	//SDL_SetTextureColorMod(tex, corFundo.r, corFundo.g, corFundo.b);
+	//SDL_SetTextureAlphaMod(tex, corFundo.a);
+	//SDL_RenderCopy(gGraficos.sdl_renderer, tex, NULL, &dest);
+	Quad dest = retanTitulo;
+	gGraficos.desenharRetangulo(dest, corFundo.r, corFundo.g, corFundo.b, corFundo.a, true);
 
-	gGraficos.desenharRetangulo(dest.x, dest.y, 0, dest.w, dest.h, 0, 0, corContorno.r, corContorno.g, corContorno.b);
+	//gGraficos.desenharRetangulo(dest.x, dest.y, 0, dest.w, dest.h, 0, 0, corContorno.r, corContorno.g, corContorno.b);
+	gGraficos.desenharRetangulo(dest, corContorno.r, corContorno.g, corContorno.b);
 
-	t.desenhar(dest.x + (dest.w / 2), dest.y + (dest.h/2));
+	t.desenhar(dest.x + (dest.larg / 2), dest.y + (dest.alt/2));
 
-	proxY = dest.y + dest.h;
+	proxY = dest.y + dest.alt;
 }
 
 void PainelDeDebug::desenharBotaoFechar()
 {
-	int margem = (retanTitulo.altura - (retanTitulo.altura*0.8));
+	int margem = (retanTitulo.alt - (retanTitulo.alt*0.8));
 
-	gGraficos.desenharRetangulo(retanFechar.x, retanFechar.y, 0, retanFechar.largura, retanFechar.altura, 0, 0, corContorno.r, corContorno.g, corContorno.b);
-	gGraficos.desenharLinha(retanFechar.x + margem -1, retanFechar.y + margem -1, retanFechar.x + retanFechar.largura - margem, retanFechar.y + retanFechar.altura - margem, corContorno.r, corContorno.g, corContorno.b);
-	gGraficos.desenharLinha(retanFechar.x + retanFechar.largura - margem, retanFechar.y + margem - 1, retanFechar.x + margem -1, retanFechar.y + retanFechar.altura - margem, corContorno.r, corContorno.g, corContorno.b);
+	gGraficos.desenharRetangulo(retanFechar.x, retanFechar.y, 0, retanFechar.larg, retanFechar.alt, 0, 0, corContorno.r, corContorno.g, corContorno.b);
+	gGraficos.desenharLinha(retanFechar.x + margem -1, retanFechar.y + margem -1, retanFechar.x + retanFechar.larg - margem, retanFechar.y + retanFechar.alt - margem, corContorno.r, corContorno.g, corContorno.b);
+	gGraficos.desenharLinha(retanFechar.x + retanFechar.larg - margem, retanFechar.y + margem - 1, retanFechar.x + margem -1, retanFechar.y + retanFechar.alt - margem, corContorno.r, corContorno.g, corContorno.b);
 }
 
 void PainelDeDebug::desenharBotaoMinimizar()
 {
-	int margem = (retanTitulo.altura - (retanTitulo.altura*0.8));
+	int margem = (retanTitulo.alt - (retanTitulo.alt*0.8));
 
-	gGraficos.desenharRetangulo(retanMinimizar.x, retanMinimizar.y, 0, retanMinimizar.largura, retanMinimizar.altura, 0, 0, corContorno.r, corContorno.g, corContorno.b);
-	gGraficos.desenharLinha(retanMinimizar.x + margem - 1, retanMinimizar.y + retanMinimizar.altura - margem, retanMinimizar.x + retanMinimizar.largura - margem, retanMinimizar.y + retanMinimizar.altura - margem, corContorno.r, corContorno.g, corContorno.b);
+	gGraficos.desenharRetangulo(retanMinimizar.x, retanMinimizar.y, 0, retanMinimizar.larg, retanMinimizar.alt, 0, 0, corContorno.r, corContorno.g, corContorno.b);
+	gGraficos.desenharLinha(retanMinimizar.x + margem - 1, retanMinimizar.y + retanMinimizar.alt - margem, retanMinimizar.x + retanMinimizar.larg - margem, retanMinimizar.y + retanMinimizar.alt - margem, corContorno.r, corContorno.g, corContorno.b);
 }
 
 void PainelDeDebug::desenharItem(ItemDebug item, int x, int y, int larg, int &proxY)
@@ -606,11 +609,12 @@ void PainelDeDebug::desenharItem(ItemDebug item, int x, int y, int larg, int &pr
 
 	int alt = max(txtChave.getAltura(), txtValor.getAltura());
 
-	SDL_Rect dest = { x, y, larg, alt};
-	SDL_Texture* tex = gGraficos.getSDL_TextureBranco();
-	SDL_SetTextureColorMod(tex, corFundo.r, corFundo.g, corFundo.b);
-	SDL_SetTextureAlphaMod(tex, corFundo.a);
-	SDL_RenderCopy(gJanela.sdl_renderer, tex, NULL, &dest);
+	//SDL_Rect dest = { x, y, larg, alt};
+	//SDL_Texture* tex = gGraficos.getSDL_TextureBranco();
+	//SDL_SetTextureColorMod(tex, corFundo.r, corFundo.g, corFundo.b);
+	//SDL_SetTextureAlphaMod(tex, corFundo.a);
+	//SDL_RenderCopy(gGraficos.sdl_renderer, tex, NULL, &dest);
+	gGraficos.desenharRetangulo(Quad(x, y, larg, alt), corFundo.r, corFundo.g, corFundo.b, corFundo.a, true);
 
 	txtChave.desenhar(x + 5, y+(alt/2));
 	txtValor.desenhar(x + larg -5, y + (alt / 2));

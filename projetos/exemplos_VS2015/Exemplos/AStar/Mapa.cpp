@@ -58,9 +58,9 @@ void Mapa::atualizar()
 void Mapa::desenhar()
 {
 	//	5) Desenhar mapa
-	Retangulo retan;
-	retan.largura = largTile-1;
-	retan.altura = altTile-1;
+	Quad retan;
+	retan.larg = largTile-1;
+	retan.alt = altTile-1;
 	for (int i = 0; i < tilesEmX; ++i)
 		for (int j = 0; j < tilesEmY; ++j)
 		{

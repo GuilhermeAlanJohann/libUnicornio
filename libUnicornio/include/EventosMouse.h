@@ -1,9 +1,10 @@
 #ifndef UNI_EVENTOSMOUSE_H
 #define UNI_EVENTOSMOUSE_H
 
+#include "uniAPI.h"
 #include "EnumsInputs.h"
 
-class EventosMouse
+class UNI_API EventosMouse
 {
 public:
 	EventosMouse();

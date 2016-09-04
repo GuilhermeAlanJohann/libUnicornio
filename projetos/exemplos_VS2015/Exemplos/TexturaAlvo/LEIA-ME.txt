@@ -1,0 +1,29 @@
+Descrição:
+Este exemplo mostra o uso da classe TexturaAlvo, usada para fazer "render to texture" (desenho em textura).
+Ele mostra como criar uma textura alvo e como desenhar coisas e depois desenhar a textura na tela.
+
+Classes importantes:
+- TexturaAlvo
+
+Observações:
+- Diferente dos objetos da classe Textura, os objetos da classe TexturaAlvo não podem ser criados a partir do 
+GerenciadorDeRecursos(gRecursos), logo a memória alocada por ela não é gerenciada. Portanto nunca esqueça de destruir a 
+TexturaAlvo quando ela não é mais necessária, chamando o método "destruir".
+- Note que apenas uma TexturaAlvo pode estar ativa por vez, porém é possível ativar várias texturas alvo em cascata 
+e depois desativa-las na ordem contrária. Ex:
+
+        // ativa textura alvo 1
+    alvo1.ativar();
+        // ... desenha alguma coisa no alvo 1
+        // ativa textura alvo 2
+    alvo2.ativar();
+        //... desenha alguma coisa no alvo 2
+        // desativa textura alvo 2
+    alvo2.desativar();
+        // ... desenha alguma coisa no alvo 1
+        // desativa textura alvo 1
+    alvo1.desativar();
+    
+
+Veja também os exemplos:
+- Textura

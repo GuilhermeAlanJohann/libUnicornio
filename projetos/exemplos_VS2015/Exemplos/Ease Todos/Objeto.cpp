@@ -56,8 +56,6 @@ void Objeto::atualizar(float dt)
 
 void Objeto::desenhar()
 {
-	SDL_Rect rect = { pos.x - tam.x / 2, pos.y - tam.y / 2, tam.x, tam.y };
-
-	SDL_SetRenderDrawColor(gJanela.sdl_renderer, cor.r, cor.g, cor.b, cor.a);
-	SDL_RenderFillRect(gJanela.sdl_renderer, &rect);
+	Quad quad( pos.x - tam.x / 2, pos.y - tam.y / 2, tam.x, tam.y );
+	gGraficos.desenharRetangulo(quad, cor.r, cor.g, cor.b, cor.a, true);
 }

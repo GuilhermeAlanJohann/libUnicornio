@@ -1,10 +1,11 @@
 #ifndef UNI_ENUMSINPUTS_H
 #define UNI_ENUMSINPUTS_H
 
+#include "uniAPI.h"
 #include "SDL_scancode.h"
 #include "SDL_events.h"
 
-enum EnumBotaoMouse
+enum UNI_API EnumBotaoMouse
 {
 	BOTAO_MOUSE_ESQ,
 	BOTAO_MOUSE_MEIO,
@@ -14,7 +15,7 @@ enum EnumBotaoMouse
 	NUMERO_DE_BOTOES_MOUSE
 };
 
-enum EnumToque
+enum UNI_API EnumToque
 {
 	TOQUE_PRESSIONOU,
 	TOQUE_SEGURANDO,
@@ -22,7 +23,7 @@ enum EnumToque
 	TOQUE_MOVEU
 };
 
-enum EnumBotaoJoystickXbox
+enum UNI_API EnumBotaoJoystickXbox
 {
 	BOTAO_XBOX_INVALIDO = SDL_CONTROLLER_BUTTON_INVALID,
 	BOTAO_XBOX_A = SDL_CONTROLLER_BUTTON_A,
@@ -47,7 +48,7 @@ Só para manter o numero maximo de botoes em um multipo/potencia de 2.
 */
 #define NUMERO_DE_BOTOES_JOYSTICK 16
 
-enum EnumTecla
+enum UNI_API EnumTecla
 {
     TECLA_DESCONHECIDA = SDL_SCANCODE_UNKNOWN,
 

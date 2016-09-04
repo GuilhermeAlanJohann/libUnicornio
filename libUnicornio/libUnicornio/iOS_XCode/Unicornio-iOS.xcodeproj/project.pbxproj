@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9B587531D7CCE4C00ECADA0 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9B587521D7CCE4C00ECADA0 /* Quad.cpp */; };
+		B9B587571D7CCE5900ECADA0 /* Textura.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9B587541D7CCE5900ECADA0 /* Textura.cpp */; };
+		B9B587581D7CCE5900ECADA0 /* TexturaAlvo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9B587551D7CCE5900ECADA0 /* TexturaAlvo.cpp */; };
+		B9B587591D7CCE5900ECADA0 /* TexturaBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9B587561D7CCE5900ECADA0 /* TexturaBase.cpp */; };
 		B9FD48F51C96853D00A878EC /* uniEase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD48F11C96853D00A878EC /* uniEase.cpp */; };
 		B9FD48F61C96853D00A878EC /* uniFuncoesPrincipais.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD48F21C96853D00A878EC /* uniFuncoesPrincipais.cpp */; };
 		B9FD48F71C96853D00A878EC /* uniRand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9FD48F31C96853D00A878EC /* uniRand.cpp */; };
@@ -138,6 +142,15 @@
 
 /* Begin PBXFileReference section */
 		B9A7EF0A1AB5B8AF00AC1C35 /* libUnicornio-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libUnicornio-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9B5874D1D7CCE3000ECADA0 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Quad.h; path = ../../../include/Quad.h; sourceTree = "<group>"; };
+		B9B5874E1D7CCE3000ECADA0 /* Textura.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Textura.h; path = ../../../include/Textura.h; sourceTree = "<group>"; };
+		B9B5874F1D7CCE3000ECADA0 /* TexturaAlvo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TexturaAlvo.h; path = ../../../include/TexturaAlvo.h; sourceTree = "<group>"; };
+		B9B587501D7CCE3000ECADA0 /* TexturaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TexturaBase.h; path = ../../../include/TexturaBase.h; sourceTree = "<group>"; };
+		B9B587511D7CCE3000ECADA0 /* uniAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uniAPI.h; path = ../../../include/uniAPI.h; sourceTree = "<group>"; };
+		B9B587521D7CCE4C00ECADA0 /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Quad.cpp; path = ../../../src/Quad.cpp; sourceTree = "<group>"; };
+		B9B587541D7CCE5900ECADA0 /* Textura.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Textura.cpp; path = ../../../src/Render/Textura.cpp; sourceTree = "<group>"; };
+		B9B587551D7CCE5900ECADA0 /* TexturaAlvo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TexturaAlvo.cpp; path = ../../../src/Render/TexturaAlvo.cpp; sourceTree = "<group>"; };
+		B9B587561D7CCE5900ECADA0 /* TexturaBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TexturaBase.cpp; path = ../../../src/Render/TexturaBase.cpp; sourceTree = "<group>"; };
 		B9FD489E1C96846400A878EC /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../dep/SDL2/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		B9FD48A51C96849300A878EC /* SDL_image.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL_image.xcodeproj; path = "../../dep/SDL2_image/Xcode-iOS/SDL_image.xcodeproj"; sourceTree = "<group>"; };
 		B9FD48AB1C9684AE00A878EC /* SDL_mixer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL_mixer.xcodeproj; path = "../../dep/SDL2_mixer/Xcode-iOS/SDL_mixer.xcodeproj"; sourceTree = "<group>"; };
@@ -291,6 +304,15 @@
 			isa = PBXGroup;
 			children = (
 				B9FD498E1C96A04D00A878EC /* json */,
+				B9B587541D7CCE5900ECADA0 /* Textura.cpp */,
+				B9B587551D7CCE5900ECADA0 /* TexturaAlvo.cpp */,
+				B9B587561D7CCE5900ECADA0 /* TexturaBase.cpp */,
+				B9B587521D7CCE4C00ECADA0 /* Quad.cpp */,
+				B9B5874D1D7CCE3000ECADA0 /* Quad.h */,
+				B9B5874E1D7CCE3000ECADA0 /* Textura.h */,
+				B9B5874F1D7CCE3000ECADA0 /* TexturaAlvo.h */,
+				B9B587501D7CCE3000ECADA0 /* TexturaBase.h */,
+				B9B587511D7CCE3000ECADA0 /* uniAPI.h */,
 				B9FD494C1C96865400A878EC /* CamadaDeObjetosTileMap.cpp */,
 				B9FD494D1C96865400A878EC /* CamadaDeTiles.cpp */,
 				B9FD494E1C96865400A878EC /* NodoAStar.cpp */,
@@ -486,7 +508,7 @@
 		B9A7EF021AB5B8AF00AC1C35 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = libUnicornio;
 				TargetAttributes = {
 					B9A7EF091AB5B8AF00AC1C35 = {
@@ -571,6 +593,7 @@
 				B9FD49431C96861F00A878EC /* Sprite.cpp in Sources */,
 				B9FD48F71C96853D00A878EC /* uniRand.cpp in Sources */,
 				B9FD493E1C96861F00A878EC /* Cor.cpp in Sources */,
+				B9B587581D7CCE5900ECADA0 /* TexturaAlvo.cpp in Sources */,
 				B9FD49211C9685BE00A878EC /* ListenerDeEventos.cpp in Sources */,
 				B9FD49581C96865400A878EC /* TileMap.cpp in Sources */,
 				B9FD48FF1C96858000A878EC /* uniSistemaDeArquivos.cpp in Sources */,
@@ -580,6 +603,7 @@
 				B9FD491F1C9685BE00A878EC /* GerenciadorDeEventos.cpp in Sources */,
 				B9FD491D1C9685BE00A878EC /* EventosToques.cpp in Sources */,
 				B9FD49451C96861F00A878EC /* Texto.cpp in Sources */,
+				B9B587571D7CCE5900ECADA0 /* Textura.cpp in Sources */,
 				B9FD49091C96859500A878EC /* Som.cpp in Sources */,
 				B9FD49561C96865400A878EC /* ObjetoTileMap.cpp in Sources */,
 				B9FD491B1C9685BE00A878EC /* EventosMouse.cpp in Sources */,
@@ -587,6 +611,7 @@
 				B9FD49411C96861F00A878EC /* GerenciadorDeGraficos.cpp in Sources */,
 				B9FD49051C96859500A878EC /* Audio.cpp in Sources */,
 				B9FD48F61C96853D00A878EC /* uniFuncoesPrincipais.cpp in Sources */,
+				B9B587591D7CCE5900ECADA0 /* TexturaBase.cpp in Sources */,
 				B9FD492A1C9685CC00A878EC /* Estado.cpp in Sources */,
 				B9FD49311C9685F000A878EC /* BotaoSprite.cpp in Sources */,
 				B9FD492D1C9685CC00A878EC /* Neuronio.cpp in Sources */,
@@ -594,6 +619,7 @@
 				B9FD49061C96859500A878EC /* GerenciadorDeMusica.cpp in Sources */,
 				B9FD491E1C9685BE00A878EC /* FiltroDeEventosDeApp.cpp in Sources */,
 				B9FD49201C9685BE00A878EC /* Joystick.cpp in Sources */,
+				B9B587531D7CCE4C00ECADA0 /* Quad.cpp in Sources */,
 				B9FD494B1C96864600A878EC /* GerenciadorDeTempo.cpp in Sources */,
 				B9FD49291C9685CC00A878EC /* AStar.cpp in Sources */,
 				B9FD49331C96860000A878EC /* jsoncpp.cpp in Sources */,
@@ -665,6 +691,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;

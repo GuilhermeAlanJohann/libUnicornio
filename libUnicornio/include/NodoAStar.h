@@ -1,9 +1,10 @@
 #ifndef UNI_NODOASTAR_H
 #define UNI_NODOASTAR_H
 
+#include "uniAPI.h"
 #include "Vetor2D.h"
 
-struct NodoAStar
+struct UNI_API NodoAStar
 {
 public:
 	NodoAStar();

@@ -20,6 +20,7 @@ bool GerenciadorDeMusica::tocar(Musica* musica, bool repetir, float tempo_fadein
 	if (Mix_FadeInMusicPos(musica->get_Mix_Music(), repetir ? -1 : 1, tempo_fadein * 1000, tempo_inicial) == -1)
 		return false;
 
+	this->musica = musica;
 	float porcentagem = volume_global / 100.0f;
 	int vol = 128 * porcentagem * (musica->getVolume() / 100.0f);
 	Mix_VolumeMusic(vol);

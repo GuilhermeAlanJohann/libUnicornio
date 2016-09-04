@@ -13,10 +13,10 @@ bool uniTestarColisaoPontoComCirculo(float ponto_x, float ponto_y, float circulo
 }
 
 //	colisao entre ponto e retangulo alinhado aos eixos
-bool uniTestarColisaoPontoComRetangulo(float ponto_x, float ponto_y, const Retangulo& retangulo)
+bool uniTestarColisaoPontoComRetangulo(float ponto_x, float ponto_y, const Quad& retangulo)
 {
-	return (ponto_x >= retangulo.x && ponto_x <= retangulo.x + retangulo.largura &&
-		ponto_y >= retangulo.y && ponto_y <= retangulo.y + retangulo.altura);
+	return (ponto_x >= retangulo.x && ponto_x <= retangulo.x + retangulo.larg &&
+		ponto_y >= retangulo.y && ponto_y <= retangulo.y + retangulo.alt);
 }
 
 //	colisao entre ponto e retangulo
@@ -344,10 +344,10 @@ bool uniTestarColisaoCirculoComPoligono(float circulo_x, float circulo_y, float 
 }
 
 //	colisao entre retangulos alinhados aos eixos
-bool uniTestarColisaoRetanguloComRetangulo(const Retangulo& retangulo1, const Retangulo& retangulo2)
+bool uniTestarColisaoRetanguloComRetangulo(const Quad& retangulo1, const Quad& retangulo2)
 {
-	return (retangulo1.x + retangulo1.largura >= retangulo2.x && retangulo1.x <= retangulo2.x + retangulo2.largura &&
-		retangulo1.y + retangulo1.altura >= retangulo2.y && retangulo1.y <= retangulo2.y + retangulo2.altura);
+	return (retangulo1.x + retangulo1.larg >= retangulo2.x && retangulo1.x <= retangulo2.x + retangulo2.larg &&
+		retangulo1.y + retangulo1.alt >= retangulo2.y && retangulo1.y <= retangulo2.y + retangulo2.alt);
 }
 
 //	colisao entre retangulos

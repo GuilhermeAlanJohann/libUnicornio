@@ -16,13 +16,13 @@ GraficoEasing::~GraficoEasing()
 
 bool GraficoEasing::clicou()
 {
-	Retangulo r(pos.x - tam.x / 2, pos.y - tam.y / 2, tam.x, tam.y);
+	Quad r(pos.x - tam.x / 2, pos.y - tam.y / 2, tam.x, tam.y);
 	return (gMouse.pressionou[BOTAO_MOUSE_ESQ] && uniTestarColisaoPontoComRetangulo(gMouse.x, gMouse.y, r));
 }
 
 void GraficoEasing::desenhar()
 {
-	Retangulo r(pos.x - tam.x / 2, pos.y - tam.y / 2, tam.x, tam.y);
+	Quad r(pos.x - tam.x / 2, pos.y - tam.y / 2, tam.x, tam.y);
 
 	int p = 0;
 	int xMin = r.x + tam.x*0.1;

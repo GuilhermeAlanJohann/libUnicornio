@@ -1,13 +1,14 @@
 #ifndef UNI_JOYSTICK_H
 #define UNI_JOYSTICK_H
 
+#include "uniAPI.h"
 #include "SDL_events.h"
 #include "SDL_joystick.h"
 #include "SDL_haptic.h"
 #include "EnumsInputs.h"
 #include <string>
 
-struct Joystick
+struct UNI_API Joystick
 {
 public:
 	Joystick();

@@ -1,0 +1,11 @@
+Descrição:
+Este exemplo mostra como desenhar primitivas usando o GerenciadorDeGraficos (gGraficos).
+Nele também é mostrado como desenhar pequenos textos usando o gGraficos.
+
+Objetos importantes:
+- gGraficos
+
+Observações:
+Neste exemplo, foi criado um método para o desenho de cada primitiva, simplesmente para poder mostrar mais claramente
+quais os parâmetros usados em cada caso, criando uma variável par cada parâmtro. Porém, normalmente, você irá usar apenas 
+uma linha para fazer o desenho de uma primitiva, sem a necessidade de criar várias variaveis (uma para cada parâmetro).

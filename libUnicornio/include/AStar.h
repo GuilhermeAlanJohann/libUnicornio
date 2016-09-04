@@ -1,6 +1,7 @@
 #ifndef UNI_ASTAR_H
 #define UNI_ASTAR_H
 
+#include "uniAPI.h"
 #include <vector>
 #include "NodoAStar.h"
 #include "Vetor2D.h"
@@ -9,7 +10,7 @@ using namespace std;
 
 class TileMap;
 
-enum HeuristicaAStar
+enum UNI_API HeuristicaAStar
 {
 	HEURISTICA_MANHATTAN,	// padrao
 	HEURISTICA_EUCLIDIANA,	// usando distancia euclidiana
@@ -17,7 +18,7 @@ enum HeuristicaAStar
 	HEURISTICA_CRUZ			// gera caminhos mais lineares ate o destino
 };
 
-class AStar
+class UNI_API AStar
 {
 public:
 	AStar();

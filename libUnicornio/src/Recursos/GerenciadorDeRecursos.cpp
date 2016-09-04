@@ -132,12 +132,35 @@ Musica* GerenciadorDeRecursos::carregarMusica(const std::string& nome, const std
 	return musica;
 }
 
+Textura* GerenciadorDeRecursos::carregarTextura(const std::string& nome, const std::string& caminho, EnumQualidadeEscala qualidade_escala)
+{
+	if (carregouTextura(nome))
+	{
+		gDebug.erro("Recurso '" + nome + "' não pode ser carregado, pois uma Textura com esse nome já existe.");
+		return NULL;
+	}
+
+	Textura* textura = new Textura;
+	if (textura->criarDoArquivo(caminho, qualidade_escala))
+	{
+		mTexturas.insert(pair<string, Textura*>(nome, textura));
+	}
+	else
+	{
+		delete textura;
+		textura = NULL;
+	}
+
+	return textura;
+}
+
 void GerenciadorDeRecursos::descarregarTudo()
 {
 	descarregarTodosSpriteSheets();
 	descarregarTodasFontes();
 	descarregarTodosAudios();
 	descarregarTodasMusicas();
+	descarregarTodasTexturas();
 }
 
 void GerenciadorDeRecursos::descarregarTodosSpriteSheets()
@@ -184,6 +207,17 @@ void GerenciadorDeRecursos::descarregarTodasMusicas()
 	mMusicas.clear();
 }
 
+void GerenciadorDeRecursos::descarregarTodasTexturas()
+{
+	for (std::map<std::string, Textura*>::iterator it = mTexturas.begin(); it != mTexturas.end(); ++it)
+	{
+		it->second->destruir();
+		delete it->second;
+	}
+
+	mTexturas.clear();
+}
+
 bool GerenciadorDeRecursos::descarregar(const string& nome)
 {
 	bool descarregou = false;
@@ -204,6 +238,11 @@ bool GerenciadorDeRecursos::descarregar(const string& nome)
 	}
 
 	if (descarregarMusica(nome))
+	{
+		descarregou = true;
+	}
+
+	if (descarregarTextura(nome))
 	{
 		descarregou = true;
 	}
@@ -271,6 +310,21 @@ bool GerenciadorDeRecursos::descarregarMusica(const string& nome)
 	return false;
 }
 
+bool GerenciadorDeRecursos::descarregarTextura(const string& nome)
+{
+	std::map<std::string, Textura*>::iterator it = mTexturas.find(nome);
+
+	if (it != mTexturas.end())
+	{
+		it->second->destruir();
+		delete it->second;
+		mTexturas.erase(it);
+		return true;
+	}
+
+	return false;
+}
+
 SpriteSheet* GerenciadorDeRecursos::getSpriteSheet(const string& nome)
 {
 	std::map<std::string, SpriteSheet*>::iterator it = mSpriteSheets.find(nome);
@@ -319,6 +373,18 @@ Musica* GerenciadorDeRecursos::getMusica(const string& nome)
 	return NULL;
 }
 
+Textura* GerenciadorDeRecursos::getTextura(const string& nome)
+{
+	std::map<std::string, Textura*>::iterator it = mTexturas.find(nome);
+
+	if (it != mTexturas.end())
+	{
+		return it->second;
+	}
+
+	return NULL;
+}
+
 bool GerenciadorDeRecursos::carregouSpriteSheet(const std::string& nome)
 {
 	return (mSpriteSheets.find(nome) != mSpriteSheets.end());
@@ -337,4 +403,9 @@ bool GerenciadorDeRecursos::carregouAudio(const std::string& nome)
 bool GerenciadorDeRecursos::carregouMusica(const std::string& nome)
 {
 	return (mMusicas.find(nome) != mMusicas.end());
+}
+
+bool GerenciadorDeRecursos::carregouTextura(const std::string& nome)
+{
+	return (mTexturas.find(nome) != mTexturas.end());
 }

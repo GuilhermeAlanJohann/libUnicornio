@@ -1,14 +1,16 @@
 #ifndef UNI_CAMADADEOBJETOSTILEMAP_H
 #define UNI_CAMADADEOBJETOSTILEMAP_H
 
+#include "uniAPI.h"
 #include <vector>
 #include <string>
 #include "ObjetoTileMap.h"
-#include "Tile.h"
 
 using namespace std;
 
-class CamadaDeObjetosTileMap
+class TileMap;
+
+class UNI_API CamadaDeObjetosTileMap
 {
 public:
 	CamadaDeObjetosTileMap();
@@ -16,17 +18,18 @@ public:
 
 	string getNome();
 	bool estaVisivel();
-	NivelTile getNivel();
+	
 
 	void setNome(string nome);
 	void setVisivel(bool visivel);
-	void setNivel(NivelTile nivel);
 
 	ObjetoTileMap *criarObjeto();
 	ObjetoTileMap *criarObjeto(Vetor2D pos_centro);
 	ObjetoTileMap *criarObjeto(float centro_x, float centro_y);
+	void adicionarObjeto(ObjetoTileMap* obj);
 	bool destruirObjeto(string nome);
 	bool destruirObjeto(ObjetoTileMap *obj);
+	bool destruirObjeto(int indice);
 	void destruirTodosObjetos();
 	bool existeObjetoNaPos(Vetor2D pos);
 	bool existeObjetoNaPos(float tx, float ty);
@@ -47,11 +50,15 @@ public:
 	vector<ObjetoTileMap*> getObjetosDoTipoNaPos(string tipo, float tx, float ty);
 	vector<ObjetoTileMap*> getTodosObjetos();
 
+	void setTileMap(TileMap* tilemap);	// uso interno
+	TileMap* getTileMap();
+
 private:
 	string nome;
 	bool visivel;
 	NivelTile nivel;
 	vector<ObjetoTileMap*> objetos;
+	TileMap* tilemap;
 };
 
 #endif

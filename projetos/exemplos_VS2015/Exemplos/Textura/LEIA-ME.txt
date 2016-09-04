@@ -1,0 +1,25 @@
+Descrição:
+Este exemplo mostra o uso da classe Textura, classe base para todas as imagens carregadas pela biblioteca.
+Ele mostra como carregar uma textura usando o GerenciadoDeRecursos (gRecursos) e como desenhar ela de diferrentes maneiras.
+
+Classes importantes:
+- Textura
+
+Objetos importantes:
+- gRecursos
+
+Observações:
+Objetos da classe Textura podem ser usados como recursos, porém também podem ser criados manualmente chamando o método "criar".
+Existem dois tipos de Textura: TEXTURA_ESTATICA e TEXTURA_DE_STREAMING.
+As texturas estáticas são as mais comuns e são usadas para imagens carregadas de arquivos.
+As texturas de streaming permitem acesso aos seus pixels, que podem ser manupulados manualmente, 
+necessário para realizar streamings (Ex: vídeos). 
+Para acessar os pixels de uma textura de streaming, é necessário travar a textura, chamando o método "travar". 
+Isso copia os pixels da memória de vídeo para a memória ram e impede que a textura seja desenhada enquanto está travada.
+Após manipular os pixels da textura, é nessário destrava-la (método "destravar") pra que seja possível desenha-la novamente. 
+Este método vai copiar os pixels da memória ram de volta para a memória de vídeo. 
+Além disso existe um outro tipo de textura, mais especial, a qual é reservada uma classe distinta (TexturaAlvo), 
+que serve para desenhar coisas em uma textura.
+
+Veja também os exemplos:
+- TexturaAlvo

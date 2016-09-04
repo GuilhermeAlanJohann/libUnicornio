@@ -35,6 +35,8 @@ SOFTWARE.
 #ifndef UNI_LIBUNICORNIO_H
 #define UNI_LIBUNICORNIO_H
 
+#include "uniAPI.h"
+
 //	Blibliotecas base
 #include "SDL.h"
 #include "SDL_image.h"
@@ -69,6 +71,11 @@ SOFTWARE.
 #include "Sprite.h"
 #include "Texto.h"
 #include "Som.h"
+
+//	Textura
+#include "TexturaBase.h"
+#include "Textura.h"
+#include "TexturaAlvo.h"
 
 //	Outros
 #include "Musica.h"

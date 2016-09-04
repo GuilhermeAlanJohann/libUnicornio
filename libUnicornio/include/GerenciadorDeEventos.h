@@ -1,6 +1,7 @@
 #ifndef UNI_GERENCIADORDEEVENTOS_H
 #define UNI_GERENCIADORDEEVENTOS_H
 
+#include "uniAPI.h"
 #include "ListenerDeEventos.h"
 #include "FiltroDeEventosDeApp.h"
 #include "EventosJoysticks.h"
@@ -9,7 +10,7 @@
 #include "EventosToques.h"
 #include "Janela.h"
 
-class GerenciadorDeEventos
+class UNI_API GerenciadorDeEventos
 {
 public: 
 	GerenciadorDeEventos();

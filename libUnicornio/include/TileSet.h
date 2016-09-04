@@ -1,18 +1,19 @@
 #ifndef UNI_TILESET_H
 #define UNI_TILESET_H
 
-#include "SDL.h"
+#include "uniAPI.h"
+#include "Textura.h"
 #include <string>
 
 using namespace std;
 
-class TileSet
+class UNI_API TileSet
 {
 public:
 	TileSet();
 	~TileSet();
 
-	bool carregar(string arquivo, int largura_tiles, int altura_tiles);
+	bool carregar(const string& arquivo, int largura_tiles, int altura_tiles);
 	void descarregar();
 	bool estaCarregado();
 	
@@ -29,9 +30,9 @@ public:
 
 	void obterTamanhoTiles(int &larg, int &alt);
 
-	SDL_Texture* getTextura();
+	Textura* getTextura();
 
-	void setNome(string nome);
+	void setNome(const string& nome);
 	void setPrimeiroIDGlobal(int primeiro_ID);
 
 private:
@@ -45,7 +46,7 @@ private:
 	int largura_tile;
 	int altura_tile;
 
-	SDL_Texture* tex;
+	Textura tex;
 };
 
 #endif

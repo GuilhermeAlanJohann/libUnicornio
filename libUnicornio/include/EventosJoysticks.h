@@ -1,9 +1,10 @@
 #ifndef UNI_EVENTOSJOYSTICK_H
 #define UNI_EVENTOSJOYSTICK_H
 
+#include "uniAPI.h"
 #include "Joystick.h"
 
-class EventosJoysticks
+class UNI_API EventosJoysticks
 {
 public:
 	EventosJoysticks();

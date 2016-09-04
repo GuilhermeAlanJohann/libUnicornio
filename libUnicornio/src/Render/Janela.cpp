@@ -40,7 +40,7 @@ Janela::~Janela()
 {
 }
 
-bool Janela::criar(int largura, int altura, bool tela_cheia, string titulo_janela)
+bool Janela::criar(int largura, int altura, bool tela_cheia, string titulo_janela, int sdl_window_flags)
 {
 	if(criada)
 	{
@@ -56,11 +56,14 @@ bool Janela::criar(int largura, int altura, bool tela_cheia, string titulo_janel
 		tela_cheia = true;
 	#endif
 
+	if (sdl_window_flags < 0)
+		sdl_window_flags = 0;
+
 	//	inicializa video
 	if(tela_cheia)
-		sdl_window = SDL_CreateWindow(titulo_janela.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		sdl_window = SDL_CreateWindow(titulo_janela.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 0, 0, sdl_window_flags | SDL_WINDOW_FULLSCREEN_DESKTOP);
 	else
-		sdl_window = SDL_CreateWindow(titulo_janela.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, largura, altura, SDL_WINDOW_SHOWN);
+		sdl_window = SDL_CreateWindow(titulo_janela.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, largura, altura, sdl_window_flags | SDL_WINDOW_SHOWN);
 
 	if(sdl_window == NULL)
 	{
@@ -86,7 +89,7 @@ bool Janela::criar(int largura, int altura, bool tela_cheia, string titulo_janel
 	SDL_SetRenderDrawColor(sdl_renderer, cor.r, cor.g, cor.b, cor.a);
 	SDL_SetRenderDrawBlendMode(sdl_renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");  // nao usa nenhum tipo de interpolacao para fazer a escala
-	SDL_RenderSetLogicalSize(sdl_renderer, largura, altura);
+	SDL_RenderSetLogicalSize(sdl_renderer, largura, altura);	//	aqui é onde a largura e altura são setadas
 
 	SDL_RenderClear(sdl_renderer);
 	SDL_RenderPresent(sdl_renderer);
@@ -312,13 +315,6 @@ int Janela::getAlturaTotal()
 	return alt;
 }
 
-Retangulo Janela::getRetanguloDeCorte()
-{
-	SDL_Rect rect;
-	SDL_RenderGetClipRect(sdl_renderer, &rect);
-	return Retangulo(rect.x, rect.y, rect.w, rect.h);
-}
-
 void Janela::obterPos(int &x, int &y)
 {
 	x = this->x;
@@ -423,18 +419,6 @@ void Janela::setTamanhoReal(int larg, int alt)
 	altura_real = alt;
 }
 
-void Janela::setRetanguloDeCorte(const Retangulo& retan)
-{
-	SDL_Rect rect = retan.getSDL_Rect();
-	SDL_RenderSetClipRect(sdl_renderer, &rect);
-}
-
-void Janela::setRetanguloDeCorteTelaInteira()
-{
-	SDL_Rect clip = { 0, 0, getLargura(), getAltura() };
-	SDL_RenderSetClipRect(sdl_renderer, &clip);
-}
-
 void Janela::setCorDeFundo(const Cor& cor)
 {
 	this->cor = cor;
@@ -483,6 +467,7 @@ void Janela::ajustar()
 
 void Janela::limpar()
 {
+	SDL_SetRenderDrawBlendMode(sdl_renderer, (cor.a == 255) ? SDL_BLENDMODE_NONE : SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(sdl_renderer, cor.r, cor.g, cor.b, cor.a);
 	SDL_RenderClear(sdl_renderer);
 }
@@ -502,4 +487,14 @@ void Janela::removerLetterBoxing()
 	int larg, alt;
 	obterTamanhoTotal(larg, alt);
 	setTamanho(larg, alt);
+}
+
+SDL_Renderer* Janela::getSDL_Renderer()
+{
+	return sdl_renderer;
+}
+
+SDL_Window* Janela::getSDL_Window()
+{
+	return sdl_window;
 }

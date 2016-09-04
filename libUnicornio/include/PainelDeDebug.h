@@ -1,9 +1,10 @@
 #ifndef UNI_PAINELDEDEBUG_H
 #define UNI_PAINELDEDEBUG_H
 
+#include "uniAPI.h"
 #include <vector>
 #include <string>
-#include "Retangulo.h"
+#include "Quad.h"
 #include "Cor.h"
 #include "Vetor2D.h"
 
@@ -17,7 +18,7 @@ struct ItemDebug
 	Cor cor;
 };
 
-class PainelDeDebug
+class UNI_API PainelDeDebug
 {
 public:
 	PainelDeDebug();
@@ -47,8 +48,8 @@ public:
 	void depurar(const string& chave, unsigned char valor, const Cor& cor);
 	void depurar(const string& chave, const Vetor2D& valor);
 	void depurar(const string& chave, const Vetor2D& valor, const Cor& cor);
-	void depurar(const string& chave, const Retangulo& valor);
-	void depurar(const string& chave, const Retangulo& valor, const Cor& cor);
+	void depurar(const string& chave, const Quad& valor);
+	void depurar(const string& chave, const Quad& valor, const Cor& cor);
 
 	void removerErro(int indice);
 	void removerDepuracao(int indice);
@@ -116,9 +117,9 @@ private:
 	int maiorLargura;
 	int meio;
 	Vetor2D escalaGlobal;
-	Retangulo retanTitulo;
-	Retangulo retanFechar;
-	Retangulo retanMinimizar;
+	Quad retanTitulo;
+	Quad retanFechar;
+	Quad retanMinimizar;
 	
 	Cor corFundo;
 	Cor corContorno;

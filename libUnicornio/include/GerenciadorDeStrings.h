@@ -1,11 +1,12 @@
 #ifndef UNI_GERENCIADORDESTRINGS_H
 #define UNI_GERENCIADORDESTRINGS_H
 
+#include "uniAPI.h"
 #include "GrupoDeStrings.h"
 
 using namespace std;
 
-class GerenciadorDeStrings
+class UNI_API GerenciadorDeStrings
 {
 public:
 	GerenciadorDeStrings();

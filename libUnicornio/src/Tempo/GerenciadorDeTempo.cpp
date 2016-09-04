@@ -43,12 +43,27 @@ void GerenciadorDeTempo::atualizar(bool limitarFPS)
 			if (delay > 1000)
 				SDL_Delay(1);
 
-			deltaTempoUs = (1000000 * (SDL_GetPerformanceCounter() - tickAntes)) / SDL_GetPerformanceFrequency();	//	deltaTempo em milisegundos
+			deltaTempoUs = (1000000 * (SDL_GetPerformanceCounter() - tickAntes)) / SDL_GetPerformanceFrequency();	//	deltaTempo em microsegundos
 			delay = (int)(framerateUs - deltaTempoUs);
 		}
 	}
 
 	tickAntes = tickAtual;
+}
+
+Uint64 GerenciadorDeTempo::getTicks()
+{
+	return SDL_GetPerformanceCounter();
+}
+
+double GerenciadorDeTempo::getTempoEntreTicks(Uint64 ticksInicio, Uint64 ticksFim)
+{
+	return ((double)(ticksFim - ticksInicio)) / (double)SDL_GetPerformanceFrequency();
+}
+
+double GerenciadorDeTempo::getTempoAteTickAtual(Uint64 ticksAnterior)
+{
+	return getTempoEntreTicks(ticksAnterior, SDL_GetPerformanceCounter());
 }
 
 double GerenciadorDeTempo::getFPS()

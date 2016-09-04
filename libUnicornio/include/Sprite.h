@@ -1,11 +1,28 @@
 #ifndef UNI_SPRITE_H
 #define UNI_SPRITE_H
 
+#include "uniAPI.h"
 #include "SpriteSheet.h"
 #include "Vetor2D.h"
 #include "Cor.h"
 
-class Sprite
+enum EnumFlagsSprite
+{
+	FLAG_SPRITE_NENHUM = 0,
+
+	FLAG_SPRITE_INV_X = 1 << 0,		//	SDL_FLIP_HORIZONTAL
+	FLAG_SPRITE_INV_Y = 1 << 1,		//	SDL_FLIP_VERTICAL
+	FLAG_SPRITE_INV_XY = FLAG_SPRITE_INV_X | FLAG_SPRITE_INV_Y,
+
+	FLAG_SPRITE_ANIM_AO_CONTRARIO = 1 << 2,
+	FLAG_SPRITE_ANIM_PAUSADA = 1 << 3,
+	FLAG_SPRITE_ANIM_TERMINOU = 1 << 4,
+
+	FLAG_SPRITE_ULTIMA = FLAG_SPRITE_ANIM_TERMINOU,	//	Ultima flag
+	FLAG_SPRITE_MAX = 1 << 8	//	Maximo de flags (Uint8)
+};
+
+class UNI_API Sprite
 {	
 public:
 	Sprite();
@@ -37,6 +54,7 @@ public:
 	int getCorVerde();
 	int getCorAzul();
 	int getCorAlpha();
+	bool estaTocandoAnimacaoAoContrario();
 	SpriteSheet *getSpriteSheet();
 
 	void obterAncora(float &ax, float &ay);
@@ -71,21 +89,18 @@ public:
 
 	void recomecarAnimacao();
 	void avancarAnimacao();
-	void avancarAnimacao(double dt);
+	void avancarAnimacao(float dt);
 	bool desenhar(int x, int y, float rot = 0.0f);
 
 protected:
 	SpriteSheet *sheet;
 	Uint8 frame_atual;
 	Uint8 anim_atual;
-	double tempo_anim;
+	float tempo_anim;
 	float vel_anim;
 	Vetor2D escala;
 	Vetor2D ancora;
-	Uint8 flip_mode;
-	bool animacao_ao_contrario;
-	bool pause;
-	bool terminou_anim;
+	Uint8 flags;
 	SDL_Color cor;
 };
 

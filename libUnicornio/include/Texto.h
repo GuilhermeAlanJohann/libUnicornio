@@ -1,24 +1,25 @@
 #ifndef UNI_TEXTO_H
 #define UNI_TEXTO_H
 
+#include "uniAPI.h"
 #include "Fonte.h"
 #include "Vetor2D.h"
 
-enum EnumAlinhamentoTexto
+enum UNI_API EnumAlinhamentoTexto
 {
 	TEXTO_ALINHADO_A_ESQUERDA,
 	TEXTO_ALINHADO_A_DIREITA,
 	TEXTO_CENTRALIZADO //TEXTO_ALINHADO_AO_CENTRO
 };
 
-struct Letra
+struct UNI_API Letra
 {
 	Glifo* glifo;
 	Cor cor;
 	bool fimDeLinha;	//	uso interno. Não mudar.
 };
 
-class Texto
+class UNI_API Texto
 {
 public:
 	Texto();

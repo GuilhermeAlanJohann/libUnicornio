@@ -1,13 +1,14 @@
 #ifndef UNI_CAMADADETILES_H
 #define UNI_CAMADADETILES_H
 
+#include "uniAPI.h"
 #include <vector>
 #include <string>
 #include <SDL.h>
 
 using namespace std;
 
-class CamadaDeTiles
+class UNI_API CamadaDeTiles
 {
 public:
 	CamadaDeTiles();

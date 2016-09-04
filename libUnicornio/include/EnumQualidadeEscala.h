@@ -1,7 +1,9 @@
 #ifndef UNI_ENUMQUALIDADEESCALA_H
 #define UNI_ENUMQUALIDADEESCALA_H
 
-enum EnumQualidadeEscala
+#include "uniAPI.h"
+
+enum UNI_API EnumQualidadeEscala
 {
 	QUALIDADE_ESCALA_BAIXA,
 	QUALIDADE_ESCALA_MEDIA,

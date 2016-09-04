@@ -1,16 +1,19 @@
 #ifndef UNI_OBJETOTILEMAP_H
 #define UNI_OBJETOTILEMAP_H
 
+#include "uniAPI.h"
 #include "Sprite.h"
+#include "Tile.h"
 #include <map>
 
 class CamadaDeObjetosTileMap;
+class TileMap;
 
-class ObjetoTileMap
+class UNI_API ObjetoTileMap
 {
 public:
 	ObjetoTileMap();
-	~ObjetoTileMap();
+	virtual ~ObjetoTileMap();
 
 	bool operator==(const ObjetoTileMap &outro);
 	bool operator!=(const ObjetoTileMap &outro);
@@ -20,6 +23,7 @@ public:
 
 	string getNome();
 	string getTipo();
+	NivelTile getNivel();
 
 	float getX();
 	float getY();
@@ -33,9 +37,10 @@ public:
 	float getLargura();
 	float getAltura();
 
-	void* getDadoDeUsuario();
+	void* getPtr();
 
 	CamadaDeObjetosTileMap *getCamada();
+	TileMap *getTileMap();
 
 	string getPropriedade(string nome);
 
@@ -48,6 +53,7 @@ public:
 
 	void setNome(string nome);
 	void setTipo(string tipo);
+	void setNivel(NivelTile nivel);
 
 	void setX(float x);
 	void setY(float y);
@@ -64,13 +70,16 @@ public:
 	void setAltura(float alt);
 	void setTamanho(float larg, float alt);
 
-	void setDadoDeUsuario(void *dado);
+	void setPtr(void *ptr);
 
 	void setCamada(CamadaDeObjetosTileMap *camada);
 
 	void setPropriedade(string nome, string valor);
 
-	void desenhar(int px, int py);
+	virtual void desenhar(int px, int py);
+
+	//	uso interno
+	int _indiceNaCamada;
 
 protected:
 	Sprite *spr;
@@ -78,15 +87,16 @@ protected:
 
 	string nome;
 	string tipo;
+	NivelTile nivel;
 
 	float x, y, rot;
 	float larg, alt;
 
-	void* dadoDeUsuario;
+	void* voidPtr;
 
 	CamadaDeObjetosTileMap *camada;
 
-	map<string, string> propriedades;
+	map<string, string>* propriedades;
 };
 
 #endif

@@ -1,7 +1,9 @@
 #ifndef UNI_FILTRODEEVENTOSDEAPP_H
 #define UNI_FILTRODEEVENTOSDEAPP_H
 
-class FiltroDeEventosDeApp
+#include "uniAPI.h"
+
+class UNI_API FiltroDeEventosDeApp
 {
 public:
 	FiltroDeEventosDeApp();

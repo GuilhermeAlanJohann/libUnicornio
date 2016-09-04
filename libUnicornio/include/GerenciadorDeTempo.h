@@ -1,9 +1,10 @@
 #ifndef UNI_GERENCIADORDETEMPO_H
 #define UNI_GERENCIADORDETEMPO_H
 
+#include "uniAPI.h"
 #include "SDL_timer.h"
 
-class GerenciadorDeTempo
+class UNI_API GerenciadorDeTempo
 {
 public:
 	GerenciadorDeTempo();
@@ -13,6 +14,10 @@ public:
 	void finalizar();
 
 	void atualizar(bool limitarFPS);
+
+	Uint64 getTicks();
+	double getTempoEntreTicks(Uint64 ticksInicio, Uint64 ticksFim);
+	double getTempoAteTickAtual(Uint64 ticksAnterior);
 
 	double getFPS();
 	Uint32 getLimiteFPS();

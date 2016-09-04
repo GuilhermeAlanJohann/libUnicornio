@@ -20,7 +20,7 @@ public:
 	GraficoEasing botoes[MAX_FUNCS_EASING];
 	int atual;
 
-	Retangulo retan;
+	Quad retan;
 
 	GraficoEasing tipos[3];
 

@@ -1,9 +1,10 @@
 #ifndef UNI_FADE_H
 #define UNI_FADE_H
 
+#include "uniAPI.h"
 #include "Cor.h"
 
-class Fading
+class UNI_API Fading
 {
 public:
 	Fading();

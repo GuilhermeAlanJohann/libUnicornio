@@ -40,6 +40,7 @@
     <ClCompile Include="..\..\src\IA\TravessiaAStar.cpp" />
     <ClCompile Include="..\..\src\Interface\BotaoSprite.cpp" />
     <ClCompile Include="..\..\src\json\jsoncpp.cpp" />
+    <ClCompile Include="..\..\src\Quad.cpp" />
     <ClCompile Include="..\..\src\Recursos\GerenciadorDeRecursos.cpp" />
     <ClCompile Include="..\..\src\Render\Cor.cpp" />
     <ClCompile Include="..\..\src\Render\Fading.cpp" />
@@ -49,6 +50,9 @@
     <ClCompile Include="..\..\src\Render\Sprite.cpp" />
     <ClCompile Include="..\..\src\Render\SpriteSheet.cpp" />
     <ClCompile Include="..\..\src\Render\Texto.cpp" />
+    <ClCompile Include="..\..\src\Render\Textura.cpp" />
+    <ClCompile Include="..\..\src\Render\TexturaAlvo.cpp" />
+    <ClCompile Include="..\..\src\Render\TexturaBase.cpp" />
     <ClCompile Include="..\..\src\Strings\GerenciadorDeStrings.cpp" />
     <ClCompile Include="..\..\src\Strings\GrupoDeStrings.cpp" />
     <ClCompile Include="..\..\src\Tempo\GerenciadorDeTempo.cpp" />
@@ -103,12 +107,15 @@
     <ClInclude Include="..\..\include\ObjetoTileMap.h" />
     <ClInclude Include="..\..\include\PainelDeDebug.h" />
     <ClInclude Include="..\..\include\Preferencias.h" />
+    <ClInclude Include="..\..\include\Quad.h" />
     <ClInclude Include="..\..\include\RedeNeural.h" />
-    <ClInclude Include="..\..\include\Retangulo.h" />
     <ClInclude Include="..\..\include\Som.h" />
     <ClInclude Include="..\..\include\Sprite.h" />
     <ClInclude Include="..\..\include\SpriteSheet.h" />
     <ClInclude Include="..\..\include\Texto.h" />
+    <ClInclude Include="..\..\include\Textura.h" />
+    <ClInclude Include="..\..\include\TexturaAlvo.h" />
+    <ClInclude Include="..\..\include\TexturaBase.h" />
     <ClInclude Include="..\..\include\Tile.h" />
     <ClInclude Include="..\..\include\TileMap.h" />
     <ClInclude Include="..\..\include\TileSet.h" />

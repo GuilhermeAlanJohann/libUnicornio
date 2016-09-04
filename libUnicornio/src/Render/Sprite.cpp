@@ -1,9 +1,9 @@
 #include "Sprite.h"
-#include "uniFuncoesPrincipais.h"
+//#include "uniFuncoesPrincipais.h"
 #include "Global.h"
 
 Sprite::Sprite()
-	:sheet(NULL), frame_atual(0), anim_atual(0), tempo_anim(0.0), vel_anim(2.0f), flip_mode(SDL_FLIP_NONE), animacao_ao_contrario(false), pause(false)
+	:sheet(NULL), frame_atual(0), anim_atual(0), tempo_anim(0.0), vel_anim(2.0f)
 {
 	ancora.set(0.5f, 0.5f);
 	escala.set(1.0f, 1.0f);
@@ -11,7 +11,7 @@ Sprite::Sprite()
 	cor.g = 255;
 	cor.b = 255;
 	cor.a = 255;
-	terminou_anim = false;
+	flags = FLAG_SPRITE_NENHUM;
 }
 
 Sprite::Sprite(const Sprite &cp)
@@ -23,11 +23,8 @@ Sprite::Sprite(const Sprite &cp)
 	vel_anim = cp.vel_anim;
 	ancora = cp.ancora;
 	escala = cp.escala;
-	flip_mode = cp.flip_mode;
-	animacao_ao_contrario = cp.animacao_ao_contrario;
-	pause = cp.pause;
+	flags = cp.flags;
 	cor = cp.cor;
-	terminou_anim = cp.terminou_anim;
 }
 
 Sprite::~Sprite()
@@ -46,11 +43,8 @@ Sprite& Sprite::operator=(const Sprite &r)
 		vel_anim = r.vel_anim;
 		ancora = r.ancora;
 		escala = r.escala;
-		flip_mode = r.flip_mode;
-		animacao_ao_contrario = r.animacao_ao_contrario;
-		pause = r.pause;
+		flags = r.flags;
 		cor = r.cor;
-		terminou_anim = r.terminou_anim;
 	}
 
 	return *this;
@@ -65,14 +59,11 @@ bool Sprite::operator==(const Sprite &r)
 		&& tempo_anim == r.tempo_anim 
 		&& ancora == r.ancora 
 		&& escala == r.escala
-		&& flip_mode == r.flip_mode 
-		&& animacao_ao_contrario == r.animacao_ao_contrario 
-		&& pause == r.pause 
+		&& flags == r.flags
 		&& cor.r == r.cor.r 
 		&& cor.g == r.cor.g 
 		&& cor.b == r.cor.b 
-		&& cor.a == r.cor.a 
-		&& terminou_anim == r.terminou_anim);
+		&& cor.a == r.cor.a );
 }
 
 bool Sprite::operator!=(const Sprite &r)
@@ -115,7 +106,7 @@ int	Sprite::getLargura()
 	if (!sheet)
 		return 0;
 
-	return (int)(sheet->getRetanguloFrame(anim_atual, frame_atual)->largura*escala.x);
+	return (int)(sheet->getRetanguloFrame(anim_atual, frame_atual)->larg*escala.x);
 }
 
 int Sprite::getAltura()
@@ -123,7 +114,7 @@ int Sprite::getAltura()
 	if (!sheet)
 		return 0;
 
-	return (int)(sheet->getRetanguloFrame(anim_atual, frame_atual)->altura*escala.y);
+	return (int)(sheet->getRetanguloFrame(anim_atual, frame_atual)->alt*escala.y);
 }
 
 int	Sprite::getLarguraOriginal()
@@ -131,7 +122,7 @@ int	Sprite::getLarguraOriginal()
 	if (!sheet)
 		return 0;
 
-	return sheet->getRetanguloFrame(anim_atual, frame_atual)->largura;
+	return sheet->getRetanguloFrame(anim_atual, frame_atual)->larg;
 }
 
 int Sprite::getAlturaOriginal()
@@ -139,7 +130,7 @@ int Sprite::getAlturaOriginal()
 	if (!sheet)
 		return 0;
 
-	return sheet->getRetanguloFrame(anim_atual, frame_atual)->altura;
+	return sheet->getRetanguloFrame(anim_atual, frame_atual)->alt;
 }
 
 int Sprite::getAnimacao()
@@ -159,17 +150,19 @@ float Sprite::getVelocidadeAnimacao()
 
 bool Sprite::getPause()
 {
-	return pause;
+	return (flags & FLAG_SPRITE_ANIM_PAUSADA) != 0;
 }
 
 bool Sprite::getInverterX()
 {
-	return (flip_mode & SDL_FLIP_HORIZONTAL) != 0;
+	Uint8 flip = flags & FLAG_SPRITE_INV_XY;
+	return (flip & FLAG_SPRITE_INV_X) != 0;
 }
 
 bool Sprite::getInverterY()
 {
-	return (flip_mode & SDL_FLIP_VERTICAL) != 0;
+	Uint8 flip = flags & FLAG_SPRITE_INV_XY;
+	return (flip & FLAG_SPRITE_INV_Y) != 0;
 }
 
 Cor Sprite::getCor()
@@ -197,6 +190,11 @@ int Sprite::getCorAlpha()
 	return cor.a;
 }
 
+bool Sprite::estaTocandoAnimacaoAoContrario()
+{
+	return (flags & FLAG_SPRITE_ANIM_AO_CONTRARIO) != 0;
+}
+
 SpriteSheet *Sprite::getSpriteSheet()
 {
 	return sheet;
@@ -218,9 +216,9 @@ void Sprite::obterTamanho(int &larg, int &alt)
 {
 	if (sheet)
 	{
-		Retangulo* f = sheet->getRetanguloFrame(anim_atual, frame_atual);
-		larg = (int)(f->largura*escala.x);
-		alt = (int)(f->altura*escala.y);
+		Quad* f = sheet->getRetanguloFrame(anim_atual, frame_atual);
+		larg = (int)(f->larg*escala.x);
+		alt = (int)(f->alt*escala.y);
 	}
 	else
 	{
@@ -232,9 +230,9 @@ void Sprite::obterTamanhoOriginal(int &larg, int &alt)
 {
 	if (sheet)
 	{
-		Retangulo* f = sheet->getRetanguloFrame(anim_atual, frame_atual);
-		larg = f->largura;
-		alt = f->altura;
+		Quad* f = sheet->getRetanguloFrame(anim_atual, frame_atual);
+		larg = f->larg;
+		alt = f->alt;
 	}
 	else
 	{
@@ -259,7 +257,7 @@ void Sprite::obterCor(int &r, int &g, int &b, int &a)
 
 bool Sprite::terminouAnimacao()
 {
-	return terminou_anim;
+	return (flags & FLAG_SPRITE_ANIM_TERMINOU) != 0;
 }
 
 void Sprite::setAncora(Vetor2D anc)
@@ -312,45 +310,26 @@ void Sprite::setVelocidadeAnimacao(float vel)
 
 void Sprite::setPause(bool p)
 {
-	pause = p;
+	if (p)
+		flags = flags | FLAG_SPRITE_ANIM_PAUSADA;
+	else
+		flags = flags & ~FLAG_SPRITE_ANIM_PAUSADA;
 }
 
 void Sprite::setInverterX(bool b)
 {
-	if(b)
-	{
-		flip_mode = (SDL_RendererFlip)(flip_mode | SDL_FLIP_HORIZONTAL);
-	}
+	if (b)
+		flags = flags | FLAG_SPRITE_INV_X;
 	else
-	{
-		if((flip_mode & SDL_FLIP_VERTICAL) == SDL_FLIP_VERTICAL)
-		{
-			flip_mode = SDL_FLIP_VERTICAL;
-		}
-		else
-		{
-			flip_mode = SDL_FLIP_NONE;
-		}
-	}
+		flags = flags & ~FLAG_SPRITE_INV_X;
 }
 
 void Sprite::setInverterY(bool b)
 {
-	if(b)
-	{
-		flip_mode = (SDL_RendererFlip)(flip_mode | SDL_FLIP_VERTICAL);
-	}
+	if (b)
+		flags = flags | FLAG_SPRITE_INV_Y;
 	else
-	{
-		if((flip_mode & SDL_FLIP_HORIZONTAL) == SDL_FLIP_HORIZONTAL)
-		{
-			flip_mode = SDL_FLIP_HORIZONTAL;
-		}
-		else
-		{
-			flip_mode = SDL_FLIP_NONE;
-		}
-	}
+		flags = flags & ~FLAG_SPRITE_INV_Y;
 }
 
 void Sprite::setCor(Cor cor)
@@ -395,7 +374,10 @@ void Sprite::setCorAlpha(int alpha)
 
 void Sprite::setAnimacaoAoContrario(bool b)
 {
-	animacao_ao_contrario = b;
+	if (b)
+		flags = flags | FLAG_SPRITE_ANIM_AO_CONTRARIO;
+	else
+		flags = flags & ~FLAG_SPRITE_ANIM_AO_CONTRARIO;
 }
 
 void Sprite::setSpriteSheet(string nome)
@@ -406,9 +388,7 @@ void Sprite::setSpriteSheet(string nome)
 void Sprite::setSpriteSheet(SpriteSheet *sheet)
 {
 	if(!sheet)
-	{
 		return;
-	}
 
 	this->sheet = sheet;
 
@@ -418,7 +398,7 @@ void Sprite::setSpriteSheet(SpriteSheet *sheet)
 
 void Sprite::recomecarAnimacao()
 {
-	if(animacao_ao_contrario)
+	if(flags & FLAG_SPRITE_ANIM_AO_CONTRARIO)
 	{
 		frame_atual = sheet->getNumFramesDaAnimacao(anim_atual)-1;
 		tempo_anim = sheet->getNumFramesDaAnimacao(anim_atual)/vel_anim;
@@ -429,7 +409,7 @@ void Sprite::recomecarAnimacao()
 		tempo_anim = 0;
 	}
 
-	terminou_anim = false;
+	flags = flags & ~FLAG_SPRITE_ANIM_TERMINOU;
 }
 
 void Sprite::avancarAnimacao()
@@ -437,45 +417,37 @@ void Sprite::avancarAnimacao()
 	avancarAnimacao(gTempo.getDeltaTempo());
 }
 
-void Sprite::avancarAnimacao(double dt)
+void Sprite::avancarAnimacao(float dt)
 {
-	if(pause)
-	{
+	if(flags & FLAG_SPRITE_ANIM_PAUSADA)
 		return;
-	}
 
-	if(vel_anim == 0)
-	{
+	if(vel_anim == 0.0f)
 		return;
-	}
 
 	float max_frames = (float)sheet->getNumFramesDaAnimacao(anim_atual);
 
-	if(animacao_ao_contrario)
+	if(flags & FLAG_SPRITE_ANIM_AO_CONTRARIO)
 	{
 		tempo_anim -= dt;
-		if(tempo_anim <= 0.0f && !terminou_anim)
-			terminou_anim = true;
+		if (tempo_anim <= 0.0f && !terminouAnimacao())
+			flags |= FLAG_SPRITE_ANIM_TERMINOU;
 		else
-			terminou_anim = false;
+			flags &= ~FLAG_SPRITE_ANIM_TERMINOU;
 
 		while(tempo_anim < 0)
-		{
-			tempo_anim += max_frames/vel_anim;
-		}
+			tempo_anim += max_frames/vel_anim;		
 	}
 	else
 	{
 		tempo_anim += dt;
-		if(tempo_anim >= max_frames/vel_anim && !terminou_anim)
-			terminou_anim = true;
+		if(tempo_anim >= max_frames/vel_anim && !terminouAnimacao())
+			flags |= FLAG_SPRITE_ANIM_TERMINOU;
 		else
-			terminou_anim = false;
+			flags &= ~FLAG_SPRITE_ANIM_TERMINOU;
 
 		while(tempo_anim > max_frames/vel_anim)
-		{
 			tempo_anim -= max_frames/vel_anim;
-		}
 	}
 
 	frame_atual = (int)(tempo_anim*vel_anim);
@@ -483,8 +455,8 @@ void Sprite::avancarAnimacao(double dt)
 
 bool Sprite::desenhar(int x, int y, float rot)
 {
-	if(!uniEstaInicializada()) 
-		return false;
+	//if(!uniEstaInicializada()) 
+		//return false;
 
 	if(!sheet)
 	{
@@ -492,29 +464,7 @@ bool Sprite::desenhar(int x, int y, float rot)
 		return false;
 	}
 
-	Retangulo* f = sheet->getRetanguloFrame(anim_atual, frame_atual);
-
-	SDL_Rect clip;
-	clip.x = f->x;
-	clip.y = f->y;
-	clip.w = f->largura;
-	clip.h = f->altura;
-
-	SDL_Rect rect;
-	rect.w = (int)(clip.w*escala.x);
-	rect.h = (int)(clip.h*escala.y);
-
-    SDL_Point pivot = {(int)(rect.w * ancora.x), (int)(rect.h * ancora.y)};
-
-	rect.x = x - pivot.x;
-	rect.y = y - pivot.y;
-
-	// seta cor
-	SDL_SetTextureColorMod(sheet->getSDL_Texture(), cor.r, cor.g, cor.b);
-	SDL_SetTextureAlphaMod(sheet->getSDL_Texture(), cor.a);
-
-    //	Draw the texture
-	SDL_RenderCopyEx(gJanela.sdl_renderer, sheet->getSDL_Texture(), &clip, &rect, rot, &pivot, (SDL_RendererFlip)flip_mode);
-
-	return true;
+	Quad* f = sheet->getRetanguloFrame(anim_atual, frame_atual);
+	int inverter = flags & FLAG_SPRITE_INV_XY;
+	return gGraficos.desenharTextura(sheet->getTextura(), *f, x, y, rot, ancora.x, ancora.y, escala.x, escala.y, cor, (EnumInverterDesenho)inverter);
 }

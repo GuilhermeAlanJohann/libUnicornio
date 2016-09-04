@@ -2,15 +2,11 @@
 #include "uniFuncoesPrincipais.h"
 #include "Global.h"
 #include "SDL_ttf.h"
-#include "SDL_image.h"
 
 Fonte::Fonte()
 {
-	carregada = false;
 	ttf = false;
-	sdl_texture = NULL;
 	estilo = FONTE_ESTILO_NORMAL;
-	qualidadeEscala = QUALIDADE_ESCALA_BAIXA;
 	larguraGlifos = 0;
 	alturaGlifos = 0;
 	ascent = 0;
@@ -44,29 +40,24 @@ bool Fonte::carregar(const string& arquivo, const string& caracteres, int num_gl
 
 bool Fonte::descarregar()
 {
-	if (sdl_texture)
+	if (tex.destruir())
 	{
-		SDL_DestroyTexture(sdl_texture);
-		sdl_texture = NULL;
+		glifos.clear();
+		ttf = false;
+		estilo = FONTE_ESTILO_NORMAL;
+		larguraGlifos = 0;
+		ascent = 0;
+		alturaGlifos = 0;
+		glifoNulo = Glifo();
+		monoespacada = false;
+		return true;
 	}
-
-	glifos.clear();
-	caminhoArquivo.clear();
-	carregada = false;
-	ttf = false;
-	estilo = FONTE_ESTILO_NORMAL;
-	qualidadeEscala = QUALIDADE_ESCALA_BAIXA;
-	larguraGlifos = 0;
-	ascent = 0;
-	alturaGlifos = 0;
-	glifoNulo = Glifo();
-	monoespacada = false;
-	return true;
+	return false;
 }
 
 bool Fonte::estaCarregada()
 {
-	return carregada;
+	return tex.estaCriada();
 }
 
 bool Fonte::eMonoespacada()
@@ -172,32 +163,37 @@ int Fonte::getEstilo()
 
 int Fonte::getQualidadeEscala()
 {
-	return qualidadeEscala;
+	return tex.getQualidadeDeEscala();
+}
+
+Textura* Fonte::getTextura()
+{
+	return &tex;
 }
 
 SDL_Texture* Fonte::getSDL_Texture()
 {
-	return sdl_texture;
+	return tex.getSDL_Texture();
 }
 
 string Fonte::getCaminhoDoArquivo()
 {
-	return caminhoArquivo;
+	return tex.getCaminhoDoArquivo();
 }
 
 Fonte Fonte::clonar()
 {
 	Fonte r;
-	if (estaCarregada())
-	{
-		if (ttf)
-			r.carregar(caminhoArquivo, getTamanho(), getEstilo(), glifos[0].caractere, glifos[glifos.size() - 1].caractere);
-		else
-		{
-			r.carregar(caminhoArquivo, " ", numGlifosX, numGlifosY);
-			r.glifos = glifos;
-		}
-	}
+	r.tex.clonar();
+	r.glifos = glifos;
+	r.glifoNulo = glifoNulo;
+	r.estilo = estilo;
+	r.numGlifosX = numGlifosX;
+	r.numGlifosY = numGlifosY;
+	r.larguraGlifos = larguraGlifos;
+	r.alturaGlifos = alturaGlifos;
+	r.ascent = ascent;
+	r.monoespacada = monoespacada;
 	return r;
 }
 
@@ -219,45 +215,31 @@ void Fonte::setCaracteres(const wstring& caracteres)
 	}
 }
 
-void Fonte::desenharGlifo(Uint16 caractere, const Retangulo& destino, const Cor& cor)
+void Fonte::desenharGlifo(Uint16 caractere, Quad& destino, const Cor& cor)
 {
 	Glifo* g = getGlifo(caractere);
-	SDL_SetTextureColorMod(sdl_texture, cor.r, cor.g, cor.b);
-	SDL_SetTextureAlphaMod(sdl_texture, cor.a);
-	SDL_Rect src = g->getSDL_Rect();
-	SDL_Rect dest = destino.getSDL_Rect();
-	SDL_RenderCopy(gJanela.sdl_renderer, sdl_texture, &src, &dest);
+	destino.x += g->dx;
+	float escala_y = destino.alt/(float)g->quad.alt;
+	destino.y += (ascent - g->alturaAcimaDaBase)*escala_y;
+	gGraficos.desenharTextura(&tex, g->quad, destino, cor);
 }
 
-void Fonte::desenharGlifo(Uint16 caractere, int x_esq, int y_cima, int x_texto, int y_texto, float rot_texto, const Vetor2D& escala_texto, SDL_RendererFlip flip_mode, const Cor& cor)
+void Fonte::desenharGlifo(Uint16 caractere, int x_esq, int y_cima, int x_texto, int y_texto, float rot_texto, const Vetor2D& escala_texto, const Cor& cor, EnumInverterDesenho inverter)
 {
 	Glifo* g = getGlifo(caractere);
-	SDL_Rect destino;
-	destino.w = g->largura*escala_texto.x;
-	destino.h = g->altura*escala_texto.y;
-	destino.x = x_esq + g->dx;
-	destino.y = y_cima;
-	destino.y += (ascent - g->alturaAcimaDaBase)*escala_texto.y;
-	SDL_Point center = { x_texto - destino.x, y_texto - destino.y };
-	SDL_SetTextureColorMod(sdl_texture, cor.r, cor.g, cor.b);
-	SDL_SetTextureAlphaMod(sdl_texture, cor.a);
-	SDL_Rect src = g->getSDL_Rect();
-	SDL_RenderCopyEx(gJanela.sdl_renderer, sdl_texture, &src, &destino, rot_texto, &center, flip_mode);
+	desenharGlifo(getGlifo(caractere), x_esq, y_cima, x_texto, y_texto, rot_texto, escala_texto, cor, inverter);
 }
 
-void Fonte::desenharGlifo(Glifo* glifo, int x_esq, int y_cima, int x_texto, int y_texto, float rot_texto, const Vetor2D& escala_texto, SDL_RendererFlip flip_mode, const Cor& cor)
+void Fonte::desenharGlifo(Glifo* glifo, int x_esq, int y_cima, int x_texto, int y_texto, float rot_texto, const Vetor2D& escala_texto, const Cor& cor, EnumInverterDesenho inverter)
 {
-	SDL_Rect destino;
-	destino.w = glifo->largura*escala_texto.x;
-	destino.h = glifo->altura*escala_texto.y;
+	Quad destino;
+	destino.larg = glifo->quad.larg*escala_texto.x;
+	destino.alt = glifo->quad.alt*escala_texto.y;
 	destino.x = x_esq + glifo->dx;
 	destino.y = y_cima;
 	destino.y += (ascent - glifo->alturaAcimaDaBase)*escala_texto.y;
 	SDL_Point center = { x_texto - destino.x, y_texto - destino.y };
-	SDL_SetTextureColorMod(sdl_texture, cor.r, cor.g, cor.b);
-	SDL_SetTextureAlphaMod(sdl_texture, cor.a);
-	SDL_Rect src = glifo->getSDL_Rect();
-	SDL_RenderCopyEx(gJanela.sdl_renderer, sdl_texture, &src, &destino, rot_texto, &center, flip_mode);
+	gGraficos.desenharTextura(&tex, glifo->quad, destino, rot_texto, center.x, center.y, cor, inverter);
 }
 
 bool Fonte::carregarTrueType(const string& arquivo, int tamanho, int estilo, Uint16 primeiro_glifo, Uint16 ultimo_glifo, EnumQualidadeEscala qualidade_escala)
@@ -270,7 +252,7 @@ bool Fonte::carregarTrueType(const string& arquivo, int tamanho, int estilo, Uin
 
 	if (estaCarregada())
 	{
-		gDebug.erro("Arquivo '" + arquivo + "' nao pode ser carregado, pois Fonte ja carregou o arquivo " + caminhoArquivo + ".");
+		gDebug.erro("Arquivo '" + arquivo + "' nao pode ser carregado, pois Fonte ja carregou o arquivo " + tex.getCaminhoDoArquivo() + ".");
 		return false;
 	}
 
@@ -289,15 +271,13 @@ bool Fonte::carregarTrueType(const string& arquivo, int tamanho, int estilo, Uin
 		gDebug.erro("Erro ao criar textura para fonte ttf, usando arquivo: '" + arquivo + "' - " + SDL_GetError() + ".");
 		return false;
 	}
-	glifoNulo.x = 0;
-	glifoNulo.y = 0;
-	glifoNulo.largura = 0;
-	glifoNulo.altura = 0;
+	glifoNulo.quad.x = 0;
+	glifoNulo.quad.y = 0;
+	glifoNulo.quad.larg = 0;
+	glifoNulo.quad.alt = 0;
 	glifoNulo.alturaAcimaDaBase = 0;
 	glifoNulo.avanco = tamanho;
 	glifoNulo.caractere = 0;
-
-	caminhoArquivo = arquivo;
 
 	this->estilo = estilo;
 	monoespacada = TTF_FontFaceIsFixedWidth(ttf_font) > 0;
@@ -305,7 +285,6 @@ bool Fonte::carregarTrueType(const string& arquivo, int tamanho, int estilo, Uin
 	larguraGlifos = tamanho;
 	alturaGlifos = TTF_FontHeight(ttf_font);
 
-	carregada = true;
 	ttf = true;
 	return true;
 }
@@ -320,7 +299,7 @@ bool Fonte::carregarBitmap(const string& arquivo, const wstring& caracteres, int
 
 	if (estaCarregada())
 	{
-		gDebug.erro("Arquivo '" + arquivo + "' nao pode ser carregado, pois Fonte ja carregou o arquivo " + caminhoArquivo + ".");
+		gDebug.erro("Arquivo '" + arquivo + "' nao pode ser carregado, pois Fonte ja carregou o arquivo " + tex.getCaminhoDoArquivo() + ".");
 		return false;
 	}
 
@@ -338,7 +317,7 @@ bool Fonte::carregarBitmap(const string& arquivo, const wstring& caracteres, int
 	}
 
 	int larg, alt;
-	SDL_QueryTexture(sdl_texture, NULL, NULL, &larg, &alt);
+	tex.obterTamanho(larg, alt);
 	larg /= num_glifos_x;
 	alt /= num_glifos_y;
 	ascent = alt;
@@ -350,11 +329,11 @@ bool Fonte::carregarBitmap(const string& arquivo, const wstring& caracteres, int
 	{
 		Glifo* g = &glifos[i];
 		g->caractere = (Uint16)caracteres[i];
-		g->altura = alt;
-		g->largura = larg;
+		g->quad.alt = alt;
+		g->quad.larg = larg;
 		g->avanco = larg;
-		g->x = (i % num_glifos_x)*larg;
-		g->y = (i / num_glifos_x)*alt;
+		g->quad.x = (i % num_glifos_x)*larg;
+		g->quad.y = (i / num_glifos_x)*alt;
 		g->dx = 0;
 		g->alturaAcimaDaBase = alt;
 	}
@@ -369,25 +348,22 @@ bool Fonte::carregarBitmap(const string& arquivo, const wstring& caracteres, int
 				glifos[j] = temp;
 			}
 		}
-	glifoNulo.x = 0;
-	glifoNulo.y = 0;
-	glifoNulo.largura = 0;
-	glifoNulo.altura = 0;
+	glifoNulo.quad.x = 0;
+	glifoNulo.quad.y = 0;
+	glifoNulo.quad.larg = 0;
+	glifoNulo.quad.alt = 0;
 	glifoNulo.dx = 0;
 	glifoNulo.alturaAcimaDaBase = 0;
 	glifoNulo.avanco = larg;
 	glifoNulo.caractere = 0;
 
-	caminhoArquivo = arquivo;
-
 	estilo = FONTE_ESTILO_NORMAL;
 	monoespacada = true;
 	numGlifosX = num_glifos_x;
 	numGlifosY = num_glifos_y;
-	larguraGlifos = glifos[0].largura;
-	alturaGlifos = glifos[0].altura;
+	larguraGlifos = glifos[0].quad.larg;
+	alturaGlifos = glifos[0].quad.alt;
 
-	carregada = true;
 	ttf = false;
 	return true;
 }
@@ -441,9 +417,9 @@ bool Fonte::criarTexturaTrueType(TTF_Font* ttf_font, int tamanho, Uint16 primeir
 	{
 		g = &glifos[i_glifo];
 		g->caractere = i;
-		if (TTF_GlyphIsProvided(ttf_font, i))
+		SDL_Surface* surface_glifo = TTF_RenderGlyph_Blended(ttf_font, g->caractere, cor_glifo);
+		if (surface_glifo)
 		{
-			SDL_Surface* surface_glifo = TTF_RenderGlyph_Blended(ttf_font, g->caractere, cor_glifo);
 			SDL_SetSurfaceBlendMode(surface_glifo, SDL_BLENDMODE_BLEND);
 			rect.x = col*larg_glifo;
 			rect.y = lin*alt_glifo;
@@ -455,20 +431,20 @@ bool Fonte::criarTexturaTrueType(TTF_Font* ttf_font, int tamanho, Uint16 primeir
 			int minx, miny, maxx, maxy, av;
 			TTF_GlyphMetrics(ttf_font, g->caractere, &minx, &maxx, &miny, &maxy, &av);
 			g->avanco = av;
-			g->x = (col*larg_glifo);
-			g->y = (lin*alt_glifo) + ascent - maxy;
-			g->largura = rect.w;
-			g->altura = maxy - miny;
+			g->quad.x = (col*larg_glifo);
+			g->quad.y = (lin*alt_glifo) + ascent - maxy;
+			g->quad.larg = rect.w;
+			g->quad.alt = maxy - miny;
 			g->dx = minx;
 			g->alturaAcimaDaBase = maxy;
 		}
 		else
 		{
 			g->avanco = tamanho;
-			g->x = 0;
-			g->y = 0;
-			g->largura = 0;
-			g->altura = 0;
+			g->quad.x = 0;
+			g->quad.y = 0;
+			g->quad.larg = 0;
+			g->quad.alt = 0;
 			g->dx = 0;
 			g->alturaAcimaDaBase = 0;
 		}
@@ -482,35 +458,19 @@ bool Fonte::criarTexturaTrueType(TTF_Font* ttf_font, int tamanho, Uint16 primeir
 		}
 	}
 
-	char buffer[2];
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, SDL_itoa((int)qualidade_escala, buffer, 10));
-	sdl_texture = SDL_CreateTextureFromSurface(gJanela.sdl_renderer, surface);
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	if (!sdl_texture)
-	{
-		SDL_FreeSurface(surface);
-		return false;
-	}
-	SDL_SetTextureBlendMode(sdl_texture, SDL_BLENDMODE_BLEND);
+	bool r = tex.criarDaSDL_Surface(surface, qualidade_escala);
 	SDL_FreeSurface(surface);
 
-	numGlifosX = glifos_por_linha;
-	numGlifosY = glifos_por_coluna;
-	qualidadeEscala = qualidade_escala;
+	if (r)
+	{
+		numGlifosX = glifos_por_linha;
+		numGlifosY = glifos_por_coluna;
+	}
 
-	return true;
+	return r;
 }
 
 bool Fonte::criarTexturaBitmap(const string& arquivo, EnumQualidadeEscala qualidade_escala)
 {
-	char buffer[2];
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, SDL_itoa((int)qualidade_escala, buffer, 10));
-	sdl_texture = IMG_LoadTexture(gJanela.sdl_renderer, arquivo.c_str());
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-	if (sdl_texture)
-		qualidadeEscala = qualidade_escala;
-	else
-		return false;
-
-	return true;
+	return tex.criarDoArquivo(arquivo, qualidade_escala);
 }

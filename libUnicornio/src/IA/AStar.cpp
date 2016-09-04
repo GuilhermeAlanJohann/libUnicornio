@@ -198,18 +198,21 @@ void AStar::desenharNodo(NodoAStar* nodo, TileMap* tilemap, int r, int g, int b,
 	if (!tilemap)
 		return;
 
-	SDL_Rect rect;
-	tilemap->tileParaTela((int)nodo->pos.x, (int)nodo->pos.y, rect.x, rect.y);
-	rect.w = tilemap->getLarguraTile();
-	rect.h = tilemap->getAlturaTile();
+	Quad retan;
+	int x, y;
+	tilemap->tileParaTela((int)nodo->pos.x, (int)nodo->pos.y, x, y);
+	retan.x = x;
+	retan.y = y;
+	retan.larg = tilemap->getLarguraTile();
+	retan.alt = tilemap->getAlturaTile();
 
-	SDL_SetRenderDrawColor(gJanela.sdl_renderer, r, g, b, a);
-	SDL_RenderFillRect(gJanela.sdl_renderer, &rect);
+	gGraficos.desenharRetangulo(retan, r, g, b, a, true);
 
 	if(desenharPonterioAnterior)
 	{
-		SDL_SetRenderDrawColor(gJanela.sdl_renderer, 255, 255, 255, 255);
-		SDL_RenderDrawLine(gJanela.sdl_renderer, rect.x + rect.w/2, rect.y + rect.h/2, rect.x + rect.w/2 + nodo->posRelativa.x*(-rect.w/2), rect.y + rect.h/2 + nodo->posRelativa.y*(-rect.h/2));
+		x = retan.x + retan.larg / 2;
+		y = retan.y + retan.alt  / 2;
+		gGraficos.desenharLinha(x, y, x + nodo->posRelativa.x*(-retan.larg / 2), y + nodo->posRelativa.y*(-retan.alt / 2), 255, 255, 255, 255);
 	}
 }
 
@@ -233,19 +236,19 @@ void AStar::desenharListaFechada(int px_esq_grade, int py_cima_grade, int larg_t
 
 void AStar::desenharNodo(NodoAStar* nodo, int px_esq_grade, int py_cima_grade, int larg_tile, int alt_tile, int r, int g, int b, int a, bool desenharPonterioAnterior)
 {
-	SDL_Rect rect;
-	rect.x = (nodo->pos.x*larg_tile) + px_esq_grade;
-	rect.y = (nodo->pos.y*alt_tile)  + py_cima_grade;
-	rect.w = larg_tile;
-	rect.h = alt_tile;
+	Quad retan;
+	retan.x = (nodo->pos.x*larg_tile) + px_esq_grade;
+	retan.y = (nodo->pos.y*alt_tile)  + py_cima_grade;
+	retan.larg = larg_tile;
+	retan.alt = alt_tile;
 
-	SDL_SetRenderDrawColor(gJanela.sdl_renderer, r, g, b, a);
-	SDL_RenderFillRect(gJanela.sdl_renderer, &rect);
+	gGraficos.desenharRetangulo(retan, r, g, b, a, true);
 
 	if (desenharPonterioAnterior)
 	{
-		SDL_SetRenderDrawColor(gJanela.sdl_renderer, 255, 255, 255, 255);
-		SDL_RenderDrawLine(gJanela.sdl_renderer, rect.x + rect.w / 2, rect.y + rect.h / 2, rect.x + rect.w / 2 + nodo->posRelativa.x*(-rect.w / 2), rect.y + rect.h / 2 + nodo->posRelativa.y*(-rect.h / 2));
+		int x = retan.x + retan.larg / 2;
+		int y = retan.y + retan.alt / 2;
+		gGraficos.desenharLinha(x, y, x + nodo->posRelativa.x*(-retan.larg / 2), y + nodo->posRelativa.y*(-retan.alt / 2), 255, 255, 255, 255);
 	}
 }
 

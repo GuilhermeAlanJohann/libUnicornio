@@ -1,12 +1,9 @@
 #include "TileSet.h"
 #include "uniFuncoesPrincipais.h"
 #include "Global.h"
-#include "SDL_image.h"
 
 TileSet::TileSet()
 {
-	tex = NULL;
-
 	num_tiles_x = 0;
 	num_tiles_y = 0;
 
@@ -24,7 +21,7 @@ TileSet::~TileSet()
 	}
 }
 
-bool TileSet::carregar(string arquivo, int largura_tiles, int altura_tiles)
+bool TileSet::carregar(const string& arquivo, int largura_tiles, int altura_tiles)
 {
 	if(!uniEstaInicializada())
 	{
@@ -38,12 +35,11 @@ bool TileSet::carregar(string arquivo, int largura_tiles, int altura_tiles)
 		return false;
 	}
 
-	tex = IMG_LoadTexture(gJanela.sdl_renderer, arquivo.c_str());
+	bool r = tex.criarDoArquivo(arquivo, QUALIDADE_ESCALA_BAIXA);
 	
-	if(!tex) 
+	if(!r) 
 	{
 		gDebug.erro("Erro ao carregar arquivo: '" + arquivo + "'.");
-		tex = NULL;
 		return false;
 	}
 
@@ -52,7 +48,7 @@ bool TileSet::carregar(string arquivo, int largura_tiles, int altura_tiles)
 
 	int largura_total;
 	int altura_total;
-	SDL_QueryTexture(tex, NULL, NULL, &largura_total, &altura_total);
+	tex.obterTamanho(largura_total, altura_total);
 
 	num_tiles_x = largura_total/largura_tiles;
 	num_tiles_y = altura_total/altura_tiles;
@@ -62,19 +58,21 @@ bool TileSet::carregar(string arquivo, int largura_tiles, int altura_tiles)
 
 void TileSet::descarregar()
 {
-	SDL_DestroyTexture(tex);
-	tex = NULL;
-	nome = "";
-	num_tiles_x = 0;
-	num_tiles_y = 0;
-	largura_tile = 0;
-	altura_tile = 0;
-	primeiro_ID_Global = -1;
+	if (estaCarregado())
+	{
+		tex.destruir();
+		nome = "";
+		num_tiles_x = 0;
+		num_tiles_y = 0;
+		largura_tile = 0;
+		altura_tile = 0;
+		primeiro_ID_Global = -1;
+	}
 }
 
 bool TileSet::estaCarregado()
 {
-	return (tex);
+	return tex.estaCriada();
 }
 	
 string TileSet::getNome()
@@ -118,12 +116,12 @@ void TileSet::obterTamanhoTiles(int &w, int &h)
 	h = altura_tile;
 }
 
-SDL_Texture* TileSet::getTextura()
+Textura* TileSet::getTextura()
 {
-	return tex;
+	return &tex;
 }
 
-void TileSet::setNome(string nome)
+void TileSet::setNome(const string& nome)
 {
 	this->nome = nome;
 }

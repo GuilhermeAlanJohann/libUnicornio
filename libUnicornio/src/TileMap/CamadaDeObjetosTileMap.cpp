@@ -1,9 +1,10 @@
 #include "CamadaDeObjetosTileMap.h"
+#include "TileMap.h"
 
 CamadaDeObjetosTileMap::CamadaDeObjetosTileMap()
 {
 	visivel = true;
-	nivel = NO_NIVEL_DOS_OBJETOS;
+	tilemap = NULL;
 }
 
 CamadaDeObjetosTileMap::~CamadaDeObjetosTileMap()
@@ -21,11 +22,6 @@ bool CamadaDeObjetosTileMap::estaVisivel()
 	return visivel;
 }
 
-NivelTile CamadaDeObjetosTileMap::getNivel()
-{
-	return nivel;
-}
-
 void CamadaDeObjetosTileMap::setNome(string nome)
 {
 	this->nome = nome;
@@ -36,15 +32,11 @@ void CamadaDeObjetosTileMap::setVisivel(bool visivel)
 	this->visivel = visivel;
 }
 
-void CamadaDeObjetosTileMap::setNivel(NivelTile nivel)
-{
-	this->nivel = nivel;
-}
-
 ObjetoTileMap *CamadaDeObjetosTileMap::criarObjeto()
 {
 	ObjetoTileMap *obj = new ObjetoTileMap;
 	obj->setCamada(this);
+	obj->_indiceNaCamada = objetos.size();
 	objetos.push_back(obj);
 	return obj;
 }
@@ -61,28 +53,43 @@ ObjetoTileMap *CamadaDeObjetosTileMap::criarObjeto(float centro_x, float centro_
 	return obj;
 }
 
+void CamadaDeObjetosTileMap::adicionarObjeto(ObjetoTileMap* obj)
+{
+	obj->setCamada(this);
+	obj->_indiceNaCamada = objetos.size();
+	objetos.push_back(obj);
+	if (obj->getSprite())
+		getTileMap()->adicionarObjetoNaRenderQueue(obj);
+}
+
 bool CamadaDeObjetosTileMap::destruirObjeto(string nome)
 {
-	for(unsigned int i = 0; i < objetos.size(); ++i)
-		if(objetos[i]->getNome() == nome)
-		{
-			delete objetos[i];
-			objetos.erase(objetos.begin() + i);
-			return true;
-		}
+	for (unsigned int i = 0; i < objetos.size(); ++i)
+		if (objetos[i]->getNome() == nome)
+			return destruirObjeto(i);
 
 	return false;
 }
 
 bool CamadaDeObjetosTileMap::destruirObjeto(ObjetoTileMap *obj)
 {
-	for(unsigned int i = 0; i < objetos.size(); ++i)
-		if(*objetos[i] == *obj)
-		{
-			delete objetos[i];
-			objetos.erase(objetos.begin() + i);
-			return true;
-		}
+	int i = obj->_indiceNaCamada;
+	if (objetos[i] == obj)
+		return destruirObjeto(i);
+
+	return false;
+}
+
+bool CamadaDeObjetosTileMap::destruirObjeto(int indice)
+{
+	if (indice < objetos.size() && indice >= 0)
+	{
+		(*objetos.rbegin())->_indiceNaCamada = indice;
+		delete objetos[indice];
+		objetos[indice] = *objetos.rbegin();
+		objetos.pop_back();
+		return true;
+	}
 
 	return false;
 }
@@ -150,7 +157,10 @@ int CamadaDeObjetosTileMap::getNumObjetos()
 
 ObjetoTileMap *CamadaDeObjetosTileMap::getObjeto(int indice)
 {
-	return objetos[indice];
+	if(indice < objetos.size() && indice >= 0)
+		return objetos[indice];
+
+	return NULL;
 }
 
 ObjetoTileMap *CamadaDeObjetosTileMap::getObjeto(string nome)
@@ -301,4 +311,14 @@ vector<ObjetoTileMap*> CamadaDeObjetosTileMap::getObjetosDoTipoNaPos(string tipo
 vector<ObjetoTileMap*> CamadaDeObjetosTileMap::getTodosObjetos()
 {
 	return objetos;
+}
+
+void CamadaDeObjetosTileMap::setTileMap(TileMap* tilemap)
+{
+	this->tilemap = tilemap;
+}
+
+TileMap* CamadaDeObjetosTileMap::getTileMap()
+{
+	return tilemap;
 }

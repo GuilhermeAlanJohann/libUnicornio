@@ -1,10 +1,11 @@
 #ifndef UNI_EVENTOSTECLADO_H
 #define UNI_EVENTOSTECLADO_H
 
+#include "uniAPI.h"
 #include "EnumsInputs.h"
 #include "EventosInputTexto.h"
 
-class EventosTeclado
+class UNI_API EventosTeclado
 {
 public:
 	EventosTeclado();

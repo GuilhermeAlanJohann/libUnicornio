@@ -1,10 +1,11 @@
 #ifndef UNI_EVENTOSINPUTTEXTO_H
 #define UNI_EVENTOSINPUTTEXTO_H
 
+#include "uniAPI.h"
 #include "SDL_events.h"
 #include <string>
 
-class EventosInputTexto
+class UNI_API EventosInputTexto
 {
 public:
 	EventosInputTexto();

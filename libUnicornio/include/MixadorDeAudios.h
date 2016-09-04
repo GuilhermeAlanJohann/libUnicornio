@@ -1,6 +1,7 @@
 #ifndef UNI_MIXADORDEAUDIOS_H
 #define UNI_MIXADORDEAUDIOS_H
 
+#include "uniAPI.h"
 #include "SDL_mixer.h"
 
 class Som;
@@ -19,7 +20,7 @@ struct CanalDeAudio
 	Som *som;
 };
 
-class MixadorDeAudios
+class UNI_API MixadorDeAudios
 {
 public:
 	MixadorDeAudios();
@@ -45,7 +46,7 @@ public:
 	float getVolumeGlobal();
 	void setVolumeGlobal(float volume);
 
-	int tocar(Mix_Chunk* mix_chunk, bool repetir, float tempo_fadein, float volume, Sint16 angulo, Sint8 distancia);
+	int tocar(Mix_Chunk* mix_chunk, bool repetir, float volume, Sint16 angulo, Sint8 distancia);
 
 private:
 	CanalDeAudio* poolDeCanais;

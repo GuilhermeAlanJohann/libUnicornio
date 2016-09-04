@@ -1,19 +1,20 @@
 #ifndef UNI_NEURONIO_H
 #define UNI_NEURONIO_H
 
+#include "uniAPI.h"
 #include <vector>
 #include "uniRand.h"
 
 using namespace std;
 
-class ConexaoNeural
+class UNI_API ConexaoNeural
 {
 public:
 	double peso;
 	double deltaPeso;
 };
 
-class Neuronio
+class UNI_API Neuronio
 {
 public:
 	Neuronio();

@@ -66,7 +66,7 @@ bool Som::operator!=(const Som &r)
 	return !(*this == r);
 }
 
-void Som::tocar(bool repetir, float tempo_fadein)
+void Som::tocar(bool repetir)
 {
 	if(!uniEstaInicializada()) 
 		return;
@@ -79,7 +79,7 @@ void Som::tocar(bool repetir, float tempo_fadein)
 
 	if(!repetindo)
 	{
-		indiceDoCanalAtual = gAudios.tocar(audio->getMix_Chunk(), repetir, tempo_fadein, volume, angulo, distancia);
+		indiceDoCanalAtual = gAudios.tocar(audio->getMix_Chunk(), repetir, volume, angulo, distancia);
 		if (indiceDoCanalAtual == -1)
 			return;
 		gAudios.reservarCanalDeAudio(indiceDoCanalAtual, this);
@@ -106,14 +106,6 @@ void Som::continuar()
 {
 	if(indiceDoCanalAtual != -1)
 		Mix_Resume(indiceDoCanalAtual);
-}
-
-bool Som::estaExecutandoFadeIn()
-{
-	if (indiceDoCanalAtual == -1)
-		return false;
-
-	return (Mix_FadingChannel(indiceDoCanalAtual) == MIX_FADING_IN);
 }
 
 bool Som::estaExecutandoFadeOut()

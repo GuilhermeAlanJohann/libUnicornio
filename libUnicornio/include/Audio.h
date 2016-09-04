@@ -1,13 +1,14 @@
 #ifndef UNI_AUDIO_H
 #define UNI_AUDIO_H
 
+#include "uniAPI.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
 #include <string>
 
 using namespace std;
 
-class Audio
+class UNI_API Audio
 {
 public:
 	Audio();
