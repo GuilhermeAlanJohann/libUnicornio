@@ -2,6 +2,26 @@ Essa é uma lista das principais mudanças na lib Unicórnio a partir da versão 1.0
 
 
 ---------------------------------------------------------------------------
+1.1.1:
+---------------------------------------------------------------------------
+
+Geral:
+* Adicionado: Métodos para criar e destruir uma camada de objetos na classe TileMap.
+* Adicionado: Método para testar colisão de tiles com retangulo. TileMap::retanguloECaminhavel();
+* Adicionado: Métodos para pegar objetos dentro de um retangulo:
+- TileMap::existeObjetoNoRetangulo();
+- TileMap::existeObjetoDoTipoNoRetangulo();
+- TileMap::getObjetosNoRetangulo();
+- TileMap::getObjetosDoTipoNoRetangulo();
+* Modificado: Sprite* spr, da classe ObjetiTileMap, agora é private. Para acessa-lo deve-se usar os métodos get e set.
+* Bug Corrigido: no módulo de som, que gerava crash quando não havia um dispositivo de som conectado no computador ao inicializar a biblioteca.
+* Bug Corrigido: Projeto de exemplo da classe Textura não compilava, pois estava configurado errado.
+* Bug Corrigido: no rendering de tilemap que desenhava um objeto fora de ordem.
+* Bug Corrigido: na imprecisão de 1 pixel nas colisões com retangulo.
+* Bug Corrigido: na imprecisao de 1 pixel nas colisões com objetos de tilemap.
+
+
+---------------------------------------------------------------------------
 1.1.0:
 ---------------------------------------------------------------------------
 

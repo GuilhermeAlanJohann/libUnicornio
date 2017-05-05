@@ -24,7 +24,8 @@ public:
 	void telaParaTile(int px, int py, float &tx, float &ty);
 	void tileParaTela(float tx, float ty, int &px, int &py);
 
-	bool tileECaminhavel(float tx, float ty);			//	verifica em todas as camadas se o tile é caminhavel (leva em consideracao tiles de tamanho diferente)
+	bool tileECaminhavel(float tx, float ty);								//	verifica em todas as camadas se o tile é caminhavel (leva em consideracao tiles de tamanho diferente)
+	bool retanguloECaminhavel(float tx, float ty, float larg, float alt);	//	verifica em todas as camadas se o tile é caminhavel (leva em consideracao tiles de tamanho diferente)
 	int getCustoAdicionalNoTile(float tx, float ty);	//	verifica em todas as camadas e soma o custo adicional (leva em consideracao tiles de tamanho diferente)
 
 	void adicionarObjetoNaRenderQueue(ObjetoTileMap* obj);	//	não usar! Uso interno.
@@ -50,38 +51,54 @@ public:
 	int getNumTileSets();
 	int getNumTiles();
 
-	CamadaDeObjetosTileMap *getCamadaDeObjetos(int indice);
-	CamadaDeObjetosTileMap *getCamadaDeObjetos(string nome);
-	CamadaDeTiles *getCamadaDeTiles(int indice);
-	CamadaDeTiles *getCamadaDeTiles(string nome);
-	TileSet *getTileSet(int indice);
-	TileSet *getTileSet(string nome);
-	Tile *getTile(int idGlobal);
-	Tile *getTile(Vetor2D pos, int indice_camada);
-	Tile *getTile(Vetor2D pos, string nome_camada);
-	Tile *getTile(int tx, int ty, int indice_camada);
-	Tile *getTile(int tx, int ty, string nome_camada);
+	CamadaDeObjetosTileMap *criarCamadaDeObjetos(const string& nome);
+	bool destruirCamadaDeObjetos(int indice);
+	bool destruirCamadaDeObjetos(const string& nome);
 
-	bool existeObjetoNaPos(Vetor2D pos);
+	CamadaDeObjetosTileMap *getCamadaDeObjetos(int indice);
+	CamadaDeObjetosTileMap *getCamadaDeObjetos(const string& nome);
+	CamadaDeTiles *getCamadaDeTiles(int indice);
+	CamadaDeTiles *getCamadaDeTiles(const string& nome);
+	TileSet *getTileSet(int indice);
+	TileSet *getTileSet(const string& nome);
+	Tile *getTile(int idGlobal);
+	Tile *getTile(const Vetor2D& pos, int indice_camada);
+	Tile *getTile(const Vetor2D& pos, const string& nome_camada);
+	Tile *getTile(int tx, int ty, int indice_camada);
+	Tile *getTile(int tx, int ty, const string& nome_camada);
+
+	bool existeObjetoNaPos(const Vetor2D& pos);
 	bool existeObjetoNaPos(float tx, float ty);
-	bool existeObjetoDoTipoNaPos(string tipo, Vetor2D pos);
-	bool existeObjetoDoTipoNaPos(string tipo, float tx, float ty);
-	ObjetoTileMap *getObjeto(string nome);
-	ObjetoTileMap *getObjetoNaPos(Vetor2D pos);
+	bool existeObjetoNoRetangulo(const Vetor2D& pos, const Vetor2D& tamanho);
+	bool existeObjetoNoRetangulo(float tx, float ty, float larg, float alt);
+	bool existeObjetoDoTipoNaPos(const string& tipo, const Vetor2D& pos);
+	bool existeObjetoDoTipoNaPos(const string& tipo, float tx, float ty);
+	bool existeObjetoDoTipoNoRetangulo(const string& tipo, const Vetor2D& pos, const Vetor2D& tamanho);
+	bool existeObjetoDoTipoNoRetangulo(const string& tipo, float tx, float ty, float larg, float alt);
+	ObjetoTileMap *getObjeto(const string& nome);
+	ObjetoTileMap *getObjetoNaPos(const Vetor2D& pos);
 	ObjetoTileMap *getObjetoNaPos(float tx, float ty);
-	ObjetoTileMap *getObjetoDoTipoNaPos(string tipo, Vetor2D pos);
-	ObjetoTileMap *getObjetoDoTipoNaPos(string tipo, float tx, float ty);
-	vector<ObjetoTileMap*> getObjetosDoTipo(string tipo);
-	vector<ObjetoTileMap*> getObjetosNaPos(Vetor2D pos);
+	ObjetoTileMap *getObjetoNoRetangulo(const Vetor2D& pos, const Vetor2D& tamanho);
+	ObjetoTileMap *getObjetoNoRetangulo(float tx, float ty, float larg, float alt);
+	ObjetoTileMap *getObjetoDoTipoNaPos(const string& tipo, const Vetor2D& pos);
+	ObjetoTileMap *getObjetoDoTipoNaPos(const string& tipo, float tx, float ty);
+	ObjetoTileMap *getObjetoDoTipoNoRetangulo(const string& tipo, const Vetor2D& pos, const Vetor2D& tamanho);
+	ObjetoTileMap *getObjetoDoTipoNoRetangulo(const string& tipo, float tx, float ty, float larg, float alt);
+	vector<ObjetoTileMap*> getObjetosDoTipo(const string& tipo);
+	vector<ObjetoTileMap*> getObjetosNaPos(const Vetor2D& pos);
 	vector<ObjetoTileMap*> getObjetosNaPos(float tx, float ty);
-	vector<ObjetoTileMap*> getObjetosDoTipoNaPos(string tipo, Vetor2D pos);
-	vector<ObjetoTileMap*> getObjetosDoTipoNaPos(string tipo, float tx, float ty);
+	vector<ObjetoTileMap*> getObjetosNoRetangulo(const Vetor2D& pos, const Vetor2D& tamanho);
+	vector<ObjetoTileMap*> getObjetosNoRetangulo(float tx, float ty, float larg, float alt);
+	vector<ObjetoTileMap*> getObjetosDoTipoNaPos(const string& tipo, const Vetor2D& pos);
+	vector<ObjetoTileMap*> getObjetosDoTipoNaPos(const string& tipo, float tx, float ty);
+	vector<ObjetoTileMap*> getObjetosDoTipoNoRetangulo(const string& tipo, const Vetor2D& pos, const Vetor2D& tamanho);
+	vector<ObjetoTileMap*> getObjetosDoTipoNoRetangulo(const string& tipo, float tx, float ty, float larg, float alt);
 	vector<ObjetoTileMap*> getTodosObjetos();
 
-	string getPropriedade(string nome);
-	int getPropriedadeInt(string nome);
-	float getPropriedadeFloat(string nome);
-	bool getPropriedadeBool(string nome);
+	string getPropriedade(const string& nome);
+	int getPropriedadeInt(const string& nome);
+	float getPropriedadeFloat(const string& nome);
+	bool getPropriedadeBool(const string& nome);
 
 	void obterPos(float& x, float& y);
 	void obterPosCentro(float& x, float& y);
@@ -95,13 +112,13 @@ public:
 	void setXCentro(float x);
 	void setYCentro(float y);
 	void setPosCentro(float x, float y);
-	void setPropriedade(string nome, string valor);
-	void setPropriedadeInt(string nome, int valor);
-	void setPropriedadeFloat(string nome, float valor);
-	void setPropriedadeBool(string nome, bool valor);
+	void setPropriedade(const string& nome, const string& valor);
+	void setPropriedadeInt(const string& nome, int valor);
+	void setPropriedadeFloat(const string& nome, float valor);
+	void setPropriedadeBool(const string& nome, bool valor);
 
 	bool juntarCamadasDeObjetos(int indice_camada1, int indice_camada2);
-	bool juntarCamadasDeObjetos(string nome_camada1, string nome_camada2);
+	bool juntarCamadasDeObjetos(const string& nome_camada1, const string& nome_camada2);
 	void juntarTodasCamadasDeObjetos();
 
 protected:

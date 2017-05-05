@@ -63,12 +63,24 @@ bool uniInicializar(int largura_janela, int altura_janela, bool tela_cheia, stri
 	gAudios.inicializar();
 	if (!gAudios.estaInicializado())
 	{
+		//	Mostra mensagem de erro
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, 
+			"Erro ao inicializar modulo de audio!", 
+			"Um erro ocorreu ao tentar inicializar o modulo de audio da libUnicornio:"
+			" Nenhum dispositivo de audio foi detectado."
+			"\nInstale um dispositivo de audio e reinicie a aplicacao.", 
+			gJanela.getSDL_Window());
+
+		//	Finaliza tudo
 		gDebug.finalizar();
 		gGraficos.finalizar();
 		gJanela.destruir();
 		Global::getInstancia().finalizar();
 		TTF_Quit();
 		SDL_Quit();
+
+		//	Força o fim da aplicação
+		exit(EXIT_FAILURE);
 		return false;
 	}
 
@@ -169,6 +181,6 @@ UniVersao uniGetVersao()
 	UniVersao versao;
 	versao.maior = 1;
 	versao.menor = 1;
-	versao.patch = 0;
+	versao.patch = 1;
 	return versao;
 }

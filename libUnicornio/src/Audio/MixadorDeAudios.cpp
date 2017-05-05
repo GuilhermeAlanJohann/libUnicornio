@@ -11,6 +11,9 @@ void canalTerminouDeTocar(int indice_canal)
 MixadorDeAudios::MixadorDeAudios()
 {
 	inicializado = false;
+	numMaxCanais = 0;
+	numCanaisOcupados = 0;
+	volumeGlobal = 100.0f;
 }
 
 MixadorDeAudios::~MixadorDeAudios()
@@ -21,12 +24,14 @@ bool MixadorDeAudios::inicializar()
 {
 	// Audio: SDL_Mixer
 	Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MODPLUG);
-	int audio_rate = 22050;
+	int audio_rate = MIX_DEFAULT_FREQUENCY;	//	22050
 	Uint16 audio_format = AUDIO_S16SYS;
 	int audio_channels = 2;
 	int audio_buffers = 1024; 
 	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0) 
 	{
+		while (Mix_Init(0))
+			Mix_Quit();
 		return false;
 	}
 
@@ -134,10 +139,13 @@ void MixadorDeAudios::liberarTodosCanaisDeAudio()
 
 void MixadorDeAudios::marcarSomComoDestruido(int indice_canal)
 {
-	if (indice_canal >= 0 && indice_canal < numMaxCanais)
+	if (inicializado)
 	{
-		poolDeCanais[indice_canal].somDestruido = true;
-		poolDeCanais[indice_canal].som = NULL;
+		if (indice_canal >= 0 && indice_canal < numMaxCanais)
+		{
+			poolDeCanais[indice_canal].somDestruido = true;
+			poolDeCanais[indice_canal].som = NULL;
+		}
 	}
 }
 
@@ -166,6 +174,9 @@ int MixadorDeAudios::getNumCanaisLivres()
 
 void MixadorDeAudios::setNumMaxCanaisDeAudio(unsigned int max)
 {
+	if (!inicializado)
+		return;
+
 	if (max == numMaxCanais)
 		return;
 

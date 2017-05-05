@@ -1,5 +1,6 @@
 #include "EventosInputTexto.h"
 #include <algorithm>
+#include "uniPlataformas.h"
 
 using namespace std;
 

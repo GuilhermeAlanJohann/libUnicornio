@@ -2,8 +2,9 @@
 #include "uniFuncoesPrincipais.h"
 #include "Global.h"
 #include "Texto.h"
+#include "uniPlataformas.h"
 
-#if UNI_PLATAFORMA_IOS || UNI_PLATAFORMA_MAC
+#if UNI_PLATAFORMA_MOVEL || UNI_PLATAFORMA_MAC
 #include <float.h>
 #endif
 

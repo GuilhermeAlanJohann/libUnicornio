@@ -63,11 +63,12 @@ public:
 
 	void setXCentro(float x);
 	void setYCentro(float y);
-	void setPosCentro(Vetor2D pos);
+	void setPosCentro(const Vetor2D& pos);
 	void setPosCentro(float x, float y);
 
 	void setLargura(float larg);
 	void setAltura(float alt);
+	void setTamanho(const Vetor2D& tam);
 	void setTamanho(float larg, float alt);
 
 	void setPtr(void *ptr);
@@ -82,7 +83,6 @@ public:
 	int _indiceNaCamada;
 
 protected:
-	Sprite *spr;
 	bool visivel;
 
 	string nome;
@@ -97,6 +97,9 @@ protected:
 	CamadaDeObjetosTileMap *camada;
 
 	map<string, string>* propriedades;
+
+private:
+	Sprite *spr;
 };
 
 #endif

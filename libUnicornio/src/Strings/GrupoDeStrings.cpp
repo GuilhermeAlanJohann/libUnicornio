@@ -61,18 +61,18 @@ bool GrupoDeStrings::carregar(const string& nome, const string& caminho_arquivo)
 			for (unsigned int j = 0; j < filho.size(); ++j)
 			{
 				Json::Value membro = filho[j];
-				if (membro.isString() || membro.isConvertibleTo(Json::ValueType::stringValue))
+				if (membro.isString() || membro.isConvertibleTo(Json::stringValue))
 				{
 					vet.push_back(membro.asString());
 				}
 			}
-			pair<string, vector<string>> par;
+			pair<string, vector<string> > par;
 			par.first = nomes_strings[i];
 			par.second = vet;
 			vetoresDeStrings.insert(par);
 		}
 		//	se é uma string, ou pode ser convertido para string, lê nome e valor e coloca dentro de 'strings'
-		else if (filho.isString() || filho.isConvertibleTo(Json::ValueType::stringValue))
+		else if (filho.isString() || filho.isConvertibleTo(Json::stringValue))
 		{
 			pair<string, string> par;
 			par.first = nomes_strings[i];
@@ -127,7 +127,7 @@ string GrupoDeStrings::getString(const string& nome)
 
 vector<string> GrupoDeStrings::getVetorDeString(const string& nome)
 {
-	map<string, vector<string>>::iterator it = vetoresDeStrings.find(nome);
+	map<string, vector<string> >::iterator it = vetoresDeStrings.find(nome);
 	if (it == vetoresDeStrings.end())
 		return vector<string>();
 
@@ -149,7 +149,7 @@ bool GrupoDeStrings::obterString(const string& nome, string& s)
 
 bool GrupoDeStrings::obterVetorDeString(const string& nome, vector<string>& v)
 {
-	map<string, vector<string>>::iterator it = vetoresDeStrings.find(nome);
+	map<string, vector<string> >::iterator it = vetoresDeStrings.find(nome);
 	if (it == vetoresDeStrings.end())
 	{
 		v.clear();

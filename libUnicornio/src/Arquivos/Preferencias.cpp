@@ -28,7 +28,7 @@ void Preferencias::carregar(string arquivo)
 	string caminho = uniGetCaminhoPreferencias() + arquivo;
 
 	ifstream ifs;
-	ifs.open(caminho);
+	ifs.open(caminho.c_str());
 	nome_arquivo = arquivo;
 
 	if (!ifs.is_open())
@@ -59,7 +59,7 @@ void Preferencias::salvar()
 	Json::StyledWriter writer;
 	string str = writer.write(root);
 
-	ofstream ofs(nome_arquivo);
+	ofstream ofs(nome_arquivo.c_str());
 	ofs << str;
 	ofs.close();
 }

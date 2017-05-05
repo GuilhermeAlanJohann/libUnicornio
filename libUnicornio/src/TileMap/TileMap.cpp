@@ -483,7 +483,7 @@ void TileMap::desenhar()
 	}
 
 		//	objetos que estao acima dos outros
-	for(unsigned int i = finalRenderQueueAoMeio; i < renderQueueObjetos.size(); ++i)
+	for(unsigned int i = finalRenderQueueAoMeio + 1; i < renderQueueObjetos.size(); ++i)
 	{
 		float xo, yo;
 		int pxo, pyo;
@@ -542,12 +542,13 @@ bool TileMap::tileECaminhavel(float tx, float ty)
 			return false;
 	}
 
+	//	se todos tiles tem o mesmo tamanho, retorna verdadeiro
+	if (maior_largura_tile == largura_tile && maior_altura_tile == altura_tile)	
+		return true;
+
 	//	calcula dif de tamanho entre os tiles
 	int dx = maior_largura_tile/largura_tile;
 	int dy = maior_altura_tile/altura_tile;
-
-	if(dx + dy == 0)	//	se todos tiles tem o mesmo tamanho, retorna verdadeiro
-		return true;
 
 	//	se nao, testa em tiles com tamanhos diferentes
 	for(unsigned int l = 0; l < camadas_tiles.size(); ++l)
@@ -569,6 +570,110 @@ bool TileMap::tileECaminhavel(float tx, float ty)
 					if(!tiles[id-1].eCaminhavel())
 						return false;
 			}
+
+	return true;
+}
+
+bool TileMap::retanguloECaminhavel(float tx, float ty, float larg, float alt)
+{
+	//	se esta fora da tela (retorna falso)
+	if (tx + larg < 0 || tx >= largura_em_tiles || ty + alt < 0 || ty >= altura_em_tiles)
+		return false;
+
+	//	se o tamanho excede o mapa, remove o excesso
+	if (tx + larg > largura_em_tiles)
+		larg -= (tx + larg) - largura_em_tiles;
+	else if (ty + alt > altura_em_tiles)
+		alt -= (ty + alt) - altura_em_tiles;
+
+	//	se a posicao (esqcima) esta excede o mapa, remove o excesso
+	if (tx < 0)
+	{
+		larg -= fabsf(tx);
+		tx = 0.0f;
+	}
+	if (ty < 0)
+	{
+		alt -= fabsf(ty);
+		ty = 0.0f;
+	}
+		
+	// calc tiles no retangulo
+	int tx0 = tx;
+	int ty0 = ty;
+	int tx1 = tx + (larg - 0.01f);	//	hack (-0.01f) para não testar o próximo tile
+	int ty1 = ty + (alt  - 0.01f);	//	hack (-0.01f) para não testar o próximo tile
+
+	//	pra cada tile no retangulo
+	for (int i = tx0; i <= tx1; ++i)
+	{
+		for (int j = ty0; j <= ty1; ++j)
+		{
+			// testa em cada uma das camadas de tiles
+			for (unsigned int l = 0; l < camadas_tiles.size(); ++l)
+			{
+				int id = camadas_tiles[l].getIDdoTile(i, j);
+				if (id < 1)
+					continue;
+
+				if (!tiles[id - 1].eCaminhavel())
+					return false;
+			}
+		}
+	}
+
+	//	se todos tiles tem o mesmo tamanho, retorna verdadeiro
+	if (maior_largura_tile == largura_tile && maior_altura_tile == altura_tile)
+		return true;
+
+	//	calcula dif de tamanho entre os tiles,
+	//	para testar também os tiles de tamanho diferentes (maiores)
+	int dx = maior_largura_tile / largura_tile;
+	int dy = maior_altura_tile / altura_tile;
+	
+	//	testa tiles com tamanho diferente
+	for (int i = 0; i <= dx; ++i)
+		for (int j = 0; j <= dy; ++j)
+		{
+			if (i + j == 0)
+				continue;
+
+			// testa em cada uma das camadas de tiles
+			for (unsigned int l = 0; l < camadas_tiles.size(); ++l)
+			{
+				//	testa na ultima linha
+				for (int txx = tx0; txx <= tx1; ++txx)
+				{
+					if ((txx - i < 0) || (ty1 + j >= altura_em_tiles))
+						continue;
+
+					int id = camadas_tiles[l].getIDdoTile(txx - i, ty1 + j);
+					if (id < 1)
+						continue;
+
+					TileSet* tileset = tiles[id - 1].getTileSet();
+					if (tileset->getLarguraTiles() / largura_tile > i && tileset->getAlturaTiles() / altura_tile > j)
+						if (!tiles[id - 1].eCaminhavel())
+							return false;
+				}
+
+				// testa na primeira coluna
+				for (int tyy = ty0; tyy <= ty1; ++tyy)
+				{
+					if ((tx0 - i < 0) || (tyy + j >= altura_em_tiles))
+						continue;
+
+					int id = camadas_tiles[l].getIDdoTile(tx0 - i, tyy + j);
+					if (id < 1)
+						continue;
+
+					TileSet* tileset = tiles[id - 1].getTileSet();
+					if (tileset->getLarguraTiles() / largura_tile > i && tileset->getAlturaTiles() / altura_tile > j)
+						if (!tiles[id - 1].eCaminhavel())
+							return false;
+				}
+			}		
+		}
 
 	return true;
 }
@@ -721,12 +826,43 @@ int TileMap::getNumTiles()
 	return tiles.size();
 }
 
+CamadaDeObjetosTileMap *TileMap::criarCamadaDeObjetos(const string& nome)
+{
+	CamadaDeObjetosTileMap* camada = new CamadaDeObjetosTileMap();
+	camada->setNome(nome);
+	camada->setTileMap(this);
+	camada->setVisivel(true);
+	camadas_objetos.push_back(camada);
+	return camada;
+}
+
+bool TileMap::destruirCamadaDeObjetos(int indice)
+{
+	if (indice < 0 || indice >= camadas_objetos.size())
+		return false;
+
+	camadas_objetos.erase(camadas_objetos.begin() + indice);
+	return true;
+}
+
+bool TileMap::destruirCamadaDeObjetos(const string& nome)
+{
+	for (int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		if (camadas_objetos[i]->getNome() == nome)
+		{
+			return destruirCamadaDeObjetos(i);
+		}
+	}
+	return false;
+}
+
 CamadaDeObjetosTileMap *TileMap::getCamadaDeObjetos(int indice)
 {
 	return camadas_objetos[indice];
 }
 
-CamadaDeObjetosTileMap *TileMap::getCamadaDeObjetos(string nome)
+CamadaDeObjetosTileMap *TileMap::getCamadaDeObjetos(const string& nome)
 {
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
@@ -741,7 +877,7 @@ CamadaDeTiles *TileMap::getCamadaDeTiles(int indice)
 	return &camadas_tiles[indice];
 }
 
-CamadaDeTiles *TileMap::getCamadaDeTiles(string nome)
+CamadaDeTiles *TileMap::getCamadaDeTiles(const string& nome)
 {
 	for(unsigned int i = 0; i < camadas_tiles.size(); ++i)
 	{
@@ -756,7 +892,7 @@ TileSet *TileMap::getTileSet(int indice)
 	return &tilesets[indice];
 }
 
-TileSet *TileMap::getTileSet(string nome)
+TileSet *TileMap::getTileSet(const string& nome)
 {
 	for(unsigned int i = 0; i < tilesets.size(); ++i)
 	{
@@ -771,12 +907,12 @@ Tile *TileMap::getTile(int idGlobal)
 	return &tiles[idGlobal-1];
 }
 
-Tile *TileMap::getTile(Vetor2D pos, int indice_camada)
+Tile *TileMap::getTile(const Vetor2D& pos, int indice_camada)
 {
 	return getTile(pos.x, pos.y, indice_camada);
 }
 
-Tile *TileMap::getTile(Vetor2D pos, string nome_camada)
+Tile *TileMap::getTile(const Vetor2D& pos, const string& nome_camada)
 {
 	return getTile(pos.x, pos.y, nome_camada);
 }
@@ -786,20 +922,14 @@ Tile *TileMap::getTile(int tx, int ty, int indice_camada)
 	return &tiles[camadas_tiles[indice_camada].getIDdoTile(tx, ty)];
 }
 
-Tile *TileMap::getTile(int tx, int ty, string nome_camada)
+Tile *TileMap::getTile(int tx, int ty, const string& nome_camada)
 {
 	return &tiles[getCamadaDeTiles(nome_camada)->getIDdoTile(tx, ty)];
 }
 
-bool TileMap::existeObjetoNaPos(Vetor2D pos)
+bool TileMap::existeObjetoNaPos(const Vetor2D& pos)
 {
-	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
-	{
-		if(camadas_objetos[i]->existeObjetoNaPos(pos))
-			return true;
-	}
-
-	return false;
+	return existeObjetoNaPos(pos.x, pos.y);
 }
 
 bool TileMap::existeObjetoNaPos(float tx, float ty)
@@ -813,18 +943,28 @@ bool TileMap::existeObjetoNaPos(float tx, float ty)
 	return false;
 }
 
-bool TileMap::existeObjetoDoTipoNaPos(string tipo, Vetor2D pos)
+bool TileMap::existeObjetoNoRetangulo(const Vetor2D& pos, const Vetor2D& tamanho)
 {
-	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	return existeObjetoNoRetangulo(pos.x, pos.y, tamanho.x, tamanho.y);
+}
+
+bool TileMap::existeObjetoNoRetangulo(float tx, float ty, float larg, float alt)
+{
+	for (unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
-		if(camadas_objetos[i]->existeObjetoDoTipoNaPos(tipo, pos))
+		if (camadas_objetos[i]->existeObjetoNoRetangulo(tx, ty, larg, alt))
 			return true;
 	}
 
 	return false;
 }
 
-bool TileMap::existeObjetoDoTipoNaPos(string tipo, float tx, float ty)
+bool TileMap::existeObjetoDoTipoNaPos(const string& tipo, const Vetor2D& pos)
+{
+	return existeObjetoDoTipoNaPos(tipo, pos.x, pos.y);
+}
+
+bool TileMap::existeObjetoDoTipoNaPos(const string& tipo, float tx, float ty)
 {
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
@@ -835,7 +975,23 @@ bool TileMap::existeObjetoDoTipoNaPos(string tipo, float tx, float ty)
 	return false;
 }
 
-ObjetoTileMap *TileMap::getObjeto(string nome)
+bool TileMap::existeObjetoDoTipoNoRetangulo(const string& tipo, const Vetor2D& pos, const Vetor2D& tamanho)
+{
+	return existeObjetoDoTipoNoRetangulo(tipo, pos.x, pos.y, tamanho.x, tamanho.y);
+}
+
+bool TileMap::existeObjetoDoTipoNoRetangulo(const string& tipo, float tx, float ty, float larg, float alt)
+{
+	for (unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		if (camadas_objetos[i]->existeObjetoDoTipoNoRetangulo(tipo, tx, ty, larg, alt))
+			return true;
+	}
+
+	return false;
+}
+
+ObjetoTileMap *TileMap::getObjeto(const string& nome)
 {
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
@@ -847,7 +1003,7 @@ ObjetoTileMap *TileMap::getObjeto(string nome)
 	return NULL;
 }
 
-ObjetoTileMap *TileMap::getObjetoNaPos(Vetor2D pos)
+ObjetoTileMap *TileMap::getObjetoNaPos(const Vetor2D& pos)
 {
 	return getObjetoNaPos(pos.x, pos.y);
 }
@@ -864,12 +1020,29 @@ ObjetoTileMap *TileMap::getObjetoNaPos(float tx, float ty)
 	return NULL;
 }
 
-ObjetoTileMap *TileMap::getObjetoDoTipoNaPos(string tipo, Vetor2D pos)
+ObjetoTileMap *TileMap::getObjetoNoRetangulo(const Vetor2D& pos, const Vetor2D& tamanho)
+{
+	return getObjetoNoRetangulo(pos.x, pos.y, tamanho.x, tamanho.y);
+}
+
+ObjetoTileMap *TileMap::getObjetoNoRetangulo(float tx, float ty, float larg, float alt)
+{
+	for (unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		ObjetoTileMap *obj = camadas_objetos[i]->getObjetoNoRetangulo(tx, ty, larg, alt);
+		if (obj)
+			return obj;
+	}
+
+	return NULL;
+}
+
+ObjetoTileMap *TileMap::getObjetoDoTipoNaPos(const string& tipo, const Vetor2D& pos)
 {
 	return getObjetoDoTipoNaPos(tipo, pos.x, pos.y);
 }
 
-ObjetoTileMap *TileMap::getObjetoDoTipoNaPos(string tipo, float tx, float ty)
+ObjetoTileMap *TileMap::getObjetoDoTipoNaPos(const string& tipo, float tx, float ty)
 {
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
@@ -881,7 +1054,24 @@ ObjetoTileMap *TileMap::getObjetoDoTipoNaPos(string tipo, float tx, float ty)
 	return NULL;
 }
 
-vector<ObjetoTileMap*> TileMap::getObjetosDoTipo(string tipo)
+ObjetoTileMap *TileMap::getObjetoDoTipoNoRetangulo(const string& tipo, const Vetor2D& pos, const Vetor2D& tamanho)
+{
+	return getObjetoDoTipoNoRetangulo(tipo, pos.x, pos.y, tamanho.x, tamanho.y);
+}
+
+ObjetoTileMap *TileMap::getObjetoDoTipoNoRetangulo(const string& tipo, float tx, float ty, float larg, float alt)
+{
+	for (unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		ObjetoTileMap *obj = camadas_objetos[i]->getObjetoDoTipoNoRetangulo(tipo, tx, ty, larg, alt);
+		if (obj)
+			return obj;
+	}
+
+	return NULL;
+}
+
+vector<ObjetoTileMap*> TileMap::getObjetosDoTipo(const string& tipo)
 {
 	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
@@ -892,7 +1082,7 @@ vector<ObjetoTileMap*> TileMap::getObjetosDoTipo(string tipo)
 	return r;
 }
 
-vector<ObjetoTileMap*> TileMap::getObjetosNaPos(Vetor2D pos)
+vector<ObjetoTileMap*> TileMap::getObjetosNaPos(const Vetor2D& pos)
 {
 	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
@@ -914,7 +1104,29 @@ vector<ObjetoTileMap*> TileMap::getObjetosNaPos(float tx, float ty)
 	return r;
 }
 
-vector<ObjetoTileMap*> TileMap::getObjetosDoTipoNaPos(string tipo, Vetor2D pos)
+vector<ObjetoTileMap*> TileMap::getObjetosNoRetangulo(const Vetor2D& pos, const Vetor2D& tamanho)
+{
+	vector<ObjetoTileMap*> r;
+	for (unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosNoRetangulo(pos, tamanho);
+		r.insert(r.end(), v.begin(), v.end());
+	}
+	return r;
+}
+
+vector<ObjetoTileMap*> TileMap::getObjetosNoRetangulo(float tx, float ty, float larg, float alt)
+{
+	vector<ObjetoTileMap*> r;
+	for (unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosNoRetangulo(tx, ty, larg, alt);
+		r.insert(r.end(), v.begin(), v.end());
+	}
+	return r;
+}
+
+vector<ObjetoTileMap*> TileMap::getObjetosDoTipoNaPos(const string& tipo, const Vetor2D& pos)
 {
 	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
@@ -925,12 +1137,34 @@ vector<ObjetoTileMap*> TileMap::getObjetosDoTipoNaPos(string tipo, Vetor2D pos)
 	return r;
 }
 
-vector<ObjetoTileMap*> TileMap::getObjetosDoTipoNaPos(string tipo, float tx, float ty)
+vector<ObjetoTileMap*> TileMap::getObjetosDoTipoNaPos(const string& tipo, float tx, float ty)
 {
 	vector<ObjetoTileMap*> r;
 	for(unsigned int i = 0; i < camadas_objetos.size(); ++i)
 	{
 		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosDoTipoNaPos(tipo, tx, ty);
+		r.insert(r.end(), v.begin(), v.end());
+	}
+	return r;
+}
+
+vector<ObjetoTileMap*> TileMap::getObjetosDoTipoNoRetangulo(const string& tipo, const Vetor2D& pos, const Vetor2D& tamanho)
+{
+	vector<ObjetoTileMap*> r;
+	for (unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosDoTipoNoRetangulo(tipo, pos, tamanho);
+		r.insert(r.end(), v.begin(), v.end());
+	}
+	return r;
+}
+
+vector<ObjetoTileMap*> TileMap::getObjetosDoTipoNoRetangulo(const string& tipo, float tx, float ty, float larg, float alt)
+{
+	vector<ObjetoTileMap*> r;
+	for (unsigned int i = 0; i < camadas_objetos.size(); ++i)
+	{
+		vector<ObjetoTileMap*> v = camadas_objetos[i]->getObjetosDoTipoNoRetangulo(tipo, tx, ty, larg, alt);
 		r.insert(r.end(), v.begin(), v.end());
 	}
 	return r;
@@ -947,7 +1181,7 @@ vector<ObjetoTileMap*> TileMap::getTodosObjetos()
 	return r;
 }
 
-string TileMap::getPropriedade(string nome)
+string TileMap::getPropriedade(const string& nome)
 {
 	map<string, string>::iterator it = propriedades.find(nome);
 	if(it != propriedades.end())
@@ -956,7 +1190,7 @@ string TileMap::getPropriedade(string nome)
 	return "";
 }
 
-int TileMap::getPropriedadeInt(string nome)
+int TileMap::getPropriedadeInt(const string& nome)
 {
 	stringstream ss(getPropriedade(nome));
 	int r;
@@ -964,7 +1198,7 @@ int TileMap::getPropriedadeInt(string nome)
 	return r;
 }
 
-float TileMap::getPropriedadeFloat(string nome)
+float TileMap::getPropriedadeFloat(const string& nome)
 {
 	stringstream ss(getPropriedade(nome));
 	float r;
@@ -972,7 +1206,7 @@ float TileMap::getPropriedadeFloat(string nome)
 	return r;
 }
 
-bool TileMap::getPropriedadeBool(string nome)
+bool TileMap::getPropriedadeBool(const string& nome)
 {
 	string s = getPropriedade(nome);
 
@@ -1040,7 +1274,7 @@ void TileMap::setPosCentro(float x, float y)
 	setYCentro(y);
 }
 
-void TileMap::setPropriedade(string nome, string valor)
+void TileMap::setPropriedade(const string& nome, const string& valor)
 {
 	map<string, string>::iterator it = propriedades.find(nome);
 	if(it != propriedades.end())
@@ -1049,21 +1283,21 @@ void TileMap::setPropriedade(string nome, string valor)
 		propriedades.insert(pair<string, string>(nome, valor));
 }
 
-void TileMap::setPropriedadeInt(string nome, int valor)
+void TileMap::setPropriedadeInt(const string& nome, int valor)
 {
 	stringstream ss;
 	ss << valor;
 	setPropriedade(nome, ss.str());
 }
 
-void TileMap::setPropriedadeFloat(string nome, float valor)
+void TileMap::setPropriedadeFloat(const string& nome, float valor)
 {
 	stringstream ss;
 	ss << valor;
 	setPropriedade(nome, ss.str());
 }
 
-void TileMap::setPropriedadeBool(string nome, bool valor)
+void TileMap::setPropriedadeBool(const string& nome, bool valor)
 {
 	if(valor)
 		setPropriedade(nome, "true");
@@ -1093,7 +1327,7 @@ bool TileMap::juntarCamadasDeObjetos(int indice_camada1, int indice_camada2)
 	return true;
 }
 
-bool TileMap::juntarCamadasDeObjetos(string nome_camada1, string nome_camada2)
+bool TileMap::juntarCamadasDeObjetos(const string& nome_camada1, const string& nome_camada2)
 {
 	if(nome_camada1 == nome_camada2)
 		return false;

@@ -243,7 +243,7 @@ void ObjetoTileMap::setYCentro(float y)
 	this->y = y - alt/2.0f;
 }
 
-void ObjetoTileMap::setPosCentro(Vetor2D pos)
+void ObjetoTileMap::setPosCentro(const Vetor2D& pos)
 {
 	x = pos.x - larg/2.0f;
 	y = pos.y - alt/2.0f;
@@ -263,6 +263,12 @@ void ObjetoTileMap::setLargura(float larg)
 void ObjetoTileMap::setAltura(float alt)
 {
 	this->alt = alt;
+}
+
+void ObjetoTileMap::setTamanho(const Vetor2D& tam)
+{
+	larg = tam.x;
+	alt = tam.y;
 }
 
 void ObjetoTileMap::setTamanho(float larg, float alt)
