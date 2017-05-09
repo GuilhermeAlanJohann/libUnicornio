@@ -14,7 +14,7 @@ struct UNI_API UniVersao
 	int patch;
 };
 
-bool UNI_API uniInicializar(int largura_janela, int altura_janela, bool tela_cheia = false, string titulo_janela = "libUnicornio", int flags_sdl_window = 0);
+bool UNI_API uniInicializar(int largura_janela, int altura_janela, bool tela_cheia = false, string titulo_janela = "libUnicornio", int flags_sdl_window = 0, bool audio = true);
 void UNI_API uniFinalizar();
 bool UNI_API uniEstaInicializada();
 	 
