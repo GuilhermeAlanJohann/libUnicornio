@@ -6,6 +6,7 @@ GerenciadorDeEventos::GerenciadorDeEventos()
 	teclado = NULL;
 	joysticks = NULL;
 	toques = NULL;
+	mixador = NULL;
 
 	sair = false;
 
@@ -38,6 +39,7 @@ void GerenciadorDeEventos::atualizar()
 		teclado->processarEvento(evento);
 		joysticks->processarEvento(evento);
 		toques->processarEvento(evento);
+		mixador->processarEvento(evento);
 
 		if (listener)
 			listener->processarEvento(evento);

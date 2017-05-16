@@ -2,6 +2,16 @@ Essa é uma lista das principais mudanças na lib Unicórnio a partir da versão 1.0
 
 
 ---------------------------------------------------------------------------
+1.1.2:
+---------------------------------------------------------------------------
+
+Geral:
+* Adicionado: Métodos para lidar com grupos de som, nas classes Som e MixadorDeAudio. Os grupos de som permitem separar os efeitos sonoros do jogo em diferentes grupos podendo setar um volume diferente para cada grupo.
+* Modificado: A biblioteca pode ser inicializada sem um dispositivo de áudio conectado. Caso um dispositivo seja conectado depois da inicialização a biblioteca identifica e adiciona ele fazendo o som funcionar corretamente.
+* Modificado: O número máximo de canais de áudio disponíveis por padrão passou de 256 para 128.
+
+
+---------------------------------------------------------------------------
 1.1.1:
 ---------------------------------------------------------------------------
 

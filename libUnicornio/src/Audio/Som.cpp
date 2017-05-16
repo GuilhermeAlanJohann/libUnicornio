@@ -12,6 +12,7 @@ Som::Som()
 	repetindo = false;
 	terminouTocar = false;
 
+	indiceDoGrupo = -1;
 	indiceDoCanalAtual = -1;
 }
 
@@ -24,6 +25,7 @@ Som::Som(const Som& r)
 	repetindo = r.repetindo;
 	terminouTocar = r.terminouTocar;
 
+	indiceDoGrupo = r.indiceDoCanalAtual;
 	indiceDoCanalAtual = r.indiceDoCanalAtual;
 }
 
@@ -51,6 +53,7 @@ Som& Som::operator=(const Som &r)
 		repetindo = r.repetindo;
 		terminouTocar = r.terminouTocar;
 
+		indiceDoGrupo = r.indiceDoCanalAtual;
 		indiceDoCanalAtual = r.indiceDoCanalAtual;
 	}
 	return *this;
@@ -58,7 +61,7 @@ Som& Som::operator=(const Som &r)
 
 bool Som::operator==(const Som &r)
 {
-	return (audio == r.audio && volume == r.volume && angulo == r.angulo && distancia == r.distancia && indiceDoCanalAtual == r.indiceDoCanalAtual && repetindo == r.repetindo && terminouTocar == r.terminouTocar);
+	return (audio == r.audio && volume == r.volume && angulo == r.angulo && distancia == r.distancia && indiceDoCanalAtual == r.indiceDoCanalAtual && indiceDoGrupo == r.indiceDoGrupo && repetindo == r.repetindo && terminouTocar == r.terminouTocar);
 }
 
 bool Som::operator!=(const Som &r)
@@ -82,7 +85,8 @@ void Som::tocar(bool repetir)
 		indiceDoCanalAtual = gAudios.tocar(audio->getMix_Chunk(), repetir, volume, angulo, distancia);
 		if (indiceDoCanalAtual == -1)
 			return;
-		gAudios.reservarCanalDeAudio(indiceDoCanalAtual, this);
+
+		gAudios.reservarCanalDeAudio(indiceDoCanalAtual, indiceDoGrupo, this);
 		repetindo = repetir;
 		terminouTocar = false;
 	}
@@ -175,8 +179,7 @@ void Som::setVolume(float vol)
 
 	if(indiceDoCanalAtual != -1)
 	{
-		float vol = 128*((volume/100.0f) * (gAudios.getVolumeGlobal()/100.0f));
-		Mix_Volume(indiceDoCanalAtual, vol);
+		gAudios.setVolumeDoCanal(indiceDoCanalAtual, this);
 	}
 }
 
@@ -194,6 +197,16 @@ void Som::setAngulo(Sint16 ang)
 
 	if(indiceDoCanalAtual != -1)
 		Mix_SetPosition(indiceDoCanalAtual, angulo, distancia);
+}
+
+void Som::setGrupo(const string& grupo)
+{
+	indiceDoGrupo = gAudios.getIndiceDoGrupo(grupo);
+}
+
+string Som::getNomeDoGrupo()
+{
+	return gAudios.getNomeDoGrupo(indiceDoGrupo);
 }
 
 void Som::quandoTerminarDeTocar()

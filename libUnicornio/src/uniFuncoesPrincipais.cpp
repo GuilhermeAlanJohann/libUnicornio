@@ -67,8 +67,7 @@ bool uniInicializar(int largura_janela, int altura_janela, bool tela_cheia, stri
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, 
 			"Erro ao inicializar modulo de audio!", 
 			"Um erro ocorreu ao tentar inicializar o modulo de audio da libUnicornio:"
-			" Nenhum dispositivo de audio foi detectado."
-			"\nInstale um dispositivo de audio e reinicie a aplicacao.", 
+			" Certifique-se de que você possui seus drivers de audio atualizados e tente novamente.",
 			gJanela.getSDL_Window());
 
 		//	Finaliza tudo
@@ -90,6 +89,7 @@ bool uniInicializar(int largura_janela, int altura_janela, bool tela_cheia, stri
 	gEventos.teclado = &gTeclado;
 	gEventos.joysticks = &gJoysticks;
 	gEventos.toques = &gToques;
+	gEventos.mixador = &gAudios;
 	gEventos.atualizar();
 
 	//	inicializa gerenciador de tempo
@@ -181,6 +181,6 @@ UniVersao uniGetVersao()
 	UniVersao versao;
 	versao.maior = 1;
 	versao.menor = 1;
-	versao.patch = 1;
+	versao.patch = 2;
 	return versao;
 }

@@ -8,6 +8,7 @@
 #include "EventosMouse.h"
 #include "EventosTeclado.h"
 #include "EventosToques.h"
+#include "MixadorDeAudios.h"
 #include "Janela.h"
 
 class UNI_API GerenciadorDeEventos
@@ -38,6 +39,7 @@ public:
 	EventosTeclado *teclado;
 	EventosJoysticks *joysticks;
 	EventosToques *toques;
+	MixadorDeAudios *mixador;
 
 	bool sair;	//	variavel para saber se o evento de saída foi emitido
 

@@ -38,6 +38,9 @@ public:
 	void setDistancia(Uint8 dist);
 	void setAngulo(Sint16 ang);
 
+	void setGrupo(const string& grupo);
+	string getNomeDoGrupo();
+
 	//	Nao usar! Metodo de uso interno. Chamado pela biblioteca.
 	void quandoTerminarDeTocar();
 
@@ -50,6 +53,7 @@ protected:
 	bool repetindo;
 	bool terminouTocar;
 
+	Sint8 indiceDoGrupo;
 	int indiceDoCanalAtual;
 };
 
